@@ -1,0 +1,15 @@
+export interface GalleryQuery {
+  section?: 'hot' | 'top' | 'user';
+  sort?: 'viral' | 'top' | 'time' | 'rising';
+  window?: 'day' | 'week' | 'month' | 'year' | 'all';
+  page?: number;
+  showViral?: boolean;
+  showMature?: boolean;
+  albumPreviews?: boolean;
+}
+export interface GallerySearchQuery {
+  sort?: 'viral' | 'top' | 'time';
+  window?: 'day' | 'week' | 'month' | 'year' | 'all';
+  page?: number;
+  keyword: string;
+}
