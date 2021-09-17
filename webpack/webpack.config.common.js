@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: { index: './src/index.tsx' },
@@ -34,5 +35,6 @@ module.exports = {
       template: './src/index.html',
     }),
     new ForkTsCheckerWebpackPlugin(),
+    new Dotenv(),
   ],
 };
