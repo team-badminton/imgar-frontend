@@ -118,4 +118,6 @@ export const {
   useAccountFoldersQuery,
   useAccountPostsQuery,
   useAccountQuery,
+  useSuggestQuery,
+  usePostCommentsQuery,
 } = imgurV3Api;
