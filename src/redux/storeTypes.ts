@@ -75,3 +75,8 @@ export interface PostCommentInfo {
   dateTime: number;
   childrenComments?: PostCommentInfo[];
 }
+
+export interface FolderInfo {
+  id: string;
+  name: string;
+}

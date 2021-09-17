@@ -18,14 +18,20 @@ export interface SuggestQuery {
 }
 export interface PostCommentQuery {
   postId: string;
-  sort: 'best' | 'top' | 'new';
+  sort?: 'best' | 'top' | 'new';
 }
 export interface AccountCommentQuery {
   username: string;
-  sort: 'best' | 'worst' | 'oldest' | 'newest';
-  page: number;
+  sort?: 'best' | 'worst' | 'oldest' | 'newest';
+  page?: number;
 }
 export interface AccountPostQuery {
   username: string;
   page?: number;
+}
+export interface accountFavoriteFolderQuery {
+  username: string;
+  folderId: string;
+  page?: number;
+  sort?: 'oldest' | 'newest';
 }

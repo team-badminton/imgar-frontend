@@ -168,3 +168,19 @@ export interface PostComment {
   has_admin_badge: boolean;
   children?: PostComment[];
 }
+
+// Fav Folder
+
+export interface Folder {
+  id: string;
+  account_id: string;
+  name: string;
+  link: string;
+  created_at: string;
+  updated_at: string;
+  account_url: string;
+  cover_hash: null;
+  cover_width: null;
+  cover_height: null;
+  is_private: boolean;
+}

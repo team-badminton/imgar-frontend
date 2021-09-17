@@ -1,9 +1,16 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { PostCommentInfo, PostInfo, SuggestInfo, UserInfo } from '../storeTypes';
-import { commentNormalizer, postDataNormalizer, suggestDataNormalizer, userDataNormalizer } from './normalizers';
-import { Post, PostComment, Suggest, User } from './types/fetchData';
+import { FolderInfo, PostCommentInfo, PostInfo, SuggestInfo, UserInfo } from '../storeTypes';
+import {
+  commentNormalizer,
+  folderNormalizer,
+  postDataNormalizer,
+  suggestDataNormalizer,
+  userDataNormalizer,
+} from './normalizers';
+import { Folder, Post, PostComment, Suggest, User } from './types/fetchData';
 import {
   AccountCommentQuery,
+  accountFavoriteFolderQuery,
   AccountPostQuery,
   GalleryQuery,
   GallerySearchQuery,
@@ -66,12 +73,33 @@ export const imgurV3Api = createApi({
       },
     }),
     accountPosts: builder.query<PostInfo[], AccountPostQuery>({
-      query: ({ username, page = 0 }) => `account/${username}/albums/${page}`,
+      query: ({ username, page = 0 }) => `account/${username}/submissions/${page}`,
       transformResponse: (res: { data: Post[] }) => {
         const { data } = res;
         return postDataNormalizer(data);
       },
     }),
+    accountFolders: builder.query<FolderInfo[], string>({
+      query: username => `account/${username}/folders?order=asc&per_page=150&sort=name`,
+      transformResponse: (res: { data: Folder[] }) => {
+        const { data } = res;
+        return folderNormalizer(data);
+      },
+    }),
+    accountFolderPosts: builder.query<PostInfo[], accountFavoriteFolderQuery>({
+      query: ({ username, folderId, sort = 'newest', page = 0 }) => {
+        if (folderId) {
+          return `account/${username}/folders/${folderId}/favorites?page=${page}&sort=${sort}`;
+        } else {
+          return `account/${username}/gallery_favorites/${page}/${sort}`;
+        }
+      },
+      transformResponse: (res: { data: Post[] }) => {
+        const { data } = res;
+        return postDataNormalizer(data);
+      },
+    }),
+
     postComments: builder.query<PostCommentInfo[], PostCommentQuery>({
       query: ({ postId, sort = 'best' }) => `gallery/${postId}/comments/${sort}`,
       transformResponse: (res: { data: PostComment[] }) => {
@@ -82,4 +110,12 @@ export const imgurV3Api = createApi({
   }),
 });
 
-export const { useGalleryQuery, useSearchQuery } = imgurV3Api;
+export const {
+  useGalleryQuery,
+  useSearchQuery,
+  useAccountCommentsQuery,
+  useAccountFolderPostsQuery,
+  useAccountFoldersQuery,
+  useAccountPostsQuery,
+  useAccountQuery,
+} = imgurV3Api;

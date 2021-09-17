@@ -1,5 +1,5 @@
-import { ImageInfo, PostCommentInfo, PostInfo, SuggestInfo, TagInfo, UserInfo } from '../storeTypes';
-import { Image, Post, PostComment, Suggest, Tag, User } from './types/fetchData';
+import { FolderInfo, ImageInfo, PostCommentInfo, PostInfo, SuggestInfo, TagInfo, UserInfo } from '../storeTypes';
+import { Folder, Image, Post, PostComment, Suggest, Tag, User } from './types/fetchData';
 
 export function imageDataNormalizer(image: Image): ImageInfo;
 export function imageDataNormalizer(image: Image[]): ImageInfo[];
@@ -177,4 +177,11 @@ export function commentNormalizer(comment: PostComment | PostComment[]): PostCom
       childrenComments: comment.children ? commentNormalizer(comment.children) : null,
     }));
   }
+}
+
+export function folderNormalizer(folders: Folder[]): FolderInfo[] {
+  return folders.map(folder => ({
+    id: folder.id,
+    name: folder.name,
+  }));
 }
