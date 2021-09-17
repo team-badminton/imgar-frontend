@@ -13,3 +13,6 @@ export interface GallerySearchQuery {
   page?: number;
   keyword: string;
 }
+export interface SuggestQuery {
+  keyword: string;
+}

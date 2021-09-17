@@ -1,3 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export interface Suggest {
+  users: User[];
+  tags: Tag[];
+  posts: { type: 'post'; hash: string; title: string }[];
+}
+
 interface Hashtag {
   indices: number[];
   tag: string;
@@ -117,4 +124,23 @@ export interface Post {
   images: Image[];
   ad_config?: AdConfig;
   processing: Processing;
+}
+
+interface UserFollow {
+  status: boolean;
+}
+
+export interface User {
+  id: number;
+  url: string;
+  bio?: string | null;
+  avatar: string;
+  avatar_name: string;
+  cover: string;
+  cover_name: string;
+  reputation: number;
+  reputation_name: string;
+  created: number;
+  pro_expiration: boolean;
+  user_follow: UserFollow;
 }

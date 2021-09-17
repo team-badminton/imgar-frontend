@@ -1,8 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { PostInfo } from '../storeTypes';
-import { Post } from './types/fetchData';
-import { GalleryQuery, GallerySearchQuery } from './types/queries';
-import { postDataNormalizer } from './utils';
+import { PostInfo, SuggestInfo, UserInfo } from '../storeTypes';
+import { Post, Suggest, User } from './types/fetchData';
+import { GalleryQuery, GallerySearchQuery, SuggestQuery } from './types/queries';
+import { postDataNormalizer, suggestDataNormalizer, userDataNormalizer } from './normalizers';
 
 export const imgurV3Api = createApi({
   reducerPath: 'imgurApi3',
@@ -36,6 +36,20 @@ export const imgurV3Api = createApi({
       transformResponse: (res: { data: Post[] }) => {
         const { data } = res;
         return postDataNormalizer(data);
+      },
+    }),
+    suggest: builder.query<SuggestInfo, string>({
+      query: keyword => `https://api.imgur.com/3/suggest?inflate=users,tags&q=${keyword}&types=users,tags,posts`,
+      transformResponse: (res: { data: Suggest }) => {
+        const { data } = res;
+        return suggestDataNormalizer(data);
+      },
+    }),
+    account: builder.query<UserInfo, string>({
+      query: username => `https://api.imgur.com/3/account/${username}`,
+      transformResponse: (res: { data: User }) => {
+        const { data } = res;
+        return userDataNormalizer(data);
       },
     }),
   }),
