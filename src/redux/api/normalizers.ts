@@ -1,5 +1,5 @@
-import { ImageInfo, PostInfo, TagInfo } from '../storeTypes';
-import { Image, Post, Tag } from './types/fetchData';
+import { ImageInfo, PostInfo, SuggestInfo, TagInfo, UserInfo } from '../storeTypes';
+import { Image, Post, Suggest, Tag, User } from './types/fetchData';
 
 export function imageDataNormalizer(image: Image): ImageInfo;
 export function imageDataNormalizer(image: Image[]): ImageInfo[];
@@ -98,5 +98,51 @@ export function postDataNormalizer(post: Post[] | Post): PostInfo | PostInfo[] {
         };
       })
       .filter(Boolean);
+  }
+}
+
+export function suggestDataNormalizer(suggest: Suggest): SuggestInfo {
+  return {
+    users: suggest.users.map(user => ({
+      name: user.url,
+      avatarUrl: user.avatar,
+    })),
+    tags: suggest.tags.map(tag => ({
+      name: tag.name,
+      backgroundImageId: tag.background_hash,
+    })),
+    posts: suggest.posts.map(post => ({
+      id: post.hash,
+      title: post.title,
+    })),
+  };
+}
+
+export function userDataNormalizer(user: User): UserInfo;
+export function userDataNormalizer(user: User[]): UserInfo[];
+export function userDataNormalizer(user: User | User[]): UserInfo | UserInfo[] {
+  if (!Array.isArray(user)) {
+    return {
+      id: user.id.toString(),
+      name: user.url,
+      bio: user.bio,
+      avatarUrl: user.avatar,
+      coverUrl: user.cover,
+      createdDate: user.created,
+      notoriety: user.reputation_name,
+      points: user.reputation,
+    };
+  } else {
+    const users = user;
+    return users.map(user => ({
+      id: user.id.toString(),
+      name: user.url,
+      bio: user.bio,
+      avatarUrl: user.avatar,
+      coverUrl: user.cover,
+      createdDate: user.created,
+      notoriety: user.reputation_name,
+      points: user.reputation,
+    }));
   }
 }
