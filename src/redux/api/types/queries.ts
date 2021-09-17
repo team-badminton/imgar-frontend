@@ -20,3 +20,12 @@ export interface PostCommentQuery {
   postId: string;
   sort: 'best' | 'top' | 'new';
 }
+export interface AccountCommentQuery {
+  username: string;
+  sort: 'best' | 'worst' | 'oldest' | 'newest';
+  page: number;
+}
+export interface AccountPostQuery {
+  username: string;
+  page?: number;
+}
