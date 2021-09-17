@@ -1,31 +1,51 @@
 import React, { ReactElement } from 'react';
-import { Picture } from './Image.styled';
-import { ImageProps } from './Image.typed';
+import { StyledImage } from './Image.styled';
+import { ImageProps } from './Image.type';
 
-export default function Image({ id, src, width, alt, isCircle, style, objectFit }: ImageProps): ReactElement {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [pathWithFileName, extensionInSrc, query] = src.split(/\?|\.(?=[^.]*$)/);
+export default function Image({
+  alt,
+  fidelity,
+  isCircle,
+  id,
+  objectFit,
+  src,
+  style,
+  width,
+}: ImageProps): ReactElement | never {
+  if (!src && !id) throw new Error('id, src 중 한 가지는 필수로 입력해야 합니다.');
+
+  if (src) {
+    return <StyledImage width={width} objectFit={objectFit} isCircle={isCircle} src={src} alt={alt} style={style} />;
+  }
+
   const extensions = ['webp', 'png', 'jpg'];
+  const imgUrlWithoutExt = `https://i.imgur.com/${id}${width ? '_d' : ''}`;
+  const query = `?${width ? `maxwidth=${width}` : ''}&${fidelity ? `fidelity=${fidelity}` : ''}`;
 
   return (
-    <Picture width={width} objectFit={objectFit} isCircle={isCircle}>
+    <picture>
       {extensions.map((extension, index) => {
-        if (extensions.includes(extensionInSrc)) {
-          src = `${pathWithFileName}.${extension}.${query}`;
-        }
+        src = `${imgUrlWithoutExt}.${extension}${query}`;
 
         return index !== extensions.length - 1 ? (
-          <source key={id} srcSet={src} />
+          <source key={index} srcSet={src} />
         ) : (
-          <img key={id} src={src} alt={alt} style={style} />
+          <StyledImage
+            width={width}
+            objectFit={objectFit}
+            isCircle={isCircle}
+            key={index}
+            src={src}
+            alt={alt}
+            style={style}
+          />
         );
       })}
-    </Picture>
+    </picture>
   );
 }
 
 Image.defaultProps = {
-  width: '100%',
   objectFit: 'cover',
   isCircle: false,
 };
