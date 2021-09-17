@@ -126,6 +126,8 @@ export interface Post {
   processing: Processing;
 }
 
+// Users
+
 interface UserFollow {
   status: boolean;
 }
@@ -143,4 +145,26 @@ export interface User {
   created: number;
   pro_expiration: boolean;
   user_follow: UserFollow;
+}
+
+// Comments
+
+export interface PostComment {
+  id: number;
+  image_id: string;
+  comment: string;
+  author: string;
+  author_id: number;
+  on_album: boolean;
+  album_cover: string;
+  ups: number;
+  downs: number;
+  points: number;
+  datetime: number;
+  parent_id: number;
+  deleted: boolean;
+  vote?: any;
+  platform: string;
+  has_admin_badge: boolean;
+  children?: PostComment[];
 }

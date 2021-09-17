@@ -16,3 +16,7 @@ export interface GallerySearchQuery {
 export interface SuggestQuery {
   keyword: string;
 }
+export interface PostCommentQuery {
+  postId: string;
+  sort: 'best' | 'top' | 'new';
+}

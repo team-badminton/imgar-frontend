@@ -1,5 +1,5 @@
-import { ImageInfo, PostInfo, SuggestInfo, TagInfo, UserInfo } from '../storeTypes';
-import { Image, Post, Suggest, Tag, User } from './types/fetchData';
+import { ImageInfo, PostCommentInfo, PostInfo, SuggestInfo, TagInfo, UserInfo } from '../storeTypes';
+import { Image, Post, PostComment, Suggest, Tag, User } from './types/fetchData';
 
 export function imageDataNormalizer(image: Image): ImageInfo;
 export function imageDataNormalizer(image: Image[]): ImageInfo[];
@@ -143,6 +143,38 @@ export function userDataNormalizer(user: User | User[]): UserInfo | UserInfo[] {
       createdDate: user.created,
       notoriety: user.reputation_name,
       points: user.reputation,
+    }));
+  }
+}
+export function commentNormalizer(comment: PostComment): PostCommentInfo;
+export function commentNormalizer(comment: PostComment[]): PostCommentInfo[];
+export function commentNormalizer(comment: PostComment | PostComment[]): PostCommentInfo | PostCommentInfo[] {
+  if (!Array.isArray(comment)) {
+    return {
+      author: comment.author,
+      comment: comment.comment,
+      dateTime: comment.datetime,
+      downCount: comment.downs,
+      upCount: comment.ups,
+      id: comment.id.toString(),
+      parentCommentId: comment.parent_id.toString(),
+      postId: comment.image_id,
+      thumbnailImageId: comment.album_cover,
+      childrenComments: comment.children ? commentNormalizer(comment.children) : null,
+    };
+  } else {
+    const comments = comment;
+    return comments.map(comment => ({
+      author: comment.author,
+      comment: comment.comment,
+      dateTime: comment.datetime,
+      downCount: comment.downs,
+      upCount: comment.ups,
+      id: comment.id.toString(),
+      parentCommentId: comment.parent_id.toString(),
+      postId: comment.image_id,
+      thumbnailImageId: comment.album_cover,
+      childrenComments: comment.children ? commentNormalizer(comment.children) : null,
     }));
   }
 }

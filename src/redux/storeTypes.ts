@@ -62,3 +62,16 @@ export interface UserInfo {
   notoriety: string /* reputation_name */;
   createdDate: number /* created */;
 }
+
+export interface PostCommentInfo {
+  id: string;
+  postId: string;
+  thumbnailImageId: string;
+  comment: string;
+  author: string;
+  upCount: number;
+  downCount: number;
+  parentCommentId: string;
+  dateTime: number;
+  childrenComments?: PostCommentInfo[];
+}
