@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { PostInfo } from '../storeTypes';
 import { Post } from './types/fetchData';
-import { GalleryQuery } from './types/queries';
+import { GalleryQuery, GallerySearchQuery } from './types/queries';
 import { postDataNormalizer } from './utils';
 
 export const imgurV3Api = createApi({
@@ -30,7 +30,15 @@ export const imgurV3Api = createApi({
         return postDataNormalizer(data);
       },
     }),
+    search: builder.query<PostInfo[], GallerySearchQuery>({
+      query: ({ sort = 'time', window = 'all', page = 1, keyword }) =>
+        `https://api.imgur.com/3/gallery/search/${sort}/${window}/${page}?q=${keyword}`,
+      transformResponse: (res: { data: Post[] }) => {
+        const { data } = res;
+        return postDataNormalizer(data);
+      },
+    }),
   }),
 });
 
-export const { useGalleryQuery } = imgurV3Api;
+export const { useGalleryQuery, useSearchQuery } = imgurV3Api;
