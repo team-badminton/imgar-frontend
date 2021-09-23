@@ -105,16 +105,16 @@ export function postDataNormalizer(post: Post[] | Post): PostInfo | PostInfo[] {
 
 export function suggestDataNormalizer(suggest: Suggest): SuggestInfo {
   return {
-    users: suggest.users.map(user => ({
+    users: suggest.users?.map(user => ({
       name: user.text,
       id: user.id,
     })),
-    tags: suggest.tags.map(tag => ({
+    tags: suggest.tags?.map(tag => ({
       name: tag.name,
       displayName: tag.display_name,
       backgroundImageId: tag.background_hash,
     })),
-    posts: suggest.posts.map(post => ({
+    posts: suggest.posts?.map(post => ({
       id: post.hash,
       title: post.title,
     })),
