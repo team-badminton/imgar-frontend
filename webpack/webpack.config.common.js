@@ -1,6 +1,8 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+const path = require('path');
+const rootDir = process.cwd();
 
 module.exports = {
   entry: { index: './src/index.tsx' },
@@ -29,6 +31,9 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    alias: {
+      '@': path.resolve(rootDir, 'src'),
+    },
   },
   plugins: [
     new HtmlWebpackPlugin({
