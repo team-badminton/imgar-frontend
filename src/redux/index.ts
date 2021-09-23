@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { useDispatch, useStore } from 'react-redux';
+import { TypedUseSelectorHook, useDispatch, useSelector, useStore } from 'react-redux';
 import { imgurV3Api } from './api/v3';
 import displayReducer from './slices/displayReducer';
 import listInfoReducer from './slices/listInfoReducer';
@@ -17,6 +17,8 @@ export type RootState = ReturnType<typeof store.getState>;
 export function useTypedStore() {
   return useStore<ReturnType<typeof store.getState>>();
 }
+
+export const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 export function useTypedDispatch() {
   return useDispatch<typeof store.dispatch>();
