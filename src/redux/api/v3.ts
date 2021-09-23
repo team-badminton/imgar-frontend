@@ -52,7 +52,7 @@ export const imgurV3Api = createApi({
       },
     }),
     suggest: builder.query<SuggestInfo, string>({
-      query: keyword => `suggest?inflate=users,tags&q=${keyword}&types=users,tags,posts`,
+      query: keyword => `suggest?inflate=tags&q=${keyword}&types=users,tags,posts`,
       transformResponse: (res: { data: Suggest }) => {
         const { data } = res;
         return suggestDataNormalizer(data);
