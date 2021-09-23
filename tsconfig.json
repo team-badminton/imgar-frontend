@@ -2,6 +2,7 @@
   "include": ["src/**/*"],
   "exclude": ["node_modules"],
   "compilerOptions": {
+    "baseUrl": ".",
     "sourceMap": true,
     "noImplicitAny": true,
     "target": "es5",
@@ -9,6 +10,9 @@
     "noEmit": true,
     "allowJs": true,
     "moduleResolution": "node",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "paths": {
+      "@/*": ["src/*"]
+    }
   }
 }
