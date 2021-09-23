@@ -3,7 +3,7 @@ import { PostInfo } from '../../redux/storeTypes';
 import { ReactComponent as UpIconSVG } from '../../assets/Icon/UpIcon.svg';
 import { ReactComponent as CommentIconSVG } from '../../assets/Icon/commentIcon.svg';
 import { ReactComponent as ViewIconSVG } from '../../assets/Icon/viewIcon.svg';
-import { Image } from '..';
+import { Image, Video } from '..';
 import { StyledImageCard, StyledImageCardFooter } from './ImageCard.styled';
 import { store } from '../../redux/index';
 
@@ -16,7 +16,7 @@ export default function ImageCard({ postInfo, ImageCardWidth }: ImageCardProps):
   const thumbnail = postInfo.images[0];
   const { thumbnailImageId, thumbnailWidth, title, upCount, downCount, commentCount, views } = postInfo;
   // const isAutoPlay = store.getState().listInfo.autoPlay;
-  const isAutoPlay = true;
+  const isAutoPlay = false;
   const ALT_TEXT = '사용자 혹은 AI가 작성한 이미지에 대한 구체적인 설명';
 
   return (
@@ -29,10 +29,15 @@ export default function ImageCard({ postInfo, ImageCardWidth }: ImageCardProps):
             src={`https://i.imgur.com/${thumbnailImageId}_d.webp?maxwidth=${thumbnailWidth}&shape=thumb&fidelity=high`}
           />
         ) : (
-          <div>비디오</div>
+          <Video src={`https://i.imgur.com/${thumbnailImageId}_lq.mp4`} />
         )}
 
-        <h3>{title}</h3>
+        <h3>
+          {!isAutoPlay && thumbnail.type === 'video/mp4' && (
+            <em>{thumbnail.hasSound ? 'has no sound' : 'has sound'}</em>
+          )}
+          {title}
+        </h3>
         <StyledImageCardFooter>
           <div>
             <UpIconSVG />

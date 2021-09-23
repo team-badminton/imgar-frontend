@@ -11,11 +11,22 @@ export const StyledImageCard = styled.article<StyledImageCardProps>`
   border-radius: 5px;
   box-shadow: 0 0 10px ${defaultTheme.color.black};
   cursor: pointer;
+  position: relative;
   h3 {
     color: ${defaultTheme.color.white};
     font-size: ${defaultTheme.fontSize.s};
     margin: 0 auto;
     padding: ${defaultTheme.spaceSize.s} ${defaultTheme.spaceSize.m} 0;
+  }
+  em {
+    position: absolute;
+    top: ${defaultTheme.spaceSize.s};
+    right: ${defaultTheme.spaceSize.s};
+    background: ${defaultTheme.color.primaryColor};
+    font-style: normal;
+    padding: ${defaultTheme.spaceSize.xs} ${defaultTheme.spaceSize.s};
+    border-radius: 5px;
+    box-shadow: 0 0 10px ${defaultTheme.color.black};
   }
 `;
 
