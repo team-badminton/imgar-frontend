@@ -10,17 +10,17 @@ export default function Image({
   objectFit,
   src,
   style,
-  width,
+  $width,
 }: ImageProps): ReactElement | never {
   if (!src && !id) throw new Error('id, src 중 한 가지는 필수로 입력해야 합니다.');
 
   if (src) {
-    return <StyledImage width={width} objectFit={objectFit} isCircle={isCircle} src={src} alt={alt} style={style} />;
+    return <StyledImage $width={$width} objectFit={objectFit} isCircle={isCircle} src={src} alt={alt} style={style} />;
   }
 
   const extensions = ['webp', 'png', 'jpg'];
-  const imgUrlWithoutExt = `https://i.imgur.com/${id}${width ? '_d' : ''}`;
-  const query = `?${width ? `maxwidth=${width}` : ''}&${fidelity ? `fidelity=${fidelity}` : ''}`;
+  const imgUrlWithoutExt = `https://i.imgur.com/${id}${$width ? '_d' : ''}`;
+  const query = `?${$width ? `maxwidth=${$width}` : ''}&${fidelity ? `fidelity=${fidelity}` : ''}`;
 
   return (
     <picture>
@@ -31,7 +31,7 @@ export default function Image({
           <source key={index} srcSet={src} />
         ) : (
           <StyledImage
-            width={width}
+            $width={$width}
             objectFit={objectFit}
             isCircle={isCircle}
             key={index}
