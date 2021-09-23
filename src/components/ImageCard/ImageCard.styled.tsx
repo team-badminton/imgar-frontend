@@ -1,0 +1,38 @@
+import React from 'react';
+import styled from 'styled-components';
+import { defaultTheme } from '../../theme/themes';
+
+import { StyledImageCardProps } from './ImageCard.type';
+
+export const StyledImageCard = styled.article<StyledImageCardProps>`
+  width: ${({ width }) =>
+    width && typeof width === 'number' ? width + 'px' : width && typeof width === 'string' ? width : '100%'};
+  background: ${defaultTheme.color.darkGray};
+  border-radius: 5px;
+  box-shadow: 0 0 10px ${defaultTheme.color.black};
+  cursor: pointer;
+  h3 {
+    color: ${defaultTheme.color.white};
+    font-size: ${defaultTheme.fontSize.s};
+    margin: 0 auto;
+    padding: ${defaultTheme.spaceSize.s} ${defaultTheme.spaceSize.m} 0;
+  }
+`;
+
+export const StyledImageCardFooter = styled.footer`
+  display: flex;
+  justify-content: space-around;
+  color: ${defaultTheme.color.lightGray};
+  font-size: ${defaultTheme.fontSize.xs};
+  padding: ${defaultTheme.spaceSize.m} 0;
+  div {
+    display: flex;
+    align-items: center;
+  }
+  div > span {
+    margin-left: ${defaultTheme.spaceSize.xs};
+  }
+  div:hover {
+    color: ${defaultTheme.color.white};
+  }
+`;
