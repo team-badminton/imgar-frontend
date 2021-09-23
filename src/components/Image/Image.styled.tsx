@@ -3,8 +3,8 @@ import styled from 'styled-components';
 
 import { StyledImageProps } from './Image.type';
 
-export const StyledImage = styled.img<StyledImageProps>`
-  width: ${({ $width }) => {
+export const StyledImage = styled.img.attrs<StyledImageProps>(({ $width }) => ({
+  $width: () => {
     if (typeof $width === 'number') {
       return $width + 'px';
     } else if (typeof $width === 'string') {
@@ -12,7 +12,9 @@ export const StyledImage = styled.img<StyledImageProps>`
     } else {
       return '100%';
     }
-  }};
+  },
+}))<StyledImageProps>`
+  width: ${({ $width }) => $width};
   object-fit: ${({ objectFit }) => objectFit};
   height: ${({ isCircle, width }) => (isCircle ? width : '')};
   border-radius: ${({ isCircle }) => (isCircle ? '50%' : '')};
