@@ -46,6 +46,7 @@ export default function Image({
 }
 
 Image.defaultProps = {
+  alt: '',
   objectFit: 'cover',
   isCircle: false,
 };
