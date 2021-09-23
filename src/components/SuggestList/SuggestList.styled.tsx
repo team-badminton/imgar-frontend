@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { pxToRem } from '../../util/styleUtils';
+import { pxToRem } from '@/util/styleUtils';
 import { SuggestThumbnailProps } from './SuggestList.type';
 
 export const SuggestThumbnail = styled.div<SuggestThumbnailProps>`
