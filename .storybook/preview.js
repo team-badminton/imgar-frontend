@@ -1,7 +1,9 @@
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
-import GlobalStyle from '../src/styles/GlobalStyle';
-import { defaultTheme } from '../src/theme/themes';
+import GlobalStyle from '@/styles/GlobalStyle';
+import { defaultTheme } from '@/theme/themes';
+import { Provider as ReduxProvider } from 'react-redux';
+import { store } from '@/redux';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -15,11 +17,15 @@ export const parameters = {
 
 export const decorators = [
   Story => (
-    <Router>
-      <ThemeProvider theme={defaultTheme}>
-        <GlobalStyle />
-        <Route path="/" component={Story} />
-      </ThemeProvider>
-    </Router>
+    <ReduxProvider store={store}>
+      <Router>
+        <ThemeProvider theme={defaultTheme}>
+          <GlobalStyle />
+          <Route path="*">
+            <Story />
+          </Route>
+        </ThemeProvider>
+      </Router>
+    </ReduxProvider>
   ),
 ];
