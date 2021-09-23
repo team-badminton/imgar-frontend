@@ -5,6 +5,7 @@ import { ReactComponent as CommentIconSVG } from '../../assets/Icon/commentIcon.
 import { ReactComponent as ViewIconSVG } from '../../assets/Icon/viewIcon.svg';
 import { Image } from '..';
 import { StyledImageCard, StyledImageCardFooter } from './ImageCard.styled';
+import { store } from '../../redux/index';
 
 interface ImageCardProps {
   postInfo: PostInfo;
@@ -14,15 +15,23 @@ interface ImageCardProps {
 export default function ImageCard({ postInfo, ImageCardWidth }: ImageCardProps): ReactElement {
   const thumbnail = postInfo.images[0];
   const { title, upCount, downCount, commentCount, views } = postInfo;
+  // const isAutoPlay = store.getState().listInfo.autoPlay;
+  const isAutoPlay = true;
   const ALT_TEXT = '사용자 혹은 AI가 작성한 이미지에 대한 구체적인 설명';
+
   return (
     <a href="/postUrl">
       <StyledImageCard width={ImageCardWidth}>
-        <Image
-          alt={ALT_TEXT}
-          objectFit="contain"
-          src={`https://i.imgur.com/${thumbnail.id}_d.webp?maxwidth=${thumbnail.imageWidth}&shape=thumb&fidelity=high`}
-        />
+        {!isAutoPlay || thumbnail.type === 'image/jpeg' ? (
+          <Image
+            alt={ALT_TEXT}
+            objectFit="contain"
+            src={`https://i.imgur.com/${thumbnail.id}_d.webp?maxwidth=${thumbnail.imageWidth}&shape=thumb&fidelity=high`}
+          />
+        ) : (
+          <div>비디오</div>
+        )}
+
         <h3>{title}</h3>
         <StyledImageCardFooter>
           <div>
