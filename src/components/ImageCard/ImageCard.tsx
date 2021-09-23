@@ -21,18 +21,20 @@ export default function ImageCard({ postInfo }: ImageCardProps): ReactElement {
         src={`https://i.imgur.com/${thumbnail.id}_d.webp?maxwidth=${thumbnail.imageWidth}&shape=thumb&fidelity=high`}
       />
       <h3>{title}</h3>
-      <div>
-        <UpIconSVG />
-        <span>{upCount - downCount}</span>
-      </div>
-      <div>
-        <CommentIconSVG />
-        <span>{commentCount}</span>
-      </div>
-      <div>
-        <ViewIconSVG />
-        <span>{views}</span>
-      </div>
+      <footer>
+        <div>
+          <UpIconSVG />
+          <span>{upCount - downCount}</span>
+        </div>
+        <div>
+          <CommentIconSVG />
+          <span>{commentCount}</span>
+        </div>
+        <div>
+          <ViewIconSVG />
+          <span>{views}</span>
+        </div>
+      </footer>
     </article>
   );
 }
