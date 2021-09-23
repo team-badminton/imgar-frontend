@@ -17,14 +17,14 @@ export default function ImageCard({ postInfo, ImageCardWidth }: ImageCardProps):
   const ALT_TEXT = '사용자 혹은 AI가 작성한 이미지에 대한 구체적인 설명';
   return (
     <a href="/postUrl">
-      <article>
+      <StyledImageCard width={ImageCardWidth}>
         <Image
           alt={ALT_TEXT}
           objectFit="contain"
           src={`https://i.imgur.com/${thumbnail.id}_d.webp?maxwidth=${thumbnail.imageWidth}&shape=thumb&fidelity=high`}
         />
         <h3>{title}</h3>
-        <footer>
+        <StyledImageCardFooter>
           <div>
             <UpIconSVG />
             <span>{upCount - downCount}</span>
@@ -37,8 +37,8 @@ export default function ImageCard({ postInfo, ImageCardWidth }: ImageCardProps):
             <ViewIconSVG />
             <span>{views}</span>
           </div>
-        </footer>
-      </article>
+        </StyledImageCardFooter>
+      </StyledImageCard>
     </a>
   );
 }
