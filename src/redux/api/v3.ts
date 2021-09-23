@@ -57,6 +57,7 @@ export const imgurV3Api = createApi({
         const { data } = res;
         return suggestDataNormalizer(data);
       },
+      keepUnusedDataFor: 5,
     }),
     account: builder.query<UserInfo, string>({
       query: username => `account/${username}`,
@@ -119,5 +120,8 @@ export const {
   useAccountPostsQuery,
   useAccountQuery,
   useSuggestQuery,
+  useLazySuggestQuery,
   usePostCommentsQuery,
 } = imgurV3Api;
+
+export default imgurV3Api;
