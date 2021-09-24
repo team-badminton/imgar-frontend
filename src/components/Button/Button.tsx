@@ -47,7 +47,7 @@ export default function Button({
           return <Img className="img" aria-label={alt} />;
         })()
       )}
-      {text}
+      <span className="text">{text}</span>
     </StyledButton>
   );
 }
