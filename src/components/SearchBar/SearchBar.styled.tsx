@@ -12,7 +12,7 @@ export const SearchBarContainer = styled.form`
   border-radius: ${pxToRem(3)};
   opacity: 0.8;
   font-weight: bold;
-  padding: ${({ theme }) => theme.spaceSize.s};
+  padding: 0 ${({ theme }) => theme.spaceSize.s};
   &:focus-within {
     opacity: 1;
   }
@@ -20,7 +20,10 @@ export const SearchBarContainer = styled.form`
 
 export const SearchBarButton = styled.button`
   appearance: none;
+  border: none;
   background: url(${searchIconUrl}) no-repeat center / contain;
+  height: 100%;
+  width: ${({ theme }) => theme.spaceSize.l};
 `;
 
 export const SearchBarInput = styled.input`
@@ -29,6 +32,7 @@ export const SearchBarInput = styled.input`
   border: none;
   background-color: transparent;
   flex-grow: 1;
+  padding: ${({ theme }) => theme.spaceSize.s} 0;
   color: ${({ theme }) => theme.color.white};
   &::placeholder {
     font-weight: initial;
