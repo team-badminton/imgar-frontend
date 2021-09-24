@@ -11,6 +11,14 @@ body {
 body * {
   box-sizing: border-box;
 }
+
+body *::before {
+  box-sizing: inherit;
+}
+
+body *::after {
+  box-sizing: inherit;
+}
 `;
 
 export default function GlobalStyle(): ReactElement {
