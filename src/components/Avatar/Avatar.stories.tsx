@@ -1,9 +1,9 @@
 import React from 'react';
-import {Meta, Story} from '@storybook/react/types-6-0';
+import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import Avatar from './Avatar';
 
-const meta: Meta = {
+export default {
   title: 'components/Avatar',
   component: Avatar,
   parameters: {
@@ -12,12 +12,28 @@ const meta: Meta = {
       url: 'https://www.figma.com/file/...?node-id=...',
     },
   },
+  args: {
+    userName: 'tohero',
+    src: 'https://i.imgur.com/qYKMM9B_d.png?maxwidth=290&fidelity=grand',
+  },
+} as ComponentMeta<typeof Avatar>;
+
+const Template: ComponentStory<typeof Avatar> = args => <Avatar {...args} />;
+
+export const Small = Template.bind({});
+
+Small.args = {
+  userName: 'tohero',
+  size: 'small',
+  imageId: 'eZqkgWk',
+  extraInfos: ['', '3h', 'via Android'],
 };
 
-export default meta;
+export const Medium = Template.bind({});
 
-const Template: Story<typeof Avatar> = (args) => <Avatar {...args} />;
-
-export const Basic = Template.bind({});
-
-Basic.args = {};
+Medium.args = {
+  userName: 'tohero',
+  size: 'medium',
+  imageId: 'eZqkgWk',
+  extraInfos: ['15,252 Views', '3h', 'via Android'],
+};
