@@ -17,7 +17,7 @@ export default function SuggestList({ users, posts, tags, keyword }: SuggestList
       >
         Search Result List
       </h2>
-      {!!posts.length && (
+      {!!posts?.length && (
         <>
           <h3
             id="postHeadline"
@@ -28,7 +28,7 @@ export default function SuggestList({ users, posts, tags, keyword }: SuggestList
             Posts
           </h3>
           <ul aria-labelledby="postHeadline">
-            {posts.slice(0, 3).map(post => (
+            {posts?.slice(0, 3).map(post => (
               <li key={post.id}>
                 <Link to={`/gallery/${post.id}`}>
                   <span
@@ -40,11 +40,11 @@ export default function SuggestList({ users, posts, tags, keyword }: SuggestList
           </ul>
         </>
       )}
-      {!!tags.length && (
+      {!!tags?.length && (
         <>
           <h3 id="tagsHeadline">Tags</h3>
           <ul aria-labelledby="tagsHeadline">
-            {tags.slice(0, 3).map(tag => (
+            {tags?.slice(0, 3).map(tag => (
               <li key={tag.backgroundImageId}>
                 <Link to={`/t/${tag.name}`}>
                   <SuggestThumbnail
@@ -61,11 +61,11 @@ export default function SuggestList({ users, posts, tags, keyword }: SuggestList
           </ul>
         </>
       )}
-      {!!users.length && (
+      {!!users?.length && (
         <>
           <h3 id="usersHeadline">Users</h3>
           <ul aria-labelledby="usersHeadline">
-            {users.slice(0, 3).map(user => (
+            {users?.slice(0, 3).map(user => (
               <li key={user.name}>
                 <Link to={`/user/${user.name}`}>
                   <SuggestThumbnail src={`https://imgur.com/user/${user.name}/avatar?maxwidth=290`} isCircle />
