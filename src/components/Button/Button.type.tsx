@@ -1,4 +1,4 @@
-import { CSSProperties } from 'react';
+import { CSSProperties, MouseEventHandler } from 'react';
 import { DefaultTheme } from 'styled-components';
 
 export interface StyledButtonProps {
@@ -16,10 +16,10 @@ export interface StyledButtonProps {
   hoverBackgroundColor?: Extract<keyof DefaultTheme['color'], string>;
   /** 호버되었을 때 글자색을 설정할 수 있습니다. */
   hoverColor?: Extract<keyof DefaultTheme['color'], string>;
+  /** Link 컴포넌트의 to prop으로 전달됩니다. */
+  to?: string;
   /** 버튼의 margin을 설정할 수 있습니다. */
   margin?: string;
-  /** 이미지의 여백(margin)을 설정할 수 있습니다. */
-  imageMargin?: string;
   /** 버튼의 padding을 설정할 수 있습니다. */
   padding?: string;
   /** 버튼에 inline 스타일을 적용할 수 있습니다. */
@@ -33,4 +33,6 @@ export interface ButtonProps extends StyledButtonProps {
   img?: string | React.FC<React.SVGProps<SVGSVGElement>>;
   /** 버튼의 text를 설정할 수 있습니다. */
   text?: string;
+  /** 버튼의 클릭 이벤트를 설정할 수 있습니다. */
+  onClick?: MouseEventHandler<HTMLAnchorElement>;
 }

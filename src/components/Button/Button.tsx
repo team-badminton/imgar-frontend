@@ -6,41 +6,36 @@ import { StyledButton } from './Button.styled';
 // types
 import { ButtonProps } from './Button.type';
 
-// utils
-import { pxToRem } from '@/util/styleUtils';
-
 export default function Button({
   alt,
   backgroundColor,
-  borderRadius,
   color,
   fontSize,
   size,
   hoverBackgroundColor,
   hoverColor,
   img,
-  imageMargin,
-  margin,
-  padding,
+  onClick,
   text,
   style,
+  to,
 }: ButtonProps): ReactElement {
   if (img && !alt) throw new Error('img는 alt prop과 함께 사용되어야 합니다.');
+
   return (
     <StyledButton
       backgroundColor={backgroundColor}
-      borderRadius={borderRadius}
       color={color}
       fontSize={fontSize}
       size={size}
+      to={to}
+      role={!to && 'button'}
       hoverBackgroundColor={hoverBackgroundColor}
       hoverColor={hoverColor}
-      imageMargin={imageMargin}
-      margin={margin}
-      padding={padding}
+      onClick={onClick}
       style={style}
     >
-      {typeof img === 'undefined' ? (
+      {!img ? (
         ''
       ) : typeof img === 'string' ? (
         <img className="img" src={img} alt={alt} />
@@ -56,9 +51,7 @@ export default function Button({
 }
 
 Button.defaultProps = {
-  borderRadius: pxToRem(3),
   backgroundColor: 'primaryColor',
   color: 'white',
   size: 'medium',
-  padding: `0 ${pxToRem(9)} 0 ${pxToRem(9)}`,
 };
