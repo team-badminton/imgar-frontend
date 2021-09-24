@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { defaultTheme } from '../../theme/themes';
 
 import { SetWidthProps } from './ImageCard.type';
 
@@ -13,16 +12,16 @@ export const LinkContainer = styled.a<SetWidthProps>`
 export const StyledImageCard = styled.article<SetWidthProps>`
   width: ${({ width }) =>
     width && typeof width === 'number' ? width + 'px' : width && typeof width === 'string' ? width : '100%'};
-  background: ${defaultTheme.color.darkGray};
+  background: ${({ theme }) => theme.color.darkGray};
   border-radius: 5px;
-  box-shadow: 0 0 10px ${defaultTheme.color.black};
+  box-shadow: 0 0 10px ${({ theme }) => theme.color.black};
   cursor: pointer;
   position: relative;
   h3 {
-    color: ${defaultTheme.color.white};
-    font-size: ${defaultTheme.fontSize.s};
+    color: ${({ theme }) => theme.color.white};
+    font-size: ${({ theme }) => theme.fontSize.s};
     margin: 0 auto;
-    padding: ${defaultTheme.spaceSize.s} ${defaultTheme.spaceSize.m} 0;
+    padding: ${({ theme }) => theme.spaceSize.s} ${({ theme }) => theme.spaceSize.m}; 0;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -32,30 +31,30 @@ export const StyledImageCard = styled.article<SetWidthProps>`
   }
   em {
     position: absolute;
-    top: ${defaultTheme.spaceSize.s};
-    right: ${defaultTheme.spaceSize.s};
-    background: ${defaultTheme.color.primaryColor};
+    top: ${({ theme }) => theme.spaceSize.s};
+    right: ${({ theme }) => theme.spaceSize.s};
+    background: ${({ theme }) => theme.color.primaryColor};
     font-style: normal;
-    padding: ${defaultTheme.spaceSize.xs} ${defaultTheme.spaceSize.s};
+    padding: ${({ theme }) => theme.spaceSize.xs} ${({ theme }) => theme.spaceSize.s};
     border-radius: 5px;
-    box-shadow: 0 0 10px ${defaultTheme.color.black};
+    box-shadow: 0 0 10px ${({ theme }) => theme.color.black};
   }
 `;
 
 export const StyledImageCardFooter = styled.footer`
   display: flex;
   justify-content: space-around;
-  color: ${defaultTheme.color.lightGray};
-  font-size: ${defaultTheme.fontSize.xs};
-  padding: ${defaultTheme.spaceSize.m} 0;
+  color: ${({ theme }) => theme.color.lightGray};
+  font-size: ${({ theme }) => theme.fontSize.xs};
+  padding: ${({ theme }) => theme.spaceSize.m} 0;
   div {
     display: flex;
     align-items: center;
   }
   div > span {
-    margin-left: ${defaultTheme.spaceSize.xs};
+    margin-left: ${({ theme }) => theme.spaceSize.xs};
   }
   div:hover {
-    color: ${defaultTheme.color.white};
+    color: ${({ theme }) => theme.color.white};
   }
 `;
