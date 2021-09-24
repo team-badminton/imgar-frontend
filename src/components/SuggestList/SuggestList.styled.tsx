@@ -14,7 +14,7 @@ export const SuggestThumbnail = styled.div<SuggestThumbnailProps>`
 
 export const SuggestContainer = styled.div`
   position: absolute;
-  top: ${pxToRem(36 + 4)};
+  top: ${pxToRem(36 + 8)};
   width: 100%;
   border-radius: ${pxToRem(3)};
   border: ${pxToRem(1)} solid rgba(255, 255, 255, 0.1);
