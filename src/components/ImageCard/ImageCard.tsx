@@ -3,7 +3,7 @@ import { ReactComponent as UpIconSVG } from '@/assets/Icon/upIcon.svg';
 import { ReactComponent as CommentIconSVG } from '@/assets/Icon/commentIcon.svg';
 import { ReactComponent as ViewIconSVG } from '@/assets/Icon/viewIcon.svg';
 import { Image, Video } from '..';
-import { LinkContainer, StyledImageCard, StyledImageCardFooter } from './ImageCard.styled';
+import { StyledImageCard, StyledImageCardFooter } from './ImageCard.styled';
 import { ImageCardProps } from './ImageCard.type';
 import { pxToRem } from '@/util/styleUtils';
 
@@ -14,7 +14,12 @@ export default function ImageCard({ isAutoPlay, postInfo, imageCardWidth }: Imag
   const IMAGE_MAX_HEIGHT = pxToRem(400);
 
   return (
-    <LinkContainer href="/postUrl" imageCardWidth={imageCardWidth}>
+    <a
+      href="/postUrl"
+      css={`
+        display: inline-block;
+      `}
+    >
       <StyledImageCard imageCardWidth={imageCardWidth}>
         <div
           css={`
@@ -53,6 +58,6 @@ export default function ImageCard({ isAutoPlay, postInfo, imageCardWidth }: Imag
           </div>
         </StyledImageCardFooter>
       </StyledImageCard>
-    </LinkContainer>
+    </a>
   );
 }

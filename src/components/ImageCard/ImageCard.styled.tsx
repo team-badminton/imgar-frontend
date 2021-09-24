@@ -4,16 +4,6 @@ import styled from 'styled-components';
 
 import { SetDisplayProps } from './ImageCard.type';
 
-export const LinkContainer = styled.a<SetDisplayProps>`
-  display: block;
-  width: ${({ imageCardWidth }) =>
-    imageCardWidth && typeof imageCardWidth === 'number'
-      ? imageCardWidth + 'px'
-      : imageCardWidth && typeof imageCardWidth === 'string'
-      ? imageCardWidth
-      : '100%'};
-`;
-
 export const StyledImageCard = styled.article<SetDisplayProps>`
   width: ${({ imageCardWidth }) =>
     imageCardWidth && typeof imageCardWidth === 'number'
