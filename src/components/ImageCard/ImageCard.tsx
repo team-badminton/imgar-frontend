@@ -32,7 +32,7 @@ export default function ImageCard({ isAutoPlay, postInfo, ImageCardWidth }: Imag
 
         <h3>
           {!isAutoPlay && thumbnail.type === 'video/mp4' && (
-            <em>{thumbnail.hasSound ? 'has sound' : 'has no sound'}</em>
+            <em>{thumbnail.hasSound ? 'Has Sound' : 'Has No Sound'}</em>
           )}
           {title}
         </h3>
