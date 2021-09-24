@@ -30,10 +30,13 @@ export default function SearchBar({
     setFocus(false);
   }, [setFocus]);
 
-  const onSubmitHandler = useCallback<React.FormEventHandler<HTMLFormElement>>(e => {
-    e.preventDefault();
-    history.push(`/search/${inputValue}`);
-  }, []);
+  const onSubmitHandler = useCallback<React.FormEventHandler<HTMLFormElement>>(
+    e => {
+      e.preventDefault();
+      history.push(`/search/${inputValue}`);
+    },
+    [inputValue],
+  );
 
   return (
     <SearchBarContainer onSubmit={onSubmitHandler}>
