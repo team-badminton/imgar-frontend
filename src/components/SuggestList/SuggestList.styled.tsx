@@ -14,22 +14,26 @@ export const SuggestThumbnail = styled.div<SuggestThumbnailProps>`
 
 export const SuggestContainer = styled.div`
   position: absolute;
+  top: ${pxToRem(36 + 4)};
   width: 100%;
   border-radius: ${pxToRem(3)};
   border: ${pxToRem(1)} solid rgba(255, 255, 255, 0.1);
   background-color: ${({ theme }) => theme.color.darkGray};
   padding: ${({ theme }) => theme.spaceSize.s};
+  padding-bottom: ${({ theme }) => theme.spaceSize.l};
   color: ${({ theme }) => theme.color.lightGray};
   h3 {
     padding-left: ${({ theme }) => theme.spaceSize.m};
-    font-size: ${({ theme }) => theme.fontSize.s};
+    font-size: ${({ theme }) => theme.fontSize.xs};
     text-transform: uppercase;
   }
   ul {
     list-style: none;
     margin: 0;
     padding: 0;
-    margin-bottom: ${({ theme }) => theme.spaceSize.xl};
+    &:not(:last-child) {
+      margin-bottom: ${({ theme }) => theme.spaceSize.xl};
+    }
     li {
       margin: 0;
       a {
