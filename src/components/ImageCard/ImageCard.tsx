@@ -4,7 +4,7 @@ import { ReactComponent as UpIconSVG } from '@/assets/Icon/upIcon.svg';
 import { ReactComponent as CommentIconSVG } from '@/assets/Icon/commentIcon.svg';
 import { ReactComponent as ViewIconSVG } from '@/assets/Icon/viewIcon.svg';
 import { Image, Video } from '..';
-import { StyledImageCard, StyledImageCardFooter } from './ImageCard.styled';
+import { LinkContainer, StyledImageCard, StyledImageCardFooter } from './ImageCard.styled';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux';
 
@@ -13,20 +13,6 @@ interface ImageCardProps {
   ImageCardWidth: string | number;
 }
 
-// App.js
-// export default function App(): ReactElement {
-//   const dispatch = useDispatch();
-//   const handleToggle = () => {
-//     dispatch(toggleAutoPlay());
-//   };
-//   return (
-//     <>
-//       <button onClick={handleToggle}>toggle</button>
-//       <ImageCard postInfo={postInfo} ImageCardWidth={240} />
-//     </>
-//   );
-// }
-
 export default function ImageCard({ postInfo, ImageCardWidth }: ImageCardProps): ReactElement {
   const thumbnail = postInfo.images[0];
   const { thumbnailImageId, thumbnailWidth, title, upCount, downCount, commentCount, views } = postInfo;
@@ -34,7 +20,7 @@ export default function ImageCard({ postInfo, ImageCardWidth }: ImageCardProps):
   const ALT_TEXT = '사용자 혹은 AI가 작성한 이미지에 대한 구체적인 설명';
 
   return (
-    <a href="/postUrl">
+    <LinkContainer href="/postUrl" width={ImageCardWidth}>
       <StyledImageCard width={ImageCardWidth}>
         {!isAutoPlay || thumbnail.type === 'image/jpeg' ? (
           <Image
@@ -67,6 +53,6 @@ export default function ImageCard({ postInfo, ImageCardWidth }: ImageCardProps):
           </div>
         </StyledImageCardFooter>
       </StyledImageCard>
-    </a>
+    </LinkContainer>
   );
 }
