@@ -78,4 +78,19 @@ export default {
 
 const Template: ComponentStory<typeof SuggestList> = args => <SuggestList {...args} />;
 
-export const Default = Template.bind({});
+export const AllResult = Template.bind({});
+export const PostResult = Template.bind({});
+PostResult.args = {
+  users: [],
+  tags: [],
+};
+export const TagResult = Template.bind({});
+TagResult.args = {
+  posts: [],
+  users: [],
+};
+export const UserResult = Template.bind({});
+UserResult.args = {
+  posts: [],
+  tags: [],
+};
