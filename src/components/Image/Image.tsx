@@ -22,20 +22,21 @@ export default function Image({
   const imgUrlWithoutExt = `https://i.imgur.com/${id}${width ? '_d' : ''}`;
   const query = `?${width ? `maxwidth=${width}` : ''}&${fidelity ? `fidelity=${fidelity}` : ''}`;
 
+  // 수정사항 picture로 옮기기
   return (
     <picture>
       {extensions.map((extension, index) => {
-        src = `${imgUrlWithoutExt}.${extension}${query}`;
+        const imageSrc = `${imgUrlWithoutExt}.${extension}${query}`;
 
         return index !== extensions.length - 1 ? (
-          <source key={index} srcSet={src} />
+          <source key={extension} srcSet={imageSrc} />
         ) : (
           <StyledImage
             width={width}
             objectFit={objectFit}
             isCircle={isCircle}
-            key={index}
-            src={src}
+            key={extension}
+            src={imageSrc}
             alt={alt}
             style={style}
           />
