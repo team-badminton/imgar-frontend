@@ -12,9 +12,17 @@ import { AvatarProps } from '@/components/Avatar/Avatar.type';
 import Button from '../Button/Button';
 import { Link } from 'react-router-dom';
 
-export default function Avatar({ infoLines, userName, imageId, size, extraInfos, to }: AvatarProps): ReactElement {
+export default function Avatar({
+  className,
+  infoLines,
+  userName,
+  imageId,
+  size,
+  extraInfos,
+  to,
+}: AvatarProps): ReactElement {
   return (
-    <StyledAvatar infoLines={infoLines} size={size}>
+    <StyledAvatar className={className} infoLines={infoLines} size={size}>
       <Link to={to}>
         <Image
           id={imageId}
