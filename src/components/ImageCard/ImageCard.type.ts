@@ -8,5 +8,5 @@ export interface SetWidthProps {
 export interface ImageCardProps {
   isAutoPlay: boolean;
   postInfo: PostInfo;
-  ImageCardWidth: string | number;
+  imageCardWidth: string | number;
 }

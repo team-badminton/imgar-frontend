@@ -6,14 +6,14 @@ import { Image, Video } from '..';
 import { LinkContainer, StyledImageCard, StyledImageCardFooter } from './ImageCard.styled';
 import { ImageCardProps } from './ImageCard.type';
 
-export default function ImageCard({ isAutoPlay, postInfo, ImageCardWidth }: ImageCardProps): ReactElement {
+export default function ImageCard({ isAutoPlay, postInfo, imageCardWidth }: ImageCardProps): ReactElement {
   const thumbnail = postInfo.images[0];
   const { thumbnailImageId, thumbnailWidth, title, upCount, downCount, commentCount, views } = postInfo;
   const ALT_TEXT = '사용자 혹은 AI가 작성한 이미지에 대한 구체적인 설명';
 
   return (
-    <LinkContainer href="/postUrl" imageCardWidth={ImageCardWidth}>
-      <StyledImageCard imageCardWidth={ImageCardWidth}>
+    <LinkContainer href="/postUrl" imageCardWidth={imageCardWidth}>
+      <StyledImageCard imageCardWidth={imageCardWidth}>
         {!isAutoPlay || thumbnail.type === 'image/jpeg' ? (
           <Image
             alt={ALT_TEXT}
