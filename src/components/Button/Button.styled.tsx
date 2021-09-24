@@ -20,7 +20,7 @@ export const StyledButton = styled(Link)<StyledButtonProps>`
   cursor: pointer;
   font-size: ${({ fontSize, size, theme }) =>
     fontSize ? theme.fontSize[fontSize] : size === 'large' ? pxToRem(15) : pxToRem(12)};
-  gap: ${({ size }) => (size === 'large' ? pxToRem(13) : pxToRem(1))};
+  gap: ${({ size }) => (size === 'large' ? pxToRem(13) : pxToRem(5))};
   height: ${({ size }) => (size === 'medium' ? pxToRem(24) : size === 'large' ? pxToRem(36) : pxToRem(16))};
   margin: ${({ margin }) => margin};
   padding: 0 ${pxToRem(9)} 0 ${pxToRem(9)};
