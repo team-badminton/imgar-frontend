@@ -1,4 +1,4 @@
-import throttle from 'lodash/throttle';
+import useThrottle from '@/hooks/useThrottle';
 import React, { ReactElement, useCallback, useState } from 'react';
 import { useHistory } from 'react-router';
 import { SearchBarButton, SearchBarContainer, SearchBarInput } from './SearchBar.styled';
@@ -13,7 +13,7 @@ export default function SearchBar({
   const [inputValue, setInputValue] = useState('');
   const history = useHistory();
 
-  const throttledSetSearchQuery = useCallback(throttle(onQueryChange, throttleTime ?? 1000), []);
+  const throttledSetSearchQuery = useThrottle(onQueryChange, throttleTime ?? 1000);
   const onChangeHandler = useCallback(
     e => {
       throttledSetSearchQuery(e.target.value);
