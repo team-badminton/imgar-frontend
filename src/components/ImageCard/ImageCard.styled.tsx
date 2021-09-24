@@ -21,7 +21,7 @@ export const StyledImageCard = styled.article<SetWidthProps>`
     color: ${({ theme }) => theme.color.white};
     font-size: ${({ theme }) => theme.fontSize.s};
     margin: 0 auto;
-    padding: ${({ theme }) => theme.spaceSize.s} ${({ theme }) => theme.spaceSize.m}; 0;
+    padding: ${({ theme }) => theme.spaceSize.s} ${({ theme }) => theme.spaceSize.m} 0;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
