@@ -23,6 +23,12 @@ export const StyledImageCard = styled.article<SetWidthProps>`
     font-size: ${defaultTheme.fontSize.s};
     margin: 0 auto;
     padding: ${defaultTheme.spaceSize.s} ${defaultTheme.spaceSize.m} 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
   }
   em {
     position: absolute;
