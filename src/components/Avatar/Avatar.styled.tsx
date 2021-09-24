@@ -9,7 +9,6 @@ export interface Props {
 
 export const StyledAvatar = styled.div<Props>`
   display: flex;
-  margin: 0 ${pxToRem(32)} 0 ${pxToRem(12)};
   font-size: ${() => pxToRem(12)};
   align-items: center;
   img {
