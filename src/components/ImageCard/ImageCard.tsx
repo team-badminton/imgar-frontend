@@ -1,16 +1,10 @@
 import React, { ReactElement } from 'react';
-import { PostInfo } from '../../redux/storeTypes';
 import { ReactComponent as UpIconSVG } from '@/assets/Icon/upIcon.svg';
 import { ReactComponent as CommentIconSVG } from '@/assets/Icon/commentIcon.svg';
 import { ReactComponent as ViewIconSVG } from '@/assets/Icon/viewIcon.svg';
 import { Image, Video } from '..';
 import { LinkContainer, StyledImageCard, StyledImageCardFooter } from './ImageCard.styled';
-
-interface ImageCardProps {
-  isAutoPlay: boolean;
-  postInfo: PostInfo;
-  ImageCardWidth: string | number;
-}
+import { ImageCardProps } from './ImageCard.type';
 
 export default function ImageCard({ isAutoPlay, postInfo, ImageCardWidth }: ImageCardProps): ReactElement {
   const thumbnail = postInfo.images[0];
