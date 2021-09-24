@@ -29,6 +29,8 @@ export interface StyledButtonProps {
 export interface ButtonProps extends StyledButtonProps {
   /** img src를 입력한 경우, alt를 설정해야 합니다.*/
   alt?: string;
+  /** className을 입력할 수 있습니다. */
+  className?: string;
   /** 좌측 이미지를 삽입할 수 있습니다. 이미지 태그의 속성으로 삽입될 src 혹은 Svg ReactNode를 입력받습니다. */
   img?: string | React.FC<React.SVGProps<SVGSVGElement>>;
   /** 버튼의 text를 설정할 수 있습니다. */

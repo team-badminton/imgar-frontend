@@ -9,6 +9,7 @@ import { ButtonProps } from './Button.type';
 export default function Button({
   alt,
   backgroundColor,
+  className,
   color,
   fontSize,
   size,
@@ -25,6 +26,7 @@ export default function Button({
   return (
     <StyledButton
       backgroundColor={backgroundColor}
+      className={className}
       color={color}
       fontSize={fontSize}
       size={size}
