@@ -1,26 +1,24 @@
 import React, { ReactElement } from 'react';
 import { PostInfo } from '../../redux/storeTypes';
-import { ReactComponent as UpIconSVG } from '../../assets/Icon/UpIcon.svg';
-import { ReactComponent as CommentIconSVG } from '../../assets/Icon/commentIcon.svg';
-import { ReactComponent as ViewIconSVG } from '../../assets/Icon/viewIcon.svg';
+import { ReactComponent as UpIconSVG } from '@/assets/Icon/upIcon.svg';
+import { ReactComponent as CommentIconSVG } from '@/assets/Icon/commentIcon.svg';
+import { ReactComponent as ViewIconSVG } from '@/assets/Icon/viewIcon.svg';
 import { Image, Video } from '..';
-import { StyledImageCard, StyledImageCardFooter } from './ImageCard.styled';
-import { store } from '../../redux/index';
+import { LinkContainer, StyledImageCard, StyledImageCardFooter } from './ImageCard.styled';
 
 interface ImageCardProps {
+  isAutoPlay: boolean;
   postInfo: PostInfo;
   ImageCardWidth: string | number;
 }
 
-export default function ImageCard({ postInfo, ImageCardWidth }: ImageCardProps): ReactElement {
+export default function ImageCard({ isAutoPlay, postInfo, ImageCardWidth }: ImageCardProps): ReactElement {
   const thumbnail = postInfo.images[0];
   const { thumbnailImageId, thumbnailWidth, title, upCount, downCount, commentCount, views } = postInfo;
-  // const isAutoPlay = store.getState().listInfo.autoPlay;
-  const isAutoPlay = false;
   const ALT_TEXT = '사용자 혹은 AI가 작성한 이미지에 대한 구체적인 설명';
 
   return (
-    <a href="/postUrl">
+    <LinkContainer href="/postUrl" width={ImageCardWidth}>
       <StyledImageCard width={ImageCardWidth}>
         {!isAutoPlay || thumbnail.type === 'image/jpeg' ? (
           <Image
@@ -34,7 +32,7 @@ export default function ImageCard({ postInfo, ImageCardWidth }: ImageCardProps):
 
         <h3>
           {!isAutoPlay && thumbnail.type === 'video/mp4' && (
-            <em>{thumbnail.hasSound ? 'has no sound' : 'has sound'}</em>
+            <em>{thumbnail.hasSound ? 'has sound' : 'has no sound'}</em>
           )}
           {title}
         </h3>
@@ -53,6 +51,6 @@ export default function ImageCard({ postInfo, ImageCardWidth }: ImageCardProps):
           </div>
         </StyledImageCardFooter>
       </StyledImageCard>
-    </a>
+    </LinkContainer>
   );
 }

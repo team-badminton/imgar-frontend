@@ -2,9 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import { defaultTheme } from '../../theme/themes';
 
-import { StyledImageCardProps } from './ImageCard.type';
+import { SetWidthProps } from './ImageCard.type';
 
-export const StyledImageCard = styled.article<StyledImageCardProps>`
+export const LinkContainer = styled.a<SetWidthProps>`
+  display: block;
+  width: ${({ width }) =>
+    width && typeof width === 'number' ? width + 'px' : width && typeof width === 'string' ? width : '100%'};
+`;
+
+export const StyledImageCard = styled.article<SetWidthProps>`
   width: ${({ width }) =>
     width && typeof width === 'number' ? width + 'px' : width && typeof width === 'string' ? width : '100%'};
   background: ${defaultTheme.color.darkGray};
@@ -17,6 +23,12 @@ export const StyledImageCard = styled.article<StyledImageCardProps>`
     font-size: ${defaultTheme.fontSize.s};
     margin: 0 auto;
     padding: ${defaultTheme.spaceSize.s} ${defaultTheme.spaceSize.m} 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
   }
   em {
     position: absolute;
