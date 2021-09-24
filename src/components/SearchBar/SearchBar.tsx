@@ -45,7 +45,7 @@ export default function SearchBar({
         onFocus={onFocusHandler}
         onBlur={onBlurHandler}
       />
-      <SearchBarButton type="submit" />
+      <SearchBarButton type="submit" aria-label="Submit Button" />
     </SearchBarContainer>
   );
 }
