@@ -18,6 +18,20 @@ export const StyledImageCard = styled.article<SetWidthProps>`
   box-shadow: 0 0 ${pxToRem(10)} ${({ theme }) => theme.color.black};
   cursor: pointer;
   position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: ${({ theme }) => theme.color.white};
+    opacity: 0;
+    transition: opacity 0.25s ease 0s;
+  }
+  &:hover::after {
+    opacity: 0.2;
+  }
   h3 {
     color: ${({ theme }) => theme.color.white};
     font-size: ${({ theme }) => theme.fontSize.s};
@@ -52,6 +66,7 @@ export const StyledImageCardFooter = styled.footer`
   div {
     display: flex;
     align-items: center;
+    z-index: 1;
   }
   div > span {
     margin-left: ${({ theme }) => theme.spaceSize.xs};
