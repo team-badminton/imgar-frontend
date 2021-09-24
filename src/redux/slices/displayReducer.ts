@@ -1,4 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Selector } from 'react-redux';
+import { RootState } from '..';
 import { DisplayInfo } from '../storeTypes';
 
 const initialState: DisplayInfo = {
@@ -23,3 +25,9 @@ export const displaySlice = createSlice({
 
 export const { displayResize, displayScroll } = displaySlice.actions;
 export default displaySlice.reducer;
+
+export const scrollSelector: Selector<RootState, number> = state => state.display.scrollOffset;
+export const sizeSelector: Selector<RootState, Omit<DisplayInfo, 'scrollOffset'>> = state => ({
+  innerHeight: state.display.innerWidth,
+  innerWidth: state.display.innerHeight,
+});
