@@ -25,6 +25,7 @@ export interface PostInfo {
 
 export interface TagInfo {
   name: string;
+  displayName: string;
   postCount: number /* total_items */;
   backgroundImageId: string /* background_hash */;
   description: string;
@@ -47,8 +48,8 @@ export interface DisplayInfo {
 }
 
 export interface SuggestInfo {
-  users: Pick<UserInfo, 'name' | 'avatarUrl'>[];
-  tags: Pick<TagInfo, 'name' | 'backgroundImageId'>[];
+  users: Pick<UserInfo, 'name' | 'id'>[];
+  tags: Pick<TagInfo, 'name' | 'backgroundImageId' | 'displayName'>[];
   posts: Pick<PostInfo, 'id' | 'title'>[];
 }
 

@@ -34,6 +34,7 @@ export function tagDataNormalizer(tag: Tag | Tag[]): TagInfo | TagInfo[] {
   if (!Array.isArray(tag)) {
     return {
       name: tag.name,
+      displayName: tag.display_name,
       postCount: tag.total_items,
       backgroundImageId: tag.background_hash,
       description: tag.description,
@@ -42,6 +43,7 @@ export function tagDataNormalizer(tag: Tag | Tag[]): TagInfo | TagInfo[] {
     const tags = tag;
     return tags.map(tag => ({
       name: tag.name,
+      displayName: tag.display_name,
       postCount: tag.total_items,
       backgroundImageId: tag.background_hash,
       description: tag.description,
@@ -103,15 +105,16 @@ export function postDataNormalizer(post: Post[] | Post): PostInfo | PostInfo[] {
 
 export function suggestDataNormalizer(suggest: Suggest): SuggestInfo {
   return {
-    users: suggest.users.map(user => ({
-      name: user.url,
-      avatarUrl: user.avatar,
+    users: suggest.users?.map(user => ({
+      name: user.text,
+      id: user.id,
     })),
-    tags: suggest.tags.map(tag => ({
+    tags: suggest.tags?.map(tag => ({
       name: tag.name,
+      displayName: tag.display_name,
       backgroundImageId: tag.background_hash,
     })),
-    posts: suggest.posts.map(post => ({
+    posts: suggest.posts?.map(post => ({
       id: post.hash,
       title: post.title,
     })),
