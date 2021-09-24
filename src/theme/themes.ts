@@ -30,4 +30,8 @@ export const defaultTheme: DefaultTheme = {
     l: pxToRem(24),
     xl: pxToRem(32),
   },
+  borderRadius: {
+    s: pxToRem(3),
+    l: pxToRem(5),
+  },
 };

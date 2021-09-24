@@ -13,6 +13,19 @@ export const parameters = {
       date: /Date$/,
     },
   },
+  backgrounds: {
+    default: 'backgroundGray',
+    values: [
+      {
+        name: 'backgroundGray',
+        value: `#2e3035`,
+      },
+      {
+        name: 'backgroundNavy',
+        value: `#061234`,
+      },
+    ],
+  },
 };
 
 export const decorators = [
