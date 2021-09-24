@@ -6,16 +6,17 @@ import { Image, Video } from '..';
 import { StyledImageCard, StyledImageCardFooter } from './ImageCard.styled';
 import { ImageCardProps } from './ImageCard.type';
 import { pxToRem } from '@/util/styleUtils';
+import { Link } from 'react-router-dom';
 
 export default function ImageCard({ isAutoPlay, postInfo, imageCardWidth }: ImageCardProps): ReactElement {
   const thumbnail = postInfo.images[0];
-  const { thumbnailImageId, thumbnailWidth, title, upCount, downCount, commentCount, views } = postInfo;
+  const { id, thumbnailImageId, thumbnailWidth, title, upCount, downCount, commentCount, views } = postInfo;
   const ALT_TEXT = '사용자 혹은 AI가 작성한 이미지에 대한 구체적인 설명';
   const IMAGE_MAX_HEIGHT = pxToRem(400);
 
   return (
-    <a
-      href="/postUrl"
+    <Link
+      to={`gallery/${id}`}
       css={`
         display: inline-block;
       `}
@@ -58,6 +59,6 @@ export default function ImageCard({ isAutoPlay, postInfo, imageCardWidth }: Imag
           </div>
         </StyledImageCardFooter>
       </StyledImageCard>
-    </a>
+    </Link>
   );
 }
