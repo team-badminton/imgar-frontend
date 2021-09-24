@@ -12,8 +12,8 @@ export default function ImageCard({ isAutoPlay, postInfo, ImageCardWidth }: Imag
   const ALT_TEXT = '사용자 혹은 AI가 작성한 이미지에 대한 구체적인 설명';
 
   return (
-    <LinkContainer href="/postUrl" width={ImageCardWidth}>
-      <StyledImageCard width={ImageCardWidth}>
+    <LinkContainer href="/postUrl" imageCardWidth={ImageCardWidth}>
+      <StyledImageCard imageCardWidth={ImageCardWidth}>
         {!isAutoPlay || thumbnail.type === 'image/jpeg' ? (
           <Image
             alt={ALT_TEXT}

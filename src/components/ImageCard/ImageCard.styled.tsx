@@ -6,13 +6,21 @@ import { SetWidthProps } from './ImageCard.type';
 
 export const LinkContainer = styled.a<SetWidthProps>`
   display: block;
-  width: ${({ width }) =>
-    width && typeof width === 'number' ? width + 'px' : width && typeof width === 'string' ? width : '100%'};
+  width: ${({ imageCardWidth }) =>
+    imageCardWidth && typeof imageCardWidth === 'number'
+      ? imageCardWidth + 'px'
+      : imageCardWidth && typeof imageCardWidth === 'string'
+      ? imageCardWidth
+      : '100%'};
 `;
 
 export const StyledImageCard = styled.article<SetWidthProps>`
-  width: ${({ width }) =>
-    width && typeof width === 'number' ? width + 'px' : width && typeof width === 'string' ? width : '100%'};
+  width: ${({ imageCardWidth }) =>
+    imageCardWidth && typeof imageCardWidth === 'number'
+      ? imageCardWidth + 'px'
+      : imageCardWidth && typeof imageCardWidth === 'string'
+      ? imageCardWidth
+      : '100%'};
   background: ${({ theme }) => theme.color.darkGray};
   border-radius: ${({ theme }) => theme.borderRadius.s};
   box-shadow: 0 0 ${pxToRem(10)} ${({ theme }) => theme.color.black};
