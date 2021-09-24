@@ -28,6 +28,7 @@ export const StyledImageCard = styled.article<SetWidthProps>`
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     word-break: break-all;
+    line-height: 1.5;
   }
   em {
     position: absolute;
