@@ -1,4 +1,3 @@
-import { useTypedSelector } from '@/redux';
 import { useSuggestQuery } from '@/redux/api/v3';
 import React, { ReactElement, useEffect, useState } from 'react';
 import { SearchBar, SuggestList } from '..';
@@ -24,7 +23,7 @@ export default function Search(): ReactElement {
   return (
     <SearchContainer>
       <SearchBar placeholder="Images, #tags, @users oh my!" onQueryChange={setSearchQuery} setFocus={setFocus} />
-      {!!searchQuery && focus && !!(data?.posts?.length || data?.posts?.length || data?.tags?.length) && (
+      {!!searchQuery && focus && !!(data?.posts?.length || data?.users?.length || data?.tags?.length) && (
         <SuggestList
           keyword={searchQuery.replace(/^[@#]/, '')}
           posts={searchQueryOption === 'all' ? data?.posts : []}
