@@ -7,7 +7,14 @@ export default {
   title: 'Components/SuggestList',
   component: SuggestList,
   argTypes: {
-    posts: { name: 'PostResult', description: 'Post를 검색해서 나온 결과를 보여줍니다', option: {} },
+    posts: {
+      name: 'PostResult',
+      description: `
+    입력받은 검색어에 대한 자동완성 결과를 보여줍니다.
+    props를 통해 데이터를 받아서 화면에 렌더링 합니다.
+    `,
+      option: {},
+    },
   },
   args: {
     posts: [

@@ -10,7 +10,7 @@ export default {
     docs: {
       description: {
         component: `
-        검색어를 입력하면 API통신을 통해
+        검색어를 입력하면 API통신을 통해 자동완성을 보여줍니다.
         `,
       },
     },
@@ -21,5 +21,4 @@ export default {
 } as ComponentMeta<typeof Search>;
 
 const Template: ComponentStory<typeof Search> = args => <Search {...args} />;
-
 export const Idle = Template.bind({});
