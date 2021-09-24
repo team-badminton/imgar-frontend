@@ -52,11 +52,12 @@ export const imgurV3Api = createApi({
       },
     }),
     suggest: builder.query<SuggestInfo, string>({
-      query: keyword => `suggest?inflate=users,tags&q=${keyword}&types=users,tags,posts`,
+      query: keyword => `suggest?inflate=tags&q=${keyword}&types=users,tags,posts`,
       transformResponse: (res: { data: Suggest }) => {
         const { data } = res;
         return suggestDataNormalizer(data);
       },
+      keepUnusedDataFor: 5,
     }),
     account: builder.query<UserInfo, string>({
       query: username => `account/${username}`,
@@ -119,5 +120,8 @@ export const {
   useAccountPostsQuery,
   useAccountQuery,
   useSuggestQuery,
+  useLazySuggestQuery,
   usePostCommentsQuery,
 } = imgurV3Api;
+
+export default imgurV3Api;

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface Suggest {
-  users: User[];
+  users: { type: 'user'; id: string; text: string }[];
   tags: Tag[];
   posts: { type: 'post'; hash: string; title: string }[];
 }
