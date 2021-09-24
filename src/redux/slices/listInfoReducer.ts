@@ -19,6 +19,7 @@ export const postListSlice = createSlice({
     },
     toggleAutoPlay(state) {
       // 자동재생 변경
+      state.autoPlay = !state.autoPlay;
     },
   },
 });
