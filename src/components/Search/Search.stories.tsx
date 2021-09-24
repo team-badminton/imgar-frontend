@@ -21,4 +21,4 @@ export default {
 } as ComponentMeta<typeof Search>;
 
 const Template: ComponentStory<typeof Search> = args => <Search {...args} />;
-export const Idle = Template.bind({});
+export const Default = Template.bind({});

@@ -8,6 +8,23 @@ export default {
   args: {
     placeholder: 'Images, #tags, @users oh my!',
   },
+  argTypes: {
+    onQueryChange: {
+      table: {
+        disable: true,
+      },
+    },
+    throttleTime: {
+      table: {
+        disable: true,
+      },
+    },
+    setFocus: {
+      table: {
+        disable: true,
+      },
+    },
+  },
   parameters: {
     docs: {
       description: {
@@ -23,4 +40,4 @@ export default {
 
 const Template: ComponentStory<typeof SearchBar> = args => <SearchBar {...args} />;
 
-export const DefaultInput = Template.bind({});
+export const Default = Template.bind({});
