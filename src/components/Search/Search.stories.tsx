@@ -14,9 +14,6 @@ export default {
         `,
       },
     },
-    backgrounds: {
-      default: 'dark',
-    },
   },
 } as ComponentMeta<typeof Search>;
 
