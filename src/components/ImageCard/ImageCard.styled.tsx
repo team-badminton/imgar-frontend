@@ -1,3 +1,4 @@
+import { pxToRem } from '@/util/styleUtils';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -13,8 +14,8 @@ export const StyledImageCard = styled.article<SetWidthProps>`
   width: ${({ width }) =>
     width && typeof width === 'number' ? width + 'px' : width && typeof width === 'string' ? width : '100%'};
   background: ${({ theme }) => theme.color.darkGray};
-  border-radius: 5px;
-  box-shadow: 0 0 10px ${({ theme }) => theme.color.black};
+  border-radius: ${({ theme }) => theme.borderRadius.s};
+  box-shadow: 0 0 ${pxToRem(10)} ${({ theme }) => theme.color.black};
   cursor: pointer;
   position: relative;
   h3 {
@@ -37,8 +38,8 @@ export const StyledImageCard = styled.article<SetWidthProps>`
     background: ${({ theme }) => theme.color.primaryColor};
     font-style: normal;
     padding: ${({ theme }) => theme.spaceSize.xs} ${({ theme }) => theme.spaceSize.s};
-    border-radius: 5px;
-    box-shadow: 0 0 10px ${({ theme }) => theme.color.black};
+    border-radius: ${({ theme }) => theme.borderRadius.s};
+    box-shadow: 0 0 ${pxToRem(10)} ${({ theme }) => theme.color.black};
   }
 `;
 
