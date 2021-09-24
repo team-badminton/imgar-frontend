@@ -32,9 +32,6 @@ export default {
         `,
       },
     },
-    backgrounds: {
-      default: 'dark',
-    },
   },
 } as ComponentMeta<typeof SearchBar>;
 

@@ -70,9 +70,6 @@ export default {
         component: `검색창을 통해 입력받은 쿼리에 대한 추천검색어를 표시해 줍니다.`,
       },
     },
-    backgrounds: {
-      default: 'dark',
-    },
   },
 } as ComponentMeta<typeof SuggestList>;
 
