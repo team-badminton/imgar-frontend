@@ -25,6 +25,7 @@ export default function Button({
   text,
   style,
 }: ButtonProps): ReactElement {
+  if (img && !alt) throw new Error('img는 alt prop과 함께 사용되어야 합니다.');
   return (
     <StyledButton
       backgroundColor={backgroundColor}
