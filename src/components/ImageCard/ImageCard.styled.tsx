@@ -2,9 +2,9 @@ import { pxToRem } from '@/util/styleUtils';
 import React from 'react';
 import styled from 'styled-components';
 
-import { SetWidthProps } from './ImageCard.type';
+import { SetDisplayProps } from './ImageCard.type';
 
-export const LinkContainer = styled.a<SetWidthProps>`
+export const LinkContainer = styled.a<SetDisplayProps>`
   display: block;
   width: ${({ imageCardWidth }) =>
     imageCardWidth && typeof imageCardWidth === 'number'
@@ -14,7 +14,7 @@ export const LinkContainer = styled.a<SetWidthProps>`
       : '100%'};
 `;
 
-export const StyledImageCard = styled.article<SetWidthProps>`
+export const StyledImageCard = styled.article<SetDisplayProps>`
   width: ${({ imageCardWidth }) =>
     imageCardWidth && typeof imageCardWidth === 'number'
       ? imageCardWidth + 'px'
