@@ -13,12 +13,12 @@ export const displaySlice = createSlice({
   name: 'display',
   initialState,
   reducers: {
-    displayResize(state) {
-      state.innerHeight = window.innerHeight;
-      state.innerWidth = window.innerWidth;
+    displayResize(state, action: PayloadAction<{ height: number; width: number }>) {
+      state.innerHeight = action.payload.height;
+      state.innerWidth = action.payload.width;
     },
-    displayScroll(state) {
-      state.scrollOffset = window.scrollY;
+    displayScroll(state, action: PayloadAction<number>) {
+      state.scrollOffset = action.payload;
     },
   },
 });
