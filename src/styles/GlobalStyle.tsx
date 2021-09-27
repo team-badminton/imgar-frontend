@@ -23,6 +23,7 @@ body *::after {
 
 a {
   all: unset;
+  cursor: pointer;
 }
 a:link {
   text-decoration: none;
