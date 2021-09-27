@@ -15,7 +15,7 @@ export default function MainContainer({
   const scrollOffset = useTypedSelector(scrollSelector);
   const [threshold, setThreshold] = useState(0);
   const headerCoverRef = useRef<HTMLDivElement>(null);
-  const BODY_OFFSET = 50;
+  const BODY_OFFSET = 75;
   const HEADER_HEIGHT = 70;
 
   useLayoutEffect(() => {
