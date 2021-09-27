@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
-import { useHistory, useLocation, useParams } from 'react-router-dom';
+import MasonryGallery from '@/components/MasonryGallery/MasonryGallery';
 
 export default function Home(): ReactElement {
-  return <div>Home</div>;
+  return <MasonryGallery />;
 }
