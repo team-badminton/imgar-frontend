@@ -43,6 +43,7 @@ export const SuggestContainer = styled.div`
         padding: ${({ theme }) => theme.spaceSize.xs};
         padding-left: ${({ theme }) => theme.spaceSize.m};
         color: ${({ theme }) => theme.color.lightGray};
+        cursor: pointer;
         &:hover {
           background-color: rgba(255, 255, 255, 0.3);
         }
