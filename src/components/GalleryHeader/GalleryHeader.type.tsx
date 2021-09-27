@@ -1,5 +1,5 @@
 import { AvatarProps } from '../Avatar/Avatar.type';
 
-export interface ImageDetailPageHeaderProps extends AvatarProps {
+export interface GalleryHeaderProps extends AvatarProps {
   title: string;
 }

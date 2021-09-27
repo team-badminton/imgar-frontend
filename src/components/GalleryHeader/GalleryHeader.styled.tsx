@@ -31,7 +31,7 @@ export const Container = styled.div`
     .next {
       .text {
         display: block;
-        font-size: ${pxToRem(14)};
+        font-size: ${({ theme }) => theme.fontSize.s};
         font-weight: 400;
         padding-bottom: ${pxToRem(3)};
         order: -1;
@@ -40,7 +40,7 @@ export const Container = styled.div`
   }
 `;
 
-export const StyledImageDetailPageHeader = styled.h2`
+export const StyledGalleryHeader = styled.h2`
   font-size: ${pxToRem(32)};
   margin: 0;
   color: ${({ theme }) => theme.color.white};
