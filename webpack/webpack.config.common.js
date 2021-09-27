@@ -39,6 +39,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/index.html',
       base: '/',
+      title: 'Imgar',
     }),
     new ForkTsCheckerWebpackPlugin(),
     new Dotenv(),
