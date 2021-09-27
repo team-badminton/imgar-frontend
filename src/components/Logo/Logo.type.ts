@@ -6,4 +6,5 @@ export interface LogoContainerProps {
 
 export interface LogoProps extends LogoContainerProps {
   as: keyof ReactHTML;
+  to?: string;
 }
