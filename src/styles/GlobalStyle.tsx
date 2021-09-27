@@ -19,6 +19,22 @@ body *::before {
 body *::after {
   box-sizing: inherit;
 }
+
+a {
+  all: unset;
+}
+a:link {
+  text-decoration: none;
+}
+a:visited {
+  text-decoration: none;
+}
+a:active {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
 `;
 
 export default function GlobalStyle(): ReactElement {
