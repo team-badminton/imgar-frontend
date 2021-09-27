@@ -6,23 +6,31 @@ export default function Image({
   alt,
   fidelity,
   isCircle,
-  hash,
+  imageId,
   objectFit,
   src,
   style,
-  $width,
+  imageWidth,
 }: ImageProps): ReactElement | never {
-  if (!src && !hash) throw new Error('hash, src 중 한 가지는 필수로 입력해야 합니다.');
+  if (!src && !imageId) throw new Error('imageId, src 중 한 가지는 필수로 입력해야 합니다.');
 
   if (src) {
-    return <StyledImage $width={$width} objectFit={objectFit} isCircle={isCircle} src={src} alt={alt} style={style} />;
+    return (
+      <StyledImage
+        imageWidth={imageWidth}
+        objectFit={objectFit}
+        isCircle={isCircle}
+        src={src}
+        alt={alt}
+        style={style}
+      />
+    );
   }
 
   const extensions = ['webp', 'png', 'jpg'];
-  const imgUrlWithoutExt = `https://i.imgur.com/${hash}${$width ? '_d' : ''}`;
-  const query = `?${$width ? `maxwidth=${$width}` : ''}&${fidelity ? `fidelity=${fidelity}` : ''}`;
+  const imgUrlWithoutExt = `https://i.imgur.com/${imageId}${imageWidth ? '_d' : ''}`;
+  const query = `?${imageWidth ? `maxwidth=${imageWidth}` : ''}&${fidelity ? `fidelity=${fidelity}` : ''}`;
 
-  // 수정사항 picture로 옮기기
   return (
     <picture>
       {extensions.map((extension, index) => {
@@ -32,7 +40,7 @@ export default function Image({
           <source key={extension} srcSet={imageSrc} />
         ) : (
           <StyledImage
-            $width={$width}
+            imageWidth={imageWidth}
             objectFit={objectFit}
             isCircle={isCircle}
             key={extension}
