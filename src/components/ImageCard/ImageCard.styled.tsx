@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { SetDisplayProps } from './ImageCard.type';
 
-export const StyledImageCard = styled.article<SetDisplayProps>`
+export const StyledArticle = styled.article<SetDisplayProps>`
   width: ${({ imageCardWidth }) =>
     imageCardWidth && typeof imageCardWidth === 'number'
       ? imageCardWidth + 'px'
@@ -42,6 +42,10 @@ export const StyledImageCard = styled.article<SetDisplayProps>`
     -webkit-box-orient: vertical;
     word-break: break-all;
     line-height: 1.5;
+    position: absolute;
+    bottom: ${48 + 'px'};
+    background: ${({ theme }) => theme.color.darkGray};
+    width: 100%;
   }
   em {
     position: absolute;
@@ -55,12 +59,12 @@ export const StyledImageCard = styled.article<SetDisplayProps>`
   }
 `;
 
-export const StyledImageCardFooter = styled.footer`
+export const StyledFooter = styled.footer`
   display: flex;
   justify-content: space-around;
   color: ${({ theme }) => theme.color.lightGray};
   font-size: ${({ theme }) => theme.fontSize.xs};
-  padding: ${({ theme }) => theme.spaceSize.m} 0;
+  padding: ${({ theme }) => parseInt(theme.spaceSize.m) + 28.8 + 'px'} 0 ${({ theme }) => theme.spaceSize.m} 0;
   div {
     display: flex;
     align-items: center;

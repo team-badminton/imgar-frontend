@@ -3,7 +3,7 @@ import { ReactComponent as UpIconSVG } from '@/assets/Icon/upIcon.svg';
 import { ReactComponent as CommentIconSVG } from '@/assets/Icon/commentIcon.svg';
 import { ReactComponent as ViewIconSVG } from '@/assets/Icon/viewIcon.svg';
 import { Image, Video } from '..';
-import { StyledImageCard, StyledImageCardFooter } from './ImageCard.styled';
+import { StyledArticle, StyledFooter } from './ImageCard.styled';
 import { ImageCardProps } from './ImageCard.type';
 import { pxToRem } from '@/util/styleUtils';
 import { Link } from 'react-router-dom';
@@ -21,7 +21,7 @@ export default function ImageCard({ isAutoPlay, postInfo, imageCardWidth }: Imag
         display: inline-block;
       `}
     >
-      <StyledImageCard imageCardWidth={imageCardWidth}>
+      <StyledArticle imageCardWidth={imageCardWidth}>
         <div
           css={`
             max-height: ${IMAGE_MAX_HEIGHT};
@@ -44,7 +44,7 @@ export default function ImageCard({ isAutoPlay, postInfo, imageCardWidth }: Imag
           )}
           {title}
         </h3>
-        <StyledImageCardFooter>
+        <StyledFooter>
           <div>
             <UpIconSVG />
             <span>{upCount - downCount}</span>
@@ -57,8 +57,8 @@ export default function ImageCard({ isAutoPlay, postInfo, imageCardWidth }: Imag
             <ViewIconSVG />
             <span>{views}</span>
           </div>
-        </StyledImageCardFooter>
-      </StyledImageCard>
+        </StyledFooter>
+      </StyledArticle>
     </Link>
   );
 }
