@@ -12,24 +12,15 @@ import { AvatarProps } from '@/components/Avatar/Avatar.type';
 import Button from '../Button/Button';
 import { Link } from 'react-router-dom';
 
-export default function Avatar({
-  className,
-  infoLines,
-  userName,
-  imageHash,
-  size,
-  extraInfos,
-  to,
-}: AvatarProps): ReactElement {
+export default function Avatar({ className, infoLines, userName, size, extraInfos, to }: AvatarProps): ReactElement {
   return (
     <StyledAvatar className={className} infoLines={infoLines} size={size}>
       <Link to={to}>
         <Image
-          hash={imageHash}
           alt={`profile image of ${userName}`}
           isCircle
           src={`https://imgur.com/user/${userName}/avatar`}
-          $width={size === 'small' ? 24 : size === 'medium' ? 32 : 155}
+          imageWidth={size === 'small' ? 24 : size === 'medium' ? 32 : 155}
         />
       </Link>
       <Info>
