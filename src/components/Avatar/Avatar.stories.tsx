@@ -20,20 +20,23 @@ export default {
 
 const Template: ComponentStory<typeof Avatar> = args => <Avatar {...args} />;
 
-export const Small = Template.bind({});
+export const Comment = Template.bind({});
 
-Small.args = {
+Comment.args = {
   userName: 'tohero',
-  size: 'small',
-  imageId: 'eZqkgWk',
-  extraInfos: ['', '3h', 'via Android'],
+  type: 'comment',
 };
 
-export const Medium = Template.bind({});
+export const Gallery = Template.bind({});
 
-Medium.args = {
+Gallery.args = {
   userName: 'tohero',
-  size: 'medium',
-  imageId: 'eZqkgWk',
-  extraInfos: ['15,252 Views', '3h', 'via Android'],
+  type: 'gallery',
+};
+
+export const Profile = Template.bind({});
+
+Profile.args = {
+  userName: 'tohero',
+  type: 'profile',
 };
