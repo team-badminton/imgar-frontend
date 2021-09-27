@@ -16,7 +16,7 @@ export default function Avatar({
   className,
   infoLines,
   userName,
-  imageId,
+  imageHash,
   size,
   extraInfos,
   to,
@@ -25,7 +25,7 @@ export default function Avatar({
     <StyledAvatar className={className} infoLines={infoLines} size={size}>
       <Link to={to}>
         <Image
-          id={imageId}
+          hash={imageHash}
           alt={`profile image of ${userName}`}
           isCircle
           src={`https://imgur.com/user/${userName}/avatar`}

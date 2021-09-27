@@ -12,9 +12,9 @@ export interface StyledImageProps {
 }
 
 export interface ImageProps extends StyledImageProps {
-  /** Image의 hash 값을 입력합니다. */
-  id?: string;
-  /** 이미지 url을 입력합니다. */
+  /** Image의 hash 값을 입력하면, hash와 매칭되는 image 데이터를 요청합니다. */
+  hash?: string;
+  /** hash가 아닌 image가 위치하고 있는 url을 주소로 데이터를 요청합니다. */
   src?: string;
   /** 대체 텍스트를 설정할 수 있습니다. */
   alt?: string;

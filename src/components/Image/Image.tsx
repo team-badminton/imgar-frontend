@@ -6,20 +6,20 @@ export default function Image({
   alt,
   fidelity,
   isCircle,
-  id,
+  hash,
   objectFit,
   src,
   style,
   $width,
 }: ImageProps): ReactElement | never {
-  if (!src && !id) throw new Error('id, src 중 한 가지는 필수로 입력해야 합니다.');
+  if (!src && !hash) throw new Error('hash, src 중 한 가지는 필수로 입력해야 합니다.');
 
   if (src) {
     return <StyledImage $width={$width} objectFit={objectFit} isCircle={isCircle} src={src} alt={alt} style={style} />;
   }
 
   const extensions = ['webp', 'png', 'jpg'];
-  const imgUrlWithoutExt = `https://i.imgur.com/${id}${$width ? '_d' : ''}`;
+  const imgUrlWithoutExt = `https://i.imgur.com/${hash}${$width ? '_d' : ''}`;
   const query = `?${$width ? `maxwidth=${$width}` : ''}&${fidelity ? `fidelity=${fidelity}` : ''}`;
 
   // 수정사항 picture로 옮기기
