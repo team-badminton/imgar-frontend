@@ -34,7 +34,7 @@ export const decorators = [
       <Router>
         <ThemeProvider theme={defaultTheme}>
           <GlobalStyle />
-          <Route path="*">
+          <Route path="/">
             <Story />
           </Route>
         </ThemeProvider>
