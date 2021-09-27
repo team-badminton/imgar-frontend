@@ -1,11 +1,11 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import Header from './Header';
+import MainContainer from './MainContainer';
 
 export default {
-  title: 'Components/Header',
-  component: Header,
+  title: 'Components/MainContainer',
+  component: MainContainer,
   args: {},
   parameters: {
     docs: {
@@ -14,8 +14,8 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof Header>;
+} as ComponentMeta<typeof MainContainer>;
 
-const Template: ComponentStory<typeof Header> = args => <Header {...args} />;
+const Template: ComponentStory<typeof MainContainer> = args => <MainContainer {...args} />;
 
 export const Default = Template.bind({});
