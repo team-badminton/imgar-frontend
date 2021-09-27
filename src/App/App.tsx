@@ -1,10 +1,9 @@
-import { Gallery, Home, Profile, SearchResult, TagDetail } from '@/pages';
-import React, { ReactElement, useEffect, useRef } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
 import useThrottle from '@/hooks/useThrottle';
-import { useTypedDispatch, useTypedSelector } from '@/redux';
-import { displayResize, displayScroll, sizeSelector } from '@/redux/slices/displayReducer';
-import Header from '@/components/Header/Header';
+import { Gallery, Home, Profile, SearchResult, TagDetail } from '@/pages';
+import { useTypedDispatch } from '@/redux';
+import { displayResize, displayScroll } from '@/redux/slices/displayReducer';
+import React, { ReactElement, useEffect, useRef } from 'react';
+import { Route, Switch } from 'react-router-dom';
 
 export default function App(): ReactElement {
   const dispatch = useTypedDispatch();
@@ -20,27 +19,16 @@ export default function App(): ReactElement {
     });
   }, []);
 
-  const bodyRef = useRef<HTMLDivElement>();
-
   return (
     <>
-      <Header
-        headerBackground={
-          'https://s.imgur.com/desktop-assets/desktop-assets/homebg.e52b5cdf24f83bcd55f9f1318855f2ef.png'
-        }
-        threshold={150}
-        bodyRef={bodyRef}
-      />
-      <div ref={bodyRef}>
-        <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/gallery/:id" exact component={Gallery} />
-          <Route path="/user/:username" exact component={Profile} />
-          <Route path="/t/:tagname" exact component={TagDetail} />
-          <Route path="/search" component={SearchResult} />
-          <Route path="/" component={Home} />
-        </Switch>
-      </div>
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/gallery/:id" exact component={Gallery} />
+        <Route path="/user/:username" exact component={Profile} />
+        <Route path="/t/:tagname" exact component={TagDetail} />
+        <Route path="/search" component={SearchResult} />
+        <Route path="/" component={Home} />
+      </Switch>
       {/* <Footer /> */}
     </>
   );
