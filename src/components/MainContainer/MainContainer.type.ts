@@ -1,5 +1,3 @@
-import { ReactElement } from 'react';
-
 export interface HeaderProps {
   children?: React.ReactNode;
   customHeader?: React.ReactNode;
