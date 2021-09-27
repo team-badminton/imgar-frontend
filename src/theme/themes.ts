@@ -26,6 +26,7 @@ export const defaultTheme: DefaultTheme = {
   spaceSize: {
     xs: pxToRem(4),
     s: pxToRem(8),
+    r: pxToRem(12),
     m: pxToRem(16),
     l: pxToRem(24),
     xl: pxToRem(32),

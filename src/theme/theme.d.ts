@@ -27,6 +27,7 @@ declare module 'styled-components' {
     spaceSize: {
       xs: string;
       s: string;
+      r: string;
       m: string;
       l: string;
       xl: string;
