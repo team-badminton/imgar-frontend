@@ -7,7 +7,7 @@ export const SearchBarContainer = styled.form`
   display: flex;
   align-items: center;
   width: 100%;
-  height: ${pxToRem(36)};
+  height: 100%;
   background-color: rgba(255, 255, 255, 0.25);
   border-radius: ${pxToRem(3)};
   opacity: 0.8;

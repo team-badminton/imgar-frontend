@@ -5,4 +5,5 @@ export const SearchContainer = styled.div`
   position: relative;
   max-width: ${pxToRem(550)};
   width: 100%;
+  height: ${pxToRem(36)};
 `;
