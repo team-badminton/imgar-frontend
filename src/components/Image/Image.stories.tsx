@@ -22,18 +22,20 @@ const Template: ComponentStory<typeof Image> = args => <Image {...args} />;
 
 export const IdImage = Template.bind({});
 IdImage.args = {
-  id: 'AD3MbBi',
+  imageId: 'AD3MbBi',
+  alt: '',
 };
 
 export const SrcImage = Template.bind({});
 SrcImage.args = {
   src: 'https://i.imgur.com/AD3MbBi.jpg?&fidelity=grand',
-  $width: 500,
+  imageWidth: 500,
+  alt: '',
 };
 
 export const CircleImage = Template.bind({});
 CircleImage.args = {
   isCircle: true,
-  $width: '100px',
+  imageWidth: '100px',
   src: 'https://imgur.com/user/yeongjong/avatar',
 };
