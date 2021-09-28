@@ -29,7 +29,7 @@ export default function ImageCard({ className, isAutoPlay, postInfo, imageCardWi
             overflow: hidden;
           `}
         >
-          {!isAutoPlay || thumbnail.type === 'image/jpeg' ? (
+          {!isAutoPlay || thumbnail.type === 'image/jpeg' || thumbnail.type === 'image/png' ? (
             <Image
               alt={ALT_TEXT}
               objectFit="contain"
