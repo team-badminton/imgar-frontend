@@ -51,6 +51,7 @@ export const StyledArticle = styled.article<SetDisplayProps>`
     top: ${({ theme }) => theme.spaceSize.s};
     right: ${({ theme }) => theme.spaceSize.s};
     background: ${({ theme }) => theme.color.primaryColor};
+    color: ${({ theme }) => theme.color.white};
     font-style: normal;
     padding: ${({ theme }) => theme.spaceSize.xs} ${({ theme }) => theme.spaceSize.s};
     border-radius: ${({ theme }) => theme.borderRadius.s};
