@@ -45,3 +45,7 @@ export const HeaderContainer = styled.div<HeaderContainerProps>`
   padding: 0 ${pxToRem(15)};
   z-index: 1;
 `;
+
+export const MainSection = styled.main`
+  position: relative;
+`;
