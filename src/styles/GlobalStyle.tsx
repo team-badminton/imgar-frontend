@@ -6,6 +6,7 @@ const GlobalStyledComponent = createGlobalStyle`
 body {
   margin: 0;
   padding: 0;
+  background-color:${({ theme }) => theme.color.backgroundGray};
 }
 
 body * {
@@ -22,6 +23,7 @@ body *::after {
 
 a {
   all: unset;
+  cursor: pointer;
 }
 a:link {
   text-decoration: none;
