@@ -61,3 +61,8 @@ export default function ImageCard({ isAutoPlay, postInfo, imageCardWidth }: Imag
     </Link>
   );
 }
+
+ImageCard.defaultProps = {
+  isAutoPlay: true,
+  imageCardWidth: 240,
+};
