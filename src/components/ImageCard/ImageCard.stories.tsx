@@ -20,7 +20,7 @@ const Template: ComponentStory<typeof ImageCard> = args => <ImageCard {...args} 
 export const autoplayTrueAndVideo = Template.bind({});
 autoplayTrueAndVideo.args = {
   isAutoPlay: true,
-  ImageCardWidth: 240,
+  imageCardWidth: 240,
   postInfo: {
     title: 'The Black Purral',
     thumbnailImageId: 'GGSA0v9',
