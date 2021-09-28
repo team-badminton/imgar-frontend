@@ -1,7 +1,6 @@
 import { pxToRem } from '@/util/styleUtils';
 import React from 'react';
 import styled from 'styled-components';
-
 import { SetDisplayProps } from './ImageCard.type';
 
 export const StyledArticle = styled.article<SetDisplayProps>`

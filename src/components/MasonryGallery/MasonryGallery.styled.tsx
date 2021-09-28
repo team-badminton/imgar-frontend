@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import ImageCard from '../ImageCard/ImageCard';
+import { ImageCard } from '@/components/index';
 import { SetPositionProps } from './MasonryGallery.type';
 
 export const StyledSection = styled.section`
