@@ -4,7 +4,7 @@ import { ImageCard } from '@/components/index';
 import { SetPositionProps } from './MasonryGallery.type';
 
 export const StyledSection = styled.section`
-  position: realative;
+  position: relative;
 `;
 
 export const StyledImageCard = styled(ImageCard)<SetPositionProps>`
