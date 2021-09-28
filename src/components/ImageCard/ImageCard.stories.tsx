@@ -13,7 +13,7 @@ export default {
       },
     },
   },
-};
+} as ComponentMeta<typeof ImageCard>;
 
 const Template: ComponentStory<typeof ImageCard> = args => <ImageCard {...args} />;
 
