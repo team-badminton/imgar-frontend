@@ -21,7 +21,7 @@ export default function ImageCard({ isAutoPlay, postInfo, imageCardWidth }: Imag
         display: inline-block;
       `}
     >
-      <StyledImageCard imageCardWidth={imageCardWidth}>
+      <StyledImageCard imageCardWidth={imageCardWidth} aria-labelledby={id}>
         <div
           css={`
             max-height: ${IMAGE_MAX_HEIGHT};
@@ -38,7 +38,7 @@ export default function ImageCard({ isAutoPlay, postInfo, imageCardWidth }: Imag
             <Video src={`https://i.imgur.com/${thumbnailImageId}_lq.mp4`} />
           )}
         </div>
-        <h3>
+        <h3 id={id}>
           {!isAutoPlay && thumbnail.type === 'video/mp4' && (
             <em>{thumbnail.hasSound ? 'Has Sound' : 'Has No Sound'}</em>
           )}
