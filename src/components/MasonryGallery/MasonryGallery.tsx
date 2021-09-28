@@ -19,7 +19,7 @@ export default function MasonryGallery(): ReactElement {
 
   const postInfos: PostInfos = {};
   interface PostInfos {
-    [key: string]: {positionX: number, positionY:number}};
+    [key: string]: { positionX: number; positionY: number };
   }
 
   const ROW_NUM = 3;
