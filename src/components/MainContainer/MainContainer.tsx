@@ -1,6 +1,4 @@
-import { useTypedSelector } from '@/redux';
-import { scrollSelector } from '@/redux/slices/displayReducer';
-import React, { ReactElement, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { ReactElement, useLayoutEffect, useRef, useState } from 'react';
 import Logo from '../Logo/Logo';
 import Search from '../Search/Search';
 import { ContainerWrapper, HeaderContainer, HeaderCover, MainSection } from './MainContainer.styled';
@@ -20,20 +18,21 @@ export default function MainContainer({
   const [showCustomHeader, setShowCustomHeader] = useState(false);
   const [threshold, setThreshold] = useState(0);
 
-  useEffect(() => {
-    setThreshold(headerCoverRef.current.getBoundingClientRect().height - BODY_OFFSET - HEADER_HEIGHT * 2);
-  }, []);
+  useLayoutEffect(() => {
+    setThreshold(
+      headerCover ? headerCoverRef.current?.getBoundingClientRect().height - BODY_OFFSET - HEADER_HEIGHT * 2 : 0,
+    );
+  }, [headerCover]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     mainSectionRef.current.style.top = `${threshold + HEADER_HEIGHT * 2}px`;
     function handleScroll(): void {
       const scrollOffset = window.pageYOffset;
       const headerPosition =
         scrollOffset > threshold ? Math.max(-HEADER_HEIGHT, (scrollOffset - threshold) * (headerCover ? -1 : -3)) : 0;
       const coverPosition = scrollOffset < threshold ? -((BODY_OFFSET / threshold) * scrollOffset) : -BODY_OFFSET;
-      console.log(threshold);
-      console.log(scrollOffset);
       const isOverThreshold = scrollOffset >= (threshold + HEADER_HEIGHT) / (headerCover ? 1 : 3);
+
       setShowCustomHeader(isOverThreshold);
 
       headerCoverRef.current.style.position = isOverThreshold ? 'fixed' : 'absolute';
@@ -44,7 +43,7 @@ export default function MainContainer({
 
       headerContainerRef.current.style.top = isOverThreshold ? '0' : `${headerPosition}px`;
     }
-
+    handleScroll();
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [headerCover, threshold]);

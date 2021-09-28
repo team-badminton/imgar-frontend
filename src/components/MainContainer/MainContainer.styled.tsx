@@ -13,7 +13,7 @@ export const HeaderCover = styled.header<HeaderCoverProps>`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
   ${({ headerBackground, theme }) =>
     headerBackground
       ? `
