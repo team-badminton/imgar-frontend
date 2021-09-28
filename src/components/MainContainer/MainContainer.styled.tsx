@@ -13,7 +13,7 @@ export const HeaderCover = styled.header<HeaderCoverProps>`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
   ${({ headerBackground, theme }) =>
     headerBackground
       ? `
@@ -44,4 +44,8 @@ export const HeaderContainer = styled.div<HeaderContainerProps>`
   height: ${({ headerHeight }) => pxToRem(headerHeight)};
   padding: 0 ${pxToRem(15)};
   z-index: 1;
+`;
+
+export const MainSection = styled.main`
+  position: relative;
 `;

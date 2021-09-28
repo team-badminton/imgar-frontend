@@ -1,9 +1,7 @@
-import { useTypedSelector } from '@/redux';
-import { scrollSelector } from '@/redux/slices/displayReducer';
 import React, { ReactElement, useLayoutEffect, useRef, useState } from 'react';
 import Logo from '../Logo/Logo';
 import Search from '../Search/Search';
-import { ContainerWrapper, HeaderContainer, HeaderCover } from './MainContainer.styled';
+import { ContainerWrapper, HeaderContainer, HeaderCover, MainSection } from './MainContainer.styled';
 import { HeaderProps } from './MainContainer.type';
 
 export default function MainContainer({
@@ -12,41 +10,55 @@ export default function MainContainer({
   customHeader,
   headerCover,
 }: HeaderProps): ReactElement {
-  const scrollOffset = useTypedSelector(scrollSelector);
-  const [threshold, setThreshold] = useState(0);
   const headerCoverRef = useRef<HTMLDivElement>(null);
+  const headerContainerRef = useRef<HTMLDivElement>(null);
+  const mainSectionRef = useRef<HTMLDivElement>(null);
   const BODY_OFFSET = 75;
   const HEADER_HEIGHT = 70;
+  const [showCustomHeader, setShowCustomHeader] = useState(false);
+  const [threshold, setThreshold] = useState(0);
 
   useLayoutEffect(() => {
     setThreshold(
-      headerCover
-        ? Math.max(headerCoverRef.current?.getBoundingClientRect().height - BODY_OFFSET - HEADER_HEIGHT * 2)
-        : 0,
+      headerCover ? headerCoverRef.current?.getBoundingClientRect().height - BODY_OFFSET - HEADER_HEIGHT * 2 : 0,
     );
-  }, []);
+  }, [headerCover]);
 
-  const headerPosition =
-    scrollOffset > threshold ? Math.max(-HEADER_HEIGHT, (scrollOffset - threshold) * (headerCover ? -1 : -3)) : 0;
-  const coverPosition = scrollOffset < threshold ? -((BODY_OFFSET / threshold) * scrollOffset) : -BODY_OFFSET;
-  const isShowCustomHeader = scrollOffset > (threshold + HEADER_HEIGHT) / (headerCover ? 1 : 3);
+  useLayoutEffect(() => {
+    mainSectionRef.current.style.top = `${threshold + HEADER_HEIGHT * 2}px`;
+    function handleScroll(): void {
+      const scrollOffset = window.pageYOffset;
+      const headerPosition =
+        scrollOffset > threshold ? Math.max(-HEADER_HEIGHT, (scrollOffset - threshold) * (headerCover ? -1 : -3)) : 0;
+      const coverPosition = scrollOffset < threshold ? -((BODY_OFFSET / threshold) * scrollOffset) : -BODY_OFFSET;
+      const isOverThreshold = scrollOffset >= (threshold + HEADER_HEIGHT) / (headerCover ? 1 : 3);
+
+      setShowCustomHeader(isOverThreshold);
+
+      headerCoverRef.current.style.position = isOverThreshold ? 'fixed' : 'absolute';
+      headerCoverRef.current.style.top = isOverThreshold ? null : `${coverPosition}px`;
+      headerCoverRef.current.style.height = isOverThreshold ? `${HEADER_HEIGHT}px` : null;
+      headerCoverRef.current.style.zIndex = isOverThreshold ? '1' : null;
+      headerCoverRef.current.style.background = isOverThreshold ? null : headerCover ? null : 'transparent';
+
+      headerContainerRef.current.style.top = isOverThreshold ? '0' : `${headerPosition}px`;
+    }
+    handleScroll();
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [headerCover, threshold]);
 
   return (
     <ContainerWrapper gradient={!headerCover}>
       <HeaderCover
         headerBackground={!!headerCover && headerBackground}
-        style={
-          isShowCustomHeader
-            ? { position: 'fixed', height: HEADER_HEIGHT, zIndex: 1 }
-            : { top: coverPosition, position: 'absolute', background: headerCover ? null : 'transparent' }
-        }
         headerHeight={HEADER_HEIGHT}
         ref={headerCoverRef}
-        hasShadow={isShowCustomHeader}
+        hasShadow={showCustomHeader}
       >
-        {isShowCustomHeader ? null : headerCover || <div style={{ height: 70 }} />}
-        <HeaderContainer style={{ top: isShowCustomHeader ? 0 : headerPosition }} headerHeight={HEADER_HEIGHT}>
-          {isShowCustomHeader && customHeader ? (
+        {showCustomHeader ? null : headerCover || <div style={{ height: 70 }} />}
+        <HeaderContainer headerHeight={HEADER_HEIGHT} ref={headerContainerRef}>
+          {showCustomHeader && customHeader ? (
             customHeader
           ) : (
             <>
@@ -56,7 +68,7 @@ export default function MainContainer({
           )}
         </HeaderContainer>
       </HeaderCover>
-      <div style={{ position: 'relative', top: threshold + HEADER_HEIGHT * 2 }}>{children}</div>
+      <MainSection ref={mainSectionRef}>{children}</MainSection>
     </ContainerWrapper>
   );
 }
