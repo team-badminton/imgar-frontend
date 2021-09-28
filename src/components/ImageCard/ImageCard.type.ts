@@ -7,7 +7,7 @@ export interface SetDisplayProps {
 }
 
 export interface ImageCardProps {
+  isAutoPlay: boolean;
   postInfo: PostInfo;
-  isAutoPlay?: boolean;
-  imageCardWidth?: string | number;
+  imageCardWidth: string | number;
 }
