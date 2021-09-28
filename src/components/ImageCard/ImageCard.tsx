@@ -11,7 +11,6 @@ import { Link } from 'react-router-dom';
 export default function ImageCard({ isAutoPlay, postInfo, imageCardWidth }: ImageCardProps): ReactElement {
   const thumbnail = postInfo.images[0];
   const { id, thumbnailImageId, thumbnailWidth, title, upCount, downCount, commentCount, views } = postInfo;
-  const ALT_TEXT = '사용자 혹은 AI가 작성한 이미지에 대한 구체적인 설명';
   const IMAGE_MAX_HEIGHT = pxToRem(400);
 
   return (
@@ -30,7 +29,7 @@ export default function ImageCard({ isAutoPlay, postInfo, imageCardWidth }: Imag
         >
           {!isAutoPlay || thumbnail.type === 'image/jpeg' ? (
             <Image
-              alt={ALT_TEXT}
+              alt=""
               objectFit="contain"
               src={`https://i.imgur.com/${thumbnailImageId}_d.webp?maxwidth=${thumbnailWidth}&shape=thumb&fidelity=high`}
             />
