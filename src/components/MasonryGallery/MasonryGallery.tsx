@@ -28,7 +28,6 @@ export default function MasonryGallery(): ReactElement {
             const row = Math.floor(index / ROW_NUM);
             const col = index % ROW_NUM;
             const objectKey = '' + row + col;
-            console.log(objectKey, postInfos);
             const prevRowObjectKey = '' + (row - 1) + col;
             const prevColObjectKey = '' + row + (col - 1);
             const myPositionX = postInfos[prevColObjectKey]
@@ -38,7 +37,12 @@ export default function MasonryGallery(): ReactElement {
             postInfos[objectKey] = {
               positionX: myPositionX,
               positionY:
-                myPositionY + 48 + 28.8 + (postInfo.thumbnailHeight * IMAGECARD_WIDTH) / postInfo.thumbnailWidth,
+                myPositionY +
+                48 +
+                28.8 +
+                ((postInfo.thumbnailHeight * IMAGECARD_WIDTH) / postInfo.thumbnailWidth > 400
+                  ? 400
+                  : (postInfo.thumbnailHeight * IMAGECARD_WIDTH) / postInfo.thumbnailWidth),
             };
             return (
               <StyledImageCard
