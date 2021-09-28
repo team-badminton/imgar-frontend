@@ -39,12 +39,8 @@ export default function ImageCard({ className, isAutoPlay, postInfo, imageCardWi
             <Video src={`https://i.imgur.com/${thumbnailImageId}_lq.mp4`} />
           )}
         </div>
-        <h3>
-          {!isAutoPlay && thumbnail.type === 'video/mp4' && (
-            <em>{thumbnail.hasSound ? 'Has Sound' : 'Has No Sound'}</em>
-          )}
-          {title}
-        </h3>
+        {!isAutoPlay && thumbnail.type === 'video/mp4' && <em>{thumbnail.hasSound ? 'Has Sound' : 'Has No Sound'}</em>}
+        <h3>{title}</h3>
         <StyledFooter>
           <div>
             <UpIconSVG />
