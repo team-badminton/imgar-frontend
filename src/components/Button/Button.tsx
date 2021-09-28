@@ -25,6 +25,7 @@ export default function Button({
 
   return (
     <StyledButton
+      as={!to && 'a'}
       $backgroundColor={backgroundColor}
       className={className}
       $color={color}
