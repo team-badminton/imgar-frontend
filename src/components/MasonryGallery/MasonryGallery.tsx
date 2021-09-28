@@ -16,7 +16,12 @@ export default function MasonryGallery(): ReactElement {
   const handleToggle = () => {
     dispatch(toggleAutoPlay());
   };
-  const postInfos: any = {};
+
+  const postInfos: PostInfos = {};
+  interface PostInfos {
+    [key: string]: {positionX: number, positionY:number}};
+  }
+
   const ROW_NUM = 3;
   return (
     <>
