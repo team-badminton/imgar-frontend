@@ -8,7 +8,7 @@ import { ImageCardProps } from './ImageCard.type';
 import { pxToRem } from '@/util/styleUtils';
 import { Link } from 'react-router-dom';
 
-export default function ImageCard({ isAutoPlay, postInfo, imageCardWidth }: ImageCardProps): ReactElement {
+export default function ImageCard({ className, isAutoPlay, postInfo, imageCardWidth }: ImageCardProps): ReactElement {
   const thumbnail = postInfo.images[0];
   const { id, thumbnailImageId, thumbnailWidth, title, upCount, downCount, commentCount, views } = postInfo;
   const ALT_TEXT = '사용자 혹은 AI가 작성한 이미지에 대한 구체적인 설명';
@@ -16,6 +16,7 @@ export default function ImageCard({ isAutoPlay, postInfo, imageCardWidth }: Imag
 
   return (
     <Link
+      className={className}
       to={`gallery/${id}`}
       css={`
         display: inline-block;
