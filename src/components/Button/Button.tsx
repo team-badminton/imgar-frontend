@@ -9,8 +9,8 @@ import { ButtonProps } from './Button.type';
 export default function Button({
   alt,
   backgroundColor,
-  className,
   color,
+  className,
   fontSize,
   size,
   hoverBackgroundColor,
@@ -52,7 +52,3 @@ export default function Button({
     </StyledButton>
   );
 }
-
-Button.defaultProps = {
-  color: 'white',
-};

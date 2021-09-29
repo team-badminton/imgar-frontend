@@ -4,8 +4,6 @@ import { DefaultTheme } from 'styled-components';
 export interface StyledButtonProps {
   /** 버튼의 크기를 설정할 수 있습니다. size는 height를 결정하며, width는 auto 입니다.*/
   size: 'small' | 'medium' | 'large';
-  /** 버튼의 border-radius를 설정할 수 있습니다. */
-  borderRadius?: string;
   /** 버튼의 배경색을 설정할 수 있습니다. */
   $backgroundColor: Extract<keyof DefaultTheme['color'], string>;
   /** 버튼의 글자색을 설정할 수 있습니다. */
