@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import { ReactComponent as UpIconSVG } from '@/assets/Icon/upIcon.svg';
 import { ReactComponent as CommentIconSVG } from '@/assets/Icon/commentIcon.svg';
 import { ReactComponent as ViewIconSVG } from '@/assets/Icon/viewIcon.svg';
-import { Image, Video } from '..';
+import { Picture, Video } from '..';
 import { StyledArticle, StyledDiv, StyledFooter } from './ImageCard.styled';
 import { ImageCardProps } from './ImageCard.type';
 import { Link } from 'react-router-dom';
@@ -22,7 +22,7 @@ export default function ImageCard({ className, isAutoPlay, postInfo, imageCardWi
       <StyledArticle imageCardWidth={imageCardWidth}>
         <StyledDiv>
           {!isAutoPlay || thumbnail.type === 'image/jpeg' || thumbnail.type === 'image/png' ? (
-            <Image
+            <Picture
               alt=""
               objectFit="contain"
               src={`https://i.imgur.com/${thumbnailImageId}_d.webp?maxwidth=${thumbnailWidth}&shape=thumb&fidelity=high`}

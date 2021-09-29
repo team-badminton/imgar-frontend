@@ -1,11 +1,11 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import Image from './Image';
+import Picture from './Picture';
 
 export default {
-  title: 'Components/Image',
-  component: Image,
+  title: 'Components/Picture',
+  component: Picture,
   parameters: {
     docs: {
       description: {
@@ -16,9 +16,9 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof Image>;
+} as ComponentMeta<typeof Picture>;
 
-const Template: ComponentStory<typeof Image> = args => <Image {...args} />;
+const Template: ComponentStory<typeof Picture> = args => <Picture {...args} />;
 
 export const IdImage = Template.bind({});
 IdImage.args = {
