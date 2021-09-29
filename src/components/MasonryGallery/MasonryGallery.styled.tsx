@@ -8,14 +8,14 @@ export const StyledSection = styled.section`
   position: relative;
 `;
 
-export const IMAGECARD_WIDTH = 240;
+export const IMAGECARD_WIDTH_PX = 240;
 export const LAYOUT_TOTAL_COLUMN_NUM = 3;
 
 export const StyledImageCard = styled(ImageCard)<StyledImageCardProps>`
   position: absolute;
   transform: translate3d(
-    ${({ setPositionProps }) => setPositionProps.column * IMAGECARD_WIDTH + 'px'},
-    ${({ setPositionProps }) => setPositionProps.row * 77 + setPositionProps.sumOfImageHeight + 'px'},
+    ${({ setPositionProps }) => setPositionProps.column * IMAGECARD_WIDTH_PX + 'px'},
+    ${({ setPositionProps }) => setPositionProps.row * 77 + setPositionProps.sumOfAboveImageHeightPx + 'px'},
     0
   );
 `;

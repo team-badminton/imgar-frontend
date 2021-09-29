@@ -6,7 +6,7 @@ import { RootState } from '@/redux';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { useGalleryQuery } from '@/redux/api/v3';
 import { PostInfo } from '@/redux/storeTypes';
-import { IMAGECARD_WIDTH, LAYOUT_TOTAL_COLUMN_NUM, StyledImageCard, StyledSection } from './MasonryGallery.styled';
+import { IMAGECARD_WIDTH_PX, LAYOUT_TOTAL_COLUMN_NUM, StyledImageCard, StyledSection } from './MasonryGallery.styled';
 import { SetPositionProps } from './MasonryGallery.type';
 
 export default function MasonryGallery(): ReactElement {
@@ -32,27 +32,28 @@ export default function MasonryGallery(): ReactElement {
             const column = index % LAYOUT_TOTAL_COLUMN_NUM;
             const objectKey = '' + row + column;
             const aboveImageCardObjectKey = '' + (row - 1) + column;
-            const sumOfAboveImageHeight = ImageCardPositionInfos[aboveImageCardObjectKey]
-              ? ImageCardPositionInfos[aboveImageCardObjectKey].sumOfImageHeight
+            const sumOfAboveImageHeightPx = ImageCardPositionInfos[aboveImageCardObjectKey]
+              ? ImageCardPositionInfos[aboveImageCardObjectKey].sumOfImageHeightPx
               : 0;
 
             ImageCardPositionInfos[objectKey] = {
               column,
               row,
-              sumOfImageHeight:
-                sumOfAboveImageHeight +
-                ((postInfo.thumbnailHeight * IMAGECARD_WIDTH) / postInfo.thumbnailWidth > 400
+              sumOfAboveImageHeightPx,
+              sumOfImageHeightPx:
+                sumOfAboveImageHeightPx +
+                ((postInfo.thumbnailHeight * IMAGECARD_WIDTH_PX) / postInfo.thumbnailWidth > 400
                   ? 400
-                  : (postInfo.thumbnailHeight * IMAGECARD_WIDTH) / postInfo.thumbnailWidth),
+                  : (postInfo.thumbnailHeight * IMAGECARD_WIDTH_PX) / postInfo.thumbnailWidth),
             };
 
             return (
               <StyledImageCard
-                setPositionProps={{ ...ImageCardPositionInfos[objectKey], sumOfImageHeight: sumOfAboveImageHeight }}
+                setPositionProps={{ ...ImageCardPositionInfos[objectKey] }}
                 key={postInfo.id}
                 isAutoPlay={isAutoPlay}
                 postInfo={postInfo}
-                imageCardWidth={IMAGECARD_WIDTH}
+                imageCardWidth={IMAGECARD_WIDTH_PX}
               />
             );
           })}
