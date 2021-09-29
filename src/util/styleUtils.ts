@@ -4,6 +4,10 @@ export function pxToRem(px: number | string): string {
   return parseInt(px as string) / 16 + 'rem';
 }
 
+export function widthConvertor(width: number | string): string {
+  return typeof width === 'number' ? pxToRem(width) : width;
+}
+
 export const a11yHidden = css`
   overflow: hidden;
   position: absolute;
