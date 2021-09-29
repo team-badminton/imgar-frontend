@@ -1,4 +1,5 @@
 import useThrottle from '@/hooks/useThrottle';
+import { a11yHidden } from '@/util/styleUtils';
 import React, { ReactElement, useCallback, useImperativeHandle, useRef, useState } from 'react';
 import { useHistory } from 'react-router';
 import { SearchBarButton, SearchBarContainer, SearchBarInput } from './SearchBar.styled';
@@ -12,7 +13,7 @@ export default React.forwardRef(function SearchBar(
   const history = useHistory();
   const inputRef = useRef<HTMLInputElement>();
 
-  const throttledSetSearchQuery = useThrottle(onQueryChange, throttleTime ?? 1000);
+  const throttledSetSearchQuery = useThrottle(onQueryChange, throttleTime ?? 500, { leading: false });
   const onChangeHandler = useCallback(
     e => {
       throttledSetSearchQuery(e.target.value);
@@ -41,14 +42,23 @@ export default React.forwardRef(function SearchBar(
 
   return (
     <SearchBarContainer onSubmit={onSubmitHandler}>
+      <label
+        htmlFor="search-bar-input"
+        css={`
+          ${a11yHidden}
+        `}
+      >
+        Search Posts, Tags, Users
+      </label>
       <SearchBarInput
+        id="search-bar-input"
         type="text"
         placeholder={placeholder}
         value={inputValue ?? ''}
         onChange={onChangeHandler}
         ref={inputRef}
       />
-      <SearchBarButton type="submit" aria-label="Submit Button" />
+      <SearchBarButton type="submit" aria-label="Submit" />
     </SearchBarContainer>
   );
 });

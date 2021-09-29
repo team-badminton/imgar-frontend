@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { pxToRem } from '@/util/styleUtils';
-import { SuggestThumbnailProps } from './SuggestList.type';
+import { a11yHidden as a11yHiddenCss, pxToRem } from '@/util/styleUtils';
+import { SuggestListHeadingProps, SuggestThumbnailProps } from './SuggestList.type';
 
 export const SuggestThumbnail = styled.div<SuggestThumbnailProps>`
   background: url(${props => props.src}) no-repeat center center / cover;
@@ -22,39 +22,44 @@ export const SuggestContainer = styled.div`
   padding: ${({ theme }) => theme.spaceSize.s};
   padding-bottom: ${({ theme }) => theme.spaceSize.l};
   color: ${({ theme }) => theme.color.lightGray};
-  h3 {
-    padding-left: ${({ theme }) => theme.spaceSize.m};
-    font-size: ${({ theme }) => theme.fontSize.xs};
-    text-transform: uppercase;
+`;
+
+export const SuggestListUlHeading = styled.h3<SuggestListHeadingProps>`
+  padding-left: ${({ theme }) => theme.spaceSize.m};
+  font-size: ${({ theme }) => theme.fontSize.xs};
+  text-transform: uppercase;
+  ${({ a11yHidden }) => (a11yHidden ? a11yHiddenCss : '')}
+`;
+
+export const SuggestListUl = styled.ul`
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  &:not(:last-child) {
+    margin-bottom: ${({ theme }) => theme.spaceSize.xl};
   }
-  ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    &:not(:last-child) {
-      margin-bottom: ${({ theme }) => theme.spaceSize.xl};
+`;
+
+export const SuggestListLi = styled.li`
+  margin: 0;
+  a {
+    display: flex;
+    align-items: center;
+    min-height: ${pxToRem(40)};
+    padding: ${({ theme }) => theme.spaceSize.xs};
+    padding-left: ${({ theme }) => theme.spaceSize.m};
+    color: ${({ theme }) => theme.color.lightGray};
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.3);
     }
-    li {
-      margin: 0;
-      a {
-        display: flex;
-        align-items: center;
-        min-height: ${pxToRem(40)};
-        padding: ${({ theme }) => theme.spaceSize.xs};
-        padding-left: ${({ theme }) => theme.spaceSize.m};
-        color: ${({ theme }) => theme.color.lightGray};
-        &:hover {
-          background-color: rgba(255, 255, 255, 0.3);
-        }
-      }
-      strong {
-        color: ${({ theme }) => theme.color.white};
-      }
-      span {
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-      }
-    }
+  }
+  strong {
+    color: ${({ theme }) => theme.color.white};
+  }
+  span {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-wrap: break-word;
   }
 `;

@@ -8,12 +8,19 @@ export default React.memo(function Search(): ReactElement {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [searchQueryOption, setSearchQueryOption] = useState<'all' | 'tag' | 'user'>('all');
   const [focus, setFocus] = useState<boolean>(false);
+  const [keyword, setKeyword] = useState<string>('');
   const location = useLocation();
   const clearInputRef = useRef<{ clearInput: () => void }>();
 
+  const { data, isSuccess } = useSuggestQuery(searchQuery.replace(/^[@#]/, ''), {
+    skip: !searchQuery && !focus,
+  });
+
+  console.log(isSuccess);
+
   useEffect(() => {
     setFocus(false);
-    clearInputRef.current.clearInput();
+    clearInputRef?.current.clearInput();
   }, [location.pathname]);
 
   useEffect(() => {
@@ -24,19 +31,52 @@ export default React.memo(function Search(): ReactElement {
     } else {
       setSearchQueryOption('all');
     }
-  }, [searchQuery]);
+    setKeyword(searchQuery.replace(/^[@#]/, ''));
+  }, [data]);
 
-  const { data } = useSuggestQuery(searchQuery.replace(/^[@#]/, ''), { skip: !searchQuery && !focus });
+  const isShowSuggestList =
+    !!searchQuery && focus && !!(data?.posts?.length || data?.users?.length || data?.tags?.length);
+
+  const keyboardHandler: React.KeyboardEventHandler<HTMLDivElement> = e => {
+    if (isShowSuggestList) {
+      const anchorArray = Array.from(e.currentTarget.querySelectorAll<HTMLAnchorElement>('li > a'));
+
+      const currentAnchorIndex = anchorArray.findIndex(li => li === document.activeElement);
+
+      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+        e.preventDefault();
+        if (currentAnchorIndex === -1) {
+          anchorArray[0].focus();
+        }
+        if (currentAnchorIndex === anchorArray.length - 1) {
+          return;
+        }
+        anchorArray[currentAnchorIndex + 1].focus();
+      }
+      if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+        e.preventDefault();
+        if (currentAnchorIndex <= 0) {
+          e.currentTarget.querySelector('input')?.focus();
+          return;
+        }
+        anchorArray[currentAnchorIndex - 1].focus();
+      }
+    }
+  };
 
   return (
     <SearchContainer
       className="search-container"
-      onFocusCapture={() => setFocus(true)}
-      onBlurCapture={e => {
-        if (!e.nativeEvent.relatedTarget) {
+      onFocus={() => {
+        setFocus(true);
+      }}
+      onBlur={e => {
+        const relatedTarget = e.relatedTarget;
+        if (!e.currentTarget.contains(relatedTarget as Node)) {
           setFocus(false);
         }
       }}
+      onKeyDown={keyboardHandler}
     >
       <SearchBar
         placeholder="Images, #tags, @users oh my!"
@@ -44,9 +84,9 @@ export default React.memo(function Search(): ReactElement {
         setFocus={setFocus}
         ref={clearInputRef}
       />
-      {!!searchQuery && focus && !!(data?.posts?.length || data?.users?.length || data?.tags?.length) && (
+      {isShowSuggestList && (
         <SuggestList
-          keyword={searchQuery.replace(/^[@#]/, '')}
+          keyword={keyword}
           posts={searchQueryOption === 'all' ? data?.posts : []}
           tags={searchQueryOption !== 'user' ? data?.tags : []}
           users={searchQueryOption !== 'tag' ? data?.users : []}
