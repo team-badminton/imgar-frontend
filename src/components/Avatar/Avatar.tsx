@@ -91,7 +91,3 @@ export default function Avatar({ username, size, transScaleImage, infoRows, meta
     </StyledAvatar>
   );
 }
-
-Avatar.defaultProps = {
-  size: 'medium',
-};
