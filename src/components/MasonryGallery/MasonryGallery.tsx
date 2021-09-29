@@ -6,10 +6,10 @@ import { RootState } from '@/redux';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { useGalleryQuery } from '@/redux/api/v3';
 import { PostInfo } from '@/redux/storeTypes';
-import { StyledImageCard, StyledSection } from './MasonryGallery.styled';
+import { IMAGECARD_WIDTH, LAYOUT_TOTAL_COLUMN_NUM, StyledImageCard, StyledSection } from './MasonryGallery.styled';
+import { SetPositionProps } from './MasonryGallery.type';
 
 export default function MasonryGallery(): ReactElement {
-  const IMAGECARD_WIDTH = 240;
   const isAutoPlay = useSelector((state: RootState) => state.listInfo.autoPlay);
   const { data: posts } = useGalleryQuery({});
   const dispatch = useDispatch();
@@ -17,12 +17,13 @@ export default function MasonryGallery(): ReactElement {
     dispatch(toggleAutoPlay());
   };
 
-  const postInfos: PostInfos = {};
-  interface PostInfos {
-    [key: string]: { positionX: number; positionY: number };
-  }
+  const ImageCardPositionInfos: {
+    [key: string]: SetPositionProps;
+  } = {};
+  //currentColumn: number;
+  // sumOfAboveImagesHeight: number;
+  // sumOfAboveImagesNum: number;
 
-  const ROW_NUM = 3;
   return (
     <>
       <button onClick={handleToggle}>toggle</button>
@@ -30,29 +31,27 @@ export default function MasonryGallery(): ReactElement {
         {/* 비동기니까 ?. 혹은 &&을 해줘야한다. */}
         {posts &&
           posts.map((postInfo, index) => {
-            const row = Math.floor(index / ROW_NUM);
-            const col = index % ROW_NUM;
-            const objectKey = '' + row + col;
-            const prevRowObjectKey = '' + (row - 1) + col;
-            const prevColObjectKey = '' + row + (col - 1);
-            const myPositionX = postInfos[prevColObjectKey]
-              ? postInfos[prevColObjectKey].positionX + IMAGECARD_WIDTH
-              : IMAGECARD_WIDTH;
-            const myPositionY = postInfos[prevRowObjectKey] ? postInfos[prevRowObjectKey].positionY : 0;
-            postInfos[objectKey] = {
-              positionX: myPositionX,
-              positionY:
-                myPositionY +
-                48 +
-                28.8 +
+            const row = Math.floor(index / LAYOUT_TOTAL_COLUMN_NUM);
+            const column = index % LAYOUT_TOTAL_COLUMN_NUM;
+            const objectKey = '' + row + column;
+            const aboveImageCardObjectKey = '' + (row - 1) + column;
+            const sumOfAboveImageHeight = ImageCardPositionInfos[aboveImageCardObjectKey]
+              ? ImageCardPositionInfos[aboveImageCardObjectKey].sumOfImageHeight
+              : 0;
+
+            ImageCardPositionInfos[objectKey] = {
+              column,
+              row,
+              sumOfImageHeight:
+                sumOfAboveImageHeight +
                 ((postInfo.thumbnailHeight * IMAGECARD_WIDTH) / postInfo.thumbnailWidth > 400
                   ? 400
                   : (postInfo.thumbnailHeight * IMAGECARD_WIDTH) / postInfo.thumbnailWidth),
             };
+
             return (
               <StyledImageCard
-                positionX={myPositionX}
-                positionY={myPositionY}
+                setPositionProps={{ ...ImageCardPositionInfos[objectKey], sumOfImageHeight: sumOfAboveImageHeight }}
                 key={postInfo.id}
                 isAutoPlay={isAutoPlay}
                 postInfo={postInfo}
