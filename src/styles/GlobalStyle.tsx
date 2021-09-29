@@ -23,6 +23,10 @@ body *::after {
   box-sizing: inherit;
 }
 
+:focus {
+  outline:3px solid ${({ theme }) => theme.color.white}; 
+  outline-offset: ${pxToRem(2)};
+}
 
 a,
 a:hover,

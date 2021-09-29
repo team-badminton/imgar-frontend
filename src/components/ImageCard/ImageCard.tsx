@@ -7,12 +7,19 @@ import { StyledArticle, StyledDiv, StyledFooter } from './ImageCard.styled';
 import { ImageCardProps } from './ImageCard.type';
 import { Link } from 'react-router-dom';
 
-export default function ImageCard({ className, isAutoPlay, postInfo, imageCardWidth }: ImageCardProps): ReactElement {
+export default function ImageCard({
+  style,
+  className,
+  isAutoPlay,
+  postInfo,
+  imageCardWidth,
+}: ImageCardProps): ReactElement {
   const thumbnail = postInfo.images[0];
   const { id, thumbnailImageId, thumbnailWidth, title, upCount, downCount, commentCount, views } = postInfo;
 
   return (
     <Link
+      style={style}
       className={className}
       to={`gallery/${id}`}
       css={`
