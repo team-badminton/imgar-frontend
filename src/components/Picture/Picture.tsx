@@ -47,6 +47,7 @@ export default function Picture({
             src={imageSrc}
             alt={alt}
             style={style}
+            loading="lazy"
           />
         );
       })}
