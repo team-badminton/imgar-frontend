@@ -12,9 +12,6 @@ import {
   FOOTER__FONT_SIZE,
 } from '@/components/ImageCard/ImageCard.styled';
 
-const COLUMN_GAP__PX = 15;
-const ROW_GAP__PX = 20;
-
 const addRems = (rems: string[]): string => {
   return (
     rems
@@ -29,6 +26,8 @@ export const StyledSection = styled.section`
 
 export const IMAGECARD_WIDTH_PX = 240;
 export const LAYOUT_TOTAL_COLUMN_NUM = 3;
+const COLUMN_GAP__PX = 15;
+const ROW_GAP__PX = 20;
 
 export const StyledImageCard = styled(ImageCard)<StyledImageCardProps>`
   position: absolute;
