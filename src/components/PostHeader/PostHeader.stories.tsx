@@ -20,7 +20,11 @@ const Template: ComponentStory<typeof PostHeader> = args => <PostHeader {...args
 
 export const Default = Template.bind({});
 Default.args = {
-  title: 'Default',
-  userName: 'fJTUK',
-  extraInfos: ['15,252 Views', '3h', 'via Android'],
+  title: 'Cute Cat',
+  username: 'thatonegirl81',
+  metaInfos: {
+    views: 15252,
+    time: 3000,
+    platform: 'Android',
+  },
 };
