@@ -1,5 +1,5 @@
-export { default as Avatar } from './Avatar/Avatar';
 export { default as Button } from './Button/Button';
+export { default as Avatar } from './Avatar/Avatar';
 export { default as Image } from './Image/Image';
 export { default as PostHeader } from './PostHeader/PostHeader';
 export * from './Image/Image.type';
