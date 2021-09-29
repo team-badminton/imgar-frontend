@@ -6,7 +6,6 @@ import { Picture, Video } from '..';
 import { StyledArticle, StyledDiv, StyledFooter } from './ImageCard.styled';
 import { ImageCardProps } from './ImageCard.type';
 import { Link } from 'react-router-dom';
-import { IMAGECARD_WIDTH_PX } from '../MasonryGallery/MasonryGallery.styled';
 
 export default function ImageCard({
   style,
@@ -33,7 +32,7 @@ export default function ImageCard({
             <Picture
               alt=""
               objectFit="contain"
-              imageWidth={IMAGECARD_WIDTH_PX}
+              imageWidth={imageCardWidth}
               src={`https://i.imgur.com/${thumbnailImageId}_d.webp?maxwidth=${thumbnailWidth}&shape=thumb&fidelity=high`}
             />
           ) : (
