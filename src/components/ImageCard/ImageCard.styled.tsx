@@ -12,13 +12,12 @@ const addRems = (rems: string[]): string => {
   );
 };
 
-const H3__FONT_SIZE = 's';
-const H3_LINE_HEIGHT = 1.5;
-const H3_PADDING_TOP__SPACE_SIZE = 's';
-const FOOTER_PADDING_TOP__SPACE_SIZE = 'm';
-const FOOTER_PADDING_BOTTOM__SPACE_SIZE = FOOTER_PADDING_TOP__SPACE_SIZE;
-const FOOTER__FONT_SIZE = 'xs';
-
+export const H3__FONT_SIZE = 's';
+export const H3_LINE_HEIGHT = 1.5;
+export const H3_PADDING_TOP__SPACE_SIZE = 's';
+export const FOOTER_PADDING_TOP__SPACE_SIZE = 'm';
+export const FOOTER_PADDING_BOTTOM__SPACE_SIZE = FOOTER_PADDING_TOP__SPACE_SIZE;
+export const FOOTER__FONT_SIZE = 'xs';
 export const IMAGE_MAX_HEIGHT_PX = 400;
 
 export const StyledArticle = styled.article<SetDisplayProps>`
