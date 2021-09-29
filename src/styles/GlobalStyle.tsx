@@ -7,6 +7,7 @@ const GlobalStyledComponent = createGlobalStyle`
 body {
   margin: 0;
   padding: 0;
+  min-height: 100vh;
   background-color:${({ theme }) => theme.color.backgroundGray};
 }
 
@@ -22,6 +23,7 @@ body *::after {
   box-sizing: inherit;
 }
 
+
 a,
 a:hover,
 a:focus,
@@ -29,6 +31,7 @@ a:active {
   text-decoration: none;
   color: inherit;
 }
+
 
 ul{
   margin: 0;
