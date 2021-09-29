@@ -6,9 +6,6 @@ import Image from './Image';
 export default {
   title: 'Components/Image',
   component: Image,
-  args: {
-    id: 'AD3MbBi',
-  },
   parameters: {
     docs: {
       description: {
@@ -24,15 +21,21 @@ export default {
 const Template: ComponentStory<typeof Image> = args => <Image {...args} />;
 
 export const IdImage = Template.bind({});
+IdImage.args = {
+  imageId: 'AD3MbBi',
+  alt: '',
+};
 
 export const SrcImage = Template.bind({});
 SrcImage.args = {
   src: 'https://i.imgur.com/AD3MbBi.jpg?&fidelity=grand',
+  imageWidth: 500,
+  alt: '',
 };
 
 export const CircleImage = Template.bind({});
 CircleImage.args = {
   isCircle: true,
-  width: '100px',
+  imageWidth: '100px',
   src: 'https://imgur.com/user/yeongjong/avatar',
 };

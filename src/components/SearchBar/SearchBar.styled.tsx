@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { pxToRem } from '@/util/styleUtils';
 import searchIconUrl from './assets/icon-search.svg';
+import React from 'react';
 
 export const SearchBarContainer = styled.form`
   position: absolute;
@@ -18,13 +19,13 @@ export const SearchBarContainer = styled.form`
   }
 `;
 
-export const SearchBarButton = styled.button`
+export const SearchBarButton = React.memo(styled.button`
   appearance: none;
   border: none;
   background: url(${searchIconUrl}) no-repeat center / contain;
   height: 100%;
   width: ${({ theme }) => theme.spaceSize.l};
-`;
+`);
 
 export const SearchBarInput = styled.input`
   width: 100%;

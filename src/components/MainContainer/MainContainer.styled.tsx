@@ -1,6 +1,6 @@
 import { pxToRem } from '@/util/styleUtils';
 import styled from 'styled-components';
-import { ContainerWrapperProps, HeaderContainerProps, HeaderCoverProps } from './MainContainer.type';
+import { ContainerWrapperProps, HeaderCoverProps } from './MainContainer.type';
 
 export const ContainerWrapper = styled.div<ContainerWrapperProps>`
   ${({ theme, gradient }) =>
@@ -14,10 +14,12 @@ export const HeaderCover = styled.header<HeaderCoverProps>`
   flex-direction: column;
   justify-content: center;
   align-items: stretch;
-  ${({ headerBackground, theme }) =>
+  ${({ headerBackground, darkenBackground, theme }) =>
     headerBackground
       ? `
-  background-image: url(${headerBackground});
+  background-image: ${
+    darkenBackground ? `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), ` : ''
+  }url(${headerBackground});
   background-size: cover;
   background-position: bottom;
   `
@@ -34,15 +36,10 @@ export const HeaderCover = styled.header<HeaderCoverProps>`
   padding-top: ${({ headerHeight }) => pxToRem(headerHeight)};
 `;
 
-export const HeaderContainer = styled.div<HeaderContainerProps>`
-  position: fixed;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+export const HeaderContainer = styled.div`
+  position: absolute;
   top: 0;
   width: 100%;
-  height: ${({ headerHeight }) => pxToRem(headerHeight)};
-  padding: 0 ${pxToRem(15)};
   z-index: 1;
 `;
 
