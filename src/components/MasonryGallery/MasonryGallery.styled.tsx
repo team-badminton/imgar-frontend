@@ -1,7 +1,7 @@
-import React from 'react';
+// import React from 'react';
 import styled from 'styled-components';
 import { ImageCard } from '@/components/index';
-import { SetPositionProps, StyledImageCardProps } from './MasonryGallery.type';
+import { StyledImageCardProps } from './MasonryGallery.type';
 import { pxToRem } from '@/util/styleUtils';
 import {
   H3__FONT_SIZE,
@@ -10,7 +10,6 @@ import {
   FOOTER_PADDING_TOP__SPACE_SIZE,
   FOOTER_PADDING_BOTTOM__SPACE_SIZE,
   FOOTER__FONT_SIZE,
-  IMAGE_MAX_HEIGHT_PX,
 } from '@/components/ImageCard/ImageCard.styled';
 
 const addRems = (rems: string[]): string => {

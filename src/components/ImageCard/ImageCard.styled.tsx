@@ -1,8 +1,8 @@
-import { pxToRem } from '@/util/styleUtils';
-import { takeWhile } from 'lodash';
-import React from 'react';
+// import { takeWhile } from 'lodash';
+// import React from 'react';
 import styled from 'styled-components';
 import { SetDisplayProps } from './ImageCard.type';
+import { pxToRem } from '@/util/styleUtils';
 
 const addRems = (rems: string[]): string => {
   return (

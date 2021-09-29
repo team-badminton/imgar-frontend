@@ -1,11 +1,9 @@
 import React, { ReactElement } from 'react';
-import ImageCard from '@/components/ImageCard/ImageCard';
 import { toggleAutoPlay } from '@/redux/slices/listInfoReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/redux';
-import { useHistory, useLocation, useParams } from 'react-router-dom';
+// import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { useGalleryQuery } from '@/redux/api/v3';
-import { PostInfo } from '@/redux/storeTypes';
 import { IMAGE_MAX_HEIGHT_PX } from '@/components/ImageCard/ImageCard.styled';
 import { IMAGECARD_WIDTH_PX, LAYOUT_TOTAL_COLUMN_NUM, StyledImageCard, StyledSection } from './MasonryGallery.styled';
 import { SetPositionProps } from './MasonryGallery.type';
