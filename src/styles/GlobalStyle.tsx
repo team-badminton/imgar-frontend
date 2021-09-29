@@ -6,6 +6,7 @@ const GlobalStyledComponent = createGlobalStyle`
 body {
   margin: 0;
   padding: 0;
+  min-height: 100vh;
   background-color:${({ theme }) => theme.color.backgroundGray};
 }
 
@@ -22,18 +23,21 @@ body *::after {
 }
 
 a {
-  all: unset;
-  cursor: pointer;
+  color: inherit;
 }
+
 a:link {
   text-decoration: none;
 }
+
 a:visited {
   text-decoration: none;
 }
+
 a:active {
   text-decoration: none;
 }
+
 a:hover {
   text-decoration: none;
 }
