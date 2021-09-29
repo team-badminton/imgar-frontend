@@ -44,7 +44,7 @@ export default React.forwardRef(function SearchBar(
       <SearchBarInput
         type="text"
         placeholder={placeholder}
-        value={inputValue}
+        value={inputValue ?? ''}
         onChange={onChangeHandler}
         ref={inputRef}
       />
