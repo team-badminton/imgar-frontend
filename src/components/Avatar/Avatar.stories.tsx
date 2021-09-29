@@ -94,7 +94,66 @@ scaleUp.args = {
   type: 'medium',
   metaInfos: {
     views: 1000,
-    time: 1000,
+    time: 1632796682 - 3600 * 24,
+    platform: 'Android',
+  },
+  infoRows: 2,
+  transScaleImage: 1.1,
+};
+
+const TIME_UNIT = {
+  m: 60000,
+  h: 3600000,
+  d: 3600000 * 24,
+  M: 3600000 * 24 * 30,
+};
+
+export const uploadedTimeAMinuteAgo = Template.bind({});
+
+uploadedTimeAMinuteAgo.args = {
+  type: 'medium',
+  metaInfos: {
+    views: 1000,
+    time: (+new Date() - TIME_UNIT.m) / 1000,
+    platform: 'Android',
+  },
+  infoRows: 2,
+  transScaleImage: 1.1,
+};
+
+export const uploadedTimeOverAnHour = Template.bind({});
+
+uploadedTimeOverAnHour.args = {
+  type: 'medium',
+  metaInfos: {
+    views: 1000,
+    time: (+new Date() - TIME_UNIT.h) / 1000,
+    platform: 'Android',
+  },
+  infoRows: 2,
+  transScaleImage: 1.1,
+};
+
+export const uploadedTimeOverADay = Template.bind({});
+
+uploadedTimeOverADay.args = {
+  type: 'medium',
+  metaInfos: {
+    views: 1000,
+    time: (+new Date() - TIME_UNIT.d) / 1000,
+    platform: 'Android',
+  },
+  infoRows: 2,
+  transScaleImage: 1.1,
+};
+
+export const uploadedTimeOverAMonth = Template.bind({});
+
+uploadedTimeOverAMonth.args = {
+  type: 'medium',
+  metaInfos: {
+    views: 1000,
+    time: (+new Date() - TIME_UNIT.M) / 1000,
     platform: 'Android',
   },
   infoRows: 2,
