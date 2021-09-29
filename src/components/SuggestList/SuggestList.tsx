@@ -91,7 +91,7 @@ export default React.memo(function SuggestList({ users, posts, tags, keyword }: 
               leftIcon={<SuggestThumbnail src={`https://imgur.com/user/${user.name}/avatar?maxwidth=290`} isCircle />}
               prefix="@"
             >
-              {user.name}{' '}
+              {user.name}
             </SuggestListLi>
           ))}
         </SuggestListUl>
