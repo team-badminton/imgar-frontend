@@ -20,9 +20,6 @@ export default function MasonryGallery(): ReactElement {
   const ImageCardPositionInfos: {
     [key: string]: SetPositionProps;
   } = {};
-  //currentColumn: number;
-  // sumOfAboveImagesHeight: number;
-  // sumOfAboveImagesNum: number;
 
   return (
     <>
