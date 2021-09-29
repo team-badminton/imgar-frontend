@@ -7,8 +7,8 @@ export interface AvatarProps {
   infoRows: 1 | 2;
   /** Avatar의 메타정보를 입력합니다. */
   metaInfos: {
-    views?: string;
-    time: string;
+    views?: number;
+    time: number;
     platform?: 'Android' | 'Iphone' | 'Web';
   };
   /** 호버되었을 때 이미지가 scale되는 비율을 설정합니다. */
