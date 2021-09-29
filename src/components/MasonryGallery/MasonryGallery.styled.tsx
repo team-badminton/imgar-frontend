@@ -12,6 +12,9 @@ import {
   FOOTER__FONT_SIZE,
 } from '@/components/ImageCard/ImageCard.styled';
 
+const COLUMN_GAP__PX = 15;
+const ROW_GAP__PX = 20;
+
 const addRems = (rems: string[]): string => {
   return (
     rems
@@ -30,7 +33,7 @@ export const LAYOUT_TOTAL_COLUMN_NUM = 3;
 export const StyledImageCard = styled(ImageCard)<StyledImageCardProps>`
   position: absolute;
   transform: translate3d(
-    ${({ setPositionProps }) => pxToRem(setPositionProps.column * IMAGECARD_WIDTH_PX)},
+    ${({ setPositionProps }) => pxToRem(setPositionProps.column * (IMAGECARD_WIDTH_PX + COLUMN_GAP__PX))},
     ${({ setPositionProps, theme }) => {
       const h3Height = addRems([
         theme.spaceSize[H3_PADDING_TOP__SPACE_SIZE],
@@ -41,9 +44,11 @@ export const StyledImageCard = styled(ImageCard)<StyledImageCardProps>`
         theme.fontSize[FOOTER__FONT_SIZE],
         theme.spaceSize[FOOTER_PADDING_BOTTOM__SPACE_SIZE],
       ]);
-      const imageCardHeightExcludingImage = addRems([h3Height, FooterHeight]);
+      const imageCardHeightExcludingImageRem = addRems([h3Height, FooterHeight]);
       return addRems([
-        setPositionProps.row * Number(imageCardHeightExcludingImage.replace('rem', '')) + 'rem',
+        setPositionProps.row *
+          Number(addRems([imageCardHeightExcludingImageRem, pxToRem(ROW_GAP__PX)]).replace('rem', '')) +
+          'rem',
         pxToRem(setPositionProps.sumOfAboveImageHeightPx),
       ]);
     }},
