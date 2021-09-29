@@ -3,7 +3,7 @@ import { LogoContainer } from './Logo.styled';
 import { LogoProps } from './Logo.type';
 import { ReactComponent as LogoSvg } from './assets/imgarLogo.svg';
 import logoPng from './assets/imgarLogoIcon.png';
-import { Image } from '..';
+import { Picture } from '..';
 import { a11yHidden } from '@/util/styleUtils';
 import { Link } from 'react-router-dom';
 
@@ -18,7 +18,7 @@ function Logo({ as, icon, to }: LogoProps): ReactElement {
         >
           Imgar Logo
         </span>
-        {icon ? <Image src={logoPng} /> : <LogoSvg />}
+        {icon ? <Picture src={logoPng} /> : <LogoSvg />}
       </LogoContainer>
     </Link>
   ) : (
@@ -30,7 +30,7 @@ function Logo({ as, icon, to }: LogoProps): ReactElement {
       >
         Imgar Logo
       </span>
-      {icon ? <Image src={logoPng} /> : <LogoSvg />}
+      {icon ? <Picture src={logoPng} /> : <LogoSvg />}
     </LogoContainer>
   );
 }
