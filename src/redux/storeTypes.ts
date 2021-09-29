@@ -34,7 +34,7 @@ export interface TagInfo {
 export interface ImageInfo {
   id: string;
   description: string | null;
-  type: 'image/jpeg' | 'video/mp4';
+  type: 'image/jpeg' | 'image/png' | 'video/mp4';
   hasSound: boolean;
   imageWidth: number;
   imageHeight: number;

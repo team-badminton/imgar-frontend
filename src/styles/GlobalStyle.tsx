@@ -1,3 +1,4 @@
+import { pxToRem } from '@/util/styleUtils';
 import React, { ReactElement } from 'react';
 import { createGlobalStyle } from 'styled-components';
 import { Normalize } from 'styled-normalize';
@@ -22,24 +23,30 @@ body *::after {
   box-sizing: inherit;
 }
 
-a {
+
+a,
+a:hover,
+a:focus,
+a:active {
+  text-decoration: none;
   color: inherit;
 }
 
-a:link {
-  text-decoration: none;
+
+ul{
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
 }
 
-a:visited {
-  text-decoration: none;
-}
-
-a:active {
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: none;
+button {
+	background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
 }
 `;
 

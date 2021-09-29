@@ -1,10 +1,26 @@
-import { pxToRem } from '@/util/styleUtils';
-import React from 'react';
+// import { takeWhile } from 'lodash';
+// import React from 'react';
 import styled from 'styled-components';
-
 import { SetDisplayProps } from './ImageCard.type';
+import { pxToRem } from '@/util/styleUtils';
 
-export const StyledImageCard = styled.article<SetDisplayProps>`
+const addRems = (rems: string[]): string => {
+  return (
+    rems
+      .map((rem: string) => Number(rem.replace('rem', '')))
+      .reduce((pre: number, cur: number): number => pre + cur, 0) + 'rem'
+  );
+};
+
+export const H3__FONT_SIZE = 's';
+export const H3_LINE_HEIGHT = 1.5;
+export const H3_PADDING_TOP__SPACE_SIZE = 's';
+export const FOOTER_PADDING_TOP__SPACE_SIZE = 'm';
+export const FOOTER_PADDING_BOTTOM__SPACE_SIZE = FOOTER_PADDING_TOP__SPACE_SIZE;
+export const FOOTER__FONT_SIZE = 'xs';
+export const IMAGE_MAX_HEIGHT_PX = 400;
+
+export const StyledArticle = styled.article<SetDisplayProps>`
   width: ${({ imageCardWidth }) =>
     imageCardWidth && typeof imageCardWidth === 'number'
       ? imageCardWidth + 'px'
@@ -32,22 +48,27 @@ export const StyledImageCard = styled.article<SetDisplayProps>`
   }
   h3 {
     color: ${({ theme }) => theme.color.white};
-    font-size: ${({ theme }) => theme.fontSize.s};
+    font-size: ${({ theme }) => theme.fontSize[H3__FONT_SIZE]};
     margin: 0 auto;
-    padding: ${({ theme }) => theme.spaceSize.s} ${({ theme }) => theme.spaceSize.m} 0;
+    padding: ${({ theme }) => theme.spaceSize[H3_PADDING_TOP__SPACE_SIZE]} ${({ theme }) => theme.spaceSize.m} 0;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     word-break: break-all;
-    line-height: 1.5;
+    line-height: ${H3_LINE_HEIGHT};
+    position: absolute;
+    bottom: ${({ theme }) => addRems([theme.fontSize.xs, theme.spaceSize.m, theme.spaceSize.m])};
+    background: ${({ theme }) => theme.color.darkGray};
+    width: 100%;
   }
   em {
     position: absolute;
     top: ${({ theme }) => theme.spaceSize.s};
     right: ${({ theme }) => theme.spaceSize.s};
     background: ${({ theme }) => theme.color.primaryColor};
+    color: ${({ theme }) => theme.color.white};
     font-style: normal;
     padding: ${({ theme }) => theme.spaceSize.xs} ${({ theme }) => theme.spaceSize.s};
     border-radius: ${({ theme }) => theme.borderRadius.s};
@@ -55,12 +76,23 @@ export const StyledImageCard = styled.article<SetDisplayProps>`
   }
 `;
 
-export const StyledImageCardFooter = styled.footer`
+export const StyledDiv = styled.div`
+  max-height: ${pxToRem(IMAGE_MAX_HEIGHT_PX)};
+  overflow: hidden;
+`;
+
+export const StyledFooter = styled.footer`
   display: flex;
   justify-content: space-around;
   color: ${({ theme }) => theme.color.lightGray};
-  font-size: ${({ theme }) => theme.fontSize.xs};
-  padding: ${({ theme }) => theme.spaceSize.m} 0;
+  font-size: ${({ theme }) => theme.fontSize[FOOTER__FONT_SIZE]};
+  padding-top: ${({ theme }) =>
+    addRems([
+      theme.spaceSize[H3_PADDING_TOP__SPACE_SIZE],
+      Number(theme.fontSize[H3__FONT_SIZE].replace('rem', '')) * H3_LINE_HEIGHT + 'rem',
+      theme.spaceSize[FOOTER_PADDING_TOP__SPACE_SIZE],
+    ])};
+  padding-bottom: ${({ theme }) => theme.spaceSize[FOOTER_PADDING_BOTTOM__SPACE_SIZE]};
   div {
     display: flex;
     align-items: center;
