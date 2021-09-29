@@ -19,7 +19,7 @@ const FOOTER_PADDING_TOP__SPACE_SIZE = 'm';
 const FOOTER_PADDING_BOTTOM__SPACE_SIZE = FOOTER_PADDING_TOP__SPACE_SIZE;
 const FOOTER__FONT_SIZE = 'xs';
 
-export const IMAGE_MAX_HEIGHT = pxToRem(400);
+export const IMAGE_MAX_HEIGHT_PX = 400;
 
 export const StyledArticle = styled.article<SetDisplayProps>`
   width: ${({ imageCardWidth }) =>
@@ -78,7 +78,7 @@ export const StyledArticle = styled.article<SetDisplayProps>`
 `;
 
 export const StyledDiv = styled.div`
-  max-height: ${IMAGE_MAX_HEIGHT};
+  max-height: ${pxToRem(IMAGE_MAX_HEIGHT_PX)};
   overflow: hidden;
 `;
 

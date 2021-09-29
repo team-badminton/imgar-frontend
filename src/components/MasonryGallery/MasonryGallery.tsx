@@ -6,6 +6,7 @@ import { RootState } from '@/redux';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { useGalleryQuery } from '@/redux/api/v3';
 import { PostInfo } from '@/redux/storeTypes';
+import { IMAGE_MAX_HEIGHT_PX } from '@/components/ImageCard/ImageCard.styled';
 import { IMAGECARD_WIDTH_PX, LAYOUT_TOTAL_COLUMN_NUM, StyledImageCard, StyledSection } from './MasonryGallery.styled';
 import { SetPositionProps } from './MasonryGallery.type';
 
@@ -42,8 +43,8 @@ export default function MasonryGallery(): ReactElement {
               sumOfAboveImageHeightPx,
               sumOfImageHeightPx:
                 sumOfAboveImageHeightPx +
-                ((postInfo.thumbnailHeight * IMAGECARD_WIDTH_PX) / postInfo.thumbnailWidth > 400
-                  ? 400
+                ((postInfo.thumbnailHeight * IMAGECARD_WIDTH_PX) / postInfo.thumbnailWidth > IMAGE_MAX_HEIGHT_PX
+                  ? IMAGE_MAX_HEIGHT_PX
                   : (postInfo.thumbnailHeight * IMAGECARD_WIDTH_PX) / postInfo.thumbnailWidth),
             };
 

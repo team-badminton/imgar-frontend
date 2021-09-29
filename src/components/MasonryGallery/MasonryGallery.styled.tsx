@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { ImageCard } from '@/components/index';
 import { SetPositionProps, StyledImageCardProps } from './MasonryGallery.type';
-import { IMAGE_MAX_HEIGHT } from '@/components/ImageCard/ImageCard.styled';
 
 export const StyledSection = styled.section`
   position: relative;
