@@ -1,12 +1,11 @@
-import { pxToRem, widthConvertor } from '@/util/styleUtils';
-import React from 'react';
+import { widthConvertor } from '@/util/styleUtils';
 import styled from 'styled-components';
-
 import { StyledImageProps } from './Picture.type';
 
 export const StyledImage = styled.img<StyledImageProps>`
-  ${({ imageWidth }) => `width: ${widthConvertor(imageWidth)}`}
+  ${({ imageWidth }) => imageWidth && `width: ${widthConvertor(imageWidth)};`}
+  max-width: 100%;
   object-fit: ${({ objectFit }) => objectFit};
-  height: ${({ isCircle, width }) => (isCircle ? width : '')};
+  height: ${({ isCircle, imageWidth }) => (isCircle ? imageWidth : '')};
   border-radius: ${({ isCircle }) => (isCircle ? '50%' : '')};
 `;
