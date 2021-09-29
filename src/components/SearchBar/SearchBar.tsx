@@ -1,17 +1,16 @@
 import useThrottle from '@/hooks/useThrottle';
-import React, { ReactElement, useCallback, useState } from 'react';
+import React, { ReactElement, useCallback, useImperativeHandle, useRef, useState } from 'react';
 import { useHistory } from 'react-router';
 import { SearchBarButton, SearchBarContainer, SearchBarInput } from './SearchBar.styled';
 import { SearchBarProps } from './SearchBar.type';
 
-export default function SearchBar({
-  placeholder,
-  onQueryChange,
-  throttleTime,
-  setFocus,
-}: SearchBarProps): ReactElement {
-  const [inputValue, setInputValue] = useState('');
+export default React.forwardRef(function SearchBar(
+  { placeholder, onQueryChange, throttleTime }: SearchBarProps,
+  ref: React.Ref<{ clearInput: () => void } | HTMLInputElement>,
+): ReactElement {
+  const [inputValue, setInputValue] = useState<string>();
   const history = useHistory();
+  const inputRef = useRef<HTMLInputElement>();
 
   const throttledSetSearchQuery = useThrottle(onQueryChange, throttleTime ?? 1000);
   const onChangeHandler = useCallback(
@@ -22,14 +21,6 @@ export default function SearchBar({
     [setInputValue, throttledSetSearchQuery],
   );
 
-  const onFocusHandler = useCallback(() => {
-    setFocus(true);
-  }, [setFocus]);
-
-  const onBlurHandler = useCallback(() => {
-    setFocus(false);
-  }, [setFocus]);
-
   const onSubmitHandler = useCallback<React.FormEventHandler<HTMLFormElement>>(
     e => {
       e.preventDefault();
@@ -38,17 +29,26 @@ export default function SearchBar({
     [inputValue],
   );
 
+  const clearInput = useCallback(() => {
+    setInputValue('');
+    throttledSetSearchQuery('');
+    inputRef.current.blur();
+  }, []);
+
+  useImperativeHandle(ref, () => ({
+    clearInput,
+  }));
+
   return (
     <SearchBarContainer onSubmit={onSubmitHandler}>
       <SearchBarInput
         type="text"
         placeholder={placeholder}
-        value={inputValue}
+        value={inputValue ?? ''}
         onChange={onChangeHandler}
-        onFocus={onFocusHandler}
-        onBlur={onBlurHandler}
+        ref={inputRef}
       />
       <SearchBarButton type="submit" aria-label="Submit Button" />
     </SearchBarContainer>
   );
-}
+});
