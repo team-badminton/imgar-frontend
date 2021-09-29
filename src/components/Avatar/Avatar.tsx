@@ -1,45 +1,93 @@
 import React, { ReactElement } from 'react';
 
 // components
-import { Image } from '../../components';
+import { Image } from '@/components';
 import { ReactComponent as Present } from '@/assets/Button/present-box.svg';
+import { Link } from 'react-router-dom';
 
 // styles
-import { StyledAvatar, Info, MetaInfo, UserInfo } from './Avatar.styled';
+import { GiveEmeraldButton, Info, MetaInfo, Platform, StyledAvatar, UserInfo } from './Avatar.styled';
 
 // types
 import { AvatarProps } from '@/components/Avatar/Avatar.type';
-import Button from '../Button/Button';
-import { Link } from 'react-router-dom';
 
-export default function Avatar({ className, infoLines, userName, size, extraInfos, to }: AvatarProps): ReactElement {
+// utils
+import { pxToRem } from '@/util/styleUtils';
+import { formattedNumber } from '@/util/formatUtils';
+
+// libs
+import Moment from 'react-moment';
+
+export default function Avatar({ username, size, transScaleImage, infoRows, metaInfos }: AvatarProps): ReactElement {
+  const PROFILE_LINK = `user/${username}`;
+
+  const TIME_UNIT = {
+    Month: 3600000 * 24 * 30,
+  };
+  const CREATED_TIME = metaInfos.time * 1000;
+  const TIME_DIFF = +new Date() - CREATED_TIME;
+
   return (
-    <StyledAvatar className={className} infoLines={infoLines} size={size}>
-      <Link to={to}>
+    <StyledAvatar size={size} transScaleImage={transScaleImage}>
+      <Link to={PROFILE_LINK}>
         <Image
-          alt={`profile image of ${userName}`}
+          alt={`profile image of ${username}`}
           isCircle
-          src={`https://imgur.com/user/${userName}/avatar`}
-          imageWidth={size === 'small' ? 24 : size === 'medium' ? 32 : 155}
+          src={`https://imgur.com/user/${username}/avatar`}
+          imageWidth={size === 'medium' ? 32 : 24}
         />
       </Link>
       <Info>
-        <UserInfo to={to}>{userName}</UserInfo>
-        <MetaInfo size={size}>{extraInfos && extraInfos.map(str => <span key={str}>{str}</span>)}</MetaInfo>
-        <Button
-          className="give-emerald"
-          size={size === 'small' ? 'medium' : 'small'}
-          img={Present}
+        <UserInfo $infoRows={infoRows} to={PROFILE_LINK}>
+          {username}
+        </UserInfo>
+        <MetaInfo $infoRows={infoRows}>
+          <span
+            css={`
+              margin-left: ${infoRows === 1 && metaInfos?.views && pxToRem(5)};
+            `}
+          >
+            {metaInfos?.views && `${formattedNumber(metaInfos.views)} views`}
+          </span>
+          {TIME_DIFF > TIME_UNIT.Month ? (
+            <Moment date={CREATED_TIME} format={'MMM D YYYY'} />
+          ) : (
+            <Moment
+              date={CREATED_TIME}
+              filter={date => {
+                const [time, unit] = date.split(' ');
+                switch (unit) {
+                  case 'day':
+                    return '1d';
+                  case 'days':
+                    return time + 'd';
+                  case 'hour':
+                    return '1h';
+                  case 'hours':
+                    return time + 'h';
+                  case 'minute':
+                    return '1m';
+                  case 'minutes':
+                    return time + 'm';
+                  default:
+                    return '1m';
+                }
+              }}
+              fromNow
+            />
+          )}
+
+          <span>via {metaInfos?.platform && <Platform>{metaInfos.platform}</Platform>}</span>
+        </MetaInfo>
+        <GiveEmeraldButton
           alt="present box"
-          text="Give Emerald"
           backgroundColor="secondaryColor"
+          color="white"
+          img={Present}
+          size={size === 'small' ? 'medium' : 'small'}
+          text="Give Emerald"
         />
       </Info>
     </StyledAvatar>
   );
 }
-
-Avatar.defaultProps = {
-  infoLines: 2,
-  size: 'medium',
-};

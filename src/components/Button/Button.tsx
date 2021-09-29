@@ -25,15 +25,16 @@ export default function Button({
 
   return (
     <StyledButton
-      backgroundColor={backgroundColor}
+      as={!to && 'a'}
+      $backgroundColor={backgroundColor}
       className={className}
-      color={color}
+      $color={color}
       fontSize={fontSize}
       size={size}
       to={to}
-      role={!to && 'button'}
-      hoverBackgroundColor={hoverBackgroundColor}
-      hoverColor={hoverColor}
+      role={!to ? 'button' : null}
+      $hoverBackgroundColor={hoverBackgroundColor}
+      $hoverColor={hoverColor}
       onClick={onClick}
       style={style}
     >
@@ -53,7 +54,5 @@ export default function Button({
 }
 
 Button.defaultProps = {
-  backgroundColor: 'primaryColor',
   color: 'white',
-  size: 'medium',
 };

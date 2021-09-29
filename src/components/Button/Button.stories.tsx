@@ -34,16 +34,20 @@ export default {
       },
     },
   },
+  args: {
+    backgroundColor: 'primaryColor',
+    to: '#',
+  },
   argTypes: {
     hoverBackgroundColor: {
+      options: colorOptions,
       control: {
-        options: colorOptions,
         type: 'select',
       },
     },
     hoverColor: {
+      options: colorOptions,
       control: {
-        options: colorOptions,
         type: 'select',
       },
     },
@@ -116,11 +120,11 @@ export const AsLink = Template.bind({});
 AsLink.args = {
   text: 'Link',
   size: 'small',
-  to: '#',
 };
 
 export const AsButton = Template.bind({});
 AsButton.args = {
-  text: 'Link',
+  text: 'Button',
   size: 'small',
+  to: null,
 };
