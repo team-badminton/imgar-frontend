@@ -10,10 +10,22 @@ import { GiveEmeraldButton, Info, MetaInfo, Platform, StyledAvatar, UserInfo } f
 
 // types
 import { AvatarProps } from '@/components/Avatar/Avatar.type';
+
+// utils
 import { pxToRem } from '@/util/styleUtils';
+import { formattedNumber } from '@/util/formatUtils';
+
+// libs
+import Moment from 'react-moment';
 
 export default function Avatar({ username, size, transScaleImage, infoRows, metaInfos }: AvatarProps): ReactElement {
   const PROFILE_LINK = `user/${username}`;
+
+  const TIME_UNIT = {
+    Month: 3600000 * 24 * 30,
+  };
+  const CREATED_TIME = metaInfos.time * 1000;
+  const TIME_DIFF = +new Date() - CREATED_TIME;
 
   return (
     <StyledAvatar size={size} transScaleImage={transScaleImage}>
@@ -35,9 +47,36 @@ export default function Avatar({ username, size, transScaleImage, infoRows, meta
               margin-left: ${infoRows === 1 && metaInfos?.views && pxToRem(5)};
             `}
           >
-            {metaInfos?.views && `${metaInfos.views} views`}
+            {metaInfos?.views && `${formattedNumber(metaInfos.views)} views`}
           </span>
-          <span>{`${metaInfos?.time}`}</span>
+          {TIME_DIFF > TIME_UNIT.Month ? (
+            <Moment date={CREATED_TIME} format={'MMM D YYYY'} />
+          ) : (
+            <Moment
+              date={CREATED_TIME}
+              filter={date => {
+                const [time, unit] = date.split(' ');
+                switch (unit) {
+                  case 'day':
+                    return '1d';
+                  case 'days':
+                    return time + 'd';
+                  case 'hour':
+                    return '1h';
+                  case 'hours':
+                    return time + 'h';
+                  case 'minute':
+                    return '1m';
+                  case 'minutes':
+                    return time + 'm';
+                  default:
+                    return '1m';
+                }
+              }}
+              fromNow
+            />
+          )}
+
           <span>via {metaInfos?.platform && <Platform>{metaInfos.platform}</Platform>}</span>
         </MetaInfo>
         <GiveEmeraldButton
