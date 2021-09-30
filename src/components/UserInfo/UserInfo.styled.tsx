@@ -1,8 +1,8 @@
 import { pxToRem } from '@/util/styleUtils';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
-import { Image } from '..';
-import { ImageProps } from '../Image/Image.type';
+import { Picture } from '..';
+import { PictureProps } from '../Picture/Picture.type';
 
 export const UserInfoContainer = styled.div`
   height: 250px;
@@ -10,7 +10,9 @@ export const UserInfoContainer = styled.div`
   align-items: center;
 `;
 
-export const UserInfoAvatar = ({ src }: ImageProps): ReactElement => <Image width={128} isCircle src={src} />;
+export const UserInfoAvatar = ({ src }: Partial<PictureProps>): ReactElement => (
+  <Picture imageWidth={128} isCircle src={src} />
+);
 
 export const UserInfoDescription = styled.div`
   display: flex;
