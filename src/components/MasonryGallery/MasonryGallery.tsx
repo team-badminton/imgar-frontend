@@ -8,6 +8,7 @@ import { IMAGE_MAX_HEIGHT_PX } from '@/components/ImageCard/ImageCard.styled';
 import { IMAGECARD_WIDTH_PX, LAYOUT_TOTAL_COLUMN_NUM, StyledImageCard, StyledSection } from './MasonryGallery.styled';
 import { SetPositionProps } from './MasonryGallery.type';
 import { ReactComponent as AnimationPlayIconSVG } from '@/assets/Icon/animationPlayIcon.svg';
+import { DropDownList } from '@/components';
 
 export default function MasonryGallery(): ReactElement {
   const isAutoPlay = useSelector((state: RootState) => state.listInfo.autoPlay);
@@ -21,8 +22,11 @@ export default function MasonryGallery(): ReactElement {
     [key: string]: SetPositionProps;
   } = {};
 
+  const dropdowmItemList = ['MOST VIRAL', 'USER SUBMITTED', 'HIGHEST SCORING'];
+
   return (
     <>
+      <DropDownList dropdownHeader={dropdowmItemList[0]} dropdownItemList={dropdowmItemList} />
       <button onClick={handleToggle}>
         <AnimationPlayIconSVG />
       </button>
