@@ -29,7 +29,7 @@ export default function MainContainer({
     const computedCoverHeight = headerCoverRef.current?.getBoundingClientRect().height;
     setHeaderHeight(computedHeaderHeight);
     setCoverHeight(computedCoverHeight);
-  }, [headerCover]);
+  }, []);
 
   useLayoutEffect(() => {
     // 임계값을 계산 -> 임계값을 넘어가면 커스텀 헤더를 출력
@@ -87,7 +87,7 @@ export default function MainContainer({
     handleScroll();
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [headerCover, coverHeight, headerHeight]);
+  }, [coverHeight, headerHeight]);
 
   return (
     <ContainerWrapper gradient={!headerCover}>
