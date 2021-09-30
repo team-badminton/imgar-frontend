@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react';
-import { StyledImage } from './Image.styled';
-import { ImageProps } from './Image.type';
+import { StyledImage } from './Picture.styled';
+import { PictureProps } from './Picture.type';
 
-export default function Image({
+export default function Picture({
   alt,
   fidelity,
   isCircle,
@@ -11,7 +11,7 @@ export default function Image({
   src,
   style,
   imageWidth,
-}: ImageProps): ReactElement | never {
+}: PictureProps): ReactElement {
   if (!src && !imageId) throw new Error('imageId, src 중 한 가지는 필수로 입력해야 합니다.');
 
   if (src) {
@@ -37,7 +37,7 @@ export default function Image({
         const imageSrc = `${imgUrlWithoutExt}.${extension}${query}`;
 
         return index !== extensions.length - 1 ? (
-          <source key={extension} srcSet={imageSrc} />
+          <source key={extension} srcSet={imageSrc} type={`image/${extensions[index]}`} />
         ) : (
           <StyledImage
             imageWidth={imageWidth}
@@ -47,6 +47,7 @@ export default function Image({
             src={imageSrc}
             alt={alt}
             style={style}
+            loading="lazy"
           />
         );
       })}
@@ -54,7 +55,7 @@ export default function Image({
   );
 }
 
-Image.defaultProps = {
+Picture.defaultProps = {
   alt: '',
   objectFit: 'cover',
   isCircle: false,
