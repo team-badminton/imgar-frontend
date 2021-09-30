@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 
 // components
-import { Image } from '@/components';
+import { Picture } from '@/components';
 import { ReactComponent as Present } from '@/assets/Button/present-box.svg';
 import { Link } from 'react-router-dom';
 
@@ -30,7 +30,7 @@ export default function Avatar({ username, size, transScaleImage, infoRows, meta
   return (
     <StyledAvatar size={size} transScaleImage={transScaleImage}>
       <Link to={PROFILE_LINK}>
-        <Image
+        <Picture
           alt={`profile image of ${username}`}
           isCircle
           src={`https://imgur.com/user/${username}/avatar`}

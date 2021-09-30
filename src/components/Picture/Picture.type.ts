@@ -11,7 +11,7 @@ export interface StyledImageProps {
   isCircle?: boolean;
 }
 
-export interface ImageProps extends StyledImageProps {
+export interface PictureProps extends StyledImageProps {
   /** imageId는 image 리소스를 요청하기 위한 id(hash) 값 입니다. id와 매칭되는 image 데이터를 요청합니다. */
   imageId?: string;
   /** hash가 아닌 image가 위치하고 있는 url(src)을 주소를 통해 데이터를 요청합니다. */

@@ -7,6 +7,7 @@ export interface SetDisplayProps {
 }
 
 export interface ImageCardProps {
+  style?: React.CSSProperties;
   className?: string;
   isAutoPlay: boolean;
   postInfo: PostInfo;
