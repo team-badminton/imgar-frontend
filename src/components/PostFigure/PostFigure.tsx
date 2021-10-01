@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
 
-//styles
+// styles
 import { StyledFigure, StyledFigureCaption, StyledPicture } from './PostFigure.styled';
 
 // types
@@ -9,6 +9,9 @@ import { PostFigureProps } from './PostFigure.type';
 // hooks
 import useThrottle from '@/hooks/useThrottle';
 
+// etc
+import PortalsModal from '@/PortalsModal/PortalsModal';
+
 export default function PostFigure({
   imageId,
   orgImageWidth,
@@ -16,18 +19,23 @@ export default function PostFigure({
   description,
 }: PostFigureProps): ReactElement {
   const imageRef = useRef<HTMLImageElement>(null);
-  const [isZoomable, setIsZoomable] = useState(false);
+  const [isZoomAble, setIsZoomAble] = useState(false);
+  const [isVisibleModal, setIsVisibleModal] = useState(false);
 
   const handleResizeObserver = useThrottle((entries: ResizeObserverEntry[]) => {
-    const figureWidth = entries[0].borderBoxSize[0].inlineSize;
-    const figureHeight = entries[0].borderBoxSize[0].blockSize;
-    console.log(figureWidth, orgImageWidth, figureHeight, orgImageHeight);
-    if (figureWidth < orgImageWidth || figureHeight < orgImageHeight) {
-      setIsZoomable(true);
+    const imgWidth = entries[0].borderBoxSize[0].inlineSize;
+    const imgHeight = entries[0].borderBoxSize[0].blockSize;
+    console.log(imgWidth, imgHeight, orgImageHeight, orgImageWidth);
+    if (imgWidth < orgImageWidth || imgHeight < orgImageHeight) {
+      setIsZoomAble(true);
     } else {
-      setIsZoomable(false);
+      setIsZoomAble(false);
     }
   }, 500);
+
+  const handleToggleModal = () => {
+    setIsVisibleModal(!isVisibleModal);
+  };
 
   useEffect(() => {
     const resizeObserver = new ResizeObserver(handleResizeObserver);
@@ -40,24 +48,36 @@ export default function PostFigure({
   }, []);
 
   return (
-    <StyledFigure key={imageId}>
-      <StyledPicture isZoomable={isZoomable} ref={imageRef} imageId={imageId} />
-      <StyledFigureCaption key={imageId}>
-        {description
-          ?.split(/(https?:\/\/[\w\/\.\-_=\?\&#$]+)|(\n)/)
-          .filter(str => str)
-          .map((str, index) =>
-            str.includes('http') ? (
-              <a key={str + index} href={str} target="_blank" rel="noopener noreferrer">
-                {str}
-              </a>
-            ) : str === '\n' ? (
-              <br key={str + index} />
-            ) : (
-              <span key={str + index}>{str}</span>
-            ),
-          )}
-      </StyledFigureCaption>
-    </StyledFigure>
+    <>
+      <StyledFigure key={imageId}>
+        <StyledPicture
+          isZoomAble={isZoomAble}
+          ref={imageRef}
+          imageId={imageId}
+          onClick={isZoomAble ? handleToggleModal : null}
+        />
+        <StyledFigureCaption key={imageId}>
+          {description
+            ?.split(/(https?:\/\/[\w\/\.\-_=\?\&#$]+)|(\n)/)
+            .filter(str => str)
+            .map((str, index) =>
+              str.includes('http') ? (
+                <a key={str + index} href={str} target="_blank" rel="noopener noreferrer">
+                  {str}
+                </a>
+              ) : str === '\n' ? (
+                <br key={str + index} />
+              ) : (
+                <span key={str + index}>{str}</span>
+              ),
+            )}
+        </StyledFigureCaption>
+      </StyledFigure>
+      {isVisibleModal && (
+        <PortalsModal handleHide={handleToggleModal}>
+          <StyledPicture isVisibleModal={isVisibleModal} isZoomAble={isZoomAble} imageId={imageId} />
+        </PortalsModal>
+      )}
+    </>
   );
 }

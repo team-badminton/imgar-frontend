@@ -17,10 +17,18 @@ export default {
 
 const Template: ComponentStory<typeof PostFigure> = args => <PostFigure {...args} />;
 
-export const Default = Template.bind({});
-Default.args = {
+export const ZoomablePhoto = Template.bind({});
+ZoomablePhoto.args = {
+  imageId: 'AD3MbBi',
+  orgImageWidth: 10000,
+  orgImageHeight: 10000,
+  description: 'Non URI TEXT\n\nhttps://www.instagram.com/p/CBTjzNApIb6/?igshid=7cvtuawzabvw',
+};
+
+export const UnZoomablePhoto = Template.bind({});
+UnZoomablePhoto.args = {
   imageId: 'Ys263e0',
-  orgImageWidth: 1080,
-  orgImageHeight: 1080,
+  orgImageWidth: 1,
+  orgImageHeight: 1,
   description: 'Non URI TEXT\n\nhttps://www.instagram.com/p/CBTjzNApIb6/?igshid=7cvtuawzabvw',
 };

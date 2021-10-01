@@ -9,9 +9,6 @@ import { pxToRem } from '@/util/styleUtils';
 export const StyledFigure = styled.figure`
   width: 100%;
   margin: 0;
-  figcaption {
-    margin-bottom: ${({ theme }) => theme.spaceSize.l};
-  }
 `;
 
 export const StyledPicture = styled(Picture)<StyledPictureProps>`
@@ -19,12 +16,14 @@ export const StyledPicture = styled(Picture)<StyledPictureProps>`
   background-color: ${({ theme }) => theme.color.deepDarkGray};
   img {
     margin: 0 auto;
-    cursor: ${({ isZoomable }) => isZoomable && 'zoom-in'};
+    cursor: ${({ isZoomAble, isVisibleModal }) => (isVisibleModal && 'zoom-out') || (isZoomAble && 'zoom-in')};
     display: block;
   }
+  margin-bottom: ${({ theme }) => theme.spaceSize.l};
 `;
 
 export const StyledFigureCaption = styled.figcaption`
+  margin-bottom: ${({ theme }) => theme.spaceSize.l};
   color: ${({ theme }) => theme.color.white};
   display: inline-block;
   padding: 0 ${({ theme }) => theme.spaceSize.l};

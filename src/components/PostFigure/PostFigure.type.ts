@@ -12,5 +12,6 @@ export interface PostFigureProps {
 }
 
 export interface StyledPictureProps {
-  isZoomable: boolean;
+  isZoomAble: boolean;
+  isVisibleModal?: boolean;
 }
