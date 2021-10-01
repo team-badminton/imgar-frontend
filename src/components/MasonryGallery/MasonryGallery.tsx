@@ -12,9 +12,13 @@ import { displayMasonryGalleryWidth } from '@/redux/slices/displayReducer';
 export default function MasonryGallery(): ReactElement {
   const isAutoPlay = useSelector((state: RootState) => state.listInfo.autoPlay);
   const innerWidth = useSelector((state: RootState) => state.display.innerWidth);
-  const LAYOUT_TOTAL_COLUMN_NUM = Math.floor(
-    (innerWidth - 50 + COLUMN_GAP__PX) / (IMAGECARD_WIDTH_PX + COLUMN_GAP__PX),
+  const MAX_COLUMN_NUM = 9;
+  const MIN_MARGIN__PX = 50;
+  const COMPUTED_COLUMN_NUM = Math.floor(
+    (innerWidth - MIN_MARGIN__PX + COLUMN_GAP__PX) / (IMAGECARD_WIDTH_PX + COLUMN_GAP__PX),
   );
+  const LAYOUT_TOTAL_COLUMN_NUM = COMPUTED_COLUMN_NUM > MAX_COLUMN_NUM ? MAX_COLUMN_NUM : COMPUTED_COLUMN_NUM;
+
   const IMAGECARD_CONTAINER_WIDTH__PX =
     LAYOUT_TOTAL_COLUMN_NUM * (IMAGECARD_WIDTH_PX + COLUMN_GAP__PX) - COLUMN_GAP__PX;
   const { data: posts } = useGalleryQuery({});
