@@ -12,7 +12,7 @@ export default function MasonryGalleryHeader(): ReactElement {
     dispatch(toggleAutoPlay());
   };
   const masonryGalleryWidth = useSelector((state: RootState) => state.display.masonryGalleryWidth);
-
+  const MASONRY_GALLERY_HEADER_MIN_WIDTH__PX = 450;
   const categoryList = ['MOST VIRAL', 'USER SUBMITTED', 'HIGHEST SCORING'];
 
   const sortOptionList = ['NEWEST', 'POPULAR', 'BEST', 'RANDOM'];
@@ -24,6 +24,7 @@ export default function MasonryGalleryHeader(): ReactElement {
         justify-content: space-between;
         margin: 0 auto;
         width: ${pxToRem(masonryGalleryWidth)};
+        min-width: ${pxToRem(MASONRY_GALLERY_HEADER_MIN_WIDTH__PX)};
       `}
     >
       <div
