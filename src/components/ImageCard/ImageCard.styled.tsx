@@ -82,6 +82,7 @@ export const StyledArticle = styled.article<SetDisplayProps>`
 export const StyledDiv = styled.div<ImageContainerProps>`
   max-height: ${pxToRem(IMAGE_MAX_HEIGHT_PX)};
   overflow: hidden;
+  background: ${({ theme }) => theme.color.black};
   height: ${({ theme, layoutOption }) =>
     layoutOption === 'uniform'
       ? Number(pxToRem(IMAGECARD_UNIFORM_HEIGHT__PX).replace('rem', '')) -
