@@ -1,7 +1,7 @@
 import MainContainer from '@/components/MainContainer/MainContainer';
 import React, { ReactElement } from 'react';
 import { StyledHome } from './Home.styled';
-import { MasonryGallery } from '@/components/index';
+import { MasonryGallery, MasonryGalleryHeader } from '@/components/index';
 
 export default function Home(): ReactElement {
   return (
@@ -12,6 +12,7 @@ export default function Home(): ReactElement {
     >
       <StyledHome>
         {/* 실제 본문 내용 */}
+        <MasonryGalleryHeader />
         <MasonryGallery />
       </StyledHome>
     </MainContainer>
