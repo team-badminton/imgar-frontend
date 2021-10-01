@@ -1,4 +1,3 @@
-import { CSSProperties } from 'react';
 import { ImageInfo, TagInfo } from '@/redux/storeTypes';
 
 export interface StyledPostContentsProps {}
