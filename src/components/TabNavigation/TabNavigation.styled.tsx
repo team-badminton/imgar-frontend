@@ -5,6 +5,11 @@ import styled from 'styled-components';
 export const TabNavigationContainer = styled.nav`
   width: 100%;
   height: ${pxToRem(70)};
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
 `;
 
 export const TabNavigationList = styled.ul`
@@ -36,7 +41,7 @@ export const TabNavigationLink = styled(NavLink)`
       display: block;
       position: absolute;
       width: 100%;
-      height: ${pxToRem(2)};
+      height: ${pxToRem(0)};
       margin-top: ${({ theme }) => theme.spaceSize.s};
       border-radius: ${({ theme }) => theme.borderRadius.s};
       border: ${pxToRem(2)} solid ${({ theme }) => theme.color.white};
