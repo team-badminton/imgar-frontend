@@ -11,6 +11,8 @@ import {
   FOOTER_PADDING_BOTTOM__SPACE_SIZE,
   FOOTER__FONT_SIZE,
 } from '@/components/ImageCard/ImageCard.styled';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux';
 
 const addRems = (rems: string[]): string => {
   return (
@@ -25,8 +27,7 @@ export const StyledSection = styled.section`
 `;
 
 export const IMAGECARD_WIDTH_PX = 240;
-export const LAYOUT_TOTAL_COLUMN_NUM = 3;
-const COLUMN_GAP__PX = 15;
+export const COLUMN_GAP__PX = 15;
 const ROW_GAP__PX = 20;
 
 export const StyledImageCard = styled(ImageCard).attrs<StyledImageCardProps>(({ setPositionProps, theme }) => {

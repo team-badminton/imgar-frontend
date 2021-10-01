@@ -47,6 +47,7 @@ export interface DisplayInfo {
   innerWidth: number;
   innerHeight: number;
   scrollOffset: number;
+  masonryGalleryWidth: number;
 }
 
 export interface SuggestInfo {
