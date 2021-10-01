@@ -1,5 +1,7 @@
 export interface ListInfo {
   posts: PostInfo[];
+  category: string;
+  sortOption: string;
   autoPlay: boolean;
   layout: 'waterfall' | 'uniform';
 }
@@ -45,6 +47,7 @@ export interface DisplayInfo {
   innerWidth: number;
   innerHeight: number;
   scrollOffset: number;
+  masonryGalleryWidth: number;
 }
 
 export interface SuggestInfo {
