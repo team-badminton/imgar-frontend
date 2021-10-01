@@ -17,7 +17,7 @@ export interface PictureProps extends StyledImageProps {
   /** hash가 아닌 image가 위치하고 있는 url(src)을 주소를 통해 데이터를 요청합니다. */
   src?: string;
   /** 대체 텍스트를 설정할 수 있습니다. */
-  alt: string;
+  alt?: string;
   /** 이미지에 inline 스타일을 적용할 수 있습니다. */
   style?: CSSProperties;
 }
