@@ -1,7 +1,7 @@
 import MainContainer from '@/components/MainContainer/MainContainer';
 import React, { ReactElement } from 'react';
 import { StyledHome } from './Home.styled';
-import { MasonryGallery } from '@/components/index';
+import { MasonryGallery, MasonryGalleryHeader } from '@/components/index';
 
 export default function Home(): ReactElement {
   return (
@@ -11,7 +11,8 @@ export default function Home(): ReactElement {
       customHeader={<div>커스템 헤더에 들어갈 내용 테스트</div>}
     >
       <StyledHome>
-        실제 본문 내용
+        {/* 실제 본문 내용 */}
+        <MasonryGalleryHeader />
         <MasonryGallery />
       </StyledHome>
     </MainContainer>
