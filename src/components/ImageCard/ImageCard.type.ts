@@ -6,10 +6,15 @@ export interface SetDisplayProps {
   imageCardHeight?: string | number;
 }
 
+export interface ImageContainerProps {
+  layoutOption: 'waterfall' | 'uniform';
+}
+
 export interface ImageCardProps {
   style?: React.CSSProperties;
   className?: string;
   isAutoPlay: boolean;
   postInfo: PostInfo;
   imageCardWidth: string | number;
+  layoutOption: 'uniform' | 'waterfall';
 }

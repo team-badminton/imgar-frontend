@@ -9,6 +9,7 @@ import {
   FOOTER_PADDING_TOP__SPACE_SIZE,
   FOOTER_PADDING_BOTTOM__SPACE_SIZE,
   FOOTER__FONT_SIZE,
+  IMAGECARD_WIDTH_PX,
 } from '@/components/ImageCard/ImageCard.styled';
 
 const addRems = (rems: string[]): string => {
@@ -23,7 +24,6 @@ export const StyledSection = styled.section`
   position: relative;
 `;
 
-export const IMAGECARD_WIDTH_PX = 240;
 export const COLUMN_GAP__PX = 15;
 const ROW_GAP__PX = 20;
 

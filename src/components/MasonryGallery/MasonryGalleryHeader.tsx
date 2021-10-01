@@ -1,15 +1,19 @@
 import React, { ReactElement } from 'react';
-import { toggleAutoPlay } from '@/redux/slices/listInfoReducer';
+import { toggleAutoPlay, toggleView } from '@/redux/slices/listInfoReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactComponent as AnimationPlayIconSVG } from '@/assets/Icon/animationPlayIcon.svg';
+import { ReactComponent as UniformLayoutIconSVG } from '@/assets/Icon/uniformLayoutIcon.svg';
 import { DropDownList } from '@/components';
 import { RootState } from '@/redux';
 import { pxToRem } from '@/util/styleUtils';
 
 export default function MasonryGalleryHeader(): ReactElement {
   const dispatch = useDispatch();
-  const handleToggle = () => {
+  const handleAnimationToggle = () => {
     dispatch(toggleAutoPlay());
+  };
+  const handleLayoutToggle = () => {
+    dispatch(toggleView());
   };
   const masonryGalleryWidth = useSelector((state: RootState) => state.display.masonryGalleryWidth);
   const MASONRY_GALLERY_HEADER_MIN_WIDTH__PX = 450;
@@ -38,8 +42,11 @@ export default function MasonryGalleryHeader(): ReactElement {
         <DropDownList dropdownType="sortOption" dropdownItemList={sortOptionList} />
       </div>
       <div>
-        <button onClick={handleToggle}>
+        <button onClick={handleAnimationToggle}>
           <AnimationPlayIconSVG />
+        </button>
+        <button onClick={handleLayoutToggle}>
+          <UniformLayoutIconSVG />
         </button>
       </div>
     </div>

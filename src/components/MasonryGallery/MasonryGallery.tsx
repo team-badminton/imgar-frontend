@@ -2,8 +2,12 @@ import React, { ReactElement, useEffect } from 'react';
 // import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useGalleryQuery } from '@/redux/api/v3';
-import { IMAGE_MAX_HEIGHT_PX } from '@/components/ImageCard/ImageCard.styled';
-import { IMAGECARD_WIDTH_PX, COLUMN_GAP__PX, StyledImageCard, StyledSection } from './MasonryGallery.styled';
+import {
+  IMAGE_MAX_HEIGHT_PX,
+  IMAGECARD_WIDTH_PX,
+  IMAGECARD_UNIFORM_HEIGHT__PX,
+} from '@/components/ImageCard/ImageCard.styled';
+import { COLUMN_GAP__PX, StyledImageCard, StyledSection } from './MasonryGallery.styled';
 import { SetPositionProps } from './MasonryGallery.type';
 import { RootState } from '@/redux';
 import { pxToRem } from '@/util/styleUtils';
@@ -11,6 +15,7 @@ import { displayMasonryGalleryWidth } from '@/redux/slices/displayReducer';
 
 export default function MasonryGallery(): ReactElement {
   const isAutoPlay = useSelector((state: RootState) => state.listInfo.autoPlay);
+  const layoutOption = useSelector((state: RootState) => state.listInfo.layout);
   const innerWidth = useSelector((state: RootState) => state.display.innerWidth);
   const MAX_COLUMN_NUM = 9;
   const MIN_MARGIN__PX = 50;
@@ -56,9 +61,11 @@ export default function MasonryGallery(): ReactElement {
               sumOfAboveImageHeightPx,
               sumOfImageHeightPx:
                 sumOfAboveImageHeightPx +
-                ((postInfo.thumbnailHeight * IMAGECARD_WIDTH_PX) / postInfo.thumbnailWidth > IMAGE_MAX_HEIGHT_PX
-                  ? IMAGE_MAX_HEIGHT_PX
-                  : (postInfo.thumbnailHeight * IMAGECARD_WIDTH_PX) / postInfo.thumbnailWidth),
+                (layoutOption === 'waterfall'
+                  ? (postInfo.thumbnailHeight * IMAGECARD_WIDTH_PX) / postInfo.thumbnailWidth > IMAGE_MAX_HEIGHT_PX
+                    ? IMAGE_MAX_HEIGHT_PX
+                    : (postInfo.thumbnailHeight * IMAGECARD_WIDTH_PX) / postInfo.thumbnailWidth
+                  : IMAGECARD_UNIFORM_HEIGHT__PX),
             };
 
             return (
@@ -66,6 +73,7 @@ export default function MasonryGallery(): ReactElement {
                 setPositionProps={{ ...ImageCardPositionInfos[objectKey] }}
                 key={postInfo.id}
                 isAutoPlay={isAutoPlay}
+                layoutOption={layoutOption}
                 postInfo={postInfo}
                 imageCardWidth={IMAGECARD_WIDTH_PX}
               />
