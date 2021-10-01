@@ -1,3 +1,4 @@
+import { pxToRem } from '@/util/styleUtils';
 import styled from 'styled-components';
 
 export const StyledModal = styled.div`
@@ -13,4 +14,8 @@ export const StyledModal = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  img {
+    border: ${pxToRem(5)} solid #fff;
+    border-radius: ${({ theme }) => theme.borderRadius.xl};
+  }
 `;
