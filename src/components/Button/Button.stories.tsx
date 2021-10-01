@@ -1,7 +1,7 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { ReactComponent as Present } from '@/assets/Button/present-box.svg';
+import { ReactComponent as Present } from '@/assets/Icon/present-box.svg';
 
 // utils
 import { pxToRem } from '@/util/styleUtils';

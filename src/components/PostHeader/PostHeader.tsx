@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 
 // components
 import { Avatar } from '@/components';
-import { ReactComponent as ArrowIcon } from '@/assets/Button/arrow.svg';
+import { ReactComponent as ArrowIcon } from '@/assets/Icon/arrow.svg';
 
 // types
 import { PostHeaderProps } from './PostHeader.type';
