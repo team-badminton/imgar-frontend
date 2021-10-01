@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 
 // components
 import { Picture } from '@/components';
-import { ReactComponent as Present } from '@/assets/Button/present-box.svg';
+import { ReactComponent as Present } from '@/assets/Icon/present-box.svg';
 import { Link } from 'react-router-dom';
 
 // styles
