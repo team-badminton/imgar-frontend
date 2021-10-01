@@ -1,12 +1,16 @@
 import { RootState } from '@/redux';
-import { setCategory } from '@/redux/slices/listInfoReducer';
+import { setCategory, setSortOption } from '@/redux/slices/listInfoReducer';
 import React, { ReactElement, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { StyledDropDownButton, StyledDropDownUL } from './DropDownList.styled';
 import { DropDownListProps } from './DropDownList.type';
 
-export default function DropDownList({ dropdownHeader, dropdownItemList }: DropDownListProps): ReactElement {
+export default function DropDownList({ dropdownType, dropdownItemList }: DropDownListProps): ReactElement {
   const dispatch = useDispatch();
+
+  const dropdownHeader = useSelector((state: RootState) =>
+    dropdownType === 'category' ? state.listInfo.category : state.listInfo.sortOption,
+  );
 
   const [isShow, setIsShow] = useState<boolean>(false);
   const handleShow = () => {
@@ -22,24 +26,32 @@ export default function DropDownList({ dropdownHeader, dropdownItemList }: DropD
     const $prevSelected = document.querySelector('.selected');
     $prevSelected.classList.remove('selected');
     $li.classList.add('selected');
-    const newCategory = $li.children[0].children[0].textContent;
-    dispatch(setCategory(newCategory));
-  };
 
-  const title = useSelector((state: RootState) => state.listInfo.category);
+    if (dropdownType === 'category') {
+      const newCategory = $li.children[0].children[0].textContent;
+      dispatch(setCategory(newCategory));
+    }
+    if (dropdownType === 'sortOption') {
+      const newSortOption = $li.children[0].children[0].textContent;
+      dispatch(setSortOption(newSortOption));
+    }
+    setIsShow(!isShow);
+  };
 
   return (
     <>
-      <StyledDropDownButton onClick={handleShow}>{title}</StyledDropDownButton>
-      <StyledDropDownUL isShow={isShow} onClick={handleCategory}>
-        {dropdownItemList.map((itemName, index) => (
-          <li key={index + itemName} className={index === 0 ? 'selected listItem' : 'listItem'}>
-            <button>
-              <span>{itemName}</span>
-            </button>
-          </li>
-        ))}
-      </StyledDropDownUL>
+      <div>
+        <StyledDropDownButton onClick={handleShow}>{dropdownHeader}</StyledDropDownButton>
+        <StyledDropDownUL isShow={isShow} onClick={handleCategory}>
+          {dropdownItemList.map((itemName, index) => (
+            <li key={index + itemName} className={index === 0 ? 'selected listItem' : 'listItem'}>
+              <button>
+                <span>{itemName}</span>
+              </button>
+            </li>
+          ))}
+        </StyledDropDownUL>
+      </div>
     </>
   );
 }

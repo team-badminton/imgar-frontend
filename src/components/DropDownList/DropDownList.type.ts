@@ -1,6 +1,6 @@
 export interface DropDownListProps {
-  dropdownHeader: string;
   dropdownItemList: string[];
+  dropdownType: 'category' | 'sortOption';
 }
 
 export interface SetDisplayProps {

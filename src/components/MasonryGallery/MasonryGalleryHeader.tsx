@@ -11,16 +11,21 @@ export default function MasonryGalleryHeader(): ReactElement {
     dispatch(toggleAutoPlay());
   };
 
-  const dropdowmItemList = ['MOST VIRAL', 'USER SUBMITTED', 'HIGHEST SCORING'];
+  const categoryList = ['MOST VIRAL', 'USER SUBMITTED', 'HIGHEST SCORING'];
 
-  const category = useSelector((state: RootState) => state.listInfo.category);
+  const sortOptionList = ['NEWEST', 'POPULAR', 'BEST', 'RANDOM'];
 
   return (
     <div>
-      <DropDownList dropdownHeader={category} dropdownItemList={dropdowmItemList} />
-      <button onClick={handleToggle}>
-        <AnimationPlayIconSVG />
-      </button>
+      <div>
+        <DropDownList dropdownType="category" dropdownItemList={categoryList} />
+        <DropDownList dropdownType="sortOption" dropdownItemList={sortOptionList} />
+      </div>
+      <div>
+        <button onClick={handleToggle}>
+          <AnimationPlayIconSVG />
+        </button>
+      </div>
     </div>
   );
 }
