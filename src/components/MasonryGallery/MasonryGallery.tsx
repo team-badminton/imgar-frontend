@@ -54,7 +54,6 @@ export default function MasonryGallery(): ReactElement {
             const sumOfAboveImageHeightPx = ImageCardPositionInfos[aboveImageCardObjectKey]
               ? ImageCardPositionInfos[aboveImageCardObjectKey].sumOfImageHeightPx
               : 0;
-
             ImageCardPositionInfos[objectKey] = {
               column,
               row,
@@ -65,7 +64,7 @@ export default function MasonryGallery(): ReactElement {
                   ? (postInfo.thumbnailHeight * IMAGECARD_WIDTH_PX) / postInfo.thumbnailWidth > IMAGE_MAX_HEIGHT_PX
                     ? IMAGE_MAX_HEIGHT_PX
                     : (postInfo.thumbnailHeight * IMAGECARD_WIDTH_PX) / postInfo.thumbnailWidth
-                  : IMAGECARD_UNIFORM_HEIGHT__PX),
+                  : IMAGECARD_UNIFORM_HEIGHT__PX - 60),
             };
 
             return (
