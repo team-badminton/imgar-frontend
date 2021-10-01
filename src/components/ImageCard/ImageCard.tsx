@@ -13,6 +13,7 @@ export default function ImageCard({
   isAutoPlay,
   postInfo,
   imageCardWidth,
+  layoutOption,
 }: ImageCardProps): ReactElement {
   const thumbnail = postInfo.images[0];
   const { id, thumbnailImageId, thumbnailWidth, title, upCount, downCount, commentCount, views } = postInfo;
@@ -27,7 +28,7 @@ export default function ImageCard({
       `}
     >
       <StyledArticle imageCardWidth={imageCardWidth}>
-        <StyledDiv>
+        <StyledDiv layoutOption={layoutOption}>
           {!isAutoPlay || thumbnail.type === 'image/jpeg' || thumbnail.type === 'image/png' ? (
             <Picture
               alt=""

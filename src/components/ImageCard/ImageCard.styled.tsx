@@ -1,7 +1,7 @@
 // import { takeWhile } from 'lodash';
 // import React from 'react';
 import styled from 'styled-components';
-import { SetDisplayProps } from './ImageCard.type';
+import { ImageContainerProps, SetDisplayProps } from './ImageCard.type';
 import { pxToRem } from '@/util/styleUtils';
 
 const addRems = (rems: string[]): string => {
@@ -19,6 +19,8 @@ export const FOOTER_PADDING_TOP__SPACE_SIZE = 'm';
 export const FOOTER_PADDING_BOTTOM__SPACE_SIZE = FOOTER_PADDING_TOP__SPACE_SIZE;
 export const FOOTER__FONT_SIZE = 'xs';
 export const IMAGE_MAX_HEIGHT_PX = 400;
+export const IMAGECARD_WIDTH_PX = 240;
+export const IMAGECARD_UNIFORM_HEIGHT__PX = IMAGECARD_WIDTH_PX;
 
 export const StyledArticle = styled.article<SetDisplayProps>`
   width: ${({ imageCardWidth }) =>
@@ -77,9 +79,25 @@ export const StyledArticle = styled.article<SetDisplayProps>`
   }
 `;
 
-export const StyledDiv = styled.div`
+export const StyledDiv = styled.div<ImageContainerProps>`
   max-height: ${pxToRem(IMAGE_MAX_HEIGHT_PX)};
   overflow: hidden;
+  background: ${({ theme }) => theme.color.black};
+  height: ${({ theme, layoutOption }) => {
+    const h3Height = addRems([
+      theme.spaceSize[H3_PADDING_TOP__SPACE_SIZE],
+      Number(theme.fontSize[H3__FONT_SIZE].replace('rem', '')) * H3_LINE_HEIGHT + 'rem',
+    ]);
+    const FooterHeight = addRems([
+      theme.spaceSize[FOOTER_PADDING_TOP__SPACE_SIZE],
+      theme.fontSize[FOOTER__FONT_SIZE],
+      theme.spaceSize[FOOTER_PADDING_BOTTOM__SPACE_SIZE],
+    ]);
+    const imageCardHeightExcludingImageRem = addRems([h3Height, FooterHeight]);
+    return layoutOption === 'uniform'
+      ? parseInt(pxToRem(IMAGECARD_UNIFORM_HEIGHT__PX)) - parseInt(imageCardHeightExcludingImageRem) + 'rem'
+      : 'auto';
+  }};
 `;
 
 export const StyledFooter = styled.footer`
