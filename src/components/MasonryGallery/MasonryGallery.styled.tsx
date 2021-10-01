@@ -1,4 +1,3 @@
-// import React from 'react';
 import styled from 'styled-components';
 import { ImageCard } from '@/components/index';
 import { StyledImageCardProps } from './MasonryGallery.type';
@@ -11,8 +10,6 @@ import {
   FOOTER_PADDING_BOTTOM__SPACE_SIZE,
   FOOTER__FONT_SIZE,
 } from '@/components/ImageCard/ImageCard.styled';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/redux';
 
 const addRems = (rems: string[]): string => {
   return (
