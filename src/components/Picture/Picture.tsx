@@ -4,7 +4,7 @@ import { PictureProps } from './Picture.type';
 
 const Picture = forwardRef<HTMLImageElement, PictureProps>(
   (
-    { alt, className, fidelity, isCircle, imageId, objectFit, src, style, imageWidth }: PictureProps,
+    { alt, className, fidelity, isCircle, imageId, onClick, objectFit, src, style, imageWidth }: PictureProps,
     ref,
   ): ReactElement => {
     if (!src && !imageId) throw new Error('imageId, src 중 한 가지는 필수로 입력해야 합니다.');
@@ -12,11 +12,12 @@ const Picture = forwardRef<HTMLImageElement, PictureProps>(
     if (src) {
       return (
         <StyledImage
-          imageWidth={imageWidth}
-          objectFit={objectFit}
-          isCircle={isCircle}
-          src={src}
           alt={alt}
+          imageWidth={imageWidth}
+          isCircle={isCircle}
+          objectFit={objectFit}
+          onClick={onClick}
+          src={src}
           style={style}
         />
       );
@@ -41,6 +42,7 @@ const Picture = forwardRef<HTMLImageElement, PictureProps>(
               key={extension}
               loading="lazy"
               objectFit={objectFit}
+              onClick={onClick}
               ref={ref}
               src={imageSrc}
               style={style}
