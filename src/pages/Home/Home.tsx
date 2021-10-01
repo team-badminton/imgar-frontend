@@ -11,7 +11,7 @@ export default function Home(): ReactElement {
       customHeader={<div>커스템 헤더에 들어갈 내용 테스트</div>}
     >
       <StyledHome>
-        실제 본문 내용
+        {/* 실제 본문 내용 */}
         <MasonryGallery />
       </StyledHome>
     </MainContainer>
