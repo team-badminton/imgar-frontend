@@ -83,18 +83,21 @@ export const StyledDiv = styled.div<ImageContainerProps>`
   max-height: ${pxToRem(IMAGE_MAX_HEIGHT_PX)};
   overflow: hidden;
   background: ${({ theme }) => theme.color.black};
-  height: ${({ theme, layoutOption }) =>
-    layoutOption === 'uniform'
-      ? Number(pxToRem(IMAGECARD_UNIFORM_HEIGHT__PX).replace('rem', '')) -
-        Number(
-          addRems([
-            theme.spaceSize[H3_PADDING_TOP__SPACE_SIZE],
-            Number(theme.fontSize[H3__FONT_SIZE].replace('rem', '')) * H3_LINE_HEIGHT + 'rem',
-            theme.spaceSize[FOOTER_PADDING_TOP__SPACE_SIZE],
-          ]).replace('rem', ''),
-        ) +
-        'rem'
-      : 'auto'};
+  height: ${({ theme, layoutOption }) => {
+    const h3Height = addRems([
+      theme.spaceSize[H3_PADDING_TOP__SPACE_SIZE],
+      Number(theme.fontSize[H3__FONT_SIZE].replace('rem', '')) * H3_LINE_HEIGHT + 'rem',
+    ]);
+    const FooterHeight = addRems([
+      theme.spaceSize[FOOTER_PADDING_TOP__SPACE_SIZE],
+      theme.fontSize[FOOTER__FONT_SIZE],
+      theme.spaceSize[FOOTER_PADDING_BOTTOM__SPACE_SIZE],
+    ]);
+    const imageCardHeightExcludingImageRem = addRems([h3Height, FooterHeight]);
+    return layoutOption === 'uniform'
+      ? parseInt(pxToRem(IMAGECARD_UNIFORM_HEIGHT__PX)) - parseInt(imageCardHeightExcludingImageRem) + 'rem'
+      : 'auto';
+  }};
 `;
 
 export const StyledFooter = styled.footer`
