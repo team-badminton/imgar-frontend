@@ -3,15 +3,15 @@ import { StyledDropDownButton, StyledDropDownUL } from './DropDownList.styled';
 import { DropDownListProps } from './DropDownList.type';
 
 export default function DropDownList({ dropdownHeader, dropdownItemList }: DropDownListProps): ReactElement {
-  const [isDropDownShow, setIsSDropDownhow] = useState<boolean>(false);
+  const [isShow, setIsShow] = useState<boolean>(false);
   const handleShow = () => {
-    setIsSDropDownhow(!isDropDownShow);
+    setIsShow(!isShow);
   };
 
   return (
     <>
       <StyledDropDownButton onClick={handleShow}>{dropdownHeader}</StyledDropDownButton>
-      <StyledDropDownUL isShow={isDropDownShow}>
+      <StyledDropDownUL isShow={isShow}>
         {dropdownItemList.map((itemName, index) => (
           <li key={index + itemName}>
             <button className={index === 0 ? 'selected' : null}>
