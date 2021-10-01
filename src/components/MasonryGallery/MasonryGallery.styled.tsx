@@ -11,6 +11,8 @@ import {
   FOOTER__FONT_SIZE,
   IMAGECARD_WIDTH_PX,
 } from '@/components/ImageCard/ImageCard.styled';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux';
 
 const addRems = (rems: string[]): string => {
   return (
