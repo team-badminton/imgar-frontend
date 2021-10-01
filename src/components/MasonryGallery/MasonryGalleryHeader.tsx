@@ -16,8 +16,19 @@ export default function MasonryGalleryHeader(): ReactElement {
   const sortOptionList = ['NEWEST', 'POPULAR', 'BEST', 'RANDOM'];
 
   return (
-    <div>
-      <div>
+    <div
+      css={`
+        display: flex;
+        justify-content: space-between;
+      `}
+    >
+      <div
+        css={`
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+        `}
+      >
         <DropDownList dropdownType="category" dropdownItemList={categoryList} />
         <DropDownList dropdownType="sortOption" dropdownItemList={sortOptionList} />
       </div>
