@@ -5,7 +5,6 @@ import { Picture } from '..';
 import { PictureProps } from '../Picture/Picture.type';
 
 export const UserInfoContainer = styled.div`
-  height: 250px;
   display: flex;
   align-items: center;
 `;
