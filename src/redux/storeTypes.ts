@@ -1,5 +1,7 @@
 export interface ListInfo {
   posts: PostInfo[];
+  category: string;
+  sortOption: string;
   autoPlay: boolean;
   layout: 'waterfall' | 'uniform';
 }
