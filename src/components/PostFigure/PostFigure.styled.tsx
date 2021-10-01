@@ -1,28 +1,24 @@
-import React from 'react';
 import styled from 'styled-components';
 import { Picture } from '@/components';
 
 // assets
 import WaveUnderLine from './assets/WaveUnderLine.svg';
+import { StyledPictureProps } from './PostFigure.type';
 
 export const StyledFigure = styled.figure`
   width: 100%;
   margin: 0;
-  img,
   figcaption {
     margin-bottom: ${({ theme }) => theme.spaceSize.l};
   }
-  img {
-    margin: 0 auto;
-    cursor: zoom-in;
-    display: block;
-  }
 `;
 
-export const StyledPicture = styled(Picture)`
-  margin: 0 auto;
-  cursor: zoom-in;
-  display: block;
+export const StyledPicture = styled(Picture)<StyledPictureProps>`
+  img {
+    margin: 0 auto;
+    cursor: ${({ isZoomable }) => isZoomable && 'zoom-in'};
+    display: block;
+  }
 `;
 
 export const StyledFigureCaption = styled.figcaption`

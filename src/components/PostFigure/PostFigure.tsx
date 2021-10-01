@@ -1,8 +1,5 @@
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
 
-//components
-import { Picture } from '@/components';
-
 //styles
 import { StyledFigure, StyledFigureCaption, StyledPicture } from './PostFigure.styled';
 
@@ -19,10 +16,32 @@ export default function PostFigure({
   description,
 }: PostFigureProps): ReactElement {
   const imageRef = useRef<HTMLImageElement>(null);
+  const [isZoomable, setIsZoomable] = useState(false);
+
+  const handleResizeObserver = useThrottle((entries: ResizeObserverEntry[]) => {
+    const figureWidth = entries[0].borderBoxSize[0].inlineSize;
+    const figureHeight = entries[0].borderBoxSize[0].blockSize;
+    console.log(figureWidth, orgImageWidth, figureHeight, orgImageHeight);
+    if (figureWidth < orgImageWidth || figureHeight < orgImageHeight) {
+      setIsZoomable(true);
+    } else {
+      setIsZoomable(false);
+    }
+  }, 500);
+
+  useEffect(() => {
+    const resizeObserver = new ResizeObserver(handleResizeObserver);
+
+    resizeObserver.observe(imageRef.current);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, []);
 
   return (
     <StyledFigure key={imageId}>
-      <StyledPicture ref={imageRef} imageId={imageId} />
+      <StyledPicture isZoomable={isZoomable} ref={imageRef} imageId={imageId} />
       <StyledFigureCaption key={imageId}>
         {description
           ?.split(/(https?:\/\/[\w\/\.\-_=\?\&#$]+)|(\n)/)

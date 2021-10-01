@@ -3,7 +3,10 @@ import { StyledImage } from './Picture.styled';
 import { PictureProps } from './Picture.type';
 
 const Picture = forwardRef<HTMLImageElement, PictureProps>(
-  ({ alt, fidelity, isCircle, imageId, objectFit, src, style, imageWidth }: PictureProps, ref): ReactElement => {
+  (
+    { alt, className, fidelity, isCircle, imageId, objectFit, src, style, imageWidth }: PictureProps,
+    ref,
+  ): ReactElement => {
     if (!src && !imageId) throw new Error('imageId, src 중 한 가지는 필수로 입력해야 합니다.');
 
     if (src) {
@@ -24,7 +27,7 @@ const Picture = forwardRef<HTMLImageElement, PictureProps>(
     const query = `?${imageWidth ? `maxwidth=${imageWidth}` : ''}&${fidelity ? `fidelity=${fidelity}` : ''}`;
 
     return (
-      <picture>
+      <picture className={className}>
         {extensions.map((extension, index) => {
           const imageSrc = `${imgUrlWithoutExt}.${extension}${query}`;
 

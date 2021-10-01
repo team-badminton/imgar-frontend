@@ -10,3 +10,7 @@ export interface PostFigureProps {
   /** author에 의해 작성된 image에 대한 설명입니다. */
   description: string | null;
 }
+
+export interface StyledPictureProps {
+  isZoomable: boolean;
+}
