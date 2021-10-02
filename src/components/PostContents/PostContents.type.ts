@@ -6,3 +6,7 @@ export interface PostContentsProps {
   /** Gallery api를 통해 받아온 응답 json에서 tags prop 배열입니다. */
   tags: TagInfo[];
 }
+
+export interface StyledTagProps {
+  backgroundImageId: TagInfo['backgroundImageId'];
+}
