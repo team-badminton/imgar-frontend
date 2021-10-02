@@ -33,15 +33,6 @@ Default.args = {
       bandWidth: 75155070963,
       description: "I'm on the next level",
       hasSound: false,
-      id: 'vq0JRRR',
-      imageHeight: 1080,
-      imageWidth: 1080,
-      type: 'image/png',
-    },
-    {
-      bandWidth: 75155070963,
-      description: "I'm on the next level",
-      hasSound: false,
       id: 'AD3MbBi',
       imageHeight: 1080,
       imageWidth: 1080,
@@ -50,11 +41,19 @@ Default.args = {
   ],
   tags: [
     {
-      name: 'kyoshi warriors',
+      name: 'kyoshi_warriors',
       displayName: 'kyoshi warriors',
-      postCount: 1,
-      backgroundImageId: '1',
-      description: '1',
+      backgroundImageId: 'oAtvuB2',
+    },
+    {
+      name: 'science_and_tech',
+      displayName: 'science and tech',
+      backgroundImageId: 'bdRjrrI',
+    },
+    {
+      name: 'photography',
+      displayName: 'photography',
+      backgroundImageId: 'g37hMZ3',
     },
   ],
 };
