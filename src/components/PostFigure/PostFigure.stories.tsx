@@ -17,18 +17,34 @@ export default {
 
 const Template: ComponentStory<typeof PostFigure> = args => <PostFigure {...args} />;
 
+export const IncludeUriText = Template.bind({});
+IncludeUriText.args = {
+  imageId: 'AD3MbBi',
+  orgImageWidth: 1,
+  orgImageHeight: 1,
+  description: 'TEXT\n\nhttps://www.instagram.com/p/CBTjzNApIb6/?igshid=7cvtuawzabvw',
+};
+
+export const IncludeHashTagText = Template.bind({});
+IncludeUriText.args = {
+  imageId: 'AD3MbBi',
+  orgImageWidth: 1,
+  orgImageHeight: 1,
+  description: 'TEXT\n\n#cat',
+};
+
 export const ZoomablePhoto = Template.bind({});
 ZoomablePhoto.args = {
   imageId: 'AD3MbBi',
   orgImageWidth: 10000,
   orgImageHeight: 10000,
-  description: 'Non URI TEXT\n\nhttps://www.instagram.com/p/CBTjzNApIb6/?igshid=7cvtuawzabvw',
+  description: 'Non URI TEXT',
 };
 
 export const UnZoomablePhoto = Template.bind({});
 UnZoomablePhoto.args = {
-  imageId: 'Ys263e0',
+  imageId: 'AD3MbBi',
   orgImageWidth: 1,
   orgImageHeight: 1,
-  description: 'Non URI TEXT\n\nhttps://www.instagram.com/p/CBTjzNApIb6/?igshid=7cvtuawzabvw',
+  description: 'Non URI TEXT',
 };
