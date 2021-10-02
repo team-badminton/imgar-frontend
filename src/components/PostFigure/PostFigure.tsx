@@ -11,6 +11,7 @@ import useThrottle from '@/hooks/useThrottle';
 
 // etc
 import PortalsModal from '@/PortalsModal/PortalsModal';
+import { Link } from 'react-router-dom';
 
 export default function PostFigure({
   imageId,
@@ -25,7 +26,7 @@ export default function PostFigure({
   const handleResizeObserver = useThrottle((entries: ResizeObserverEntry[]) => {
     const imgWidth = entries[0].borderBoxSize[0].inlineSize;
     const imgHeight = entries[0].borderBoxSize[0].blockSize;
-    console.log(imgWidth, imgHeight, orgImageHeight, orgImageWidth);
+
     if (imgWidth < orgImageWidth || imgHeight < orgImageHeight) {
       setIsZoomAble(true);
     } else {
@@ -58,13 +59,15 @@ export default function PostFigure({
         />
         <StyledFigureCaption key={imageId}>
           {description
-            ?.split(/(https?:\/\/[\w\/\.\-_=\?\&#$]+)|(\n)/)
+            ?.split(/(https?:\/\/[\w\/\.\-_=\?\&#$]+)|(\n)|(#.+)/)
             .filter(str => str)
             .map((str, index) =>
               str.includes('http') ? (
                 <a key={str + index} href={str} target="_blank" rel="noopener noreferrer">
                   {str}
                 </a>
+              ) : str.includes('#') ? (
+                <Link to={`t/${str.replace('#', '')}`}>{str}</Link>
               ) : str === '\n' ? (
                 <br key={str + index} />
               ) : (
