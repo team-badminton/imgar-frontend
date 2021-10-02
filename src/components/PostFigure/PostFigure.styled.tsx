@@ -27,6 +27,7 @@ export const StyledFigureCaption = styled.figcaption`
   color: ${({ theme }) => theme.color.white};
   display: inline-block;
   padding: 0 ${({ theme }) => theme.spaceSize.l};
+  white-space: pre-wrap;
   a {
     border-bottom: ${pxToRem(1)} solid ${({ theme }) => theme.color.primaryColor};
     word-break: break-word;

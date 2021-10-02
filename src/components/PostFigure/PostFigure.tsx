@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useRef, useState } from 'react';
+import React, { ReactElement, useEffect, useRef, useState, Fragment } from 'react';
 
 // styles
 import { StyledFigure, StyledFigureCaption, StyledPicture } from './PostFigure.styled';
@@ -68,10 +68,8 @@ export default function PostFigure({
                 </a>
               ) : str.includes('#') ? (
                 <Link to={`t/${str.replace('#', '')}`}>{str}</Link>
-              ) : str === '\n' ? (
-                <br key={str + index} />
               ) : (
-                <span key={str + index}>{str}</span>
+                <Fragment key={str + index}>{str}</Fragment>
               ),
             )}
         </StyledFigureCaption>
