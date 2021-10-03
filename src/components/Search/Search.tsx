@@ -1,6 +1,5 @@
-import { useSuggestQuery } from '@/redux/api/v3';
-import React, { ReactElement, useEffect, useRef, useState } from 'react';
-import { useLocation } from 'react-router';
+import { useSuggestQuery } from '@/redux/api';
+import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react';
 import { SearchBar, SuggestList } from '..';
 import { SearchContainer } from './Search.styled';
 
@@ -9,19 +8,18 @@ export default React.memo(function Search(): ReactElement {
   const [searchQueryOption, setSearchQueryOption] = useState<'all' | 'tag' | 'user'>('all');
   const [focus, setFocus] = useState<boolean>(false);
   const [keyword, setKeyword] = useState<string>('');
-  const location = useLocation();
   const clearInputRef = useRef<{ clearInput: () => void }>();
 
-  const { data, isSuccess } = useSuggestQuery(searchQuery.replace(/^[@#]/, ''), {
+  const { data } = useSuggestQuery(searchQuery.replace(/^[@#]/, ''), {
     skip: !searchQuery && !focus,
   });
 
-  console.log(isSuccess);
-
-  useEffect(() => {
-    setFocus(false);
-    clearInputRef?.current.clearInput();
-  }, [location.pathname]);
+  const suggestClickHandler = useCallback(e => {
+    if (e.target.closest('a')) {
+      setFocus(false);
+      clearInputRef?.current.clearInput();
+    }
+  }, []);
 
   useEffect(() => {
     if (searchQuery.match(/^#/)) {
@@ -90,6 +88,7 @@ export default React.memo(function Search(): ReactElement {
           posts={searchQueryOption === 'all' ? data?.posts : []}
           tags={searchQueryOption !== 'user' ? data?.tags : []}
           users={searchQueryOption !== 'tag' ? data?.users : []}
+          onClick={suggestClickHandler}
         />
       )}
     </SearchContainer>
