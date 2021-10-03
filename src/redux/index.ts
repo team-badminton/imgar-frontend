@@ -1,15 +1,19 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector, useStore } from 'react-redux';
-import { imgurV3Api } from './api/v3';
+import { imgurApi } from './api';
 import displayReducer from './slices/displayReducer';
 import listInfoReducer from './slices/listInfoReducer';
 
 export const store = configureStore({
-  reducer: { listInfo: listInfoReducer, display: displayReducer, [imgurV3Api.reducerPath]: imgurV3Api.reducer },
+  reducer: {
+    listInfo: listInfoReducer,
+    display: displayReducer,
+    [imgurApi.reducerPath]: imgurApi.reducer,
+  },
   devTools: {
     trace: true,
   },
-  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(imgurV3Api.middleware),
+  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(imgurApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

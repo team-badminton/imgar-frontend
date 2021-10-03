@@ -64,7 +64,23 @@ export interface UserInfo {
   coverUrl: string;
   points: number /* reputation */;
   notoriety: string /* reputation_name */;
-  createdDate: number /* created */;
+  createdDate: string /* created */;
+  trophies: TrophyInfo[];
+  medals: MedalInfo[];
+}
+
+interface TrophyInfo {
+  id: string;
+  name: string;
+  description: string;
+  imageUrl: string;
+}
+
+interface MedalInfo {
+  name: string;
+  description: string;
+  imageUrl: string;
+  pointThreshold: number;
 }
 
 export interface PostCommentInfo {
