@@ -32,6 +32,7 @@ export default function ImageCard({
             <Picture
               alt=""
               objectFit="contain"
+              imageWidth={imageCardWidth}
               src={`https://i.imgur.com/${thumbnailImageId}_d.webp?maxwidth=${thumbnailWidth}&shape=thumb&fidelity=high`}
             />
           ) : (

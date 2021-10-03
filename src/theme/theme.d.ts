@@ -7,6 +7,7 @@ declare module 'styled-components' {
       secondaryColor: string;
       backgroundGray: string;
       backgroundNavy: string;
+      deepDarkGray: string;
       darkGray: string;
       lightGray: string;
       blue: string;
@@ -36,6 +37,7 @@ declare module 'styled-components' {
     borderRadius: {
       s: string;
       l: string;
+      xl: string;
     };
   }
 }

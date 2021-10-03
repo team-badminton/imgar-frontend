@@ -32,6 +32,7 @@ export const StyledArticle = styled.article<SetDisplayProps>`
   box-shadow: 0 0 ${pxToRem(10)} ${({ theme }) => theme.color.black};
   cursor: pointer;
   position: relative;
+  overflow: hidden;
   &::after {
     content: '';
     position: absolute;
