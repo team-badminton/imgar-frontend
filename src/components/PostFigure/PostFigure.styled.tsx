@@ -11,19 +11,27 @@ import { StyledPictureProps } from './PostFigure.type';
 import { pxToRem, hexToRGB } from '@/util/styleUtils';
 
 export const StyledFigure = styled.figure`
+  position: relative;
   width: 100%;
   margin: 0;
+  .more-btn {
+    position: absolute;
+    top: ${pxToRem(16)};
+    right: ${pxToRem(16)};
+  }
+`;
+
+export const ContainerPicture = styled.div`
+  background-color: ${({ theme }) => `${hexToRGB(theme.color.black, 0.1)}`};
 `;
 
 export const StyledPicture = styled(Picture)<StyledPictureProps>`
-  display: block;
-  background-color: ${({ theme }) => `${hexToRGB(theme.color.black, 0.1)}`};
+  margin-bottom: ${({ theme }) => theme.spaceSize.l};
   img {
     margin: 0 auto;
     cursor: ${({ isZoomAble, isVisibleModal }) => (isVisibleModal && 'zoom-out') || (isZoomAble && 'zoom-in')};
     display: block;
   }
-  margin-bottom: ${({ theme }) => theme.spaceSize.l};
 `;
 
 export const StyledFigureCaption = styled.figcaption`

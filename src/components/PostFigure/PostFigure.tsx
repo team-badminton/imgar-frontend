@@ -1,13 +1,16 @@
 import React, { ReactElement, useEffect, useRef, useState, Fragment } from 'react';
 
 // styles
-import { StyledFigure, StyledFigureCaption, StyledPicture } from './PostFigure.styled';
+import { ContainerPicture, StyledFigure, StyledFigureCaption, StyledPicture } from './PostFigure.styled';
 
 // types
 import { PostFigureProps } from './PostFigure.type';
 
 // hooks
 import useThrottle from '@/hooks/useThrottle';
+
+// components
+import { MoreButton } from '@/components';
 
 // etc
 import PortalsModal from '@/PortalsModal/PortalsModal';
@@ -20,8 +23,10 @@ export default function PostFigure({
   description,
 }: PostFigureProps): ReactElement {
   const imageRef = useRef<HTMLImageElement>(null);
+
   const [isZoomAble, setIsZoomAble] = useState(false);
   const [isVisibleModal, setIsVisibleModal] = useState(false);
+  const [isImageHover, setIsImageHover] = useState(false);
 
   const handleResizeObserver = useThrottle((entries: ResizeObserverEntry[]) => {
     const imgWidth = entries[0].borderBoxSize[0].inlineSize;
@@ -48,15 +53,30 @@ export default function PostFigure({
     };
   }, []);
 
+  const handleMouseEnter = () => {
+    setIsImageHover(true);
+  };
+  const handleMouseLeave = () => {
+    setIsImageHover(false);
+  };
+
   return (
     <>
       <StyledFigure key={imageId}>
-        <StyledPicture
-          isZoomAble={isZoomAble}
-          ref={imageRef}
-          imageId={imageId}
-          onClick={isZoomAble ? handleToggleModal : null}
-        />
+        <ContainerPicture onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+          <StyledPicture
+            isZoomAble={isZoomAble}
+            ref={imageRef}
+            imageId={imageId}
+            onClick={isZoomAble ? handleToggleModal : null}
+          />
+          {isImageHover && <MoreButton className="more-btn" />}
+          {isVisibleModal && (
+            <PortalsModal handleHide={handleToggleModal}>
+              <StyledPicture isVisibleModal={isVisibleModal} isZoomAble={isZoomAble} imageId={imageId} />
+            </PortalsModal>
+          )}
+        </ContainerPicture>
         <StyledFigureCaption key={imageId}>
           {description
             ?.split(/(https?:\/\/[\w\/\.\-_=\?\&#$]+)|(\n)|(#.+)/)
@@ -67,18 +87,15 @@ export default function PostFigure({
                   {str}
                 </a>
               ) : str.includes('#') ? (
-                <Link to={`t/${str.replace('#', '')}`}>{str}</Link>
+                <Link key={str + index} to={`t/${str.replace('#', '')}`}>
+                  {str}
+                </Link>
               ) : (
                 <Fragment key={str + index}>{str}</Fragment>
               ),
             )}
         </StyledFigureCaption>
       </StyledFigure>
-      {isVisibleModal && (
-        <PortalsModal handleHide={handleToggleModal}>
-          <StyledPicture isVisibleModal={isVisibleModal} isZoomAble={isZoomAble} imageId={imageId} />
-        </PortalsModal>
-      )}
     </>
   );
 }
