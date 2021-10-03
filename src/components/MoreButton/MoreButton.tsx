@@ -1,9 +1,14 @@
-// components
-import { ReactComponent as MoreIcon } from './assets/icon/more.svg';
-import { StyledMoreButton } from './MoreButton.styled';
-
 import React, { ReactElement } from 'react';
 
-export default function MoreButton(): ReactElement {
-  return <StyledMoreButton size="large" img={MoreIcon} alt="More Icon"></StyledMoreButton>;
+// components
+import { ReactComponent as MoreIcon } from './assets/icon/more.svg';
+
+// styles
+import { StyledMoreButton } from './MoreButton.styled';
+
+// types
+import { MoreButtonProps } from './MoreButton.type';
+
+export default function MoreButton({ className }: MoreButtonProps): ReactElement {
+  return <StyledMoreButton alt="More Icon" className={className} img={MoreIcon} size="large"></StyledMoreButton>;
 }
