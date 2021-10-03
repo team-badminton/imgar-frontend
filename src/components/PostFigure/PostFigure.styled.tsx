@@ -3,8 +3,12 @@ import { Picture } from '@/components';
 
 // assets
 import WaveUnderLine from './assets/WaveUnderLine.svg';
+
+// types
 import { StyledPictureProps } from './PostFigure.type';
-import { pxToRem } from '@/util/styleUtils';
+
+// utils
+import { pxToRem, hexToRGB } from '@/util/styleUtils';
 
 export const StyledFigure = styled.figure`
   width: 100%;
@@ -13,7 +17,7 @@ export const StyledFigure = styled.figure`
 
 export const StyledPicture = styled(Picture)<StyledPictureProps>`
   display: block;
-  background-color: ${({ theme }) => theme.color.deepDarkGray};
+  background-color: ${({ theme }) => `${hexToRGB(theme.color.black, 0.1)}`};
   img {
     margin: 0 auto;
     cursor: ${({ isZoomAble, isVisibleModal }) => (isVisibleModal && 'zoom-out') || (isZoomAble && 'zoom-in')};
