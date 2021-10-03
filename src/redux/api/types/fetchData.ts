@@ -127,24 +127,39 @@ export interface Post {
 }
 
 // Users
-
-interface UserFollow {
-  status: boolean;
-}
-
 export interface User {
   id: number;
-  url: string;
-  bio?: string | null;
-  avatar: string;
-  avatar_name: string;
-  cover: string;
-  cover_name: string;
-  reputation: number;
+  username: string;
+  bio: string;
+  reputation_count: number;
   reputation_name: string;
-  created: number;
-  pro_expiration: boolean;
-  user_follow: UserFollow;
+  avatar_id: string;
+  avatar_url: string;
+  cover_id: string;
+  cover_url: string;
+  created_at: string;
+  trophies: Trophy[];
+  medallions: Medallion[];
+  roles: any;
+}
+
+export interface Trophy {
+  id: number;
+  name: string;
+  description: string;
+  image_height: number;
+  image_width: number;
+  image_url: string;
+  awarded_at?: string;
+  data_type?: string;
+  data_link?: string;
+}
+
+export interface Medallion {
+  name: string;
+  description: string;
+  image_url: string;
+  point_threshold: number;
 }
 
 // Comments

@@ -121,34 +121,6 @@ export function suggestDataNormalizer(suggest: Suggest): SuggestInfo {
   };
 }
 
-export function userDataNormalizer(user: User): UserInfo;
-export function userDataNormalizer(user: User[]): UserInfo[];
-export function userDataNormalizer(user: User | User[]): UserInfo | UserInfo[] {
-  if (!Array.isArray(user)) {
-    return {
-      id: user.id.toString(),
-      name: user.url,
-      bio: user.bio,
-      avatarUrl: user.avatar,
-      coverUrl: user.cover,
-      createdDate: user.created,
-      notoriety: user.reputation_name,
-      points: user.reputation,
-    };
-  } else {
-    const users = user;
-    return users.map(user => ({
-      id: user.id.toString(),
-      name: user.url,
-      bio: user.bio,
-      avatarUrl: user.avatar,
-      coverUrl: user.cover,
-      createdDate: user.created,
-      notoriety: user.reputation_name,
-      points: user.reputation,
-    }));
-  }
-}
 export function commentNormalizer(comment: PostComment): PostCommentInfo;
 export function commentNormalizer(comment: PostComment[]): PostCommentInfo[];
 export function commentNormalizer(comment: PostComment | PostComment[]): PostCommentInfo | PostCommentInfo[] {
@@ -187,4 +159,29 @@ export function folderNormalizer(folders: Folder[]): FolderInfo[] {
     id: folder.id,
     name: folder.name,
   }));
+}
+
+export function userDataNormalizer(user: User): UserInfo {
+  return {
+    id: user.id.toString(),
+    name: user.username,
+    bio: user.bio,
+    avatarUrl: user.avatar_url,
+    coverUrl: user.cover_url,
+    createdDate: user.created_at,
+    notoriety: user.reputation_name,
+    points: ~~user.reputation_count,
+    trophies: user.trophies?.map(trophy => ({
+      id: trophy.id + '',
+      name: trophy.name,
+      imageUrl: trophy.image_url,
+      description: trophy.description,
+    })),
+    medals: user.medallions?.map(medal => ({
+      name: medal.name,
+      description: medal.description,
+      imageUrl: medal.image_url,
+      pointThreshold: medal.point_threshold,
+    })),
+  };
 }
