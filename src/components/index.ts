@@ -12,3 +12,4 @@ export { default as ImageCard } from './ImageCard/ImageCard';
 export { default as DropDownList } from './DropDownList/DropDownList';
 export { default as MasonryGallery } from './MasonryGallery/MasonryGallery';
 export { default as MasonryGalleryHeader } from './MasonryGallery/MasonryGalleryHeader';
+export { default as MoreButton } from './MoreButton/MoreButton';
