@@ -69,14 +69,14 @@ export interface UserInfo {
   medals: MedalInfo[];
 }
 
-interface TrophyInfo {
+export interface TrophyInfo {
   id: string;
   name: string;
   description: string;
   imageUrl: string;
 }
 
-interface MedalInfo {
+export interface MedalInfo {
   name: string;
   description: string;
   imageUrl: string;
