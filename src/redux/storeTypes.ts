@@ -1,7 +1,9 @@
+import { GalleryQuery } from './api/types/queries';
+
 export interface ListInfo {
   posts: PostInfo[];
-  category: string;
-  sortOption: string;
+  category: GalleryQuery['section'];
+  sortOption: GalleryQuery['sort'];
   autoPlay: boolean;
   layout: 'waterfall' | 'uniform';
 }

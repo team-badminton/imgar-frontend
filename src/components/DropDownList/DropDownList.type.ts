@@ -1,6 +1,7 @@
 export interface DropDownListProps {
   dropdownItemList: string[];
-  dropdownType: 'category' | 'sortOption';
+  dropdownHeader: string;
+  handleDropDownList: React.MouseEventHandler<HTMLUListElement>;
 }
 
 export interface SetDisplayProps {
