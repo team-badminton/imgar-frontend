@@ -3,7 +3,7 @@ import { pxToRem } from '../util/styleUtils';
 
 export const defaultTheme: DefaultTheme = {
   color: {
-    primaryColor: `#1bb76e`,
+    primaryColor: `#0e5c4a`,
     secondaryColor: `#6432f9`,
     backgroundGray: `#2e3035`,
     backgroundNavy: `#171544`,
