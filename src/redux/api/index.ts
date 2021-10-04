@@ -1,13 +1,14 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { FolderInfo, PostCommentInfo, PostInfo, SuggestInfo, UserInfo } from '../storeTypes';
+import { FolderInfo, PostCommentInfo, PostInfo, PostV1Info, SuggestInfo, UserInfo } from '../storeTypes';
 import {
   userDataNormalizer,
   commentNormalizer,
   folderNormalizer,
   postDataNormalizer,
   suggestDataNormalizer,
+  postV1DataNormalizer,
 } from './normalizers';
-import { Folder, Post, PostComment, Suggest, User } from './types/fetchData';
+import { Folder, Post, PostComment, PostV1, Suggest, User } from './types/fetchData';
 import {
   AccountCommentQuery,
   accountFavoriteFolderQuery,
@@ -27,20 +28,30 @@ export const imgurApi = createApi({
     },
   }),
   endpoints: builder => ({
-    gallery: builder.query<PostInfo[], GalleryQuery>({
-      query: ({
-        albumPreviews = true,
-        showMature = false,
-        page = 1,
-        section = 'hot',
-        showViral = true,
-        sort = 'rising',
-        window = 'all',
-      }) =>
-        `3/gallery/${section}/${sort}/${window}/${page}?showViral=${showViral}&mature=${showMature}&album_previews=${albumPreviews}`,
-      transformResponse: (res: { data: Post[] }) => {
-        const { data } = res;
-        return postDataNormalizer(data);
+    gallery: builder.query<PostV1Info[], GalleryQuery>({
+      query: ({ page = 1, section = 'mostViral', sort = 'newest', window = 'all' }) => {
+        if (sort === 'random') {
+          return `post/v1/posts?filter[section]=eq:random&include=adtiles,adconfig,cover&page=${page}&sort=random`;
+        }
+        if (section === 'mostViral' && sort === 'newest') {
+          return `post/v1/posts?filter[section]=eq:hot&filter_topic=imgur topic politics&include=adtiles,adconfig,cover,viral&location=desktophome&page=${page}&sort=-time`;
+        }
+        if (section === 'mostViral') {
+          return `post/v1/posts?filter[section]=eq:hot&include=adtiles,adconfig,cover,viral&location=desktophome&page=${page}&sort=${
+            sort === 'popular' ? '-viral' : 'top'
+          }`;
+        }
+        if (section === 'userSubmitted') {
+          return `post/v1/posts?filter[section]=eq:new&include=adtiles,adconfig,cover&location=desktophome&page=${page}&sort=${
+            sort === 'newest' ? '-time' : sort === 'popular' ? '-viral' : sort === 'rising' ? '-rising' : ''
+          }`;
+        }
+        if (section === 'highestScoring') {
+          return `post/v1/posts?filter[section]=eq:top&filter[window]=${window}&include=adtiles,adconfig,cover&page=${page}&sort=viral`;
+        }
+      },
+      transformResponse: (data: PostV1[]) => {
+        return postV1DataNormalizer(data);
       },
     }),
     search: builder.query<PostInfo[], GallerySearchQuery>({

@@ -25,6 +25,25 @@ export interface PostInfo {
   tags: TagInfo[];
 }
 
+export interface PostV1Info {
+  id: string;
+  title: string;
+  dateTime: number;
+  thumbnailImageId: string /* cover */;
+  thumbnailWidth: number /* cover_width */;
+  thumbnailHeight: number /* cover_height */;
+  accountId: number;
+  views: number;
+  upCount: number /* ups */;
+  downCount: number /* downs */;
+  points: number;
+  commentCount: number;
+  favoriteCount: number;
+  imageCount: number;
+  type: 'image/jpeg' | 'image/png' | 'video/mp4';
+  hasSound: boolean;
+}
+
 export interface TagInfo {
   name: string;
   displayName: string;

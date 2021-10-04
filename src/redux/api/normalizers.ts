@@ -1,5 +1,14 @@
-import { FolderInfo, ImageInfo, PostCommentInfo, PostInfo, SuggestInfo, TagInfo, UserInfo } from '../storeTypes';
-import { Folder, Image, Post, PostComment, Suggest, Tag, User } from './types/fetchData';
+import {
+  FolderInfo,
+  ImageInfo,
+  PostCommentInfo,
+  PostInfo,
+  PostV1Info,
+  SuggestInfo,
+  TagInfo,
+  UserInfo,
+} from '../storeTypes';
+import { Folder, Image, Post, PostComment, PostV1, Suggest, Tag, User } from './types/fetchData';
 
 export function imageDataNormalizer(image: Image): ImageInfo;
 export function imageDataNormalizer(image: Image[]): ImageInfo[];
@@ -51,8 +60,8 @@ export function tagDataNormalizer(tag: Tag | Tag[]): TagInfo | TagInfo[] {
   }
 }
 
-export function postDataNormalizer(tag: Post): PostInfo;
-export function postDataNormalizer(tag: Post[]): PostInfo[];
+export function postDataNormalizer(post: Post): PostInfo;
+export function postDataNormalizer(post: Post[]): PostInfo[];
 export function postDataNormalizer(post: Post[] | Post): PostInfo | PostInfo[] {
   if (!Array.isArray(post)) {
     return {
@@ -100,6 +109,53 @@ export function postDataNormalizer(post: Post[] | Post): PostInfo | PostInfo[] {
         };
       })
       .filter(Boolean);
+  }
+}
+
+export function postV1DataNormalizer(post: PostV1): PostV1Info;
+export function postV1DataNormalizer(post: PostV1[]): PostV1Info[];
+export function postV1DataNormalizer(post: PostV1[] | PostV1): PostV1Info | PostV1Info[] {
+  if (!Array.isArray(post)) {
+    return {
+      id: post.id,
+      title: post.title,
+      dateTime: new Date(post.created_at).getTime(),
+      thumbnailImageId: post.cover.id,
+      thumbnailWidth: post.cover.width,
+      thumbnailHeight: post.cover.height,
+      accountId: post.account_id,
+      views: post.view_count,
+      upCount: post.upvote_count,
+      downCount: post.downvote_count,
+      points: post.point_count,
+      commentCount: post.comment_count,
+      favoriteCount: post.favorite_count,
+      imageCount: post.image_count,
+      type: post.cover.mime_type as PostV1Info['type'],
+      hasSound: post.cover.metadata.has_sound,
+    };
+  } else {
+    const posts = post;
+    return posts.map(post => {
+      return {
+        id: post.id,
+        title: post.title,
+        dateTime: new Date(post.created_at).getTime(),
+        thumbnailImageId: post.cover.id,
+        thumbnailWidth: post.cover.width,
+        thumbnailHeight: post.cover.height,
+        accountId: post.account_id,
+        views: post.view_count,
+        upCount: post.upvote_count,
+        downCount: post.downvote_count,
+        points: post.point_count,
+        commentCount: post.comment_count,
+        favoriteCount: post.favorite_count,
+        imageCount: post.image_count,
+        type: post.cover.mime_type as PostV1Info['type'],
+        hasSound: post.cover.metadata.has_sound,
+      };
+    });
   }
 }
 
