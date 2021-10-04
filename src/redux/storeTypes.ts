@@ -25,6 +25,25 @@ export interface PostInfo {
   tags: TagInfo[];
 }
 
+export interface PostV1Info {
+  id: string;
+  title: string;
+  dateTime: number;
+  thumbnailImageId: string /* cover */;
+  thumbnailWidth: number /* cover_width */;
+  thumbnailHeight: number /* cover_height */;
+  accountId: number;
+  views: number;
+  upCount: number /* ups */;
+  downCount: number /* downs */;
+  points: number;
+  commentCount: number;
+  favoriteCount: number;
+  imageCount: number;
+  type: 'image/jpeg' | 'image/png' | 'video/mp4';
+  hasSound: boolean;
+}
+
 export interface TagInfo {
   name: string;
   displayName: string;
@@ -64,7 +83,23 @@ export interface UserInfo {
   coverUrl: string;
   points: number /* reputation */;
   notoriety: string /* reputation_name */;
-  createdDate: number /* created */;
+  createdDate: string /* created */;
+  trophies: TrophyInfo[];
+  medals: MedalInfo[];
+}
+
+interface TrophyInfo {
+  id: string;
+  name: string;
+  description: string;
+  imageUrl: string;
+}
+
+interface MedalInfo {
+  name: string;
+  description: string;
+  imageUrl: string;
+  pointThreshold: number;
 }
 
 export interface PostCommentInfo {
