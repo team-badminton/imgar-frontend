@@ -3,8 +3,13 @@ import styled from 'styled-components';
 import { ContainerWrapperProps, HeaderCoverProps } from './MainContainer.type';
 
 export const ContainerWrapper = styled.div<ContainerWrapperProps>`
-  ${({ theme, gradient }) =>
-    gradient ? `background: linear-gradient(180deg, ${theme.color.backgroundNavy} 70px, rgba(0, 0, 0, 0) 450px);` : ''}
+  ${({ theme, gradient, backgroundColor }) =>
+    `
+    ${
+      gradient ? `background: linear-gradient(180deg, ${theme.color.backgroundNavy} 70px, rgba(0, 0, 0, 0) 450px);` : ''
+    }
+    ${backgroundColor ? `background-color: ${theme.color[backgroundColor]};` : ''}
+    `}
 `;
 
 export const HeaderCover = styled.header<HeaderCoverProps>`

@@ -11,6 +11,7 @@ export default function MainContainer({
   sticky,
   customHeaderHeight,
   darkenBackground,
+  backgroundColor,
 }: HeaderProps): ReactElement {
   const headerCoverRef = useRef<HTMLDivElement>(null);
   const headerContainerRef = useRef<HTMLDivElement>(null);
@@ -42,7 +43,9 @@ export default function MainContainer({
     const threshold2 = threshold1 + BASIC_HEADER_HEIGHT;
 
     // 본문 내용을 패럴럭스 스크롤이 끝날 때 헤더 아래로 올 수 있도록 배치
-    mainSectionRef.current.style.top = `${headerCover ? coverHeight - BODY_OFFSET : BODY_OFFSET + headerHeight}px`;
+    mainSectionRef.current.style.marginTop = `${
+      headerCover ? coverHeight - BODY_OFFSET : BODY_OFFSET + headerHeight
+    }px`;
 
     function handleScroll(): void {
       const scrollOffset = window.pageYOffset;
@@ -82,7 +85,7 @@ export default function MainContainer({
   }, [coverHeight, customHeaderHeight]);
 
   return (
-    <ContainerWrapper gradient={!headerCover}>
+    <ContainerWrapper gradient={!headerCover} backgroundColor={backgroundColor}>
       <HeaderCover
         headerBackground={!!headerCover && headerBackground}
         darkenBackground={darkenBackground}

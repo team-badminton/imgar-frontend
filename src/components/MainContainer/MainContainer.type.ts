@@ -1,3 +1,5 @@
+import { DefaultTheme } from 'styled-components';
+
 export interface HeaderProps {
   children?: React.ReactNode;
   customHeader?: React.ReactNode;
@@ -6,6 +8,7 @@ export interface HeaderProps {
   headerBackground?: string;
   darkenBackground?: boolean;
   sticky?: boolean;
+  backgroundColor?: keyof DefaultTheme['color'];
 }
 
 export interface HeaderCoverProps {
@@ -17,4 +20,5 @@ export interface HeaderCoverProps {
 
 export interface ContainerWrapperProps {
   gradient: boolean;
+  backgroundColor?: keyof DefaultTheme['color'];
 }
