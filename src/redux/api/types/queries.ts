@@ -1,11 +1,8 @@
 export interface GalleryQuery {
-  section?: 'hot' | 'top' | 'user';
-  sort?: 'viral' | 'top' | 'time' | 'rising';
+  section?: 'mostViral' | 'userSubmitted' | 'highestScoring';
+  sort?: 'popular' | 'newest' | 'best' | 'random' | 'rising';
   window?: 'day' | 'week' | 'month' | 'year' | 'all';
   page?: number;
-  showViral?: boolean;
-  showMature?: boolean;
-  albumPreviews?: boolean;
 }
 export interface GallerySearchQuery {
   sort?: 'viral' | 'top' | 'time';

@@ -24,31 +24,16 @@ Default.args = {
       bandWidth: 75155070963,
       description: "I'm on the next level",
       hasSound: false,
-      id: 'Ys263e0',
+      id: 'lqmwC7K',
       imageHeight: 1080,
       imageWidth: 1080,
       type: 'image/png',
     },
-  ],
-  tags: [
-    {
-      name: 'kyoshi warriors',
-      displayName: 'kyoshi warriors',
-      postCount: 1,
-      backgroundImageId: '1',
-      description: '1',
-    },
-  ],
-};
-
-export const NonUriTextWithURI = Template.bind({});
-NonUriTextWithURI.args = {
-  images: [
     {
       bandWidth: 75155070963,
-      description: 'Non URI TEXT\n\nhttps://www.instagram.com/p/CBTjzNApIb6/?igshid=7cvtuawzabvw',
+      description: "I'm on the next level",
       hasSound: false,
-      id: 'Ys263e0',
+      id: 'AD3MbBi',
       imageHeight: 1080,
       imageWidth: 1080,
       type: 'image/png',
@@ -56,36 +41,19 @@ NonUriTextWithURI.args = {
   ],
   tags: [
     {
-      name: 'kyoshi warriors',
+      name: 'kyoshi_warriors',
       displayName: 'kyoshi warriors',
-      postCount: 1,
-      backgroundImageId: '1',
-      description: '1',
+      backgroundImageId: 'oAtvuB2',
     },
-  ],
-};
-
-export const NonUriTextBetweenURIs = Template.bind({});
-NonUriTextBetweenURIs.args = {
-  images: [
     {
-      bandWidth: 75155070963,
-      description:
-        'https://www.instagram.com/mk_ays/\n\nNon URI TEXT\n\nhttps://www.instagram.com/p/CBTjzNApIb6/?igshid=7cvtuawzabvw',
-      hasSound: false,
-      id: 'Ys263e0',
-      imageHeight: 1080,
-      imageWidth: 1080,
-      type: 'image/png',
+      name: 'science_and_tech',
+      displayName: 'science and tech',
+      backgroundImageId: 'bdRjrrI',
     },
-  ],
-  tags: [
     {
-      name: 'kyoshi warriors',
-      displayName: 'kyoshi warriors',
-      postCount: 1,
-      backgroundImageId: '1',
-      description: '1',
+      name: 'photography',
+      displayName: 'photography',
+      backgroundImageId: 'g37hMZ3',
     },
   ],
 };
