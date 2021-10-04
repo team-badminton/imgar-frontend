@@ -16,19 +16,21 @@ const H3__FONT_SIZE = defaultTheme.fontSize.s;
 const H3_LINE_HEIGHT = 1.5;
 const H3_PADDING_TOP__SPACE_SIZE = defaultTheme.spaceSize.s;
 // 이미지 카드 컴포넌트 제목 높이 계산
-const H3_Height__REM = parseInt(H3_PADDING_TOP__SPACE_SIZE) + parseInt(H3__FONT_SIZE) * H3_LINE_HEIGHT + 'rem';
+const H3_Height__REM = parseFloat(H3_PADDING_TOP__SPACE_SIZE) + parseFloat(H3__FONT_SIZE) * H3_LINE_HEIGHT + 'rem';
 
 // 이미지 카드 컴포넌트에서 이미지 제외 부분 스타일 설정
 const FOOTER_PADDING_TOP__SPACE_SIZE = defaultTheme.spaceSize.m;
 const FOOTER_PADDING_BOTTOM__SPACE_SIZE = FOOTER_PADDING_TOP__SPACE_SIZE;
 const FOOTER__FONT_SIZE = defaultTheme.fontSize.xs;
 const FOOTER_Height__REM =
-  parseInt(FOOTER_PADDING_TOP__SPACE_SIZE) +
-  parseInt(FOOTER__FONT_SIZE) +
-  parseInt(FOOTER_PADDING_BOTTOM__SPACE_SIZE) +
+  parseFloat(FOOTER_PADDING_TOP__SPACE_SIZE) +
+  parseFloat(FOOTER__FONT_SIZE) +
+  parseFloat(FOOTER_PADDING_BOTTOM__SPACE_SIZE) +
   'rem';
 // 이미지 카드 컴포넌트에서 이미지 제외 부분 높이 계산
-export const IMAGECARD_HEIGHT_EXCLUDING_IMAGE__REM = parseInt(H3_Height__REM) + parseInt(FOOTER_Height__REM) + 'rem';
+
+export const IMAGECARD_HEIGHT_EXCLUDING_IMAGE__REM =
+  parseFloat(H3_Height__REM) + parseFloat(FOOTER_Height__REM) + 'rem';
 /** ----------------------------------------------------------------- */
 
 export const StyledArticle = styled.article<SetDisplayProps>`
@@ -71,8 +73,7 @@ export const StyledArticle = styled.article<SetDisplayProps>`
     word-break: break-all;
     line-height: ${H3_LINE_HEIGHT};
     position: absolute;
-    bottom: ${({ theme }) =>
-      parseInt(theme.fontSize.xs) + parseInt(theme.spaceSize.m) + parseInt(theme.spaceSize.m) + 'rem'};
+    bottom: ${FOOTER_Height__REM};
     background: ${({ theme }) => theme.color.darkGray};
     width: 100%;
   }
@@ -95,7 +96,7 @@ export const StyledDiv = styled.div<ImageContainerProps>`
   background: ${({ theme }) => theme.color.black};
   height: ${({ layoutOption }) =>
     layoutOption === 'uniform'
-      ? parseInt(pxToRem(IMAGECARD_UNIFORM_HEIGHT__PX)) - parseInt(IMAGECARD_HEIGHT_EXCLUDING_IMAGE__REM) + 'rem'
+      ? parseFloat(pxToRem(IMAGECARD_UNIFORM_HEIGHT__PX)) - parseFloat(IMAGECARD_HEIGHT_EXCLUDING_IMAGE__REM) + 'rem'
       : 'auto'};
 `;
 
@@ -104,9 +105,9 @@ export const StyledFooter = styled.footer`
   justify-content: space-around;
   color: ${({ theme }) => theme.color.lightGray};
   font-size: ${FOOTER__FONT_SIZE};
-  padding-top: ${parseInt(H3_PADDING_TOP__SPACE_SIZE) +
-  parseInt(H3__FONT_SIZE) * H3_LINE_HEIGHT +
-  parseInt(FOOTER_PADDING_TOP__SPACE_SIZE) +
+  padding-top: ${parseFloat(H3_PADDING_TOP__SPACE_SIZE) +
+  parseFloat(H3__FONT_SIZE) * H3_LINE_HEIGHT +
+  parseFloat(FOOTER_PADDING_TOP__SPACE_SIZE) +
   'rem'};
   padding-bottom: ${FOOTER_PADDING_BOTTOM__SPACE_SIZE};
   div {

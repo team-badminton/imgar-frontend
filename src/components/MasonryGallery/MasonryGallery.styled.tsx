@@ -16,8 +16,8 @@ export const StyledImageCard = styled(ImageCard).attrs<StyledImageCardProps>(({ 
   // y좌표 : 행 개수 * (이미지 높이를 제외한 이미지 카드 컴포넌트 높이 + 행 사이 간격) + 자신 위의 전체 이미지 높이 합
   const positionX = pxToRem(setPositionProps.column * (IMAGECARD_WIDTH_PX + COLUMN_GAP__PX));
   const positionY =
-    setPositionProps.row * (parseInt(IMAGECARD_HEIGHT_EXCLUDING_IMAGE__REM) + parseInt(pxToRem(ROW_GAP__PX))) +
-    parseInt(pxToRem(setPositionProps.sumOfAboveImageHeightPx)) +
+    setPositionProps.row * (parseFloat(IMAGECARD_HEIGHT_EXCLUDING_IMAGE__REM) + parseFloat(pxToRem(ROW_GAP__PX))) +
+    parseFloat(pxToRem(setPositionProps.sumOfAboveImageHeightPx)) +
     'rem';
 
   return {
