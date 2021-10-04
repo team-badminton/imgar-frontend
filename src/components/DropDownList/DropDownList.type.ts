@@ -1,7 +1,9 @@
+import { ReactElement } from 'react';
+
 export interface DropDownListProps {
-  dropdownItemList: string[];
   dropdownHeader: string;
   handleDropDownList: React.MouseEventHandler<HTMLUListElement>;
+  children: ReactElement[];
 }
 
 export interface SetDisplayProps {

@@ -80,16 +80,16 @@ export default function MasonryGalleryHeader(): ReactElement {
           width: 100%;
         `}
       >
-        <DropDownList
-          dropdownHeader={category}
-          dropdownItemList={categoryList}
-          handleDropDownList={handleSetCategory}
-        />
-        <DropDownList
-          dropdownHeader={sortOption}
-          dropdownItemList={sortOptionList[category]}
-          handleDropDownList={handleSetSortOption}
-        />
+        <DropDownList dropdownHeader={category} handleDropDownList={handleSetCategory}>
+          {categoryList.map((item, index) => (
+            <span key={index}>{item}</span>
+          ))}
+        </DropDownList>
+        <DropDownList dropdownHeader={sortOption} handleDropDownList={handleSetSortOption}>
+          {sortOptionList[category].map((item, index) => (
+            <span key={index}>{item}</span>
+          ))}
+        </DropDownList>
       </div>
       <div>
         <button onClick={handleAnimationToggle}>

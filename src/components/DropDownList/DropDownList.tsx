@@ -4,8 +4,8 @@ import { DropDownListProps } from './DropDownList.type';
 
 export default function DropDownList({
   dropdownHeader,
-  dropdownItemList,
   handleDropDownList,
+  children,
 }: DropDownListProps): ReactElement {
   const [isShow, setIsShow] = useState<boolean>(false);
   const handleShow = () => {
@@ -17,11 +17,9 @@ export default function DropDownList({
       <div>
         <StyledDropDownButton onClick={handleShow}>{dropdownHeader}</StyledDropDownButton>
         <StyledDropDownUL isShow={isShow} onClick={handleDropDownList}>
-          {dropdownItemList.map((itemName, index) => (
-            <li key={index + itemName} className={index === 0 ? 'selected listItem' : 'listItem'}>
-              <button>
-                <span>{itemName}</span>
-              </button>
+          {children.map((child, index) => (
+            <li key={index} className={index === 0 ? 'selected listItem' : 'listItem'}>
+              <button>{child}</button>
             </li>
           ))}
         </StyledDropDownUL>
