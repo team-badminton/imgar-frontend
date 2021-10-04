@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect } from 'react';
 // import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useGalleryQuery } from '@/redux/api/v3';
+import { useGalleryQuery } from '@/redux/api';
 import {
   IMAGE_MAX_HEIGHT_PX,
   IMAGECARD_WIDTH_PX,
@@ -58,7 +58,7 @@ export default function MasonryGallery(): ReactElement {
       >
         {/* 비동기니까 ?. 혹은 &&을 해줘야한다. */}
         {posts &&
-          posts.slice(0, 30).map((postInfo, index) => {
+          posts.map((postInfo, index) => {
             const row = Math.floor(index / LAYOUT_TOTAL_COLUMN_NUM);
             const column = index % LAYOUT_TOTAL_COLUMN_NUM;
             const objectKey = '' + row + column;
