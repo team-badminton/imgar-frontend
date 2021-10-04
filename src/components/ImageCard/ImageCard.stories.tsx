@@ -16,7 +16,9 @@ export default {
 - 리덕스에서 관리하는 listInfo.autoPlay의 Boolean 값에 따라 썸네일 이미지의 자동 재생 여부가 결정됩니다.
   - 썸네일 이미지가 사진인 경우, autoPlay의 Boolean 값에 영향받지 않습니다.
   - 썸네일 이미지가 동영상인 경우, autoPlay가 true면 동영상이 렌더링되고, false면 사진이 렌더링 됩니다.
-- autoPlay가 false일 때,  images[0].hasSound에 따라 동영상의 경우 소리가 있는지 없는 지 여부를 판별하여 표시합니다. 
+- autoPlay가 false일 때,  images[0].hasSound에 따라 동영상의 경우 소리가 있는지 없는 지 여부를 판별하여 표시합니다.
+- layoutOption이 'waterfall'인 경우, 이미지의 원래 높이만큼의 비율로 표시합니다.
+- layoutOption이 'uniform'인 경우, 이미지의 원래 높이와 무관하게 일정한 높이로 표시합니다.
         `,
       },
     },
