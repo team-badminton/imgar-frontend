@@ -16,8 +16,6 @@ export default React.memo(function Search(): ReactElement {
     skip: !searchQuery && !focus,
   });
 
-  console.log(isSuccess);
-
   useEffect(() => {
     setFocus(false);
     clearInputRef?.current.clearInput();
