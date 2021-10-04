@@ -12,12 +12,16 @@ export interface StyledImageProps {
 }
 
 export interface PictureProps extends StyledImageProps {
+  /** 대체 텍스트를 설정할 수 있습니다. */
+  alt?: string;
+  /** 클래스 이름을 설정할 수 있습니다. */
+  className?: string;
   /** imageId는 image 리소스를 요청하기 위한 id(hash) 값 입니다. id와 매칭되는 image 데이터를 요청합니다. */
   imageId?: string;
+  /** img를 클릭시 호출할 핸들러를 설정할 수 있습니다. */
+  onClick?: React.MouseEventHandler<HTMLImageElement>;
   /** hash가 아닌 image가 위치하고 있는 url(src)을 주소를 통해 데이터를 요청합니다. */
   src?: string;
-  /** 대체 텍스트를 설정할 수 있습니다. */
-  alt: string;
   /** 이미지에 inline 스타일을 적용할 수 있습니다. */
   style?: CSSProperties;
 }

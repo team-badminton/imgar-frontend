@@ -34,5 +34,6 @@ export const defaultTheme: DefaultTheme = {
   borderRadius: {
     s: pxToRem(3),
     l: pxToRem(5),
+    xl: pxToRem(6),
   },
 };
