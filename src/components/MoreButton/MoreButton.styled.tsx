@@ -4,10 +4,10 @@ import styled from 'styled-components';
 import { Button } from '@/components';
 
 // utils
-import { hexToRGB } from '@/util/styleUtils';
+import { hexToRgb } from '@/util/styleUtils';
 
 export const StyledMoreButton = styled(Button)`
-  background-color: ${({ theme }) => `${hexToRGB(theme.color.black, 0.2)}`};
+  background-color: ${({ theme }) => `${hexToRgb(theme.color.black, 0.2)}`};
   height: initial;
   padding: initial;
   .img {
@@ -15,6 +15,6 @@ export const StyledMoreButton = styled(Button)`
     height: initial;
   }
   :hover {
-    background-color: ${({ theme }) => `${hexToRGB(theme.color.black, 0.4)}`};
+    background-color: ${({ theme }) => `${hexToRgb(theme.color.black, 0.4)}`};
   }
 `;

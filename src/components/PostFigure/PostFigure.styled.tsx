@@ -8,7 +8,7 @@ import WaveUnderLine from './assets/WaveUnderLine.svg';
 import { StyledPictureProps } from './PostFigure.type';
 
 // utils
-import { pxToRem, hexToRGB } from '@/util/styleUtils';
+import { pxToRem, hexToRgb } from '@/util/styleUtils';
 
 export const StyledFigure = styled.figure`
   position: relative;
@@ -22,7 +22,7 @@ export const StyledFigure = styled.figure`
 `;
 
 export const ContainerPicture = styled.div`
-  background-color: ${({ theme }) => `${hexToRGB(theme.color.black, 0.1)}`};
+  background-color: ${({ theme }) => `${hexToRgb(theme.color.black, 0.1)}`};
 `;
 
 export const StyledPicture = styled(Picture)<StyledPictureProps>`

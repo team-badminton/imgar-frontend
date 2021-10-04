@@ -10,10 +10,9 @@ import { PostFigureProps } from './PostFigure.type';
 import useThrottle from '@/hooks/useThrottle';
 
 // components
-import { MoreButton } from '@/components';
+import { MoreButton, Modal } from '@/components';
 
 // etc
-import PortalsModal from '@/PortalsModal/PortalsModal';
 import { Link } from 'react-router-dom';
 
 export default function PostFigure({
@@ -72,9 +71,9 @@ export default function PostFigure({
           />
           {isImageHover && <MoreButton className="more-btn" />}
           {isVisibleModal && (
-            <PortalsModal handleHide={handleToggleModal}>
+            <Modal handleHide={handleToggleModal}>
               <StyledPicture isVisibleModal={isVisibleModal} isZoomAble={isZoomAble} imageId={imageId} />
-            </PortalsModal>
+            </Modal>
           )}
         </ContainerPicture>
         <StyledFigureCaption key={imageId}>
