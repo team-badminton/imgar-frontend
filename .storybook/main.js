@@ -13,7 +13,13 @@ module.exports = {
     // Merge our rule with existing assetLoader rules
     config.module.rules.push({
       test: /\.svg$/,
-      use: ['@svgr/webpack', 'url-loader'],
+      use: [
+        {
+          loader: '@svgr/webpack',
+          options: { titleProp: true },
+        },
+        'url-loader',
+      ],
     });
 
     config.resolve.alias['@'] = path.resolve(__dirname, '../src');
