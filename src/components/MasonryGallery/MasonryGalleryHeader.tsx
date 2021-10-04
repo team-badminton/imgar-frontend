@@ -12,11 +12,11 @@ import { GalleryQuery } from '@/redux/api/types/queries';
 export default function MasonryGalleryHeader(): ReactElement {
   // MASONRY GALLERY 헤더의 최소 너비 설정
   const MASONRY_GALLERY_HEADER_MIN_WIDTH__PX = 450;
-  const categoryList = ['mostViral', 'userSubmitted', 'highestScoring'];
-  const sortOptionList: { [key: string]: string[] } = {
+  const categoryList: GalleryQuery['section'][] = ['mostViral', 'userSubmitted', 'highestScoring'];
+  const sortOptionList: { [key in GalleryQuery['section']]: GalleryQuery['sort'][] | GalleryQuery['window'][] } = {
     mostViral: ['newest', 'popular', 'best', 'random'],
     userSubmitted: ['popular', 'rising', 'newest'],
-    highestScoring: ['today', 'week', 'month', 'year', 'all'],
+    highestScoring: ['day', 'week', 'month', 'year', 'all'],
   };
 
   const masonryGalleryWidth = useSelector((state: RootState) => state.display.masonryGalleryWidth);
@@ -44,7 +44,7 @@ export default function MasonryGalleryHeader(): ReactElement {
 
     const selectedCategory = $li.children[0].children[0].textContent;
 
-    const selectedSort = sortOptionList[selectedCategory][0];
+    const selectedSort = sortOptionList[selectedCategory as GalleryQuery['section']][0];
     dispatch(setCategory(selectedCategory as GalleryQuery['section']));
     dispatch(setSortOption(selectedSort as GalleryQuery['sort']));
   };
