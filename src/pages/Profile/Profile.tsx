@@ -4,6 +4,7 @@ import { useAccountQuery } from '@/redux/api';
 import React, { ReactElement, useRef } from 'react';
 import { Route, Switch, useLocation, useParams, useRouteMatch, RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
+import ProfileAbout from './ProfileAbout';
 import ProfileCover from './ProfileCover';
 
 const ProfileWrapper = React.memo(styled.div`
@@ -26,8 +27,7 @@ export default function Profile({ location, match }: RouteComponentProps): React
   const { pathname } = location;
   const { username } = useParams<{ username: string }>();
   const { data } = useAccountQuery(username);
-  const customHederHeight = pathname.includes('/favorites') ? 200 : 120;
-  console.log('customHederHeight: ' + customHederHeight);
+  const customHederHeight = pathname.includes('/favorites') ? 100 : 70;
 
   return (
     <MainContainer
@@ -44,7 +44,7 @@ export default function Profile({ location, match }: RouteComponentProps): React
         <Switch>
           <Route path={match.url + `/favorites`} exact component={Favorites} />
           <Route path={match.url + `/comments`} exact component={Comments} />
-          <Route path={match.url + `/about`} exact component={About} />
+          <Route path={match.url + `/about`} exact render={() => <ProfileAbout username={username} />} />
           <Route path={match.url} component={Posts} />
         </Switch>
       </ProfileWrapper>
