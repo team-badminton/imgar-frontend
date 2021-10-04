@@ -13,6 +13,9 @@ export default {
       },
     },
   },
+  args: {
+    type: 'image/jpeg',
+  },
 } as ComponentMeta<typeof PostFigure>;
 
 const Template: ComponentStory<typeof PostFigure> = args => <PostFigure {...args} />;
@@ -55,4 +58,13 @@ TextBreakLine.args = {
   orgImageWidth: 1,
   orgImageHeight: 1,
   description: `The technique consists in taking several videos with my iNova PLB Cx camera mounted on a Maksutov 150/1800mm telescope. Due to the small sensor of the camera, I only see a little part of the Moon, that's why I take several videos to cover the whole Moon. I have then extracted snapshots from the videos, aligned/stacked the 5% best quality frames, and have finally merged all the images to made this picture of the Moon.\n\n\n\n\n\nAll my work is on my Instagram : https://www.instagram.com/astronophilos Every following means a lot, thank you :)\n\nPS: Stars have been observed on another part of the sky and added in processing.`,
+};
+
+export const VideoType = Template.bind({});
+VideoType.args = {
+  type: 'video/mp4',
+  imageId: '1V43Io3',
+  orgImageWidth: 300,
+  orgImageHeight: 400,
+  description: `Video type`,
 };
