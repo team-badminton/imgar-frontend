@@ -83,8 +83,8 @@ export default function PostFigure({
           ) : (
             <StyledVideo
               controls
-              width={orgImageWidth}
-              height={orgImageHeight}
+              videoWidth={orgImageWidth}
+              videoHeight={orgImageHeight}
               src={`https://i.imgur.com/${imageId}.mp4`}
             />
           )}

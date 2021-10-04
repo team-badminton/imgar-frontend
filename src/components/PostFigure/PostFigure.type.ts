@@ -14,8 +14,8 @@ export interface PostFigureProps {
 }
 
 export interface StyledVideoProps {
-  width: ImageInfo['imageWidth'];
-  height: ImageInfo['imageHeight'];
+  videoWidth: ImageInfo['imageWidth'];
+  videoHeight: ImageInfo['imageHeight'];
 }
 
 export interface StyledPictureProps {

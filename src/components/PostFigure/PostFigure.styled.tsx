@@ -26,8 +26,8 @@ export const ContentContainer = styled.div`
 `;
 
 export const StyledVideo = styled(Video)<StyledVideoProps>`
-  max-width: ${({ width }) => pxToRem(width)};
-  max-height: ${({ height }) => pxToRem(height)};
+  max-width: ${({ videoWidth }) => pxToRem(videoWidth)};
+  max-height: ${({ videoHeight }) => pxToRem(videoHeight)};
   margin: 0 auto;
   display: block;
 `;
