@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import { Picture } from '@/components';
+import { Picture, Video } from '@/components';
 
 // assets
 import WaveUnderLine from './assets/WaveUnderLine.svg';
 
 // types
-import { StyledPictureProps } from './PostFigure.type';
+import { StyledPictureProps, StyledVideoProps } from './PostFigure.type';
 
 // utils
 import { pxToRem, hexToRgb } from '@/util/styleUtils';
@@ -21,8 +21,15 @@ export const StyledFigure = styled.figure`
   }
 `;
 
-export const ContainerPicture = styled.div`
+export const ContentContainer = styled.div`
   background-color: ${({ theme }) => `${hexToRgb(theme.color.black, 0.1)}`};
+`;
+
+export const StyledVideo = styled(Video)<StyledVideoProps>`
+  max-width: ${({ width }) => pxToRem(width)};
+  max-height: ${({ height }) => pxToRem(height)};
+  margin: 0 auto;
+  display: block;
 `;
 
 export const StyledPicture = styled(Picture)<StyledPictureProps>`

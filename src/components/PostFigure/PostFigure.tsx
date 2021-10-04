@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect, useRef, useState, Fragment } from 'react';
 
 // styles
-import { ContainerPicture, StyledFigure, StyledFigureCaption, StyledPicture } from './PostFigure.styled';
+import { ContentContainer, StyledFigure, StyledFigureCaption, StyledPicture, StyledVideo } from './PostFigure.styled';
 
 // types
 import { PostFigureProps } from './PostFigure.type';
@@ -16,6 +16,7 @@ import { MoreButton, Modal } from '@/components';
 import { Link } from 'react-router-dom';
 
 export default function PostFigure({
+  type,
   imageId,
   orgImageWidth,
   orgImageHeight,
@@ -43,13 +44,15 @@ export default function PostFigure({
   };
 
   useEffect(() => {
-    const resizeObserver = new ResizeObserver(handleResizeObserver);
+    if (type !== 'video/mp4') {
+      const resizeObserver = new ResizeObserver(handleResizeObserver);
 
-    resizeObserver.observe(imageRef.current);
+      resizeObserver.observe(imageRef.current);
 
-    return () => {
-      resizeObserver.disconnect();
-    };
+      return () => {
+        resizeObserver.disconnect();
+      };
+    }
   }, []);
 
   const handleMouseEnter = () => {
@@ -62,20 +65,31 @@ export default function PostFigure({
   return (
     <>
       <StyledFigure key={imageId}>
-        <ContainerPicture onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-          <StyledPicture
-            isZoomAble={isZoomAble}
-            ref={imageRef}
-            imageId={imageId}
-            onClick={isZoomAble ? handleToggleModal : null}
-          />
-          {isImageHover && <MoreButton className="more-btn" />}
-          {isVisibleModal && (
-            <Modal handleHide={handleToggleModal}>
-              <StyledPicture isVisibleModal={isVisibleModal} isZoomAble={isZoomAble} imageId={imageId} />
-            </Modal>
+        <ContentContainer onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+          {type !== 'video/mp4' ? (
+            <>
+              <StyledPicture
+                isZoomAble={isZoomAble}
+                ref={imageRef}
+                imageId={imageId}
+                onClick={isZoomAble ? handleToggleModal : null}
+              />
+              {isVisibleModal && (
+                <Modal handleHide={handleToggleModal}>
+                  <StyledPicture isVisibleModal={isVisibleModal} isZoomAble={isZoomAble} imageId={imageId} />
+                </Modal>
+              )}
+            </>
+          ) : (
+            <StyledVideo
+              controls
+              width={orgImageWidth}
+              height={orgImageHeight}
+              src={`https://i.imgur.com/${imageId}.mp4`}
+            />
           )}
-        </ContainerPicture>
+          {isImageHover && <MoreButton className="more-btn" />}
+        </ContentContainer>
         <StyledFigureCaption key={imageId}>
           {description
             ?.split(/(https?:\/\/[\w\/\.\-_=\?\&#$]+)|(\n)|(#.+)/)
