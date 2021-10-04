@@ -47,8 +47,8 @@ export default function MainContainer({
     function handleScroll(): void {
       const scrollOffset = window.pageYOffset;
 
-      // 계산된 스크롤 오프셋이 필요함 임계점2를 기준으로 패럴럭스 스크롤이 되도록 추가로 이동하는 값을 계산
-      const scrollOffsetWithBodyOffset = (BODY_OFFSET / threshold2) * scrollOffset;
+      // 계산된 스크롤 오프셋이 필요함 임계점1를 기준으로 패럴럭스 스크롤이 되도록 추가로 이동하는 값을 계산
+      const scrollOffsetWithBodyOffset = (BODY_OFFSET / threshold1) * scrollOffset;
 
       // 스크롤 오프셋이 임계값보다 크면 위치를 계산하여 서서히 뒤로 빠지도록 함
       // 임계값보다 작으면 그대로 위쪽에 고정
