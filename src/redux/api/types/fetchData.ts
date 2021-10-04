@@ -126,25 +126,116 @@ export interface Post {
   processing: Processing;
 }
 
-// Users
-
-interface UserFollow {
-  status: boolean;
+export interface PostV1 {
+  id: string;
+  account_id: number;
+  title: string;
+  description: string;
+  view_count: number;
+  upvote_count: number;
+  downvote_count: number;
+  point_count: number;
+  image_count: number;
+  comment_count: number;
+  favorite_count: number;
+  virality: number;
+  score: number;
+  in_most_viral: boolean;
+  is_album: boolean;
+  is_mature: boolean;
+  cover_id: string;
+  created_at: string;
+  updated_at: any;
+  url: string;
+  privacy: string;
+  vote: any;
+  favorite: boolean;
+  is_ad: boolean;
+  ad_type: number;
+  ad_url: string;
+  include_album_ads: boolean;
+  shared_with_community: boolean;
+  is_pending: boolean;
+  platform: string;
+  ad_config: AdConfigV1;
+  cover: Cover;
+  display: Display[];
 }
 
+export interface AdConfigV1 {
+  show_ads: boolean;
+  safe_flags: string[];
+  high_risk_flags: any[];
+  unsafe_flags: any[];
+  wall_unsafe_flags: any[];
+}
+
+export interface Cover {
+  id: string;
+  account_id: number;
+  mime_type: string;
+  type: string;
+  name: string;
+  basename: string;
+  url: string;
+  ext: string;
+  width: number;
+  height: number;
+  size: number;
+  metadata: Metadata;
+  created_at: string;
+  updated_at: any;
+}
+
+export interface Metadata {
+  title: string;
+  description: string;
+  is_animated: boolean;
+  is_looping: boolean;
+  duration: number;
+  has_sound: boolean;
+}
+
+export interface Display {
+  type: string;
+  url?: string;
+  colors?: string[];
+}
+
+// Users
 export interface User {
   id: number;
-  url: string;
-  bio?: string | null;
-  avatar: string;
-  avatar_name: string;
-  cover: string;
-  cover_name: string;
-  reputation: number;
+  username: string;
+  bio: string;
+  reputation_count: number;
   reputation_name: string;
-  created: number;
-  pro_expiration: boolean;
-  user_follow: UserFollow;
+  avatar_id: string;
+  avatar_url: string;
+  cover_id: string;
+  cover_url: string;
+  created_at: string;
+  trophies: Trophy[];
+  medallions: Medallion[];
+  roles: any;
+}
+
+export interface Trophy {
+  id: number;
+  name: string;
+  description: string;
+  image_height: number;
+  image_width: number;
+  image_url: string;
+  awarded_at?: string;
+  data_type?: string;
+  data_link?: string;
+}
+
+export interface Medallion {
+  name: string;
+  description: string;
+  image_url: string;
+  point_threshold: number;
 }
 
 // Comments
