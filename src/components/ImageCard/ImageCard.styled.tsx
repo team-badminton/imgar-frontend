@@ -1,24 +1,37 @@
-// import { takeWhile } from 'lodash';
-// import React from 'react';
 import styled from 'styled-components';
-import { SetDisplayProps } from './ImageCard.type';
+import { ImageContainerProps, SetDisplayProps } from './ImageCard.type';
 import { pxToRem } from '@/util/styleUtils';
+import { defaultTheme } from '@/theme/themes';
 
-const addRems = (rems: string[]): string => {
-  return (
-    rems
-      .map((rem: string) => Number(rem.replace('rem', '')))
-      .reduce((pre: number, cur: number): number => pre + cur, 0) + 'rem'
-  );
-};
-
-export const H3__FONT_SIZE = 's';
-export const H3_LINE_HEIGHT = 1.5;
-export const H3_PADDING_TOP__SPACE_SIZE = 's';
-export const FOOTER_PADDING_TOP__SPACE_SIZE = 'm';
-export const FOOTER_PADDING_BOTTOM__SPACE_SIZE = FOOTER_PADDING_TOP__SPACE_SIZE;
-export const FOOTER__FONT_SIZE = 'xs';
+/** ---------------------------- 상수 ---------------------------- */
+// 기본 이미지 카드 컴포넌트 너비 설정
+export const IMAGECARD_WIDTH_PX = 240;
+// 이미지 카드 컴포넌트 최대 높이 설정
 export const IMAGE_MAX_HEIGHT_PX = 400;
+// uniform 레이아웃일 때 이미지 카드 컴포넌트의 높이 설정
+export const IMAGECARD_UNIFORM_HEIGHT__PX = IMAGECARD_WIDTH_PX;
+
+// 이미지 카드 컴포넌트 제목 스타일 설정
+const H3__FONT_SIZE = defaultTheme.fontSize.s;
+const H3_LINE_HEIGHT = 1.5;
+const H3_PADDING_TOP__SPACE_SIZE = defaultTheme.spaceSize.s;
+// 이미지 카드 컴포넌트 제목 높이 계산
+const H3_Height__REM = parseFloat(H3_PADDING_TOP__SPACE_SIZE) + parseFloat(H3__FONT_SIZE) * H3_LINE_HEIGHT + 'rem';
+
+// 이미지 카드 컴포넌트에서 이미지 제외 부분 스타일 설정
+const FOOTER_PADDING_TOP__SPACE_SIZE = defaultTheme.spaceSize.m;
+const FOOTER_PADDING_BOTTOM__SPACE_SIZE = FOOTER_PADDING_TOP__SPACE_SIZE;
+const FOOTER__FONT_SIZE = defaultTheme.fontSize.xs;
+const FOOTER_Height__REM =
+  parseFloat(FOOTER_PADDING_TOP__SPACE_SIZE) +
+  parseFloat(FOOTER__FONT_SIZE) +
+  parseFloat(FOOTER_PADDING_BOTTOM__SPACE_SIZE) +
+  'rem';
+// 이미지 카드 컴포넌트에서 이미지 제외 부분 높이 계산
+
+export const IMAGECARD_HEIGHT_EXCLUDING_IMAGE__REM =
+  parseFloat(H3_Height__REM) + parseFloat(FOOTER_Height__REM) + 'rem';
+/** ----------------------------------------------------------------- */
 
 export const StyledArticle = styled.article<SetDisplayProps>`
   width: ${({ imageCardWidth }) =>
@@ -49,9 +62,9 @@ export const StyledArticle = styled.article<SetDisplayProps>`
   }
   h3 {
     color: ${({ theme }) => theme.color.white};
-    font-size: ${({ theme }) => theme.fontSize[H3__FONT_SIZE]};
+    font-size: ${H3__FONT_SIZE};
     margin: 0 auto;
-    padding: ${({ theme }) => theme.spaceSize[H3_PADDING_TOP__SPACE_SIZE]} ${({ theme }) => theme.spaceSize.m} 0;
+    padding: ${H3_PADDING_TOP__SPACE_SIZE} ${({ theme }) => theme.spaceSize.m} 0;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -60,7 +73,7 @@ export const StyledArticle = styled.article<SetDisplayProps>`
     word-break: break-all;
     line-height: ${H3_LINE_HEIGHT};
     position: absolute;
-    bottom: ${({ theme }) => addRems([theme.fontSize.xs, theme.spaceSize.m, theme.spaceSize.m])};
+    bottom: ${FOOTER_Height__REM};
     background: ${({ theme }) => theme.color.darkGray};
     width: 100%;
   }
@@ -77,23 +90,26 @@ export const StyledArticle = styled.article<SetDisplayProps>`
   }
 `;
 
-export const StyledDiv = styled.div`
+export const StyledDiv = styled.div<ImageContainerProps>`
   max-height: ${pxToRem(IMAGE_MAX_HEIGHT_PX)};
   overflow: hidden;
+  background: ${({ theme }) => theme.color.black};
+  height: ${({ layoutOption }) =>
+    layoutOption === 'uniform'
+      ? parseFloat(pxToRem(IMAGECARD_UNIFORM_HEIGHT__PX)) - parseFloat(IMAGECARD_HEIGHT_EXCLUDING_IMAGE__REM) + 'rem'
+      : 'auto'};
 `;
 
 export const StyledFooter = styled.footer`
   display: flex;
   justify-content: space-around;
   color: ${({ theme }) => theme.color.lightGray};
-  font-size: ${({ theme }) => theme.fontSize[FOOTER__FONT_SIZE]};
-  padding-top: ${({ theme }) =>
-    addRems([
-      theme.spaceSize[H3_PADDING_TOP__SPACE_SIZE],
-      Number(theme.fontSize[H3__FONT_SIZE].replace('rem', '')) * H3_LINE_HEIGHT + 'rem',
-      theme.spaceSize[FOOTER_PADDING_TOP__SPACE_SIZE],
-    ])};
-  padding-bottom: ${({ theme }) => theme.spaceSize[FOOTER_PADDING_BOTTOM__SPACE_SIZE]};
+  font-size: ${FOOTER__FONT_SIZE};
+  padding-top: ${parseFloat(H3_PADDING_TOP__SPACE_SIZE) +
+  parseFloat(H3__FONT_SIZE) * H3_LINE_HEIGHT +
+  parseFloat(FOOTER_PADDING_TOP__SPACE_SIZE) +
+  'rem'};
+  padding-bottom: ${FOOTER_PADDING_BOTTOM__SPACE_SIZE};
   div {
     display: flex;
     align-items: center;
