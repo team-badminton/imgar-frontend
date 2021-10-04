@@ -1,4 +1,4 @@
-import { useSuggestQuery } from '@/redux/api/v3';
+import { useSuggestQuery } from '@/redux/api';
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router';
 import { SearchBar, SuggestList } from '..';
