@@ -1,6 +1,10 @@
 declare module '*.svg' {
   const url: string;
-  export const ReactComponent: React.FC<React.SVGProps<SVGSVGElement>>;
+  interface SVGRProps {
+    title?: string;
+    titleId?: string;
+  }
+  export const ReactComponent: React.FC<SVGRProps & React.SVGProps<SVGSVGElement>>;
   export default url;
 }
 

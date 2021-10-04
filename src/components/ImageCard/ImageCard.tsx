@@ -44,15 +44,15 @@ export default function ImageCard({
         <h3>{title}</h3>
         <StyledFooter>
           <div>
-            <UpIconSVG />
+            <UpIconSVG title="Upvote" />
             <span>{upCount - downCount}</span>
           </div>
           <div>
-            <CommentIconSVG />
+            <CommentIconSVG title="Comment" />
             <span>{commentCount}</span>
           </div>
           <div>
-            <ViewIconSVG />
+            <ViewIconSVG title="View" />
             <span>{views}</span>
           </div>
         </StyledFooter>
