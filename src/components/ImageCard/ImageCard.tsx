@@ -13,9 +13,10 @@ export default function ImageCard({
   isAutoPlay,
   postInfo,
   imageCardWidth,
+  layoutOption,
 }: ImageCardProps): ReactElement {
-  const thumbnail = postInfo.images[0];
-  const { id, thumbnailImageId, thumbnailWidth, title, upCount, downCount, commentCount, views } = postInfo;
+  const { id, thumbnailImageId, thumbnailWidth, title, upCount, downCount, commentCount, views, type, hasSound } =
+    postInfo;
 
   return (
     <Link
@@ -27,8 +28,8 @@ export default function ImageCard({
       `}
     >
       <StyledArticle imageCardWidth={imageCardWidth}>
-        <StyledDiv>
-          {!isAutoPlay || thumbnail.type === 'image/jpeg' || thumbnail.type === 'image/png' ? (
+        <StyledDiv layoutOption={layoutOption}>
+          {!isAutoPlay || type === 'image/jpeg' || type === 'image/png' ? (
             <Picture
               alt=""
               objectFit="contain"
@@ -39,7 +40,7 @@ export default function ImageCard({
             <Video src={`https://i.imgur.com/${thumbnailImageId}_lq.mp4`} />
           )}
         </StyledDiv>
-        {!isAutoPlay && thumbnail.type === 'video/mp4' && <em>{thumbnail.hasSound ? 'Has Sound' : 'Has No Sound'}</em>}
+        {!isAutoPlay && type === 'video/mp4' && <em>{hasSound ? 'Has Sound' : 'Has No Sound'}</em>}
         <h3>{title}</h3>
         <StyledFooter>
           <div>

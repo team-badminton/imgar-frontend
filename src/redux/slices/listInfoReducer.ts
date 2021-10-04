@@ -26,6 +26,7 @@ export const postListSlice = createSlice({
     },
     toggleView(state) {
       // 보기 방식 변경
+      state.layout = state.layout === 'waterfall' ? 'uniform' : 'waterfall';
     },
     toggleAutoPlay(state) {
       // 자동재생 변경

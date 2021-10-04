@@ -1,19 +1,22 @@
-import React, { ReactElement, useEffect } from 'react';
-import { toggleAutoPlay } from '@/redux/slices/listInfoReducer';
+import React, { ReactElement } from 'react';
+import { toggleAutoPlay, toggleView } from '@/redux/slices/listInfoReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactComponent as AnimationPlayIconSVG } from '@/assets/Icon/animationPlayIcon.svg';
+import { ReactComponent as UniformLayoutIconSVG } from '@/assets/Icon/uniformLayoutIcon.svg';
 import { DropDownList } from '@/components';
 import { RootState } from '@/redux';
-import { COLUMN_GAP__PX, IMAGECARD_WIDTH_PX } from './MasonryGallery.styled';
 import { pxToRem } from '@/util/styleUtils';
 
 export default function MasonryGalleryHeader(): ReactElement {
   const dispatch = useDispatch();
-  const handleToggle = () => {
+  const handleAnimationToggle = () => {
     dispatch(toggleAutoPlay());
   };
+  const handleLayoutToggle = () => {
+    dispatch(toggleView());
+  };
   const masonryGalleryWidth = useSelector((state: RootState) => state.display.masonryGalleryWidth);
-
+  const MASONRY_GALLERY_HEADER_MIN_WIDTH__PX = 450;
   const categoryList = ['MOST VIRAL', 'USER SUBMITTED', 'HIGHEST SCORING'];
 
   const sortOptionList = ['NEWEST', 'POPULAR', 'BEST', 'RANDOM'];
@@ -25,6 +28,7 @@ export default function MasonryGalleryHeader(): ReactElement {
         justify-content: space-between;
         margin: 0 auto;
         width: ${pxToRem(masonryGalleryWidth)};
+        min-width: ${pxToRem(MASONRY_GALLERY_HEADER_MIN_WIDTH__PX)};
       `}
     >
       <div
@@ -38,8 +42,11 @@ export default function MasonryGalleryHeader(): ReactElement {
         <DropDownList dropdownType="sortOption" dropdownItemList={sortOptionList} />
       </div>
       <div>
-        <button onClick={handleToggle}>
+        <button onClick={handleAnimationToggle}>
           <AnimationPlayIconSVG />
+        </button>
+        <button onClick={handleLayoutToggle}>
+          <UniformLayoutIconSVG />
         </button>
       </div>
     </div>
