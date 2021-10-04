@@ -27,6 +27,7 @@ const Template: ComponentStory<typeof ImageCard> = args => <ImageCard {...args} 
 
 export const autoplayTrueAndVideo = Template.bind({});
 autoplayTrueAndVideo.args = {
+  layoutOption: 'waterfall',
   isAutoPlay: true,
   imageCardWidth: IMAGECARD_WIDTH_PX,
   postInfo: {
@@ -116,5 +117,22 @@ titleIsLongWithoutSpace.args = {
   postInfo: {
     ...autoplayTrueAndVideo.args.postInfo,
     title: 'TheBlackPurralTheBlackPurralTheBlackPurralTheBlackPurralTheBlackPurralTheBlackPurralTheBlackPurral',
+  },
+};
+
+export const waterfallLayout = Template.bind({});
+waterfallLayout.args = {
+  ...autoplayTrueAndVideo.args,
+  postInfo: {
+    ...autoplayTrueAndVideo.args.postInfo,
+  },
+};
+
+export const uniformLayout = Template.bind({});
+uniformLayout.args = {
+  ...autoplayTrueAndVideo.args,
+  layoutOption: 'uniform',
+  postInfo: {
+    ...autoplayTrueAndVideo.args.postInfo,
   },
 };
