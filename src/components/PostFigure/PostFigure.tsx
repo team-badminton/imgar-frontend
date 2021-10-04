@@ -81,7 +81,12 @@ export default function PostFigure({
               )}
             </>
           ) : (
-            <StyledVideo width={orgImageWidth} height={orgImageHeight} src={`https://i.imgur.com/${imageId}.mp4`} />
+            <StyledVideo
+              controls
+              width={orgImageWidth}
+              height={orgImageHeight}
+              src={`https://i.imgur.com/${imageId}.mp4`}
+            />
           )}
           {isImageHover && <MoreButton className="more-btn" />}
         </ContentContainer>
