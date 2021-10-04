@@ -28,12 +28,15 @@ body *::after {
   outline-offset: ${pxToRem(2)};
 }
 
-a,
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
 a:hover,
 a:focus,
 a:active {
   text-decoration: none;
-  color: inherit;
 }
 
 
