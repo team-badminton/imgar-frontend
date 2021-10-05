@@ -16,7 +16,6 @@ export default React.memo(function Search(): ReactElement {
 
   const suggestClickHandler = useCallback(e => {
     if (e.target.closest('a')) {
-      setFocus(false);
       clearInputRef?.current.clearInput();
     }
   }, []);
