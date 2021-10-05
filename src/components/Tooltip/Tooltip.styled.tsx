@@ -57,13 +57,13 @@ export const TooltipBox = styled.div<TooltipBoxProps>`
       if (arrow === 'up') {
         return `
           top: 0px;
-          transform: translateX(${pxToRem(arrowOffset ?? 0)}) translateY(-50%) rotate(-45deg);
+          transform: translateX(${pxToRem(arrowOffset ?? 0)}) translateY(-48%) rotate(-45deg);
         `;
       }
       if (arrow === 'down') {
         return `
           bottom: 0px;
-          transform: translateX(${pxToRem(arrowOffset ?? 0)}) translateY(50%) rotate(135deg);
+          transform: translateX(${pxToRem(arrowOffset ?? 0)}) translateY(48%) rotate(135deg);
         `;
       }
     }}
