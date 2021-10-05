@@ -8,7 +8,6 @@ import { RootState } from '@/redux';
 import { pxToRem } from '@/util/styleUtils';
 import { setCategory, setSortOption } from '@/redux/slices/listInfoReducer';
 import { GalleryQuery } from '@/redux/api/types/queries';
-import { addSelectedClass } from '../DropDownList/DropDownList';
 
 export default function MasonryGalleryHeader(): ReactElement {
   // MASONRY GALLERY 헤더의 최소 너비 설정
@@ -31,23 +30,20 @@ export default function MasonryGalleryHeader(): ReactElement {
   };
 
   const category = useSelector((state: RootState) => state.listInfo.category);
-  const sortOption = useSelector((state: RootState) => state.listInfo.sortOption);
 
-  const handleSetCategory = (e: React.MouseEvent<HTMLUListElement, MouseEvent>) => {
-    const $selectedLi = addSelectedClass(e);
-    const selectedCategory = $selectedLi.children[0].children[0].textContent;
-    const selectedSort = sortOptionList[selectedCategory as GalleryQuery['section']][0];
+  const handleSetCategory =
+    ($selectedLi: Element, $selectedChild: ReactElement) => (e: React.MouseEvent<HTMLUListElement, MouseEvent>) => {
+      const selectedCategory = $selectedChild.props.children;
+      const selectedSort = sortOptionList[selectedCategory as GalleryQuery['section']][0];
+      dispatch(setCategory(selectedCategory as GalleryQuery['section']));
+      dispatch(setSortOption(selectedSort as GalleryQuery['sort']));
+    };
 
-    dispatch(setCategory(selectedCategory as GalleryQuery['section']));
-    dispatch(setSortOption(selectedSort as GalleryQuery['sort']));
-  };
-
-  const handleSetSortOption = (e: React.MouseEvent<HTMLUListElement, MouseEvent>) => {
-    const $selectedLi = addSelectedClass(e);
-    const newSortOption = $selectedLi.children[0].children[0].textContent;
-
-    dispatch(setSortOption(newSortOption as GalleryQuery['sort']));
-  };
+  const handleSetSortOption =
+    ($selectedLi: Element, $selectedChild: ReactElement) => (e: React.MouseEvent<HTMLUListElement, MouseEvent>) => {
+      const newSortOption = $selectedChild.props.children;
+      dispatch(setSortOption(newSortOption as GalleryQuery['sort']));
+    };
 
   return (
     <div
@@ -66,12 +62,22 @@ export default function MasonryGalleryHeader(): ReactElement {
           width: 100%;
         `}
       >
-        <DropDownList dropdownHeader={category} handleDropDownList={handleSetCategory}>
+        <DropDownList
+          handlerOption={{
+            useType: 'selectBox',
+            handleDropDownList: handleSetCategory,
+          }}
+        >
           {categoryList.map((item, index) => (
             <span key={index}>{item}</span>
           ))}
         </DropDownList>
-        <DropDownList dropdownHeader={sortOption} handleDropDownList={handleSetSortOption}>
+        <DropDownList
+          handlerOption={{
+            useType: 'selectBox',
+            handleDropDownList: handleSetSortOption,
+          }}
+        >
           {sortOptionList[category].map((item, index) => (
             <span key={index}>{item}</span>
           ))}
