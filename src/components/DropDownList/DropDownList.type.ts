@@ -1,10 +1,5 @@
 import { ReactElement } from 'react';
 
-interface a extends HTMLUListElement {
-  $selectedLi: Element;
-  $selectedChild: ReactElement;
-}
-
 export interface DropDownListProps {
   children: ReactElement[];
   themeType?: 'dark' | 'light';
