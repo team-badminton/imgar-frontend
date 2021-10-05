@@ -1,8 +1,8 @@
+import Loading from '@/components/Loading/Loading';
 import useThrottle from '@/hooks/useThrottle';
-import { Gallery, Home, Profile, SearchResult, TagDetail } from '@/pages';
 import { useTypedDispatch } from '@/redux';
 import { displayResize, displayScroll } from '@/redux/slices/displayReducer';
-import React, { ReactElement, useEffect, useRef } from 'react';
+import React, { lazy, ReactElement, Suspense, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 export default function App(): ReactElement {
@@ -19,8 +19,14 @@ export default function App(): ReactElement {
     });
   }, []);
 
+  const Home = lazy(() => import('@/pages/Home/Home'));
+  const Gallery = lazy(() => import('@/pages/Gallery/Gallery'));
+  const Profile = lazy(() => import('@/pages/Profile/Profile'));
+  const SearchResult = lazy(() => import('@/pages/SearchResult/SearchResult'));
+  const TagDetail = lazy(() => import('@/pages/TagDetail/TagDetail'));
+
   return (
-    <>
+    <Suspense fallback={<Loading modal />}>
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/gallery/:id" exact component={Gallery} />
@@ -30,6 +36,6 @@ export default function App(): ReactElement {
         <Route path="/" component={Home} />
       </Switch>
       {/* <Footer /> */}
-    </>
+    </Suspense>
   );
 }
