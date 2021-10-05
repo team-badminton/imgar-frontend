@@ -20,7 +20,7 @@ export const a11yHidden = css`
   white-space: nowrap;
 `;
 
-export function hexToRgb(hex: string, alpha: number): string {
+export function hexToRgb(hex: string, alpha?: number): string {
   const upperCaseHex = hex.toUpperCase().replace('#', '');
 
   const h = '0123456789ABCDEF';
