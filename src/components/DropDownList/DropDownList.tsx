@@ -17,7 +17,7 @@ export default function DropDownList({
     <>
       <div>
         <StyledDropDownButton onClick={handleShow}>{dropdownHeader}</StyledDropDownButton>
-        <StyledDropDownUL isShow={isShow} themeType={themeType} onClick={handleDropDownList}>
+        <StyledDropDownUL className={'list'} isShow={isShow} themeType={themeType} onClick={handleDropDownList}>
           {children.map((child, index) => (
             <li key={index} className={index === 0 ? 'selected listItem' : 'listItem'}>
               <button>{child}</button>

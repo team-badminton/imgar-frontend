@@ -32,36 +32,43 @@ export default function MasonryGalleryHeader(): ReactElement {
   const category = useSelector((state: RootState) => state.listInfo.category);
   const sortOption = useSelector((state: RootState) => state.listInfo.sortOption);
 
-  const handleSetCategory = (e: React.MouseEvent<HTMLUListElement, MouseEvent>) => {
-    const $target = e.target as HTMLElement;
-    const $li = $target.closest('.listItem');
-    if (!$li) {
-      return;
-    }
-    const $prevSelected = document.querySelector('.selected');
-    $prevSelected.classList.remove('selected');
-    $li.classList.add('selected');
+  const dropDownListHandlers = (() => {
+    return {
+      handleSetCategory(e: React.MouseEvent<HTMLUListElement, MouseEvent>) {
+        const $target = e.target as HTMLElement;
+        const $li = $target.closest('.listItem');
+        if (!$li) {
+          return;
+        }
+        const $ul = $target.closest('.list');
+        Array.from($ul.children).forEach($child => {
+          $child.classList.remove('selected');
+        });
+        $li.classList.add('selected');
 
-    const selectedCategory = $li.children[0].children[0].textContent;
+        const selectedCategory = $li.children[0].children[0].textContent;
 
-    const selectedSort = sortOptionList[selectedCategory as GalleryQuery['section']][0];
-    dispatch(setCategory(selectedCategory as GalleryQuery['section']));
-    dispatch(setSortOption(selectedSort as GalleryQuery['sort']));
-  };
+        const selectedSort = sortOptionList[selectedCategory as GalleryQuery['section']][0];
+        dispatch(setCategory(selectedCategory as GalleryQuery['section']));
+        dispatch(setSortOption(selectedSort as GalleryQuery['sort']));
+      },
+      handleSetSortOption(e: React.MouseEvent<HTMLUListElement, MouseEvent>) {
+        const $target = e.target as HTMLElement;
+        const $li = $target.closest('.listItem');
+        if (!$li) {
+          return;
+        }
+        const $ul = $target.closest('.list');
+        Array.from($ul.children).forEach($child => {
+          $child.classList.remove('selected');
+        });
+        $li.classList.add('selected');
 
-  const handleSetSortOption = (e: React.MouseEvent<HTMLUListElement, MouseEvent>) => {
-    const $target = e.target as HTMLElement;
-    const $li = $target.closest('.listItem');
-    if (!$li) {
-      return;
-    }
-    const $prevSelected = document.querySelector('.selected');
-    $prevSelected.classList.remove('selected');
-    $li.classList.add('selected');
-
-    const newSortOption = $li.children[0].children[0].textContent;
-    dispatch(setSortOption(newSortOption as GalleryQuery['sort']));
-  };
+        const newSortOption = $li.children[0].children[0].textContent;
+        dispatch(setSortOption(newSortOption as GalleryQuery['sort']));
+      },
+    };
+  })();
 
   return (
     <div
@@ -80,12 +87,12 @@ export default function MasonryGalleryHeader(): ReactElement {
           width: 100%;
         `}
       >
-        <DropDownList dropdownHeader={category} handleDropDownList={handleSetCategory}>
+        <DropDownList dropdownHeader={category} handleDropDownList={dropDownListHandlers.handleSetCategory}>
           {categoryList.map((item, index) => (
             <span key={index}>{item}</span>
           ))}
         </DropDownList>
-        <DropDownList dropdownHeader={sortOption} handleDropDownList={handleSetSortOption}>
+        <DropDownList dropdownHeader={sortOption} handleDropDownList={dropDownListHandlers.handleSetSortOption}>
           {sortOptionList[category].map((item, index) => (
             <span key={index}>{item}</span>
           ))}
