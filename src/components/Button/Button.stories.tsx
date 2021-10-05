@@ -128,3 +128,9 @@ AsButton.args = {
   size: 'small',
   to: null,
 };
+
+export const sizeCustom = Template.bind({});
+sizeCustom.args = {
+  text: 'Button',
+  size: 'custom',
+};
