@@ -6,4 +6,5 @@ export interface TooltipBoxProps {
 export interface TooltipProps {
   children: React.ReactNode;
   tooltipText: string;
+  to?: string;
 }

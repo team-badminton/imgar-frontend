@@ -1,4 +1,5 @@
 import { pxToRem } from '@/util/styleUtils';
+import { Link } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 import { TooltipBoxProps } from './Tooltip.type';
 
@@ -11,8 +12,9 @@ to {
 }
 `;
 
-export const TooltipWrapper = styled.div`
+export const TooltipWrapper = styled(Link)`
   position: relative;
+  display: block;
   height: auto;
 `;
 
@@ -35,14 +37,15 @@ export const TooltipBox = styled.div<TooltipBoxProps>`
       return `
         bottom: 0; 
         left: 50%;
-        transform: translateX(-50%) translateY(calc(100% + ${pxToRem(5)} + ${pxToRem(20)}));
+        transform: translateX(-50%) translateY(calc(100% + ${pxToRem(25)}));
+        margin-top: ${pxToRem(25)};
       `;
     }
     if (arrow === 'down') {
       return `
         top: 0; 
         left: 50%;
-        transform: translateX(-50%) translateY(calc(-1 * (100% + ${pxToRem(5)} + ${pxToRem(20)})));
+        transform: translateX(-50%) translateY(calc(-1 * (100% + ${pxToRem(25)})));
       `;
     }
   }}
