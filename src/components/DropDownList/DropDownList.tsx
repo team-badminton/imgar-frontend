@@ -6,6 +6,7 @@ export default function DropDownList({
   dropdownHeader,
   handleDropDownList,
   children,
+  themeType,
 }: DropDownListProps): ReactElement {
   const [isShow, setIsShow] = useState<boolean>(false);
   const handleShow = () => {
@@ -16,7 +17,7 @@ export default function DropDownList({
     <>
       <div>
         <StyledDropDownButton onClick={handleShow}>{dropdownHeader}</StyledDropDownButton>
-        <StyledDropDownUL isShow={isShow} onClick={handleDropDownList}>
+        <StyledDropDownUL isShow={isShow} themeType={themeType} onClick={handleDropDownList}>
           {children.map((child, index) => (
             <li key={index} className={index === 0 ? 'selected listItem' : 'listItem'}>
               <button>{child}</button>
@@ -27,3 +28,7 @@ export default function DropDownList({
     </>
   );
 }
+
+DropDownList.defaultProps = {
+  themeType: 'dark',
+};
