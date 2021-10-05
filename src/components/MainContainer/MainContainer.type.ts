@@ -5,10 +5,12 @@ export interface HeaderProps {
   customHeader?: React.ReactNode;
   customHeaderHeight?: number;
   headerCover?: React.ReactNode;
+  headerCoverPosition?: 'center' | 'bottom' | 'top';
   headerBackground?: string;
   darkenBackground?: boolean;
   sticky?: boolean;
   backgroundColor?: keyof DefaultTheme['color'];
+  noOffset?: boolean;
 }
 
 export interface HeaderCoverProps {
@@ -16,9 +18,9 @@ export interface HeaderCoverProps {
   hasShadow: boolean;
   headerHeight: number;
   darkenBackground?: boolean;
+  headerCoverPosition: 'center' | 'bottom' | 'top';
 }
 
 export interface ContainerWrapperProps {
   gradient: boolean;
-  backgroundColor?: keyof DefaultTheme['color'];
 }
