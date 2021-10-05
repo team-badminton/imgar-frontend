@@ -23,4 +23,8 @@ export interface DescriptionItemProps {
   large?: boolean;
 }
 
-export type TrophyItemProps = TrophyInfo;
+export interface DescriptionItemParagraphProps {
+  large?: boolean;
+}
+
+export type TrophyItemProps = Omit<TrophyInfo, 'id'> & { link?: string; to?: string };

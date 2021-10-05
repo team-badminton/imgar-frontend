@@ -1,20 +1,16 @@
+import Loading from '@/components/Loading/Loading';
 import MainContainer from '@/components/MainContainer/MainContainer';
 import TabNavigation from '@/components/TabNavigation/TabNavigation';
 import { useAccountQuery } from '@/redux/api';
-import React, { ReactElement, useRef } from 'react';
-import { Route, Switch, useLocation, useParams, useRouteMatch, RouteComponentProps } from 'react-router-dom';
-import styled from 'styled-components';
+import React, { ReactElement } from 'react';
+import { Route, RouteComponentProps, Switch, useParams } from 'react-router-dom';
 import ProfileAbout from './ProfileAbout';
 import ProfileCover from './ProfileCover';
 
-const ProfileWrapper = React.memo(styled.div`
-  padding-top: 75px;
-`);
-
-const Favorites = () => <div style={{ height: '150vh' }}>FAVORITES</div>;
-const Comments = () => <div style={{ height: '150vh' }}>Comments</div>;
-const About = () => <div style={{ height: '150vh' }}>About</div>;
-const Posts = () => <div style={{ height: '150vh' }}>Posts</div>;
+const Favorites = () => <div>FAVORITES</div>;
+const Comments = () => <div>Comments</div>;
+const About = () => <div>About</div>;
+const Posts = () => <div>Posts</div>;
 
 const tabs = [
   { label: 'Posts', path: 'posts' },
@@ -26,12 +22,15 @@ const tabs = [
 export default function Profile({ location, match }: RouteComponentProps): ReactElement {
   const { pathname } = location;
   const { username } = useParams<{ username: string }>();
-  const { data } = useAccountQuery(username);
-  const customHederHeight = pathname.includes('/favorites') ? 100 : 70;
+  const { data, isLoading } = useAccountQuery(username);
+  const currentTab = pathname.split('/')[3];
+  const customHederHeight = currentTab === 'favorites' ? 160 : currentTab === 'about' ? 70 : 100;
 
   return (
     <MainContainer
+      backgroundColor="backgroundDarkNavy"
       headerBackground={data?.coverUrl}
+      headerCoverPosition="top"
       headerCover={
         <ProfileCover username={data?.name} points={data?.points} notoriety={data?.notoriety}>
           <TabNavigation tabs={tabs} />
@@ -39,15 +38,18 @@ export default function Profile({ location, match }: RouteComponentProps): React
       }
       darkenBackground
       customHeaderHeight={customHederHeight}
+      noOffset
     >
-      <ProfileWrapper>
+      {isLoading ? (
+        <Loading />
+      ) : (
         <Switch>
           <Route path={match.url + `/favorites`} exact component={Favorites} />
           <Route path={match.url + `/comments`} exact component={Comments} />
           <Route path={match.url + `/about`} exact render={() => <ProfileAbout username={username} />} />
           <Route path={match.url} component={Posts} />
         </Switch>
-      </ProfileWrapper>
+      )}
     </MainContainer>
   );
 }
