@@ -93,6 +93,8 @@ export interface TrophyInfo {
   name: string;
   description: string;
   imageUrl: string;
+  awardedAt: string;
+  link?: string;
 }
 
 export interface MedalInfo {
