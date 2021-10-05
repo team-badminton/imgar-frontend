@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { StyledDropDownButton, StyledDropDownUL } from './DropDownList.styled';
 import { DropDownListProps } from './DropDownList.type';
 
@@ -9,6 +9,10 @@ export default function DropDownList({ children, themeType, handlerOption }: Dro
   };
 
   const [selectBoxHeader, setSelectBoxHeader] = useState<ReactElement>(children[0]);
+  useEffect(() => {
+    setSelectBoxHeader(children[0]);
+  }, [children[0]]);
+
   const selectBoxItem = (e: React.MouseEvent<HTMLUListElement, MouseEvent>) => {
     const $target = e.target as HTMLElement;
     const $selectedLi = $target.closest('.listItem');
