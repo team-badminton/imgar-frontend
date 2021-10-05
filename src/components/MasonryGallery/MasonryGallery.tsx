@@ -18,7 +18,6 @@ export default function MasonryGallery(): ReactElement {
   const isAutoPlay = useSelector((state: RootState) => state.listInfo.autoPlay);
   const layoutOption = useSelector((state: RootState) => state.listInfo.layout);
   const innerWidth = useSelector((state: RootState) => state.display.innerWidth);
-  console.log(innerWidth);
   /** ---------------------------- 상수 ---------------------------- */
   // 최대 열 개수 설정
   const MAX_COLUMN_NUM = 9;
