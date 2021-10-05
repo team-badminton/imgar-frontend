@@ -28,6 +28,6 @@ export const StyledDropDownUL = styled.ul<SetDisplayProps>`
     background: ${({ theme }) => theme.color.lightGray};
   }
   li.selected {
-    font-weight: 700;
+    font-weight: ${({ useType }) => (useType === 'selectBox' ? 700 : 'initial')};
   }
 `;
