@@ -1,6 +1,6 @@
 import { pxToRem } from '@/util/styleUtils';
 import styled from 'styled-components';
-import { ContainerWrapperProps, HeaderCoverProps } from './MainContainer.type';
+import { ContainerWrapperProps, HeaderCoverProps, MainSectionProps } from './MainContainer.type';
 
 export const ContainerWrapper = styled.div<ContainerWrapperProps>`
   ${({ theme, gradient }) =>
@@ -43,7 +43,8 @@ export const HeaderContainer = styled.div`
   z-index: 2;
 `;
 
-export const MainSection = styled.main`
+export const MainSection = styled.main<MainSectionProps>`
+  min-height: calc(100vh - ${({ coverHeight }) => pxToRem(coverHeight)});
   position: relative;
   padding-bottom: ${({ theme }) => theme.spaceSize.xl};
 `;

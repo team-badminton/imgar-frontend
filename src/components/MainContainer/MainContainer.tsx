@@ -113,7 +113,9 @@ export default function MainContainer({
           {headerCover ?? <div style={{ height: BASIC_HEADER_HEIGHT }} />}
         </HeaderCover>
         <HeaderContainer ref={headerContainerRef}>{showCustomHeader ? customHeader : <BasicHeader />}</HeaderContainer>
-        <MainSection ref={mainSectionRef}>{children}</MainSection>
+        <MainSection ref={mainSectionRef} coverHeight={coverHeight}>
+          {children}
+        </MainSection>
       </ContainerWrapper>
     </>
   );

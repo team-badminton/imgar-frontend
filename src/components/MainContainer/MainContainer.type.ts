@@ -24,3 +24,7 @@ export interface HeaderCoverProps {
 export interface ContainerWrapperProps {
   gradient: boolean;
 }
+
+export interface MainSectionProps {
+  coverHeight: number;
+}
