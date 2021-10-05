@@ -2,6 +2,20 @@ import React, { ReactElement, useState } from 'react';
 import { StyledDropDownButton, StyledDropDownUL } from './DropDownList.styled';
 import { DropDownListProps } from './DropDownList.type';
 
+export const addSelectedClass = (e: React.MouseEvent<HTMLUListElement, MouseEvent>) => {
+  const $target = e.target as HTMLElement;
+  const $li = $target.closest('.listItem');
+  if (!$li) {
+    return;
+  }
+  const $ul = $target.closest('.list');
+  Array.from($ul.children).forEach($child => {
+    $child.classList.remove('selected');
+  });
+  $li.classList.add('selected');
+  return $li;
+};
+
 export default function DropDownList({
   dropdownHeader,
   handleDropDownList,
