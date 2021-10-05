@@ -3,7 +3,7 @@ import useThrottle from '@/hooks/useThrottle';
 import { useTypedDispatch } from '@/redux';
 import { displayResize, displayScroll } from '@/redux/slices/displayReducer';
 import React, { lazy, ReactElement, Suspense, useEffect } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect, useLocation } from 'react-router-dom';
 
 export default function App(): ReactElement {
   const dispatch = useTypedDispatch();
