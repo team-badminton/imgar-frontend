@@ -20,12 +20,18 @@ module.exports = {
         use: ['babel-loader'],
       },
       {
-        test: /\.(png|jpg|jpeg|gif)$/i,
+        test: /\.(png|jpg|jpeg|gif|eot|ttf|woff)$/i,
         type: 'asset/resource',
       },
       {
         test: /\.svg$/i,
-        use: ['@svgr/webpack', 'url-loader'],
+        use: [
+          {
+            loader: '@svgr/webpack',
+            options: { titleProp: true },
+          },
+          'url-loader',
+        ],
       },
     ],
   },

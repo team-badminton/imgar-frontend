@@ -12,9 +12,10 @@ import { StyledTag } from './PostContents.styled';
 export default function PostContents({ images, tags }: PostContentsProps): ReactElement {
   return (
     <div>
-      {images?.map(({ id, imageHeight, imageWidth, description }) => {
+      {images?.map(({ type, id, imageHeight, imageWidth, description }) => {
         return (
           <PostFigure
+            type={type}
             key={id}
             imageId={id}
             orgImageHeight={imageHeight}
