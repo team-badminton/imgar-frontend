@@ -8,5 +8,6 @@ export interface VoteProps extends Size {
 }
 
 export interface ContainterProps extends Size {
+  selectedButton?: 'up-btn' | 'down-btn';
   direction: VoteProps['direction'];
 }

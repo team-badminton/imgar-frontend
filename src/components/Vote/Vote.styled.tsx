@@ -31,6 +31,18 @@ export const Container = styled.div<ContainterProps>`
       stroke: ${({ theme }) => theme.color.crimsonRed};
     }
   }
+  .up-btn {
+    .img {
+      stroke: ${({ selectedButton, theme }) => selectedButton === 'up-btn' && theme.color.primaryColor};
+      fill: ${({ selectedButton, theme }) => selectedButton === 'up-btn' && theme.color.primaryColor};
+    }
+  }
+  .down-btn {
+    .img {
+      stroke: ${({ selectedButton, theme }) => selectedButton === 'down-btn' && theme.color.crimsonRed};
+      fill: ${({ selectedButton, theme }) => selectedButton === 'down-btn' && theme.color.crimsonRed};
+    }
+  }
 `;
 
 const commonBtnCss = css<Size>`
