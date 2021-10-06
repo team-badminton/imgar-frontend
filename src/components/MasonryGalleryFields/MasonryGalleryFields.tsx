@@ -55,7 +55,7 @@ export default function MasonryGalleryFields(): ReactElement {
 
   const handleSetSortOrWindowOption =
     ($selectedLi: Element, $selectedChild: ReactElement) => (e: React.MouseEvent<HTMLUListElement, MouseEvent>) => {
-      const newSortOption = $selectedChild.props.children;
+      const newSortOption = allUpperCaseToGalleryQueryKey($selectedChild.props.children);
       if (category === 'highestScoring') {
         dispatch(setWindowOption(newSortOption as GalleryQuery['window']));
       } else {
