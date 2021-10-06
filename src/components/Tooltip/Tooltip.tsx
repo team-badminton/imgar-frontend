@@ -1,12 +1,13 @@
 import { createRandomHash } from '@/util/formatUtils';
 import React, { ReactElement, useCallback, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { TooltipBox, TooltipWrapper } from './Tooltip.styled';
 import { TooltipBoxProps, TooltipProps } from './Tooltip.type';
 
 export default React.memo(function Tooltip({ children, tooltipText, to }: TooltipProps): ReactElement {
   const [isShow, setIsShow] = useState<boolean>(false);
   const [tooltipPosition, setTooltipPosition] = useState<TooltipBoxProps['arrow']>('down');
-  const elementRef = React.createRef<HTMLAnchorElement>();
+  const elementRef = React.createRef<HTMLDivElement>();
   const getTooltipArrowDirection = (): TooltipBoxProps['arrow'] => {
     const { innerHeight } = window;
     if (innerHeight - elementRef.current.getBoundingClientRect().bottom < 200) {
@@ -30,7 +31,7 @@ export default React.memo(function Tooltip({ children, tooltipText, to }: Toolti
       onMouseLeave={hideTooltip}
       onBlur={hideTooltip}
       ref={elementRef}
-      to={to}
+      {...(to ? { to } : { as: 'div', tabIndex: 0 })}
       aria-describedby={randomId}
     >
       {children}
