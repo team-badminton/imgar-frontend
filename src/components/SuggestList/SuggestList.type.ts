@@ -3,6 +3,7 @@ import { SuggestInfo } from '../../redux/storeTypes';
 export type SuggestListProps = SuggestInfo & {
   /** 검색어 */
   keyword: string;
+  onClick: (e: any) => void;
 };
 
 export interface SuggestThumbnailProps {

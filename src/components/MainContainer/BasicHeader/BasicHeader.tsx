@@ -3,7 +3,7 @@ import Search from '@/components/Search/Search';
 import React, { ReactElement } from 'react';
 import { BasicHeaderContainer } from './BasicHeader.styled';
 
-export default function BasicHeader(): ReactElement {
+export default React.memo(function BasicHeader(): ReactElement {
   return (
     <BasicHeaderContainer>
       <Logo as="h1" to="/" />
@@ -11,4 +11,4 @@ export default function BasicHeader(): ReactElement {
       베이직헤더
     </BasicHeaderContainer>
   );
-}
+});
