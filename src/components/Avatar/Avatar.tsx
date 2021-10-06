@@ -80,6 +80,7 @@ export default function Avatar({ username, size, transScaleImage, infoRows, meta
           <span>via {metaInfos?.platform && <Platform>{metaInfos.platform}</Platform>}</span>
         </MetaInfo>
         <GiveEmeraldButton
+          className="give-emerald"
           alt="present box"
           backgroundColor="secondaryColor"
           color="white"
