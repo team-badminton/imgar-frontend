@@ -67,8 +67,8 @@ export interface ImageInfo {
 export interface DisplayInfo {
   innerWidth: number;
   innerHeight: number;
-  scrollOffset: number;
   masonryGalleryWidth: number;
+  totalColumnNum: number;
 }
 
 export interface SuggestInfo {
