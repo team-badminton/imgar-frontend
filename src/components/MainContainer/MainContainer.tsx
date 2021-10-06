@@ -1,7 +1,12 @@
 import React, { ReactElement, useLayoutEffect, useRef, useState } from 'react';
-import { createGlobalStyle } from 'styled-components';
 import BasicHeader from './BasicHeader/BasicHeader';
-import { ContainerWrapper, HeaderContainer, HeaderCover, MainSection } from './MainContainer.styled';
+import {
+  ChangeGlobalBackground,
+  ContainerWrapper,
+  HeaderContainer,
+  HeaderCover,
+  MainSection,
+} from './MainContainer.styled';
 import { HeaderProps } from './MainContainer.type';
 
 export default function MainContainer({
@@ -15,6 +20,7 @@ export default function MainContainer({
   backgroundColor,
   headerCoverPosition,
   noOffset,
+  containerWidth,
 }: HeaderProps): ReactElement {
   const headerCoverRef = useRef<HTMLDivElement>(null);
   const headerContainerRef = useRef<HTMLDivElement>(null);
@@ -24,11 +30,13 @@ export default function MainContainer({
   const [showCustomHeader, setShowCustomHeader] = useState<boolean>(false);
   const [coverHeight, setCoverHeight] = useState<number>(0);
 
-  const ChangeGlobalBackground = createGlobalStyle`
-  body {
-    background-color: ${({ theme }) => theme.color[backgroundColor]};
-  }
-  `;
+  useLayoutEffect(() => {
+    Array.from(headerCoverRef.current.children).forEach((child: HTMLElement) => {
+      child.style.width = `${containerWidth}px`;
+    });
+    mainSectionRef.current.style.width = `${containerWidth}px`;
+    // mainSectionRef
+  }, [containerWidth]);
 
   useLayoutEffect(() => {
     const computedCoverHeight = headerCoverRef.current?.scrollHeight;
@@ -100,8 +108,9 @@ export default function MainContainer({
 
   return (
     <>
-      {backgroundColor ? <ChangeGlobalBackground /> : null}
+      {backgroundColor ? <ChangeGlobalBackground backgroundColor={backgroundColor} /> : null}
       <ContainerWrapper gradient={!headerCover}>
+        <HeaderContainer ref={headerContainerRef}>{showCustomHeader ? customHeader : <BasicHeader />}</HeaderContainer>
         <HeaderCover
           headerBackground={!!headerCover && headerBackground}
           darkenBackground={darkenBackground}
@@ -112,7 +121,6 @@ export default function MainContainer({
         >
           {headerCover ?? <div style={{ height: BASIC_HEADER_HEIGHT }} />}
         </HeaderCover>
-        <HeaderContainer ref={headerContainerRef}>{showCustomHeader ? customHeader : <BasicHeader />}</HeaderContainer>
         <MainSection ref={mainSectionRef} coverHeight={coverHeight}>
           {children}
         </MainSection>
