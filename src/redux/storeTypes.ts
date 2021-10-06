@@ -1,7 +1,9 @@
+import { GalleryQuery } from './api/types/queries';
+
 export interface ListInfo {
   posts: PostInfo[];
-  category: string;
-  sortOption: string;
+  category: GalleryQuery['section'];
+  sortOption: GalleryQuery['sort'];
   autoPlay: boolean;
   layout: 'waterfall' | 'uniform';
 }
@@ -65,8 +67,8 @@ export interface ImageInfo {
 export interface DisplayInfo {
   innerWidth: number;
   innerHeight: number;
-  scrollOffset: number;
   masonryGalleryWidth: number;
+  totalColumnNum: number;
 }
 
 export interface SuggestInfo {
@@ -88,14 +90,16 @@ export interface UserInfo {
   medals: MedalInfo[];
 }
 
-interface TrophyInfo {
+export interface TrophyInfo {
   id: string;
   name: string;
   description: string;
   imageUrl: string;
+  awardedAt: string;
+  link?: string;
 }
 
-interface MedalInfo {
+export interface MedalInfo {
   name: string;
   description: string;
   imageUrl: string;

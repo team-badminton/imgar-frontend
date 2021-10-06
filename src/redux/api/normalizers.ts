@@ -232,6 +232,8 @@ export function userDataNormalizer(user: User): UserInfo {
       name: trophy.name,
       imageUrl: trophy.image_url,
       description: trophy.description,
+      awardedAt: trophy.awarded_at,
+      link: trophy.data_link?.replace('https://imgur.com', ''),
     })),
     medals: user.medallions?.map(medal => ({
       name: medal.name,

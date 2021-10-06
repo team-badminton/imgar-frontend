@@ -29,16 +29,18 @@ export const parameters = {
 };
 
 export const decorators = [
-  Story => (
-    <ReduxProvider store={store}>
-      <Router>
-        <ThemeProvider theme={defaultTheme}>
-          <GlobalStyle />
-          <Route path="/">
-            <Story />
-          </Route>
-        </ThemeProvider>
-      </Router>
-    </ReduxProvider>
-  ),
+  Story => {
+    return (
+      <ReduxProvider store={store}>
+        <Router>
+          <ThemeProvider theme={defaultTheme}>
+            <GlobalStyle />
+            <Route path="/">
+              <Story />
+            </Route>
+          </ThemeProvider>
+        </Router>
+      </ReduxProvider>
+    );
+  },
 ];

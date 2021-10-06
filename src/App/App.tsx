@@ -1,30 +1,18 @@
 import Loading from '@/components/Loading/Loading';
-import useThrottle from '@/hooks/useThrottle';
-import { useTypedDispatch } from '@/redux';
-import { displayResize, displayScroll } from '@/redux/slices/displayReducer';
-import React, { lazy, ReactElement, Suspense, useEffect } from 'react';
-import { Route, Switch, Redirect, useLocation } from 'react-router-dom';
+import useResize from '@/hooks/useResize';
+import React, { lazy, ReactElement, Suspense } from 'react';
+import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 
 export default function App(): ReactElement {
-  const dispatch = useTypedDispatch();
   const { pathname } = useLocation();
-  const throttledResize = useThrottle((w: number, h: number) => dispatch(displayResize({ width: w, height: h })), 500);
-  useEffect(() => {
-    dispatch(displayScroll(window.scrollY));
-    dispatch(displayResize({ width: window.innerWidth, height: window.innerHeight }));
-    window.addEventListener('scroll', () => {
-      dispatch(displayScroll(window.scrollY));
-    });
-    window.addEventListener('resize', () => {
-      throttledResize(window.innerWidth, window.innerHeight);
-    });
-  }, []);
 
   const Home = lazy(() => import('@/pages/Home/Home'));
   const Gallery = lazy(() => import('@/pages/Gallery/Gallery'));
   const Profile = lazy(() => import('@/pages/Profile/Profile'));
   const SearchResult = lazy(() => import('@/pages/SearchResult/SearchResult'));
   const TagDetail = lazy(() => import('@/pages/TagDetail/TagDetail'));
+
+  useResize();
 
   return (
     <Suspense fallback={<Loading modal />}>

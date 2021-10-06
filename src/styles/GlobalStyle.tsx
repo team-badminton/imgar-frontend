@@ -1,4 +1,4 @@
-import { pxToRem } from '@/util/styleUtils';
+import { a11yHidden, pxToRem } from '@/util/styleUtils';
 import React, { ReactElement } from 'react';
 import { createGlobalStyle } from 'styled-components';
 import { Normalize } from 'styled-normalize';
@@ -54,11 +54,11 @@ body * {
 }
 
 body *::before {
-  box-sizing: inherit;
+  box-sizing: border-box;
 }
 
 body *::after {
-  box-sizing: inherit;
+  box-sizing: border-box;
 }
 
 :focus {
@@ -92,6 +92,10 @@ button {
 	font: inherit;
 	cursor: pointer;
 	outline: inherit;
+}
+
+.a11y {
+	${a11yHidden}
 }
 `;
 

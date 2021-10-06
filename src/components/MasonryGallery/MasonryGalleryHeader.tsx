@@ -6,8 +6,21 @@ import { ReactComponent as UniformLayoutIconSVG } from '@/assets/Icon/uniformLay
 import { DropDownList } from '@/components';
 import { RootState } from '@/redux';
 import { pxToRem } from '@/util/styleUtils';
+import { setCategory, setSortOption } from '@/redux/slices/listInfoReducer';
+import { GalleryQuery } from '@/redux/api/types/queries';
 
 export default function MasonryGalleryHeader(): ReactElement {
+  // MASONRY GALLERY 헤더의 최소 너비 설정
+  const MASONRY_GALLERY_HEADER_MIN_WIDTH__PX = 450;
+  const categoryList: GalleryQuery['section'][] = ['mostViral', 'userSubmitted', 'highestScoring'];
+  const sortOptionList: { [key in GalleryQuery['section']]: GalleryQuery['sort'][] | GalleryQuery['window'][] } = {
+    mostViral: ['newest', 'popular', 'best', 'random'],
+    userSubmitted: ['popular', 'rising', 'newest'],
+    highestScoring: ['day', 'week', 'month', 'year', 'all'],
+  };
+
+  const masonryGalleryWidth = useSelector((state: RootState) => state.display.masonryGalleryWidth);
+
   const dispatch = useDispatch();
   const handleAnimationToggle = () => {
     dispatch(toggleAutoPlay());
@@ -15,11 +28,22 @@ export default function MasonryGalleryHeader(): ReactElement {
   const handleLayoutToggle = () => {
     dispatch(toggleView());
   };
-  const masonryGalleryWidth = useSelector((state: RootState) => state.display.masonryGalleryWidth);
-  const MASONRY_GALLERY_HEADER_MIN_WIDTH__PX = 450;
-  const categoryList = ['MOST VIRAL', 'USER SUBMITTED', 'HIGHEST SCORING'];
 
-  const sortOptionList = ['NEWEST', 'POPULAR', 'BEST', 'RANDOM'];
+  const category = useSelector((state: RootState) => state.listInfo.category);
+
+  const handleSetCategory =
+    ($selectedLi: Element, $selectedChild: ReactElement) => (e: React.MouseEvent<HTMLUListElement, MouseEvent>) => {
+      const selectedCategory = $selectedChild.props.children;
+      const selectedSort = sortOptionList[selectedCategory as GalleryQuery['section']][0];
+      dispatch(setCategory(selectedCategory as GalleryQuery['section']));
+      dispatch(setSortOption(selectedSort as GalleryQuery['sort']));
+    };
+
+  const handleSetSortOption =
+    ($selectedLi: Element, $selectedChild: ReactElement) => (e: React.MouseEvent<HTMLUListElement, MouseEvent>) => {
+      const newSortOption = $selectedChild.props.children;
+      dispatch(setSortOption(newSortOption as GalleryQuery['sort']));
+    };
 
   return (
     <div
@@ -38,8 +62,26 @@ export default function MasonryGalleryHeader(): ReactElement {
           width: 100%;
         `}
       >
-        <DropDownList dropdownType="category" dropdownItemList={categoryList} />
-        <DropDownList dropdownType="sortOption" dropdownItemList={sortOptionList} />
+        <DropDownList
+          handlerOption={{
+            useType: 'selectBox',
+            handleDropDownList: handleSetCategory,
+          }}
+        >
+          {categoryList.map((item, index) => (
+            <span key={index}>{item}</span>
+          ))}
+        </DropDownList>
+        <DropDownList
+          handlerOption={{
+            useType: 'selectBox',
+            handleDropDownList: handleSetSortOption,
+          }}
+        >
+          {sortOptionList[category].map((item, index) => (
+            <span key={index}>{item}</span>
+          ))}
+        </DropDownList>
       </div>
       <div>
         <button onClick={handleAnimationToggle}>
