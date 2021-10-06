@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/redux';
 import { DropDownList } from '@/components';
@@ -13,6 +13,11 @@ export default function MasonryGalleryFields(): ReactElement {
     userSubmitted: ['popular', 'rising', 'newest'],
     highestScoring: ['day', 'week', 'month', 'year', 'all'],
   };
+
+  const categoryListReactElement = useMemo(
+    () => categoryList.map((item, index) => <span key={index}>{item}</span>),
+    [],
+  );
 
   const dispatch = useDispatch();
   const category = useSelector((state: RootState) => state.listInfo.category);
@@ -46,9 +51,7 @@ export default function MasonryGalleryFields(): ReactElement {
             handleDropDownList: handleSetCategory,
           }}
         >
-          {categoryList.map((item, index) => (
-            <span key={index}>{item}</span>
-          ))}
+          {categoryListReactElement}
         </DropDownList>
         <DropDownList
           handlerOption={{
