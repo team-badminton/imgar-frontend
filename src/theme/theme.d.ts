@@ -15,6 +15,7 @@ declare module 'styled-components' {
       black: string;
       emeraldGreen: string;
       lightBlue: string;
+      crimsonRed: string;
     };
     fontSize: {
       xs: string;

@@ -11,6 +11,7 @@ export interface HeaderProps {
   sticky?: boolean;
   backgroundColor?: keyof DefaultTheme['color'];
   noOffset?: boolean;
+  containerWidth?: number;
 }
 
 export interface HeaderCoverProps {
@@ -18,7 +19,7 @@ export interface HeaderCoverProps {
   hasShadow: boolean;
   headerHeight: number;
   darkenBackground?: boolean;
-  headerCoverPosition: 'center' | 'bottom' | 'top';
+  headerCoverPosition: HeaderProps['headerCoverPosition'];
 }
 
 export interface ContainerWrapperProps {
