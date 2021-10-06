@@ -102,6 +102,7 @@ export default function MainContainer({
     <>
       {backgroundColor ? <ChangeGlobalBackground /> : null}
       <ContainerWrapper gradient={!headerCover}>
+        <HeaderContainer ref={headerContainerRef}>{showCustomHeader ? customHeader : <BasicHeader />}</HeaderContainer>
         <HeaderCover
           headerBackground={!!headerCover && headerBackground}
           darkenBackground={darkenBackground}
@@ -112,7 +113,6 @@ export default function MainContainer({
         >
           {headerCover ?? <div style={{ height: BASIC_HEADER_HEIGHT }} />}
         </HeaderCover>
-        <HeaderContainer ref={headerContainerRef}>{showCustomHeader ? customHeader : <BasicHeader />}</HeaderContainer>
         <MainSection ref={mainSectionRef} coverHeight={coverHeight}>
           {children}
         </MainSection>
