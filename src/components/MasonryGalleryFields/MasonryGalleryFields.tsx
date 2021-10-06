@@ -1,4 +1,4 @@
-import React, { ReactElement, useMemo } from 'react';
+import React, { ReactElement, ReactNode, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState, useTypedDispatch } from '@/redux';
 import { DropDownList } from '@/components';
@@ -44,7 +44,8 @@ export default function MasonryGalleryFields(): ReactElement {
   const category = useSelector((state: RootState) => state.listInfo.category);
 
   const handleSetCategory =
-    ($selectedLi: Element, $selectedChild: ReactElement) => (e: React.MouseEvent<HTMLUListElement, MouseEvent>) => {
+    ($selectedLi: HTMLLIElement, $selectedChild: ReactElement) =>
+    (e: React.MouseEvent<HTMLUListElement, MouseEvent>) => {
       const selectedCategory = allUpperCaseToGalleryQueryKey($selectedChild.props.children);
       const selectedSort = allUpperCaseToGalleryQueryKey(
         sortOptionList[selectedCategory as GalleryQuery['section']][0],
@@ -54,7 +55,8 @@ export default function MasonryGalleryFields(): ReactElement {
     };
 
   const handleSetSortOrWindowOption =
-    ($selectedLi: Element, $selectedChild: ReactElement) => (e: React.MouseEvent<HTMLUListElement, MouseEvent>) => {
+    ($selectedLi: HTMLLIElement, $selectedChild: ReactElement) =>
+    (e: React.MouseEvent<HTMLUListElement, MouseEvent>) => {
       const newSortOrWindowOption = allUpperCaseToGalleryQueryKey($selectedChild.props.children);
       if (category === 'highestScoring') {
         dispatch(setWindowOption(newSortOrWindowOption as GalleryQuery['window']));
