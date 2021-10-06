@@ -13,7 +13,7 @@ export default {
 두 개의 DropDownList 컴포넌트가 유기적으로 연결되어 있습니다.
 
 ## Category 선택
-왼쪽의 DropDownList 컴포넌트 입니다.
+왼쪽의 DropDownList 컴포넌트 입니다.\n
 MOST VIRAL, USER SUBMITTED, HIGHEST SCORING 으로 구성되어 있습니다.
 
 ## 정렬 방식 혹은 시간 범위 선택
