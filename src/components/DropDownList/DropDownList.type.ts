@@ -1,19 +1,19 @@
-import { ReactElement } from 'react';
+import { ReactNode } from 'react';
 
 export interface DropDownListProps {
-  children: ReactElement[];
+  children: ReactNode[];
   themeType?: 'dark' | 'light';
   handlerOption?:
     | {
         useType: 'selectBox';
         handleDropDownList: (
-          $selectedLi: Element,
-          $selectedChild: ReactElement,
+          $selectedLi: HTMLLIElement,
+          $selectedChild: ReactNode,
         ) => React.MouseEventHandler<HTMLUListElement>;
       }
     | {
         useType: 'itemBox';
-        dropdownHeader: ReactElement | string;
+        dropdownHeader: ReactNode;
         handleDropDownItems: React.MouseEventHandler<HTMLButtonElement>[];
       };
 }

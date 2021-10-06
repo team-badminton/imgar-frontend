@@ -42,10 +42,10 @@ function SuggestListLi({ to, keywordRegexp, children, leftIcon, prefix }: Sugges
 
 // 입력값에 대한 새니타이징 필요
 // 혹은 strong 처리하는 다른 방법 모색해 볼 것
-export default React.memo(function SuggestList({ users, posts, tags, keyword }: SuggestListProps): ReactElement {
+export default function SuggestList({ users, posts, tags, keyword, onClick }: SuggestListProps): ReactElement {
   const keywordRegexp = new RegExp(`(${keyword})`, 'gi');
   return (
-    <SuggestContainer>
+    <SuggestContainer onClick={onClick}>
       <h2
         css={`
           ${a11yHidden}
@@ -98,4 +98,4 @@ export default React.memo(function SuggestList({ users, posts, tags, keyword }: 
       )}
     </SuggestContainer>
   );
-});
+}

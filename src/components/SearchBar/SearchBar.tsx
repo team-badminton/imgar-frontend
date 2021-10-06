@@ -32,7 +32,6 @@ export default React.forwardRef(function SearchBar(
 
   const clearInput = useCallback(() => {
     setInputValue('');
-    throttledSetSearchQuery('');
     inputRef.current.blur();
   }, []);
 

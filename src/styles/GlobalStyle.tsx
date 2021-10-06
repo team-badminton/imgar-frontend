@@ -54,11 +54,11 @@ body * {
 }
 
 body *::before {
-  box-sizing: inherit;
+  box-sizing: border-box;
 }
 
 body *::after {
-  box-sizing: inherit;
+  box-sizing: border-box;
 }
 
 :focus {

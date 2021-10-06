@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 export function pxToRem(px: number | string): string {
-  return parseInt(px as string) / 16 + 'rem';
+  return parseFloat(px as string) / 16 + 'rem';
 }
 
 export function widthConvertor(width: number | string): string {
