@@ -14,6 +14,7 @@ export const defaultTheme: DefaultTheme = {
     black: `#181818`,
     emeraldGreen: `#44d0bd`,
     lightBlue: `#8da6c9`,
+    crimsonRed: '#fc6369',
   },
   fontSize: {
     xs: pxToRem(12),
