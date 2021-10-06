@@ -7,6 +7,7 @@ import { PictureProps } from '../Picture/Picture.type';
 export const UserInfoContainer = styled.div`
   display: flex;
   align-items: center;
+  padding: ${pxToRem(20)} 0;
 `;
 
 export const UserInfoAvatar = ({ src }: Partial<PictureProps>): ReactElement => (
