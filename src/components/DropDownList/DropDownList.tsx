@@ -45,7 +45,7 @@ export default function DropDownList({ children, themeType, handlerOption }: Dro
           className={'list'}
           isShow={isShow}
           themeType={themeType}
-          onClick={handleSelectBox}
+          {...(handlerOption.useType === 'selectBox' && { onClick: handleSelectBox })}
         >
           {children.map((child, index) => (
             <li
@@ -57,7 +57,9 @@ export default function DropDownList({ children, themeType, handlerOption }: Dro
               }
               id={'listItem' + index}
             >
-              <button onClick={handlerOption.useType === 'itemBox' ? handlerOption.handleDropDownItems[index] : null}>
+              <button
+                {...(handlerOption.useType === 'itemBox' && { onClick: handlerOption.handleDropDownItems[index] })}
+              >
                 {child}
               </button>
             </li>
