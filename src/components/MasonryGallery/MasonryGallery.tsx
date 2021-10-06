@@ -44,7 +44,8 @@ export default function MasonryGallery(): ReactElement {
   // API 호출
   const category = useSelector((state: RootState) => state.listInfo.category);
   const sortOption = useSelector((state: RootState) => state.listInfo.sortOption);
-  const { data: posts } = useGalleryQuery({ section: category, sort: sortOption });
+  const windowOption = useSelector((state: RootState) => state.listInfo.windowOption);
+  const { data: posts } = useGalleryQuery({ section: category, sort: sortOption, window: windowOption });
   const ImageCardPositionInfos: {
     [key: string]: SetPositionProps;
   } = {};

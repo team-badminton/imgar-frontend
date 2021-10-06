@@ -1,8 +1,8 @@
 import React, { ReactElement, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/redux';
+import { useSelector } from 'react-redux';
+import { RootState, useTypedDispatch } from '@/redux';
 import { DropDownList } from '@/components';
-import { setCategory, setSortOption } from '@/redux/slices/listInfoReducer';
+import { setCategory, setSortOption, setWindowOption } from '@/redux/slices/listInfoReducer';
 import { GalleryQuery } from '@/redux/api/types/queries';
 
 const galleryQueryKeyToAllUpperCase = (galleryQueryKey: GalleryQuery['section']) => {
@@ -34,22 +34,25 @@ export default function MasonryGalleryFields(): ReactElement {
     [],
   );
 
-  const dispatch = useDispatch();
+  const dispatch = useTypedDispatch();
   const category = useSelector((state: RootState) => state.listInfo.category);
 
   const handleSetCategory =
     ($selectedLi: Element, $selectedChild: ReactElement) => (e: React.MouseEvent<HTMLUListElement, MouseEvent>) => {
       const selectedCategory = allUpperCaseToGalleryQueryKey($selectedChild.props.children);
-      console.log(selectedCategory);
       const selectedSort = sortOptionList[selectedCategory as GalleryQuery['section']][0];
       dispatch(setCategory(selectedCategory as GalleryQuery['section']));
       dispatch(setSortOption(selectedSort as GalleryQuery['sort']));
     };
 
-  const handleSetSortOption =
+  const handleSetSortOrWindowOption =
     ($selectedLi: Element, $selectedChild: ReactElement) => (e: React.MouseEvent<HTMLUListElement, MouseEvent>) => {
       const newSortOption = $selectedChild.props.children;
-      dispatch(setSortOption(newSortOption as GalleryQuery['sort']));
+      if (category === 'highestScoring') {
+        dispatch(setWindowOption(newSortOption as GalleryQuery['window']));
+      } else {
+        dispatch(setSortOption(newSortOption as GalleryQuery['sort']));
+      }
     };
 
   return (
@@ -72,7 +75,7 @@ export default function MasonryGalleryFields(): ReactElement {
         <DropDownList
           handlerOption={{
             useType: 'selectBox',
-            handleDropDownList: handleSetSortOption,
+            handleDropDownList: handleSetSortOrWindowOption,
           }}
         >
           {sortOptionList[category].map((item, index) => (

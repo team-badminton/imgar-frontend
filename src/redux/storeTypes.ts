@@ -4,6 +4,7 @@ export interface ListInfo {
   posts: PostInfo[];
   category: GalleryQuery['section'];
   sortOption: GalleryQuery['sort'];
+  windowOption: GalleryQuery['window'];
   autoPlay: boolean;
   layout: 'waterfall' | 'uniform';
 }
