@@ -1,17 +1,12 @@
 import React, { ReactElement } from 'react';
-import { toggleAutoPlay, toggleView } from '@/redux/slices/listInfoReducer';
 import { useDispatch, useSelector } from 'react-redux';
-import { ReactComponent as AnimationPlayIconSVG } from '@/assets/Icon/animationPlayIcon.svg';
-import { ReactComponent as UniformLayoutIconSVG } from '@/assets/Icon/uniformLayoutIcon.svg';
-import { DropDownList } from '@/components';
 import { RootState } from '@/redux';
-import { pxToRem } from '@/util/styleUtils';
+import { DropDownList } from '@/components';
 import { setCategory, setSortOption } from '@/redux/slices/listInfoReducer';
 import { GalleryQuery } from '@/redux/api/types/queries';
 
-export default function MasonryGalleryHeader(): ReactElement {
+export default function MasonryGalleryFields(): ReactElement {
   // MASONRY GALLERY 헤더의 최소 너비 설정
-  const MASONRY_GALLERY_HEADER_MIN_WIDTH__PX = 450;
   const categoryList: GalleryQuery['section'][] = ['mostViral', 'userSubmitted', 'highestScoring'];
   const sortOptionList: { [key in GalleryQuery['section']]: GalleryQuery['sort'][] | GalleryQuery['window'][] } = {
     mostViral: ['newest', 'popular', 'best', 'random'],
@@ -19,16 +14,7 @@ export default function MasonryGalleryHeader(): ReactElement {
     highestScoring: ['day', 'week', 'month', 'year', 'all'],
   };
 
-  const masonryGalleryWidth = useSelector((state: RootState) => state.display.masonryGalleryWidth);
-
   const dispatch = useDispatch();
-  const handleAnimationToggle = () => {
-    dispatch(toggleAutoPlay());
-  };
-  const handleLayoutToggle = () => {
-    dispatch(toggleView());
-  };
-
   const category = useSelector((state: RootState) => state.listInfo.category);
 
   const handleSetCategory =
@@ -46,15 +32,7 @@ export default function MasonryGalleryHeader(): ReactElement {
     };
 
   return (
-    <div
-      css={`
-        display: flex;
-        justify-content: space-between;
-        margin: 0 auto;
-        width: ${pxToRem(masonryGalleryWidth)};
-        min-width: ${pxToRem(MASONRY_GALLERY_HEADER_MIN_WIDTH__PX)};
-      `}
-    >
+    <>
       <div
         css={`
           display: flex;
@@ -83,14 +61,6 @@ export default function MasonryGalleryHeader(): ReactElement {
           ))}
         </DropDownList>
       </div>
-      <div>
-        <button onClick={handleAnimationToggle}>
-          <AnimationPlayIconSVG />
-        </button>
-        <button onClick={handleLayoutToggle}>
-          <UniformLayoutIconSVG />
-        </button>
-      </div>
-    </div>
+    </>
   );
 }
