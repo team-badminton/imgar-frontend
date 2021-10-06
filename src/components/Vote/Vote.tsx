@@ -22,7 +22,6 @@ export default function Vote({ size, count, direction }: VoteProps): ReactElemen
         onClick={() => {
           output === count + 1 ? setOutput(count) : setOutput(count + 1);
         }}
-        backgroundColor="transparent"
         className="up-btn"
         size="custom"
         img={UpBtn}
@@ -31,7 +30,6 @@ export default function Vote({ size, count, direction }: VoteProps): ReactElemen
       <Output>{output}</Output>
       <Button
         onClick={() => (output === count - 1 ? setOutput(count) : setOutput(count - 1))}
-        backgroundColor="transparent"
         className="down-btn"
         size="custom"
         img={DownBtn}

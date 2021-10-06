@@ -12,7 +12,8 @@ export const StyledButton = styled(Link)<StyledButtonProps>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: ${({ $backgroundColor, theme }) => theme.color[$backgroundColor]};
+  background-color: ${({ $backgroundColor, theme }) =>
+    $backgroundColor ? theme.color[$backgroundColor] : 'transparent'};
   border: 0;
   border-radius: ${pxToRem(3)};
   box-sizing: border-box;

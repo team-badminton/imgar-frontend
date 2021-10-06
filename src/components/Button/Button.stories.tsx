@@ -60,6 +60,7 @@ export const Default = Template.bind({});
 Default.args = {
   text: 'DEFAULT',
   size: 'medium',
+  backgroundColor: null,
 };
 
 export const Small = Template.bind({});

@@ -24,7 +24,7 @@ export default function PostComment({
   downCount,
   upCount,
 }: Omit<PostCommentInfo, 'thumbnailImageId' | 'parentCommentId' | 'postId'>): ReactElement {
-  const [isExpendedChildComments, setIsExpendedChildComments] = useState(false);
+  const [isExpendedChildComments, setIsExpendedChildComments] = useState<boolean>(false);
 
   return (
     <PostCommentContainer>
@@ -35,7 +35,6 @@ export default function PostComment({
         {childrenComments?.length !== 0 && (
           <StyledButton
             onClick={() => setIsExpendedChildComments(!isExpendedChildComments)}
-            backgroundColor="transparent"
             size="custom"
             text={`+ ${childrenComments.length} reply`}
           />
