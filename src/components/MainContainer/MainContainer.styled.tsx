@@ -1,6 +1,12 @@
 import { pxToRem } from '@/util/styleUtils';
-import styled from 'styled-components';
-import { ContainerWrapperProps, HeaderCoverProps, MainSectionProps } from './MainContainer.type';
+import styled, { createGlobalStyle } from 'styled-components';
+import { ContainerWrapperProps, HeaderCoverProps, HeaderProps, MainSectionProps } from './MainContainer.type';
+
+export const ChangeGlobalBackground = createGlobalStyle<{ backgroundColor: HeaderProps['backgroundColor'] }>`
+body {
+  background-color: ${({ theme, backgroundColor }) => theme.color[backgroundColor]};
+}
+`;
 
 export const ContainerWrapper = styled.div<ContainerWrapperProps>`
   ${({ theme, gradient }) =>
@@ -13,7 +19,7 @@ export const HeaderCover = styled.header<HeaderCoverProps>`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: stretch;
+  align-items: center;
   ${({ headerBackground, headerCoverPosition, darkenBackground, theme }) =>
     headerBackground
       ? `
@@ -46,5 +52,7 @@ export const HeaderContainer = styled.div`
 export const MainSection = styled.main<MainSectionProps>`
   min-height: calc(100vh - ${({ coverHeight }) => pxToRem(coverHeight)});
   position: relative;
+  display: flex;
+  margin: 0 auto;
   padding-bottom: ${({ theme }) => theme.spaceSize.xl};
 `;

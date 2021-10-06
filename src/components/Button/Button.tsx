@@ -54,6 +54,5 @@ export default function Button({
 }
 
 Button.defaultProps = {
-  backgroundColor: 'primaryColor',
   color: 'white',
 };

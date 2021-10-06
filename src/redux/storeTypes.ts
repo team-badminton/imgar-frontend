@@ -4,6 +4,7 @@ export interface ListInfo {
   posts: PostInfo[];
   category: GalleryQuery['section'];
   sortOption: GalleryQuery['sort'];
+  windowOption: GalleryQuery['window'];
   autoPlay: boolean;
   layout: 'waterfall' | 'uniform';
 }
@@ -67,8 +68,8 @@ export interface ImageInfo {
 export interface DisplayInfo {
   innerWidth: number;
   innerHeight: number;
-  scrollOffset: number;
   masonryGalleryWidth: number;
+  totalColumnNum: number;
 }
 
 export interface SuggestInfo {
