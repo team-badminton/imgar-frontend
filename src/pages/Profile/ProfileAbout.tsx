@@ -42,8 +42,6 @@ function TrophyItem({ name, description, imageUrl, to }: TrophyItemProps): React
 export default function ProfileAbout({ username }: ProfileAboutProps): ReactElement {
   const { data } = useAccountQuery(username);
 
-  console.log(data);
-
   return (
     <ProfileAboutContainer>
       <ProfileAboutDescription>
