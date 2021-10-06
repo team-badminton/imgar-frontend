@@ -18,7 +18,6 @@ export default function MasonryGallery(): ReactElement {
   const isAutoPlay = useSelector((state: RootState) => state.listInfo.autoPlay);
   const layoutOption = useSelector((state: RootState) => state.listInfo.layout);
   const innerWidth = useSelector((state: RootState) => state.display.innerWidth);
-
   /** ---------------------------- 상수 ---------------------------- */
   // 최대 열 개수 설정
   const MAX_COLUMN_NUM = 9;
@@ -43,7 +42,9 @@ export default function MasonryGallery(): ReactElement {
   }, [MASONRY_GALLERY_WIDTH__PX]);
 
   // API 호출
-  const { data: posts } = useGalleryQuery({});
+  const category = useSelector((state: RootState) => state.listInfo.category);
+  const sortOption = useSelector((state: RootState) => state.listInfo.sortOption);
+  const { data: posts } = useGalleryQuery({ section: category, sort: sortOption });
   const ImageCardPositionInfos: {
     [key: string]: SetPositionProps;
   } = {};
