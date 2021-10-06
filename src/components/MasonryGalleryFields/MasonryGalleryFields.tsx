@@ -5,16 +5,22 @@ import { DropDownList } from '@/components';
 import { setCategory, setSortOption, setWindowOption } from '@/redux/slices/listInfoReducer';
 import { GalleryQuery } from '@/redux/api/types/queries';
 
-const galleryQueryKeyToAllUpperCase = (galleryQueryKey: GalleryQuery['section']) => {
+const galleryQueryKeyToAllUpperCase = (
+  galleryQueryKey: GalleryQuery['section'] | GalleryQuery['sort'] | GalleryQuery['window'],
+) => {
   const words = galleryQueryKey.split(/(?=[A-Z])/);
   return words.map(word => word.toUpperCase()).join(' ');
 };
 
-const allUpperCaseToGalleryQueryKey = (allUpperCase: string): GalleryQuery['section'] => {
+const allUpperCaseToGalleryQueryKey = (
+  allUpperCase: string,
+): GalleryQuery['section'] | GalleryQuery['sort'][] | GalleryQuery['window'][] => {
   const words = allUpperCase.split(' ');
   const capitalizatedWords = words.map(word => word[0] + word.slice(1, word.length).toLowerCase()).join('');
-  return (capitalizatedWords[0].toLowerCase() +
-    capitalizatedWords.slice(1, capitalizatedWords.length)) as GalleryQuery['section'];
+  return (capitalizatedWords[0].toLowerCase() + capitalizatedWords.slice(1, capitalizatedWords.length)) as
+    | GalleryQuery['section']
+    | GalleryQuery['sort'][]
+    | GalleryQuery['window'][];
 };
 
 export default function MasonryGalleryFields(): ReactElement {
@@ -40,7 +46,9 @@ export default function MasonryGalleryFields(): ReactElement {
   const handleSetCategory =
     ($selectedLi: Element, $selectedChild: ReactElement) => (e: React.MouseEvent<HTMLUListElement, MouseEvent>) => {
       const selectedCategory = allUpperCaseToGalleryQueryKey($selectedChild.props.children);
-      const selectedSort = sortOptionList[selectedCategory as GalleryQuery['section']][0];
+      const selectedSort = allUpperCaseToGalleryQueryKey(
+        sortOptionList[selectedCategory as GalleryQuery['section']][0],
+      );
       dispatch(setCategory(selectedCategory as GalleryQuery['section']));
       dispatch(setSortOption(selectedSort as GalleryQuery['sort']));
     };
@@ -78,9 +86,11 @@ export default function MasonryGalleryFields(): ReactElement {
             handleDropDownList: handleSetSortOrWindowOption,
           }}
         >
-          {sortOptionList[category].map((item, index) => (
-            <span key={index}>{item}</span>
-          ))}
+          {sortOptionList[category]
+            .map(sortOption => galleryQueryKeyToAllUpperCase(sortOption))
+            .map((sortOption, index) => (
+              <span key={index}>{sortOption}</span>
+            ))}
         </DropDownList>
       </div>
     </>
