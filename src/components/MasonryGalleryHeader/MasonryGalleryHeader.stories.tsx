@@ -10,21 +10,7 @@ export default {
     docs: {
       description: {
         component: ` MasonryGalleryHeader 컴포넌트입니다.\n
-- MOST VIRAL 일 때
-  - NEWEST 
-  - POPLULAR
-  - BEST
-  - RANDOM
-- USER SUBMITTED 일 때
-  - POPULAR
-  - RISING
-  - NEWEST
-- HIGHEST SCORING 일 때
-  - DAY
-  - WEEK
-  - MONTH
-  - YEAR
-  - ALL
+MasonryGalleryFields 컴포넌트와 MasonryGalleryOptions 컴포넌트로 구성됩니다.
 `,
       },
     },
