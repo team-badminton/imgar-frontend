@@ -57,7 +57,7 @@ export default function Avatar({
             {metaInfos?.views && `${formattedNumber(metaInfos.views)} views`}
           </span>
           {TIME_DIFF > TIME_UNIT.Month ? (
-            <Moment date={CREATED_TIME} format={'MMM D YYYY'} />
+            <Moment interval={0} date={CREATED_TIME} format={'MMM D YYYY'} />
           ) : (
             <Moment
               date={CREATED_TIME}
