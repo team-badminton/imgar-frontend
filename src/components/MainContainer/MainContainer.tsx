@@ -31,14 +31,6 @@ export default function MainContainer({
   const [coverHeight, setCoverHeight] = useState<number>(0);
 
   useLayoutEffect(() => {
-    Array.from(headerCoverRef.current.children).forEach((child: HTMLElement) => {
-      child.style.width = `${containerWidth}px`;
-    });
-    mainSectionRef.current.style.width = `${containerWidth}px`;
-    // mainSectionRef
-  }, [containerWidth]);
-
-  useLayoutEffect(() => {
     const computedCoverHeight = headerCoverRef.current?.scrollHeight;
     setCoverHeight(computedCoverHeight);
     const observer = new ResizeObserver(() => {
@@ -118,10 +110,11 @@ export default function MainContainer({
           headerHeight={BASIC_HEADER_HEIGHT}
           ref={headerCoverRef}
           hasShadow={showCustomHeader}
+          containerWidth={containerWidth}
         >
           {headerCover ?? <div style={{ height: BASIC_HEADER_HEIGHT }} />}
         </HeaderCover>
-        <MainSection ref={mainSectionRef} coverHeight={coverHeight}>
+        <MainSection ref={mainSectionRef} coverHeight={coverHeight} containerWidth={containerWidth}>
           {children}
         </MainSection>
       </ContainerWrapper>
