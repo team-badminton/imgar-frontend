@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 
 export interface DropDownListProps {
+  className?: string;
   children: ReactNode[];
   themeType?: 'dark' | 'light';
   handlerOption?:
