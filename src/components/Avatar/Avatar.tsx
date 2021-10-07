@@ -18,7 +18,14 @@ import { formattedNumber } from '@/util/formatUtils';
 // libs
 import Moment from 'react-moment';
 
-export default function Avatar({ username, size, transScaleImage, infoRows, metaInfos }: AvatarProps): ReactElement {
+export default function Avatar({
+  className,
+  username,
+  size,
+  transScaleImage,
+  infoRows,
+  metaInfos,
+}: AvatarProps): ReactElement {
   const PROFILE_LINK = `user/${username}`;
 
   const TIME_UNIT = {
@@ -28,7 +35,7 @@ export default function Avatar({ username, size, transScaleImage, infoRows, meta
   const TIME_DIFF = +new Date() - CREATED_TIME;
 
   return (
-    <StyledAvatar size={size} transScaleImage={transScaleImage}>
+    <StyledAvatar className={className} size={size} transScaleImage={transScaleImage}>
       <Link to={PROFILE_LINK}>
         <Picture
           alt={`profile image of ${username}`}
