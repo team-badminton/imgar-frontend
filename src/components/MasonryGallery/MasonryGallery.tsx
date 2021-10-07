@@ -59,6 +59,7 @@ export default function MasonryGallery({ posts }: MasonryGalleryProps): ReactEle
             layoutOption={layoutOption}
             postInfo={postInfo}
             imageCardWidth={IMAGECARD_WIDTH_PX}
+            isLazyLoading={index < 20 ? false : true}
           />
         );
       })}
