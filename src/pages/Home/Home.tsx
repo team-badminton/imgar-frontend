@@ -1,11 +1,17 @@
 import MainContainer from '@/components/MainContainer/MainContainer';
 import React, { ReactElement } from 'react';
-import { MasonryGallery, MasonryGalleryHeader } from '@/components/index';
+import { Loading, MasonryGallery, MasonryGalleryHeader } from '@/components/index';
 import { useTypedSelector } from '@/redux';
 import { masonryGalleryWidthSelector } from '@/redux/slices/displayReducer';
+import { useGalleryQuery } from '@/redux/api';
 
 export default function Home(): ReactElement {
+  // API 호출
+  const category = useTypedSelector(state => state.listInfo.category);
+  const sortOption = useTypedSelector(state => state.listInfo.sortOption);
   const galleryWidth = useTypedSelector(masonryGalleryWidthSelector);
+  const { data: posts, isLoading } = useGalleryQuery({ section: category, sort: sortOption });
+
   return (
     <MainContainer
       sticky
@@ -14,9 +20,14 @@ export default function Home(): ReactElement {
       customHeader={<div>커스템 헤더에 들어갈 내용 테스트</div>}
       containerWidth={galleryWidth}
     >
-      {/* 실제 본문 내용 */}
-      <MasonryGalleryHeader />
-      <MasonryGallery />
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          <MasonryGalleryHeader />
+          <MasonryGallery posts={posts} />
+        </>
+      )}
     </MainContainer>
   );
 }
