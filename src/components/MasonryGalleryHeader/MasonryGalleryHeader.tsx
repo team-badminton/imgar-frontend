@@ -1,6 +1,5 @@
-import React, { ReactElement } from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/redux';
+import React, { ReactElement, useEffect } from 'react';
+import { useTypedSelector } from '@/redux';
 import { pxToRem } from '@/util/styleUtils';
 import { MasonryGalleryFields, MasonryGalleryOptions } from '@/components/index';
 import { defaultTheme } from '@/theme/themes';
@@ -8,7 +7,7 @@ import { defaultTheme } from '@/theme/themes';
 export const MASONRY_GALLERY_HEADER_MIN_WIDTH__PX = 450;
 
 export default function MasonryGalleryHeader(): ReactElement {
-  const masonryGalleryWidth = useSelector((state: RootState) => state.display.masonryGalleryWidth);
+  const masonryGalleryWidth = useTypedSelector(state => state.display.masonryGalleryWidth);
 
   return (
     <div
