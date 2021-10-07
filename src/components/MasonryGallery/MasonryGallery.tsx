@@ -3,12 +3,11 @@ import {
   IMAGECARD_WIDTH_PX,
   IMAGE_MAX_HEIGHT_PX,
 } from '@/components/ImageCard/ImageCard.styled';
-import { RootState, useTypedSelector } from '@/redux';
+import { useTypedSelector } from '@/redux';
 import { useGalleryQuery } from '@/redux/api';
 import { totalColumnNumSelector } from '@/redux/slices/displayReducer';
 import React, { ReactElement } from 'react';
 // import { useHistory, useLocation, useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { StyledImageCard, StyledSection } from './MasonryGallery.styled';
 import { SetPositionProps } from './MasonryGallery.type';
 
