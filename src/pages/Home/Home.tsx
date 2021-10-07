@@ -1,6 +1,5 @@
 import MainContainer from '@/components/MainContainer/MainContainer';
 import React, { ReactElement } from 'react';
-import { StyledHome } from './Home.styled';
 import { MasonryGallery, MasonryGalleryHeader } from '@/components/index';
 import { useTypedSelector } from '@/redux';
 import { masonryGalleryWidthSelector } from '@/redux/slices/displayReducer';
@@ -15,11 +14,9 @@ export default function Home(): ReactElement {
       customHeader={<div>커스템 헤더에 들어갈 내용 테스트</div>}
       containerWidth={galleryWidth}
     >
-      <StyledHome>
-        {/* 실제 본문 내용 */}
-        <MasonryGalleryHeader />
-        <MasonryGallery />
-      </StyledHome>
+      {/* 실제 본문 내용 */}
+      <MasonryGalleryHeader />
+      <MasonryGallery />
     </MainContainer>
   );
 }
