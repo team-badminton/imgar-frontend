@@ -7,7 +7,6 @@ export { default as Vote } from './Vote/Vote';
 export { default as PostFigure } from './PostFigure/PostFigure';
 export { default as PostContents } from './PostContents/PostContents';
 export { default as PostComments } from './PostComments/PostComments';
-export * from './Picture/Picture.type';
 export { default as SearchBar } from './SearchBar/SearchBar';
 export { default as SuggestList } from './SuggestList/SuggestList';
 export { default as ImageCard } from './ImageCard/ImageCard';
@@ -18,3 +17,4 @@ export { default as MasonryGalleryHeader } from './MasonryGalleryHeader/MasonryG
 export { default as MasonryGallery } from './MasonryGallery/MasonryGallery';
 export { default as MoreButton } from './MoreButton/MoreButton';
 export { default as Modal } from './Modal/Modal';
+export { default as Loading } from './Loading/Loading';

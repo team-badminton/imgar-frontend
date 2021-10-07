@@ -14,6 +14,7 @@ export default function ImageCard({
   postInfo,
   imageCardWidth,
   layoutOption,
+  isLazyLoading,
 }: ImageCardProps): ReactElement {
   const { id, thumbnailImageId, thumbnailWidth, title, upCount, downCount, commentCount, views, type, hasSound } =
     postInfo;
@@ -34,10 +35,16 @@ export default function ImageCard({
               alt=""
               objectFit="contain"
               imageWidth={imageCardWidth}
-              src={`https://i.imgur.com/${thumbnailImageId}_d.webp?maxwidth=${thumbnailWidth}&shape=thumb&fidelity=high`}
+              imageId={thumbnailImageId}
+              isLazyLoading={isLazyLoading}
+              className={isLazyLoading ? 'lazyLoadingPicture' : ''}
             />
           ) : (
-            <Video src={`https://i.imgur.com/${thumbnailImageId}_lq.mp4`} />
+            <Video
+              imageId={thumbnailImageId}
+              isLazyLoading={isLazyLoading}
+              className={isLazyLoading ? 'lazyLoadingPicture' : ''}
+            />
           )}
         </StyledDiv>
         {!isAutoPlay && type === 'video/mp4' && <em>{hasSound ? 'Has Sound' : 'Has No Sound'}</em>}
