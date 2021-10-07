@@ -112,7 +112,8 @@ export const imgurApi = createApi({
     }),
 
     postComments: builder.query<PostCommentInfo[], PostCommentQuery>({
-      query: ({ postId, sort = 'best' }) => `3/gallery/${postId}/comments/${sort}`,
+      query: ({ postId, sort = 'best', perPage = 30 }) =>
+        `comment/v1/comments?filter[post]=eq:${postId}&include=account,adconfig&per_page=${perPage}&sort=${sort}`,
       transformResponse: (res: { data: PostComment[] }) => {
         const { data } = res;
         return commentNormalizer(data);

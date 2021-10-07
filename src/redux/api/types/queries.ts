@@ -16,6 +16,7 @@ export interface SuggestQuery {
 export interface PostCommentQuery {
   postId: string;
   sort?: 'best' | 'top' | 'new';
+  perPage?: number;
 }
 export interface AccountCommentQuery {
   username: string;
