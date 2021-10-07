@@ -16,11 +16,16 @@ export const StyledButton = styled(Button)`
   }
 `;
 
-export const Container = styled.div<isParentProps>`
+export const Container = styled.li<isParentProps>`
   margin-top: ${({ theme }) => theme.spaceSize.s};
   position: relative;
   .give-emerald {
     display: none;
+  }
+  .more-btn {
+    position: absolute;
+    top: ${pxToRem(9)};
+    right: ${pxToRem(9)};
   }
 
   ${({ theme, isParent }) => `
@@ -58,8 +63,12 @@ export const CommentContainer = styled.div`
   &:hover {
     border-radius: ${({ theme }) => theme.borderRadius.xxl};
     background-color: ${({ theme }) => theme.color.darkGray};
-    > .give-emerald {
+    .give-emerald {
       display: inline-flex;
+      background-color: ${({ theme }) => hexToRgb(theme.color.white, 0.12)};
+      &:hover {
+        background-color: ${({ theme }) => theme.color.secondaryColor};
+      }
     }
   }
 `;
@@ -76,7 +85,7 @@ export const VoteContainer = styled.div<isParentProps>`
   }
 `;
 
-export const ChildrenCommentsContainer = styled.div`
+export const ChildrenCommentsContainer = styled.ul`
   padding-left: ${({ theme }) => theme.spaceSize.xl};
 `;
 

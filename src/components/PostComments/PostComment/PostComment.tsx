@@ -1,7 +1,7 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useState, useMemo } from 'react';
 
 // components
-import { Avatar, Vote } from '@/components';
+import { Avatar, MoreButton, Vote } from '@/components';
 
 // types
 import { PostCommentInfo } from '@/redux/storeTypes';
@@ -17,7 +17,7 @@ import {
 } from './PostComment.styled';
 import { DefaultTheme } from 'styled-components';
 
-export default function PostComment({
+export default React.memo(function PostComment({
   id,
   author,
   childrenComments,
@@ -29,9 +29,9 @@ export default function PostComment({
 }: Omit<PostCommentInfo, 'thumbnailImageId' | 'postId'>): ReactElement {
   const [isExpendedChildComments, setIsExpendedChildComments] = useState<boolean>(false);
   const isParent = parentCommentId === '0' ? true : false;
-  console.log(isParent);
+
   return (
-    <Container isParent={isParent}>
+    <Container isParent={isParent} aria-expanded={childrenComments?.length !== 0 ? 'true' : null}>
       <CommentContainer>
         <Avatar
           css={`
@@ -57,6 +57,7 @@ export default function PostComment({
             />
           )}
         </VoteContainer>
+        <MoreButton className="more-btn" />
       </CommentContainer>
 
       {isExpendedChildComments && (
@@ -80,4 +81,4 @@ export default function PostComment({
       )}
     </Container>
   );
-}
+});
