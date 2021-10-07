@@ -1,5 +1,6 @@
 import { pxToRem } from '@/util/styleUtils';
 import styled, { createGlobalStyle } from 'styled-components';
+import { MASONRY_GALLERY_HEADER_MIN_WIDTH__PX } from '../MasonryGalleryHeader/MasonryGalleryHeader';
 import { ContainerWrapperProps, HeaderCoverProps, HeaderProps, MainSectionProps } from './MainContainer.type';
 
 export const ChangeGlobalBackground = createGlobalStyle<{ backgroundColor: HeaderProps['backgroundColor'] }>`

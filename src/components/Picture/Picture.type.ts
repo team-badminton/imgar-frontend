@@ -9,6 +9,10 @@ export interface StyledImageProps {
   objectFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
   /** 이미지를 원형으로 설정할 수 있습니다. */
   isCircle?: boolean;
+  /** 이미지를 지연로딩할 지 여부를 설정할 수 있습니다. */
+  isLazyLoading?: boolean;
+  /** 이미지 Lazy Loading 시, 바로 로딩시키지 않으려고 임시로 저장해놓습니다. */
+  'data-src'?: string;
 }
 
 export interface PictureProps extends StyledImageProps {
