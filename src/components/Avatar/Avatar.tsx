@@ -26,7 +26,7 @@ export default function Avatar({
   infoRows,
   metaInfos,
 }: AvatarProps): ReactElement {
-  const PROFILE_LINK = `user/${username}`;
+  const PROFILE_LINK = `/user/${username}`;
 
   const TIME_UNIT = {
     Month: 3600000 * 24 * 30,
