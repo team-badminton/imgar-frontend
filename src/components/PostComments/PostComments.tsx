@@ -14,7 +14,7 @@ export default function PostComments({ postId, sort }: PostCommentsProps): React
   console.log(data, error, isLoading);
   return (
     <div>
-      {data?.map(({ id, author, childrenComments, comment, dateTime, downCount, upCount }) => (
+      {data?.map(({ id, author, childrenComments, comment, dateTime, downCount, upCount, parentCommentId }) => (
         <PostComment
           key={id}
           id={id}
@@ -23,6 +23,7 @@ export default function PostComments({ postId, sort }: PostCommentsProps): React
           comment={comment}
           dateTime={dateTime}
           downCount={downCount}
+          parentCommentId={parentCommentId}
           upCount={upCount}
         />
       ))}
