@@ -6,9 +6,10 @@ import {
 import { useTypedSelector } from '@/redux';
 import { useGalleryQuery } from '@/redux/api';
 import { totalColumnNumSelector } from '@/redux/slices/displayReducer';
+import { pxToRem } from '@/util/styleUtils';
 import React, { ReactElement } from 'react';
 // import { useHistory, useLocation, useParams } from 'react-router-dom';
-import { StyledImageCard, StyledSection } from './MasonryGallery.styled';
+import { StyledImageCard } from './MasonryGallery.styled';
 import { SetPositionProps } from './MasonryGallery.type';
 
 export default function MasonryGallery(): ReactElement {
@@ -16,6 +17,7 @@ export default function MasonryGallery(): ReactElement {
   const isAutoPlay = useTypedSelector(state => state.listInfo.autoPlay);
   const layoutOption = useTypedSelector(state => state.listInfo.layout);
   const totalColumn = useTypedSelector(totalColumnNumSelector);
+  const masonryGalleryWidth = useTypedSelector(state => state.display.masonryGalleryWidth);
 
   // API 호출
   const category = useTypedSelector(state => state.listInfo.category);
@@ -26,7 +28,13 @@ export default function MasonryGallery(): ReactElement {
   } = {};
 
   return (
-    <StyledSection>
+    <section
+      css={`
+        position: relative;
+        margin: 0 auto;
+        width: ${pxToRem(masonryGalleryWidth)};
+      `}
+    >
       {/* 비동기니까 ?. 혹은 &&을 해줘야한다. */}
       {posts &&
         posts.map((postInfo, index) => {
@@ -61,6 +69,6 @@ export default function MasonryGallery(): ReactElement {
             />
           );
         })}
-    </StyledSection>
+    </section>
   );
 }

@@ -1,5 +1,6 @@
 import { pxToRem } from '@/util/styleUtils';
 import styled, { createGlobalStyle } from 'styled-components';
+import { MASONRY_GALLERY_HEADER_MIN_WIDTH__PX } from '../MasonryGalleryHeader/MasonryGalleryHeader';
 import { ContainerWrapperProps, HeaderCoverProps, HeaderProps, MainSectionProps } from './MainContainer.type';
 
 export const ChangeGlobalBackground = createGlobalStyle<{ backgroundColor: HeaderProps['backgroundColor'] }>`
@@ -51,8 +52,8 @@ export const HeaderContainer = styled.div`
 
 export const MainSection = styled.main<MainSectionProps>`
   min-height: calc(100vh - ${({ coverHeight }) => pxToRem(coverHeight)});
+  min-width: ${pxToRem(MASONRY_GALLERY_HEADER_MIN_WIDTH__PX)};
   position: relative;
-  display: flex;
   margin: 0 auto;
   padding-bottom: ${({ theme }) => theme.spaceSize.xl};
 `;
