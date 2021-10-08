@@ -23,10 +23,7 @@ export default function ImageCard({
     <Link
       style={style}
       className={className}
-      to={{
-        pathname: `gallery/${id}`,
-        state: { category: 'mostViral', sortOption: 'newest' },
-      }}
+      to={`gallery/${id}`}
       css={`
         display: inline-block;
       `}
