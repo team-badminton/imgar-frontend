@@ -1,3 +1,6 @@
 export interface VideoProps {
-  src: string;
+  imageId: string;
+  className?: string;
+  controls?: boolean;
+  isLazyLoading?: boolean;
 }

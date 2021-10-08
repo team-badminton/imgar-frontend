@@ -13,45 +13,63 @@ export default function ImageCard({
   isAutoPlay,
   postInfo,
   imageCardWidth,
+  layoutOption,
+  isLazyLoading,
 }: ImageCardProps): ReactElement {
-  const thumbnail = postInfo.images[0];
-  const { id, thumbnailImageId, thumbnailWidth, title, upCount, downCount, commentCount, views } = postInfo;
-
+  const {
+    id,
+    thumbnailImageId,
+    thumbnailWidth,
+    title,
+    upCount,
+    downCount,
+    commentCount,
+    views,
+    type,
+    hasSound,
+    isAlbum,
+  } = postInfo;
   return (
     <Link
       style={style}
       className={className}
-      to={`gallery/${id}`}
+      to={{ pathname: `gallery/${id}`, state: { isAlbum: isAlbum } }}
       css={`
         display: inline-block;
       `}
     >
       <StyledArticle imageCardWidth={imageCardWidth}>
-        <StyledDiv>
-          {!isAutoPlay || thumbnail.type === 'image/jpeg' || thumbnail.type === 'image/png' ? (
+        <StyledDiv layoutOption={layoutOption}>
+          {!isAutoPlay || type === 'image/jpeg' || type === 'image/png' ? (
             <Picture
               alt=""
               objectFit="contain"
               imageWidth={imageCardWidth}
-              src={`https://i.imgur.com/${thumbnailImageId}_d.webp?maxwidth=${thumbnailWidth}&shape=thumb&fidelity=high`}
+              imageId={thumbnailImageId}
+              isLazyLoading={isLazyLoading}
+              className={isLazyLoading ? 'lazyLoadingPicture' : ''}
             />
           ) : (
-            <Video src={`https://i.imgur.com/${thumbnailImageId}_lq.mp4`} />
+            <Video
+              imageId={thumbnailImageId}
+              isLazyLoading={isLazyLoading}
+              className={isLazyLoading ? 'lazyLoadingPicture' : ''}
+            />
           )}
         </StyledDiv>
-        {!isAutoPlay && thumbnail.type === 'video/mp4' && <em>{thumbnail.hasSound ? 'Has Sound' : 'Has No Sound'}</em>}
+        {!isAutoPlay && type === 'video/mp4' && <em>{hasSound ? 'Has Sound' : 'Has No Sound'}</em>}
         <h3>{title}</h3>
         <StyledFooter>
           <div>
-            <UpIconSVG />
+            <UpIconSVG title="Upvote" fill="currentColor" />
             <span>{upCount - downCount}</span>
           </div>
           <div>
-            <CommentIconSVG />
+            <CommentIconSVG title="Comment" />
             <span>{commentCount}</span>
           </div>
           <div>
-            <ViewIconSVG />
+            <ViewIconSVG title="View" />
             <span>{views}</span>
           </div>
         </StyledFooter>

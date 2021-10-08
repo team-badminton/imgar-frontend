@@ -48,7 +48,11 @@ export default function Button({
           return <Img className="img" aria-label={alt} />;
         })()
       )}
-      <span className="text">{text}</span>
+      {text && <span className="text">{text}</span>}
     </StyledButton>
   );
 }
+
+Button.defaultProps = {
+  color: 'white',
+};

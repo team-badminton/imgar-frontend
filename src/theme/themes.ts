@@ -3,10 +3,11 @@ import { pxToRem } from '../util/styleUtils';
 
 export const defaultTheme: DefaultTheme = {
   color: {
-    primaryColor: `#1bb76e`,
+    primaryColor: `#0e5c4a`,
     secondaryColor: `#6432f9`,
     backgroundGray: `#2e3035`,
     backgroundNavy: `#171544`,
+    backgroundDarkNavy: `#061234`,
     darkGray: `#474a51`,
     lightGray: `#b4b9c2`,
     blue: `#4a58fb`,
@@ -14,6 +15,7 @@ export const defaultTheme: DefaultTheme = {
     black: `#181818`,
     emeraldGreen: `#44d0bd`,
     lightBlue: `#8da6c9`,
+    crimsonRed: '#fc6369',
   },
   fontSize: {
     xs: pxToRem(12),
@@ -34,5 +36,7 @@ export const defaultTheme: DefaultTheme = {
   borderRadius: {
     s: pxToRem(3),
     l: pxToRem(5),
+    xl: pxToRem(6),
+    xxl: pxToRem(8),
   },
 };

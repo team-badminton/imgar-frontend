@@ -1,7 +1,10 @@
+import { GalleryQuery } from './api/types/queries';
+
 export interface ListInfo {
   posts: PostInfo[];
-  category: string;
-  sortOption: string;
+  category: GalleryQuery['section'];
+  sortOption: GalleryQuery['sort'];
+  windowOption: GalleryQuery['window'];
   autoPlay: boolean;
   layout: 'waterfall' | 'uniform';
 }
@@ -25,6 +28,26 @@ export interface PostInfo {
   tags: TagInfo[];
 }
 
+export interface PostV1Info {
+  id: string;
+  title: string;
+  dateTime: number;
+  thumbnailImageId: string /* cover */;
+  thumbnailWidth: number /* cover_width */;
+  thumbnailHeight: number /* cover_height */;
+  accountId: number;
+  views: number;
+  upCount: number /* ups */;
+  downCount: number /* downs */;
+  points: number;
+  commentCount: number;
+  favoriteCount: number;
+  imageCount: number;
+  type: 'image/jpeg' | 'image/png' | 'video/mp4';
+  hasSound: boolean;
+  isAlbum: boolean;
+}
+
 export interface TagInfo {
   name: string;
   displayName: string;
@@ -46,8 +69,8 @@ export interface ImageInfo {
 export interface DisplayInfo {
   innerWidth: number;
   innerHeight: number;
-  scrollOffset: number;
   masonryGalleryWidth: number;
+  totalColumnNum: number;
 }
 
 export interface SuggestInfo {
@@ -64,13 +87,30 @@ export interface UserInfo {
   coverUrl: string;
   points: number /* reputation */;
   notoriety: string /* reputation_name */;
-  createdDate: number /* created */;
+  createdDate: string /* created */;
+  trophies: TrophyInfo[];
+  medals: MedalInfo[];
+}
+
+export interface TrophyInfo {
+  id: string;
+  name: string;
+  description: string;
+  imageUrl: string;
+  awardedAt: string;
+  link?: string;
+}
+
+export interface MedalInfo {
+  name: string;
+  description: string;
+  imageUrl: string;
+  pointThreshold: number;
 }
 
 export interface PostCommentInfo {
   id: string;
   postId: string;
-  thumbnailImageId: string;
   comment: string;
   author: string;
   upCount: number;

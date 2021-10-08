@@ -18,8 +18,15 @@ import { formattedNumber } from '@/util/formatUtils';
 // libs
 import Moment from 'react-moment';
 
-export default function Avatar({ username, size, transScaleImage, infoRows, metaInfos }: AvatarProps): ReactElement {
-  const PROFILE_LINK = `user/${username}`;
+export default function Avatar({
+  className,
+  username,
+  size,
+  transScaleImage,
+  infoRows,
+  metaInfos,
+}: AvatarProps): ReactElement {
+  const PROFILE_LINK = `/user/${username}`;
 
   const TIME_UNIT = {
     Month: 3600000 * 24 * 30,
@@ -28,7 +35,7 @@ export default function Avatar({ username, size, transScaleImage, infoRows, meta
   const TIME_DIFF = +new Date() - CREATED_TIME;
 
   return (
-    <StyledAvatar size={size} transScaleImage={transScaleImage}>
+    <StyledAvatar className={className} size={size} transScaleImage={transScaleImage}>
       <Link to={PROFILE_LINK}>
         <Picture
           alt={`profile image of ${username}`}
@@ -50,7 +57,7 @@ export default function Avatar({ username, size, transScaleImage, infoRows, meta
             {metaInfos?.views && `${formattedNumber(metaInfos.views)} views`}
           </span>
           {TIME_DIFF > TIME_UNIT.Month ? (
-            <Moment date={CREATED_TIME} format={'MMM D YYYY'} />
+            <Moment interval={0} date={CREATED_TIME} format={'MMM D YYYY'} />
           ) : (
             <Moment
               date={CREATED_TIME}
@@ -80,6 +87,7 @@ export default function Avatar({ username, size, transScaleImage, infoRows, meta
           <span>via {metaInfos?.platform && <Platform>{metaInfos.platform}</Platform>}</span>
         </MetaInfo>
         <GiveEmeraldButton
+          className="give-emerald"
           alt="present box"
           backgroundColor="secondaryColor"
           color="white"

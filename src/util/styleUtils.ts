@@ -1,7 +1,6 @@
 import { css } from 'styled-components';
-
 export function pxToRem(px: number | string): string {
-  return parseInt(px as string) / 16 + 'rem';
+  return parseFloat(px as string) / 16 + 'rem';
 }
 
 export function widthConvertor(width: number | string): string {
@@ -20,3 +19,15 @@ export const a11yHidden = css`
   padding: 0;
   white-space: nowrap;
 `;
+
+export function hexToRgb(hex: string, alpha?: number): string {
+  const upperCaseHex = hex.toUpperCase().replace('#', '');
+
+  const h = '0123456789ABCDEF';
+  const r = h.indexOf(upperCaseHex[0]) * 16 + h.indexOf(upperCaseHex[1]);
+  const g = h.indexOf(upperCaseHex[2]) * 16 + h.indexOf(upperCaseHex[3]);
+  const b = h.indexOf(upperCaseHex[4]) * 16 + h.indexOf(upperCaseHex[5]);
+
+  if (alpha) return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  return `rgb(${r}, ${g}, ${b})`;
+}

@@ -1,11 +1,17 @@
+import { DefaultTheme } from 'styled-components';
+
 export interface HeaderProps {
   children?: React.ReactNode;
   customHeader?: React.ReactNode;
   customHeaderHeight?: number;
   headerCover?: React.ReactNode;
+  headerCoverPosition?: 'center' | 'bottom' | 'top';
   headerBackground?: string;
   darkenBackground?: boolean;
   sticky?: boolean;
+  backgroundColor?: keyof DefaultTheme['color'];
+  noOffset?: boolean;
+  containerWidth?: number;
 }
 
 export interface HeaderCoverProps {
@@ -13,8 +19,15 @@ export interface HeaderCoverProps {
   hasShadow: boolean;
   headerHeight: number;
   darkenBackground?: boolean;
+  headerCoverPosition: HeaderProps['headerCoverPosition'];
+  containerWidth?: number;
 }
 
 export interface ContainerWrapperProps {
   gradient: boolean;
+}
+
+export interface MainSectionProps {
+  coverHeight: number;
+  containerWidth?: number;
 }

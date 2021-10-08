@@ -23,7 +23,6 @@ const Template: ComponentStory<typeof Picture> = args => <Picture {...args} />;
 export const IdImage = Template.bind({});
 IdImage.args = {
   imageId: 'AD3MbBi',
-  alt: '',
 };
 
 export const SrcImage = Template.bind({});

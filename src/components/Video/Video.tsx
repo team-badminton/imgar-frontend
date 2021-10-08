@@ -1,11 +1,11 @@
 import React, { ReactElement } from 'react';
 import { VideoProps } from './Video.type';
 
-export default function Video({ src }: VideoProps): ReactElement {
+export default function Video({ className, controls, imageId, isLazyLoading }: VideoProps): ReactElement {
+  const src = `https://i.imgur.com/${imageId}_lq.mp4`;
   return (
-    // eslint-disable-next-line jsx-a11y/media-has-caption
-    <video autoPlay loop muted playsInline width="100%">
-      <source src={src} />
+    <video controls={controls} className={className} autoPlay loop muted playsInline width="100%">
+      <source data-src={isLazyLoading ? src : null} src={!isLazyLoading ? src : null} />
       <p>Sorry, your browser doesn&#39;t support HTML5 videos.</p>
     </video>
   );
