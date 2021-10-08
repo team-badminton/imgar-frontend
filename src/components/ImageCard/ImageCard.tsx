@@ -16,14 +16,24 @@ export default function ImageCard({
   layoutOption,
   isLazyLoading,
 }: ImageCardProps): ReactElement {
-  const { id, thumbnailImageId, thumbnailWidth, title, upCount, downCount, commentCount, views, type, hasSound } =
-    postInfo;
-
+  const {
+    id,
+    thumbnailImageId,
+    thumbnailWidth,
+    title,
+    upCount,
+    downCount,
+    commentCount,
+    views,
+    type,
+    hasSound,
+    isAlbum,
+  } = postInfo;
   return (
     <Link
       style={style}
       className={className}
-      to={`gallery/${id}`}
+      to={{ pathname: `gallery/${id}`, state: { isAlbum: isAlbum } }}
       css={`
         display: inline-block;
       `}
