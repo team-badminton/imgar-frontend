@@ -28,14 +28,14 @@ export const ContentContainer = styled.div`
 export const StyledVideo = styled(Video)<StyledVideoProps>`
   max-width: ${({ videoWidth }) => pxToRem(videoWidth)};
   max-height: ${({ videoHeight }) => pxToRem(videoHeight)};
-  margin: 0 auto;
+  margin: 0 auto ${({ theme }) => theme.spaceSize.l};
   display: block;
 `;
 
 export const StyledPicture = styled(Picture)<StyledPictureProps>`
   margin-bottom: ${({ theme }) => theme.spaceSize.l};
   img {
-    margin: 0 auto;
+    margin: 0 auto ${({ theme }) => theme.spaceSize.l};
     cursor: ${({ isZoomAble, isVisibleModal }) => (isVisibleModal && 'zoom-out') || (isZoomAble && 'zoom-in')};
     display: block;
   }

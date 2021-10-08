@@ -111,7 +111,6 @@ export interface MedalInfo {
 export interface PostCommentInfo {
   id: string;
   postId: string;
-  thumbnailImageId: string;
   comment: string;
   author: string;
   upCount: number;

@@ -37,5 +37,6 @@ export const defaultTheme: DefaultTheme = {
     s: pxToRem(3),
     l: pxToRem(5),
     xl: pxToRem(6),
+    xxl: pxToRem(8),
   },
 };
