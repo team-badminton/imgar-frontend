@@ -38,7 +38,7 @@ export interface Image {
   title?: any;
   description: string;
   datetime: number;
-  type: 'image/jpeg' | 'video/mp4';
+  type: 'image/jpeg' | 'image/png' | 'video/mp4';
   animated: boolean;
   width: number;
   height: number;
@@ -117,13 +117,17 @@ export interface Post {
   in_gallery: boolean;
   is_ad: boolean;
   tags: Tag[];
+  has_sound?: boolean;
   ad_type: number;
   ad_url: string;
   in_most_viral: boolean;
   include_album_ads: boolean;
   images: Image[];
+  type?: Image['type'];
   ad_config?: AdConfig;
   processing: Processing;
+  width?: number;
+  height?: number;
 }
 
 export interface PostV1 {
@@ -160,6 +164,7 @@ export interface PostV1 {
   ad_config: AdConfigV1;
   cover: Cover;
   display: Display[];
+  isAlbum: boolean;
 }
 
 export interface AdConfigV1 {

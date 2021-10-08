@@ -133,6 +133,7 @@ export function postV1DataNormalizer(post: PostV1[] | PostV1): PostV1Info | Post
       imageCount: post.image_count,
       type: post.cover.mime_type as PostV1Info['type'],
       hasSound: post.cover.metadata.has_sound,
+      isAlbum: post.is_album,
     };
   } else {
     const posts = post;
@@ -154,6 +155,56 @@ export function postV1DataNormalizer(post: PostV1[] | PostV1): PostV1Info | Post
         imageCount: post.image_count,
         type: post.cover.mime_type as PostV1Info['type'],
         hasSound: post.cover.metadata.has_sound,
+        isAlbum: post.is_album,
+      };
+    });
+  }
+}
+
+export function postV3ToV1DataNormalizer(post: Post): PostV1Info;
+export function postV3ToV1DataNormalizer(post: Post[]): PostV1Info[];
+export function postV3ToV1DataNormalizer(post: Post[] | Post): PostV1Info | PostV1Info[] {
+  if (!Array.isArray(post)) {
+    return {
+      id: post.id,
+      title: post.title,
+      dateTime: post.datetime,
+      thumbnailImageId: post?.cover ?? post.id,
+      thumbnailWidth: post?.cover_width ?? post.width,
+      thumbnailHeight: post?.cover_height ?? post.height,
+      accountId: post.account_id,
+      views: post.views,
+      upCount: post.ups,
+      downCount: post.downs,
+      points: post.points,
+      commentCount: post.comment_count,
+      favoriteCount: post.favorite_count,
+      imageCount: post.images_count,
+      type: post?.images[0]?.type ?? (post.type as PostV1Info['type']),
+      hasSound: post?.images[0]?.has_sound ?? post.has_sound,
+      isAlbum: post.is_album,
+    };
+  } else {
+    const posts = post;
+    return posts.map(post => {
+      return {
+        id: post.id,
+        title: post.title,
+        dateTime: post.datetime,
+        thumbnailImageId: post?.cover ?? post.id,
+        thumbnailWidth: post?.cover_width ?? post.width,
+        thumbnailHeight: post?.cover_height ?? post.height,
+        accountId: post.account_id,
+        views: post.views,
+        upCount: post.ups,
+        downCount: post.downs,
+        points: post.points,
+        commentCount: post.comment_count,
+        favoriteCount: post.favorite_count,
+        imageCount: post.images_count,
+        type: post?.images?.[0]?.type ?? (post.type as PostV1Info['type']),
+        hasSound: post?.images?.[0]?.has_sound ?? post.has_sound,
+        isAlbum: post.is_album,
       };
     });
   }

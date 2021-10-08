@@ -10,8 +10,9 @@ export default function Home(): ReactElement {
   // API 호출
   const category = useTypedSelector(state => state.listInfo.category);
   const sortOption = useTypedSelector(state => state.listInfo.sortOption);
+  const windowOption = useTypedSelector(state => state.listInfo.windowOption);
   const galleryWidth = useTypedSelector(masonryGalleryWidthSelector);
-  const { data: posts, isLoading } = useGalleryQuery({ section: category, sort: sortOption });
+  const { data: posts, isLoading } = useGalleryQuery({ section: category, sort: sortOption, window: windowOption });
 
   return (
     <MainContainer
