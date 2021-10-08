@@ -25,6 +25,7 @@ export const UserInfoDescription = styled.div`
 export const UserInfoUsername = styled.div`
   font-size: ${pxToRem(44)};
   font-weight: bold;
+  margin-bottom: ${({ theme }) => theme.spaceSize.s};
 `;
 
 export const UserInfoExtra = styled.div`
