@@ -33,19 +33,34 @@ export const FolderIcon = styled.div`
 `;
 
 export const FoldersWrapper = styled.div<{ containerWidth: number }>`
+  position: relative;
+  left: ${({ containerWidth }) => `calc((100vw - ${pxToRem(containerWidth)}) / -2)`};
+  box-sizing: content-box;
   height: ${pxToRem(130)};
   background-color: ${({ theme }) => theme.color.backgroundDarkNavy};
-  margin: 0 calc((100vw - ${({ containerWidth }) => pxToRem(containerWidth)}) / 2 * -1);
-  padding: 0 calc((100vw - ${({ containerWidth }) => pxToRem(containerWidth)}) / 2);
   margin-bottom: -1px;
+  width: ${({ containerWidth }) => `${containerWidth}px`};
+  padding: ${({ containerWidth }) => `0 calc((100vw - ${pxToRem(containerWidth)}) / 2)`};
 `;
 
 export const FolderList = styled.ul`
   height: 100%;
-  margin: 0;
   display: flex;
   align-items: center;
-  overflow-x: scroll;
+  overflow-x: auto;
+  overflow-y: hidden;
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    width: 52px;
+    height: 4px;
+    border-radius: 2px;
+    background-color: #9fa9c4;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #3b4257;
+  }
 `;
 
 export const FolderLink = styled(NavLink)`

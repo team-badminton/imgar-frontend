@@ -1,7 +1,7 @@
 import { ContainerWidthContext } from '@/components/MainContainer/MainContainer';
 import { useAccountFoldersQuery } from '@/redux/api';
 import { FolderInfo } from '@/redux/storeTypes';
-import React, { ReactElement, useContext } from 'react';
+import React, { ReactElement, useContext, useRef } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import { FolderIcon, FolderLink, FolderList, FolderName, FoldersWrapper } from './ProfileFavorite.styled';
 import { ProfileFavoriteFoldersProps } from './ProfileFavorite.type';
@@ -39,9 +39,10 @@ function FolderItem({ id, name, allItem }: Partial<FolderInfo> & { allItem?: boo
 export default function ProfileFavoriteFolders({ username }: ProfileFavoriteFoldersProps): ReactElement {
   const containerWidth = useContext(ContainerWidthContext);
   const { data } = useAccountFoldersQuery(username);
+  const listRef = useRef<HTMLUListElement>(null);
   return (
     <FoldersWrapper containerWidth={containerWidth}>
-      <FolderList>
+      <FolderList ref={listRef}>
         {data && [
           <FolderItem name="All Favorites" key={0} allItem />,
           data.map(folder => <FolderItem key={folder.id} {...folder} />),
