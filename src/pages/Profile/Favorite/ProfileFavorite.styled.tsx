@@ -1,6 +1,7 @@
 import { pxToRem } from '@/util/styleUtils';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import { ScrollButtonProps } from './ProfileFavorite.type';
 export const FolderIcon = styled.div`
   position: relative;
   width: ${pxToRem(74)};
@@ -12,40 +13,41 @@ export const FolderIcon = styled.div`
     content: '';
     display: block;
     position: absolute;
-    top: 0;
-    width: ${pxToRem(30)};
+    top: ${pxToRem(1)};
+    left: ${pxToRem(23)};
+    width: ${pxToRem(0)};
     height: ${pxToRem(0)};
-    transform: translateY(-98%);
-    border: 6px solid white;
+    transform: translateY(-100%);
+    border: 7px solid white;
     border-color: ${({ theme }) => `transparent transparent ${theme.color.emeraldGreen} transparent`};
   }
   &::before {
     content: '';
     display: block;
     position: absolute;
-    top: 0;
-    width: ${pxToRem(6)};
-    height: ${pxToRem(6)};
+    top: ${pxToRem(1)};
+    width: ${pxToRem(30)};
+    height: ${pxToRem(7)};
     border-radius: ${({ theme }) => `${theme.borderRadius.xl} 0 0 0`};
-    transform: translateY(-98%);
+    transform: translateY(-100%);
     background-color: ${({ theme }) => theme.color.emeraldGreen};
   }
 `;
 
 export const FoldersWrapper = styled.div<{ containerWidth: number }>`
-  position: relative;
-  left: ${({ containerWidth }) => `calc((100vw - ${pxToRem(containerWidth)}) / -2)`};
-  box-sizing: content-box;
+  position: absolute;
+  transform: translateX(${({ containerWidth }) => `calc((100vw - ${pxToRem(containerWidth)}) / 2 * -1)`});
   height: ${pxToRem(130)};
   background-color: ${({ theme }) => theme.color.backgroundDarkNavy};
   margin-bottom: -1px;
-  width: ${({ containerWidth }) => `${containerWidth}px`};
-  padding: ${({ containerWidth }) => `0 calc((100vw - ${pxToRem(containerWidth)}) / 2)`};
+  width: 100vw;
+  padding: 0 ${({ containerWidth }) => `calc((100vw - ${pxToRem(containerWidth)}) / 2)`};
 `;
 
 export const FolderList = styled.ul`
   height: 100%;
   display: flex;
+  position: relative;
   align-items: center;
   overflow-x: auto;
   overflow-y: hidden;
@@ -86,4 +88,13 @@ export const FolderName = styled.span`
   color: ${({ theme }) => theme.color.white};
   font-size: ${({ theme }) => theme.fontSize.xs};
   margin-top: ${({ theme }) => theme.spaceSize.m};
+`;
+
+export const ScrollButton = styled.div<ScrollButtonProps>`
+  height: 100%;
+  width: 200px;
+  background-color: ${({ theme }) => theme.color.backgroundDarkNavy};
+  position: absolute;
+  ${({ direction }) => (direction === 'prev' ? `left: 0;` : `right: 0;`)}
+  z-index: 1;
 `;

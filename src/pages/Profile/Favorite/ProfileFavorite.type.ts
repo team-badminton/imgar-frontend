@@ -5,3 +5,7 @@ export interface FolderIconProps {
 export interface ProfileFavoriteFoldersProps {
   username: string;
 }
+
+export interface ScrollButtonProps {
+  direction: 'prev' | 'next';
+}
