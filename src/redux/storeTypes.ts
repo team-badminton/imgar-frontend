@@ -45,6 +45,7 @@ export interface PostV1Info {
   imageCount: number;
   type: 'image/jpeg' | 'image/png' | 'video/mp4';
   hasSound: boolean;
+  isAlbum: boolean;
 }
 
 export interface TagInfo {
