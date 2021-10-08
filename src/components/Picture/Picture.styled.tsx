@@ -7,4 +7,5 @@ export const StyledImage = styled.img<StyledImageProps>`
   object-fit: ${({ objectFit }) => objectFit};
   height: ${({ isCircle, imageWidth }) => (isCircle ? imageWidth : '')};
   border-radius: ${({ isCircle }) => (isCircle ? '50%' : '')};
+  max-width: 100%;
 `;
