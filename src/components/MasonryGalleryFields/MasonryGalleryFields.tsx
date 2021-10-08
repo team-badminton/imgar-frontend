@@ -1,6 +1,5 @@
-import React, { ReactElement, ReactNode, useMemo } from 'react';
-import { useSelector } from 'react-redux';
-import { RootState, useTypedDispatch } from '@/redux';
+import React, { ReactElement, useEffect, useMemo } from 'react';
+import { useTypedSelector, useTypedDispatch } from '@/redux';
 import { DropDownList } from '@/components';
 import { setCategory, setSortOption, setWindowOption } from '@/redux/slices/listInfoReducer';
 import { GalleryQuery } from '@/redux/api/types/queries';
@@ -32,6 +31,7 @@ export default function MasonryGalleryFields(): ReactElement {
     highestScoring: ['day', 'week', 'month', 'year', 'all'],
   };
 
+  // 카테고리 리스트를 두번 클릭해야 적용되는 문제 해결?
   const categoryListReactElement = useMemo(
     () =>
       categoryList
@@ -41,7 +41,7 @@ export default function MasonryGalleryFields(): ReactElement {
   );
 
   const dispatch = useTypedDispatch();
-  const category = useSelector((state: RootState) => state.listInfo.category);
+  const category = useTypedSelector(state => state.listInfo.category);
 
   const handleSetCategory =
     ($selectedLi: HTMLLIElement, $selectedChild: ReactElement) =>

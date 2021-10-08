@@ -39,12 +39,8 @@ autoplayTrueAndVideo.args = {
     upCount: 45,
     downCount: 12,
     commentCount: 21,
-    images: [
-      {
-        type: 'video/mp4',
-        hasSound: false,
-      },
-    ],
+    type: 'video/mp4',
+    hasSound: false,
   },
 };
 
@@ -56,12 +52,7 @@ autoplayFalseAndVideoHasSound.args = {
   ...autoplayFalseAndVideo.args,
   postInfo: {
     ...autoplayFalseAndVideo.args.postInfo,
-    images: [
-      {
-        ...autoplayFalseAndVideo.args.postInfo.images[0],
-        hasSound: true,
-      },
-    ],
+    hasSound: true,
   },
 };
 
@@ -77,12 +68,7 @@ autoplayTrueAndImage.args = {
     ...autoplayTrueAndVideo.args.postInfo,
     title: 'Hey Imgur meet Frankie!',
     thumbnailImageId: 'sgF430s',
-    images: [
-      {
-        ...autoplayTrueAndVideo.args.postInfo.images[0],
-        type: 'image/jpeg',
-      },
-    ],
+    type: 'image/jpeg',
   },
 };
 
@@ -94,12 +80,7 @@ autoplayFalseAndImage.args = {
     ...autoplayTrueAndVideo.args.postInfo,
     title: 'Hey Imgur meet Frankie!',
     thumbnailImageId: 'sgF430s',
-    images: [
-      {
-        ...autoplayTrueAndVideo.args.postInfo.images[0],
-        type: 'image/jpeg',
-      },
-    ],
+    type: 'image/jpeg',
   },
 };
 
