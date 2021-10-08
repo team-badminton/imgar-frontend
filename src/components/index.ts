@@ -10,7 +10,6 @@ export { default as PostComments } from './PostComments/PostComments';
 export { default as SearchBar } from './SearchBar/SearchBar';
 export { default as SuggestList } from './SuggestList/SuggestList';
 export { default as ImageCard } from './ImageCard/ImageCard';
-export { default as DropDownList } from './DropDownList/DropDownList';
 export { default as MasonryGalleryFields } from './MasonryGalleryFields/MasonryGalleryFields';
 export { default as MasonryGalleryOptions } from './MasonryGalleryOptions/MasonryGalleryOptions';
 export { default as MasonryGalleryHeader } from './MasonryGalleryHeader/MasonryGalleryHeader';
