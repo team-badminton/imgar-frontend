@@ -5,7 +5,7 @@ import { PostComments, PostFigure, PostHeader } from '@/components';
 import MainContainer from '@/components/MainContainer/MainContainer';
 
 // styles
-import { ContentContainer } from './Gallery.styled';
+import { GalleryContainer } from './Gallery.styled';
 
 // types
 import { useLocationProps } from './Gallery.type';
@@ -21,13 +21,12 @@ export default function Gallery(): ReactElement {
   const history = useHistory();
   const param = useParams<{ id: string }>();
   const { data, error, isLoading } = usePostQuery({ postId: param.id });
-
   return (
     <MainContainer sticky customHeader={<div>커스템 헤더에 들어갈 내용 테스트</div>}>
       {isLoading ? (
         'loading'
       ) : (
-        <ContentContainer>
+        <GalleryContainer>
           <PostHeader
             username={data.accountName}
             title={data.title}
@@ -48,7 +47,7 @@ export default function Gallery(): ReactElement {
           <div>
             <PostComments postId={param.id} />
           </div>
-        </ContentContainer>
+        </GalleryContainer>
       )}
     </MainContainer>
   );
