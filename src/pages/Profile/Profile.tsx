@@ -1,15 +1,17 @@
+import { Route, useRouteMatch, Switch, useParams, useLocation, BrowserRouter as Router } from 'react-router-dom';
 import Loading from '@/components/Loading/Loading';
 import MainContainer from '@/components/MainContainer/MainContainer';
 import TabNavigation from '@/components/TabNavigation/TabNavigation';
+import { useTypedSelector } from '@/redux';
 import { useAccountQuery } from '@/redux/api';
+import { masonryGalleryWidthSelector } from '@/redux/slices/displayReducer';
 import React, { ReactElement } from 'react';
-import { Route, RouteComponentProps, Switch, useParams } from 'react-router-dom';
-import ProfileAbout from './ProfileAbout';
+import ProfileAbout from './About/ProfileAbout';
 import ProfileCover from './ProfileCover';
+import ProfileFavoriteFolders from './Favorite/ProfileFavoriteFolders';
+import ProfileFavorite from './Favorite/ProfileFavorite';
 
-const Favorites = () => <div>FAVORITES</div>;
 const Comments = () => <div>Comments</div>;
-const About = () => <div>About</div>;
 const Posts = () => <div>Posts</div>;
 
 const tabs = [
@@ -19,12 +21,14 @@ const tabs = [
   { label: 'About', path: 'about' },
 ];
 
-export default function Profile({ location, match }: RouteComponentProps): ReactElement {
-  const { pathname } = location;
+export default function Profile(): ReactElement {
+  const { pathname } = useLocation();
+  const { url } = useRouteMatch();
   const { username } = useParams<{ username: string }>();
   const { data, isLoading } = useAccountQuery(username);
   const currentTab = pathname.split('/')[3];
   const customHederHeight = currentTab === 'favorites' ? 160 : currentTab === 'about' ? 70 : 100;
+  const GalleryWidth = useTypedSelector(masonryGalleryWidthSelector);
 
   return (
     <MainContainer
@@ -34,20 +38,22 @@ export default function Profile({ location, match }: RouteComponentProps): React
       headerCover={
         <ProfileCover username={data?.name} points={data?.points} notoriety={data?.notoriety}>
           <TabNavigation tabs={tabs} />
+          {currentTab === 'favorites' ? <ProfileFavoriteFolders username={username} /> : null}
         </ProfileCover>
       }
       darkenBackground
       customHeaderHeight={customHederHeight}
+      containerWidth={GalleryWidth < 450 ? 450 : GalleryWidth > 1264 ? 1264 : GalleryWidth}
       noOffset
     >
       {isLoading ? (
         <Loading />
       ) : (
         <Switch>
-          <Route path={match.url + `/favorites`} exact component={Favorites} />
-          <Route path={match.url + `/comments`} exact component={Comments} />
-          <Route path={match.url + `/about`} exact render={() => <ProfileAbout username={username} />} />
-          <Route path={match.url} component={Posts} />
+          <Route path={url + `/favorites`} component={ProfileFavorite} />
+          <Route path={url + `/comments`} exact component={Comments} />
+          <Route path={url + `/about`} exact render={() => <ProfileAbout username={username} />} />
+          <Route path={url} component={Posts} />
         </Switch>
       )}
     </MainContainer>
