@@ -7,6 +7,7 @@ import {
   postDataNormalizer,
   suggestDataNormalizer,
   postV1DataNormalizer,
+  postV3ToV1DataNormalizer,
 } from './normalizers';
 import { Folder, Post, PostComment, PostV1, Suggest, User } from './types/fetchData';
 import {
@@ -97,7 +98,7 @@ export const imgurApi = createApi({
         return folderNormalizer(data);
       },
     }),
-    accountFolderPosts: builder.query<PostInfo[], accountFavoriteFolderQuery>({
+    accountFolderPosts: builder.query<PostV1Info[], accountFavoriteFolderQuery>({
       query: ({ username, folderId, sort = 'newest', page = 0 }) => {
         if (folderId) {
           return `3/account/${username}/folders/${folderId}/favorites?page=${page}&sort=${sort}`;
@@ -107,7 +108,7 @@ export const imgurApi = createApi({
       },
       transformResponse: (res: { data: Post[] }) => {
         const { data } = res;
-        return postDataNormalizer(data);
+        return postV3ToV1DataNormalizer(data);
       },
     }),
 
