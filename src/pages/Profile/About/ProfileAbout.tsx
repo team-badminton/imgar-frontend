@@ -33,7 +33,7 @@ function TrophyItem({ name, description, imageUrl, to }: TrophyItemProps): React
   return (
     <ProfileAboutGridItem innerItemWidth={150}>
       <Tooltip tooltipText={description} to={to}>
-        <Picture imageWidth={150} src={imageUrl} alt={name} />
+        <Picture imageWidth={150} imageHeight={150} src={imageUrl} alt={name} />
         <p>{name.toUpperCase()}</p>
       </Tooltip>
     </ProfileAboutGridItem>
@@ -43,7 +43,7 @@ function MedalItem({ name, description, imageUrl }: MedalItemProps): ReactElemen
   return (
     <ProfileAboutGridItem innerItemWidth={70} marginTop={10}>
       <Tooltip tooltipText={description}>
-        <Picture imageWidth={70} src={imageUrl} alt={name} />
+        <Picture imageWidth={70} imageHeight={70} src={imageUrl} alt={name} />
       </Tooltip>
     </ProfileAboutGridItem>
   );
