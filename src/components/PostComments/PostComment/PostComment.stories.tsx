@@ -9,7 +9,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: `커맨트 컴포넌트 입니다.`,
+        component: `PostComment 컴포넌트 입니다. 댓글 하나를 렌더링하며, 대댓글이 있는지에 따라 하단 우측에 reply 버튼이 옵션으로 렌더링됩니다.`,
       },
     },
   },
@@ -17,24 +17,26 @@ export default {
 
 const Template: ComponentStory<typeof PostComment> = args => <PostComment {...args} />;
 
-export const noChildCommentsExist = Template.bind({});
-noChildCommentsExist.args = {
+export const parentWithNoChildComments = Template.bind({});
+parentWithNoChildComments.args = {
   author: 'Francis31415',
   dateTime: 1100012300,
   comment: 'Test Comment',
   downCount: 100,
   upCount: 1,
+  parentCommentId: '0',
   childrenComments: [],
 };
 
-export const childCommentsExist = Template.bind({});
-childCommentsExist.args = {
+export const parentWithChildComments = Template.bind({});
+parentWithChildComments.args = {
   id: '2144157441',
   author: 'Francis31415',
   dateTime: 1100012300,
   comment: 'Test Comment',
   downCount: 100,
   upCount: 1,
+  parentCommentId: '0',
   childrenComments: [
     {
       id: '2144157442',
@@ -43,6 +45,7 @@ childCommentsExist.args = {
       comment: 'Test Comment',
       downCount: 100,
       upCount: 1,
+      parentCommentId: '2144157441',
       childrenComments: [],
     },
     {
@@ -52,6 +55,7 @@ childCommentsExist.args = {
       comment: 'Test Comment',
       downCount: 100,
       upCount: 1,
+      parentCommentId: '2144157441',
       childrenComments: [
         {
           id: '2144157444',
@@ -60,9 +64,21 @@ childCommentsExist.args = {
           comment: 'Test Comment',
           downCount: 100,
           upCount: 1,
+          parentCommentId: '2144157443',
           childrenComments: [],
         },
       ],
     },
   ],
+};
+
+export const childComment = Template.bind({});
+childComment.args = {
+  author: 'Francis31415',
+  dateTime: 1100012300,
+  comment: 'Test Comment',
+  downCount: 100,
+  upCount: 1,
+  parentCommentId: '2144157443',
+  childrenComments: [],
 };

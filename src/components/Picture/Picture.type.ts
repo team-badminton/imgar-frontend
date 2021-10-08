@@ -3,6 +3,8 @@ import { CSSProperties } from 'react';
 export interface StyledImageProps {
   /** 이미지의 width를 설정할 수 있습니다. */
   imageWidth?: string | number;
+  /** 이미지의 height를 설정할 수 있습니다. */
+  imageHeight?: string | number;
   /** 이미지의 해상도를 결정할 수 있습니다. */
   fidelity?: 'grand' | 'high';
   /** 이미지의 fit을 설정할 수 있습니다. */

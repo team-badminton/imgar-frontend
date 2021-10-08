@@ -13,9 +13,9 @@ export const StyledAvatar = styled.div<StyledAvatarProps>`
   display: flex;
   font-size: ${({ theme }) => theme.fontSize.xs};
   align-items: center;
+  gap: ${({ size, theme }) => (size === 'medium' ? theme.spaceSize.m : theme.spaceSize.s)};
   img {
     margin-top: ${pxToRem(1)};
-    margin-right: ${({ size, theme }) => (size === 'medium' ? theme.spaceSize.m : theme.spaceSize.s)};
     transition: all 0.3s;
     cursor: pointer;
     ${({ transScaleImage }) =>

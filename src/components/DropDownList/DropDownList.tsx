@@ -2,7 +2,12 @@ import React, { ReactElement, ReactNode, useEffect, useState } from 'react';
 import { StyledDropDownButton, StyledDropDownUL } from './DropDownList.styled';
 import { DropDownListProps } from './DropDownList.type';
 
-export default function DropDownList({ children, themeType, handlerOption }: DropDownListProps): ReactElement {
+export default function DropDownList({
+  className,
+  children,
+  themeType,
+  handlerOption,
+}: DropDownListProps): ReactElement {
   const [isShow, setIsShow] = useState<boolean>(false);
   const handleShow = () => {
     setIsShow(!isShow);
@@ -38,7 +43,7 @@ export default function DropDownList({ children, themeType, handlerOption }: Dro
 
   return (
     <>
-      <div>
+      <div className={className}>
         <StyledDropDownButton onClick={handleShow}>{selectBoxHeader}</StyledDropDownButton>
         <StyledDropDownUL
           useType={handlerOption.useType}

@@ -15,6 +15,7 @@ const Picture = forwardRef<HTMLImageElement, PictureProps>(
       src,
       style,
       imageWidth,
+      imageHeight,
       isLazyLoading,
     }: PictureProps,
     ref,
@@ -26,6 +27,7 @@ const Picture = forwardRef<HTMLImageElement, PictureProps>(
         <StyledImage
           alt={alt}
           imageWidth={imageWidth}
+          imageHeight={imageHeight}
           isCircle={isCircle}
           objectFit={objectFit}
           onClick={onClick}
@@ -55,6 +57,7 @@ const Picture = forwardRef<HTMLImageElement, PictureProps>(
             <StyledImage
               alt={alt}
               imageWidth={imageWidth}
+              imageHeight={imageHeight}
               isCircle={isCircle}
               key={extension}
               loading="lazy"

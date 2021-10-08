@@ -17,6 +17,7 @@ import {
   GalleryQuery,
   GallerySearchQuery,
   PostCommentQuery,
+  postQeury,
 } from './types/queries';
 
 export const imgurApi = createApi({
@@ -111,9 +112,21 @@ export const imgurApi = createApi({
         return postV3ToV1DataNormalizer(data);
       },
     }),
-
+    post: builder.query<PostInfo, postQeury>({
+      query: ({ postId }) => `3/gallery/album/${postId}`,
+      transformResponse: (res: { data: Post }) => {
+        const { data } = res;
+        return postDataNormalizer(data);
+      },
+    }),
     postComments: builder.query<PostCommentInfo[], PostCommentQuery>({
-      query: ({ postId, sort = 'best' }) => `3/gallery/${postId}/comments/${sort}`,
+      query: ({ postId, sort = 'best', loadMore = false }) => {
+        const nextIndex =
+          'WyJ7XCJjb21tZW50c1wiOntcImxhc3Rfb2Zmc2V0XCI6MzB9LFwiY3JlYXRlZFwiOlwiMTk3MC0wMS0wMVQwMDowMDowMFpcIn0iLCJlMzBqRHo4OWJ0ZWp0Q2NBUXBkbWRYV0cxSzkxMy8wQlBGc1FGVWJjci9sV0NhOUZJd1Z0OTRCMjNHTFVtREJoY0YySTdmVnhFbVRaTnRnanA3b3Bxa3BFT1JKL3p0V2RGRWFmYy8rbnhYdGgwdDlPNUZCZ2tQNFlINzBMeTlPWW1Bc2x6b2pEbHF0RnRRK2RLeHcyTkFxS05QUWd2dXd2MjdFdTB6ay92UGhsUFlCTFVWcmpBbWNCTWJPeGNGc2pvT1dPTFh3ck8rd3lmc2hSa3JVWFRKQ2tZWlJoZTl0aFlvQTlDMzRzNHJER1ZST0RXRURzd3pOaC9rbEtFTjFuZFJsWUZlbDdJRENiSStZR1kyQmZxamNSRVJkTHAxVW5FYmNrYm5xeWlMa1hKOGJPSVVENDRHdjVlR3FHd2hhY3Ira0drZnJvQTYyUGswWDdnRmNFZWc9PSJd';
+        return `comment/v1/comments?filter[post]=eq:${postId}&include=account,adconfig&per_page=${
+          loadMore ? 1000 : 30
+        }&sort=${sort}${loadMore ? `cursor=${nextIndex}` : ''}`;
+      },
       transformResponse: (res: { data: PostComment[] }) => {
         const { data } = res;
         return commentNormalizer(data);
@@ -132,6 +145,7 @@ export const {
   useAccountPostsQuery,
   useSuggestQuery,
   useLazySuggestQuery,
+  usePostQuery,
   usePostCommentsQuery,
 } = imgurApi;
 

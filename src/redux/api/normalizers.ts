@@ -233,30 +233,28 @@ export function commentNormalizer(comment: PostComment[]): PostCommentInfo[];
 export function commentNormalizer(comment: PostComment | PostComment[]): PostCommentInfo | PostCommentInfo[] {
   if (!Array.isArray(comment)) {
     return {
-      author: comment.author,
+      author: comment.account.username,
       comment: comment.comment,
-      dateTime: comment.datetime,
-      downCount: comment.downs,
-      upCount: comment.ups,
+      dateTime: +new Date(comment.create_at) / 1000,
+      downCount: comment.downvote_count,
+      upCount: comment.upvote_count,
       id: comment.id.toString(),
       parentCommentId: comment.parent_id.toString(),
-      postId: comment.image_id,
-      thumbnailImageId: comment.album_cover,
-      childrenComments: comment.children ? commentNormalizer(comment.children) : null,
+      postId: comment.post_id,
+      childrenComments: comment.comments ? commentNormalizer(comment.comments) : null,
     };
   } else {
     const comments = comment;
     return comments.map(comment => ({
-      author: comment.author,
+      author: comment.account.username,
       comment: comment.comment,
-      dateTime: comment.datetime,
-      downCount: comment.downs,
-      upCount: comment.ups,
+      dateTime: +new Date(comment.create_at) / 1000,
+      downCount: comment.downvote_count,
+      upCount: comment.upvote_count,
       id: comment.id.toString(),
       parentCommentId: comment.parent_id.toString(),
-      postId: comment.image_id,
-      thumbnailImageId: comment.album_cover,
-      childrenComments: comment.children ? commentNormalizer(comment.children) : null,
+      postId: comment.post_id,
+      childrenComments: comment.comments ? commentNormalizer(comment.comments) : null,
     }));
   }
 }
