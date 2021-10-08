@@ -27,7 +27,7 @@ export default function Profile(): ReactElement {
   const { username } = useParams<{ username: string }>();
   const { data, isLoading } = useAccountQuery(username);
   const currentTab = pathname.split('/')[3];
-  const customHederHeight = currentTab === 'favorites' ? 160 : currentTab === 'about' ? 70 : 100;
+  const customHederHeight = currentTab === 'favorites' ? 200 : currentTab === 'about' ? 70 : 100;
   const GalleryWidth = useTypedSelector(masonryGalleryWidthSelector);
 
   return (
