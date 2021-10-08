@@ -3,14 +3,14 @@ import useResize from '@/hooks/useResize';
 import React, { lazy, ReactElement, Suspense } from 'react';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 
+const Home = lazy(() => import('@/pages/Home/Home'));
+const Gallery = lazy(() => import('@/pages/Gallery/Gallery'));
+const Profile = lazy(() => import('@/pages/Profile/Profile'));
+const SearchResult = lazy(() => import('@/pages/SearchResult/SearchResult'));
+const TagDetail = lazy(() => import('@/pages/TagDetail/TagDetail'));
+
 export default function App(): ReactElement {
   const { pathname } = useLocation();
-
-  const Home = lazy(() => import('@/pages/Home/Home'));
-  const Gallery = lazy(() => import('@/pages/Gallery/Gallery'));
-  const Profile = lazy(() => import('@/pages/Profile/Profile'));
-  const SearchResult = lazy(() => import('@/pages/SearchResult/SearchResult'));
-  const TagDetail = lazy(() => import('@/pages/TagDetail/TagDetail'));
 
   useResize();
 
