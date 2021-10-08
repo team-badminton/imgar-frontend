@@ -60,6 +60,7 @@ export const Default = Template.bind({});
 Default.args = {
   text: 'DEFAULT',
   size: 'medium',
+  backgroundColor: null,
 };
 
 export const Small = Template.bind({});
@@ -127,4 +128,10 @@ AsButton.args = {
   text: 'Button',
   size: 'small',
   to: null,
+};
+
+export const sizeCustom = Template.bind({});
+sizeCustom.args = {
+  text: 'Button',
+  size: 'custom',
 };

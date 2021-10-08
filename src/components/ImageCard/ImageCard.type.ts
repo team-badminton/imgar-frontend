@@ -17,4 +17,5 @@ export interface ImageCardProps {
   postInfo: PostV1Info;
   imageCardWidth: string | number;
   layoutOption: 'uniform' | 'waterfall';
+  isLazyLoading: boolean;
 }

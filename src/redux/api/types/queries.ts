@@ -13,9 +13,13 @@ export interface GallerySearchQuery {
 export interface SuggestQuery {
   keyword: string;
 }
+export interface postQeury {
+  postId: string;
+}
 export interface PostCommentQuery {
   postId: string;
   sort?: 'best' | 'top' | 'new';
+  loadMore?: boolean;
 }
 export interface AccountCommentQuery {
   username: string;

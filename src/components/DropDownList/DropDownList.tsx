@@ -1,52 +1,71 @@
-import { RootState } from '@/redux';
-import { setCategory, setSortOption } from '@/redux/slices/listInfoReducer';
-import React, { ReactElement, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { ReactElement, ReactNode, useEffect, useState } from 'react';
 import { StyledDropDownButton, StyledDropDownUL } from './DropDownList.styled';
 import { DropDownListProps } from './DropDownList.type';
 
-export default function DropDownList({ dropdownType, dropdownItemList }: DropDownListProps): ReactElement {
-  const dispatch = useDispatch();
-
-  const dropdownHeader = useSelector((state: RootState) =>
-    dropdownType === 'category' ? state.listInfo.category : state.listInfo.sortOption,
-  );
-
+export default function DropDownList({
+  className,
+  children,
+  themeType,
+  handlerOption,
+}: DropDownListProps): ReactElement {
   const [isShow, setIsShow] = useState<boolean>(false);
   const handleShow = () => {
     setIsShow(!isShow);
   };
 
-  const handleCategory = (e: React.MouseEvent<HTMLUListElement, MouseEvent>) => {
+  const [selectBoxHeader, setSelectBoxHeader] = useState<ReactNode>(children[0]);
+  const [selectBoxHeaderIndex, setSelectBoxHeaderIndex] = useState<number>(0);
+  useEffect(() => {
+    setSelectBoxHeader(children[0]);
+    setSelectBoxHeaderIndex(0);
+  }, [children[0]]);
+
+  const selectBoxItem = (e: React.MouseEvent<HTMLUListElement, MouseEvent>) => {
     const $target = e.target as HTMLElement;
-    const $li = $target.closest('.listItem');
-    if (!$li) {
+    const $selectedLi = $target.closest('.listItem') as HTMLLIElement;
+    if (!$selectedLi) {
       return;
     }
-    const $prevSelected = document.querySelector('.selected');
-    $prevSelected.classList.remove('selected');
-    $li.classList.add('selected');
+    const $ul = $target.closest('.list');
+    Array.from($ul.children).forEach($child => {
+      $child.classList.remove('selected');
+    });
+    $selectedLi.classList.add('selected');
+    const $selectedChild = children[Number($selectedLi.id.replace('listItem', ''))];
+    setSelectBoxHeader($selectedChild);
+    return { $selectedLi: $selectedLi, $selectedChild: $selectedChild };
+  };
 
-    if (dropdownType === 'category') {
-      const newCategory = $li.children[0].children[0].textContent;
-      dispatch(setCategory(newCategory));
-    }
-    if (dropdownType === 'sortOption') {
-      const newSortOption = $li.children[0].children[0].textContent;
-      dispatch(setSortOption(newSortOption));
-    }
-    setIsShow(!isShow);
+  const handleSelectBox = (e: React.MouseEvent<HTMLUListElement, MouseEvent>) => {
+    const { $selectedLi, $selectedChild } = selectBoxItem(e);
+    handlerOption.useType === 'selectBox' && handlerOption.handleDropDownList($selectedLi, $selectedChild)(e);
   };
 
   return (
     <>
-      <div>
-        <StyledDropDownButton onClick={handleShow}>{dropdownHeader}</StyledDropDownButton>
-        <StyledDropDownUL isShow={isShow} onClick={handleCategory}>
-          {dropdownItemList.map((itemName, index) => (
-            <li key={index + itemName} className={index === 0 ? 'selected listItem' : 'listItem'}>
-              <button>
-                <span>{itemName}</span>
+      <div className={className}>
+        <StyledDropDownButton onClick={handleShow}>{selectBoxHeader}</StyledDropDownButton>
+        <StyledDropDownUL
+          useType={handlerOption.useType}
+          className={'list'}
+          isShow={isShow}
+          themeType={themeType}
+          {...(handlerOption.useType === 'selectBox' && { onClick: handleSelectBox })}
+        >
+          {children.map((child, index) => (
+            <li
+              key={index}
+              className={
+                index === selectBoxHeaderIndex && handlerOption.useType === 'selectBox'
+                  ? 'selected listItem'
+                  : 'listItem'
+              }
+              id={'listItem' + index}
+            >
+              <button
+                {...(handlerOption.useType === 'itemBox' && { onClick: handlerOption.handleDropDownItems[index] })}
+              >
+                {child}
               </button>
             </li>
           ))}
@@ -55,3 +74,14 @@ export default function DropDownList({ dropdownType, dropdownItemList }: DropDow
     </>
   );
 }
+
+DropDownList.defaultProps = {
+  themeType: 'dark',
+  handlerOption: {
+    useType: 'selectBox',
+    handleDropDownList:
+      ($selectedLi: Element, $selectedChild: ReactElement) => (e: React.MouseEvent<HTMLUListElement, MouseEvent>) => {
+        console.log($selectedLi, $selectedChild, e);
+      },
+  },
+};

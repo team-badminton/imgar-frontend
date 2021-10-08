@@ -33,6 +33,7 @@ export const SearchBarInput = styled.input`
   border: none;
   background-color: transparent;
   flex-grow: 1;
+  letter-spacing: ${pxToRem(0.4)};
   padding: ${({ theme }) => theme.spaceSize.s} 0;
   color: ${({ theme }) => theme.color.white};
   &::placeholder {

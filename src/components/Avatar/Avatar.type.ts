@@ -1,4 +1,5 @@
 export interface AvatarProps {
+  className?: string;
   /** userName은 계정(account)의 id로 필수 속성입니다.*/
   username: string;
   /** Avatar imageSize를 결정합니다. small: 24px, medium: 32px*/

@@ -241,23 +241,26 @@ export interface Medallion {
 // Comments
 
 export interface PostComment {
-  id: number;
-  image_id: string;
+  account: {
+    id: number;
+    username: string;
+    avatar: string;
+  };
+  account_id: number;
   comment: string;
-  author: string;
-  author_id: number;
-  on_album: boolean;
-  album_cover: string;
-  ups: number;
-  downs: number;
-  points: number;
-  datetime: number;
+  comments: PostComment[];
+  create_at: string;
+  deleted_at?: string;
+  downvote_count: number;
+  id: number;
+  next?: number;
   parent_id: number;
-  deleted: boolean;
-  vote?: any;
   platform: string;
-  has_admin_badge: boolean;
-  children?: PostComment[];
+  platform_id: number;
+  post_id: string;
+  updated_at: string;
+  upvote_count: number;
+  vote?: number;
 }
 
 // Fav Folder

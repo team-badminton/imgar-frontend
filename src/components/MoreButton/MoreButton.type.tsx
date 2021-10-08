@@ -1,3 +1,3 @@
 export interface MoreButtonProps {
-  className: string;
+  className?: string;
 }

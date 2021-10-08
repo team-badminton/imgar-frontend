@@ -7,6 +7,7 @@ declare module 'styled-components' {
       secondaryColor: string;
       backgroundGray: string;
       backgroundNavy: string;
+      backgroundDarkNavy: string;
       darkGray: string;
       lightGray: string;
       blue: string;
@@ -14,6 +15,7 @@ declare module 'styled-components' {
       black: string;
       emeraldGreen: string;
       lightBlue: string;
+      crimsonRed: string;
     };
     fontSize: {
       xs: string;
@@ -37,6 +39,7 @@ declare module 'styled-components' {
       s: string;
       l: string;
       xl: string;
+      xxl: string;
     };
   }
 }

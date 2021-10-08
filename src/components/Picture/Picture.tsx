@@ -4,7 +4,19 @@ import { PictureProps } from './Picture.type';
 
 const Picture = forwardRef<HTMLImageElement, PictureProps>(
   (
-    { alt, className, fidelity, isCircle, imageId, onClick, objectFit, src, style, imageWidth }: PictureProps,
+    {
+      alt,
+      className,
+      fidelity,
+      isCircle,
+      imageId,
+      onClick,
+      objectFit,
+      src,
+      style,
+      imageWidth,
+      isLazyLoading,
+    }: PictureProps,
     ref,
   ): ReactElement => {
     if (!src && !imageId) throw new Error('imageId, src 중 한 가지는 필수로 입력해야 합니다.');
@@ -33,7 +45,12 @@ const Picture = forwardRef<HTMLImageElement, PictureProps>(
           const imageSrc = `${imgUrlWithoutExt}.${extension}${query}`;
 
           return index !== extensions.length - 1 ? (
-            <source key={extension} srcSet={imageSrc} type={`image/${extensions[index]}`} />
+            <source
+              key={extension}
+              data-src={isLazyLoading ? imageSrc : null}
+              srcSet={!isLazyLoading ? imageSrc : null}
+              type={`image/${extensions[index]}`}
+            />
           ) : (
             <StyledImage
               alt={alt}
@@ -44,8 +61,9 @@ const Picture = forwardRef<HTMLImageElement, PictureProps>(
               objectFit={objectFit}
               onClick={onClick}
               ref={ref}
-              src={imageSrc}
               style={style}
+              data-src={isLazyLoading ? imageSrc : null}
+              src={!isLazyLoading ? imageSrc : null}
             />
           );
         })}
@@ -58,6 +76,7 @@ Picture.defaultProps = {
   alt: '',
   objectFit: 'cover',
   isCircle: false,
+  isLazyLoading: false,
 };
 
 Picture.displayName = 'Picture';
