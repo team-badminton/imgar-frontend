@@ -33,7 +33,7 @@ export default function ImageCard({
     <Link
       style={style}
       className={className}
-      to={{ pathname: `gallery/${id}`, state: { isAlbum: isAlbum } }}
+      to={{ pathname: `/gallery/${id}`, state: { isAlbum: isAlbum } }}
       css={`
         display: inline-block;
       `}
