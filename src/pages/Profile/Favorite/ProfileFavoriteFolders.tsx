@@ -1,14 +1,12 @@
 import { ContainerWidthContext } from '@/components/MainContainer/MainContainer';
-import { useTypedSelector } from '@/redux';
 import { useAccountFoldersQuery } from '@/redux/api';
-import { masonryGalleryWidthSelector } from '@/redux/slices/displayReducer';
 import { FolderInfo } from '@/redux/storeTypes';
-import React, { ReactElement, ReactNode, useContext } from 'react';
-import { NavLink, useRouteMatch } from 'react-router-dom';
+import React, { ReactElement, useContext } from 'react';
+import { useRouteMatch } from 'react-router-dom';
 import { FolderIcon, FolderLink, FolderList, FolderName, FoldersWrapper } from './ProfileFavorite.styled';
 import { ProfileFavoriteFoldersProps } from './ProfileFavorite.type';
 
-function FolderItem({ id, name }: Partial<FolderInfo>): ReactElement {
+function FolderItem({ id, name, allItem }: Partial<FolderInfo> & { allItem?: boolean }): ReactElement {
   const { url } = useRouteMatch();
   const to = id
     ? url +
@@ -20,7 +18,17 @@ function FolderItem({ id, name }: Partial<FolderInfo>): ReactElement {
 
   return (
     <li>
-      <FolderLink to={to} activeClassName="isActive">
+      <FolderLink
+        to={to}
+        activeClassName="isActive"
+        {...(allItem
+          ? {
+              isActive: (match, location) => {
+                return match.url === location.pathname;
+              },
+            }
+          : null)}
+      >
         <FolderIcon />
         <FolderName>{name}</FolderName>
       </FolderLink>
@@ -35,7 +43,7 @@ export default function ProfileFavoriteFolders({ username }: ProfileFavoriteFold
     <FoldersWrapper containerWidth={containerWidth}>
       <FolderList>
         {data && [
-          <FolderItem name="All Favorites" key={0} />,
+          <FolderItem name="All Favorites" key={0} allItem />,
           data.map(folder => <FolderItem key={folder.id} {...folder} />),
         ]}
       </FolderList>

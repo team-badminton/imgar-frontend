@@ -33,8 +33,6 @@ export const FolderIcon = styled.div`
 `;
 
 export const FoldersWrapper = styled.div<{ containerWidth: number }>`
-  display: flex;
-  align-items: center;
   height: ${pxToRem(130)};
   background-color: ${({ theme }) => theme.color.backgroundDarkNavy};
   margin: 0 calc((100vw - ${({ containerWidth }) => pxToRem(containerWidth)}) / 2 * -1);
@@ -43,14 +41,16 @@ export const FoldersWrapper = styled.div<{ containerWidth: number }>`
 `;
 
 export const FolderList = styled.ul`
+  height: 100%;
   margin: 0;
   display: flex;
+  align-items: center;
+  overflow-x: scroll;
 `;
 
 export const FolderLink = styled(NavLink)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: block;
+  padding-top: ${({ theme }) => theme.spaceSize.s};
   &.isActive {
     transform: scale(1.2);
     span {
