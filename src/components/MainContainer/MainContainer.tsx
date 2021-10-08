@@ -1,4 +1,4 @@
-import React, { ReactElement, useLayoutEffect, useRef, useState } from 'react';
+import React, { createContext, ReactElement, useLayoutEffect, useRef, useState } from 'react';
 import BasicHeader from './BasicHeader/BasicHeader';
 import {
   ChangeGlobalBackground,
@@ -8,6 +8,8 @@ import {
   MainSection,
 } from './MainContainer.styled';
 import { HeaderProps } from './MainContainer.type';
+
+export const ContainerWidthContext = createContext(0);
 
 export default function MainContainer({
   children,
@@ -99,7 +101,7 @@ export default function MainContainer({
   }, [coverHeight, customHeaderHeight]);
 
   return (
-    <>
+    <ContainerWidthContext.Provider value={containerWidth}>
       {backgroundColor ? <ChangeGlobalBackground backgroundColor={backgroundColor} /> : null}
       <ContainerWrapper gradient={!headerCover}>
         <HeaderContainer ref={headerContainerRef}>{showCustomHeader ? customHeader : <BasicHeader />}</HeaderContainer>
@@ -118,7 +120,7 @@ export default function MainContainer({
           {children}
         </MainSection>
       </ContainerWrapper>
-    </>
+    </ContainerWidthContext.Provider>
   );
 }
 
