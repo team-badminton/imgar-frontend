@@ -5,16 +5,17 @@ import { formattedNumber } from '@/util/formatUtils';
 import { pxToRem } from '@/util/styleUtils';
 import moment from 'moment';
 import React, { ReactElement } from 'react';
+import { useParams } from 'react-router';
 import {
   DescriptionItemContainer,
   DescriptionItemParagraph,
   ProfileAboutContainer,
   ProfileAboutDescription,
-  ProfileAboutH3,
   ProfileAboutGrid,
   ProfileAboutGridItem,
+  ProfileAboutH3,
 } from './ProfileAbout.styled';
-import { DescriptionItemProps, MedalItemProps, ProfileAboutProps, TrophyItemProps } from './ProfileAbout.type';
+import { DescriptionItemProps, MedalItemProps, TrophyItemProps } from './ProfileAbout.type';
 
 function DescriptionItem({ headline, children, large, grow, headingMargin }: DescriptionItemProps): ReactElement {
   return (
@@ -49,7 +50,8 @@ function MedalItem({ name, description, imageUrl }: MedalItemProps): ReactElemen
   );
 }
 
-export default function ProfileAbout({ username }: ProfileAboutProps): ReactElement {
+export default function ProfileAbout(): ReactElement {
+  const { username } = useParams<{ username: string }>();
   const { data } = useAccountQuery(username);
 
   return (

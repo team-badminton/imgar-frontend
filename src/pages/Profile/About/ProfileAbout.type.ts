@@ -4,10 +4,6 @@ export interface ProfileAboutTrophiesProps {
   columns: number;
 }
 
-export interface ProfileAboutProps {
-  username: string;
-}
-
 export interface DescriptionItemProps {
   headline: string;
   children: ReactNode;

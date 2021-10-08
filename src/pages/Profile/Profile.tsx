@@ -23,7 +23,7 @@ const tabs = [
 
 export default function Profile(): ReactElement {
   const { pathname } = useLocation();
-  const { url } = useRouteMatch();
+  const { path } = useRouteMatch();
   const { username } = useParams<{ username: string }>();
   const { data, isLoading } = useAccountQuery(username);
   const currentTab = pathname.split('/')[3];
@@ -50,10 +50,14 @@ export default function Profile(): ReactElement {
         <Loading />
       ) : (
         <Switch>
-          <Route path={url + `/favorites`} component={ProfileFavorite} />
-          <Route path={url + `/comments`} exact component={Comments} />
-          <Route path={url + `/about`} exact render={() => <ProfileAbout username={username} />} />
-          <Route path={url} component={Posts} />
+          <Route
+            path={[path + `/favorites`, path + `/favorites/folder/:folderId/:folderName`]}
+            component={ProfileFavorite}
+            exact
+          />
+          <Route path={path + `/comments`} exact component={Comments} />
+          <Route path={path + `/about`} exact component={ProfileAbout} />
+          <Route path={path} component={Posts} />
         </Switch>
       )}
     </MainContainer>
