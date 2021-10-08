@@ -32,12 +32,12 @@ export const TooltipBox = styled.div<TooltipBoxProps>`
   border-radius: ${({ theme }) => theme.borderRadius.l};
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   background-color: ${({ theme }) => theme.color.primaryColor};
-  ${({ arrow }) => {
+  ${({ arrow, arrowOffset }) => {
     if (arrow === 'up') {
       return `
         bottom: 0; 
         left: 50%;
-        transform: translateX(-50%) translateY(calc(100% + ${pxToRem(25)}));
+        transform: translateX(calc(-50% - ${pxToRem(arrowOffset ?? 0)})) translateY(calc(100% + ${pxToRem(25)}));
         margin-top: ${pxToRem(25)};
       `;
     }
@@ -45,7 +45,7 @@ export const TooltipBox = styled.div<TooltipBoxProps>`
       return `
         top: 0; 
         left: 50%;
-        transform: translateX(-50%) translateY(calc(-1 * (100% + ${pxToRem(25)})));
+        transform: translateX(calc(-50% - ${pxToRem(arrowOffset ?? 0)})) translateY(calc(-1 * (100% + ${pxToRem(25)})));
       `;
     }
   }}

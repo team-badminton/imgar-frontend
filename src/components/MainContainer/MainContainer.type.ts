@@ -20,6 +20,7 @@ export interface HeaderCoverProps {
   headerHeight: number;
   darkenBackground?: boolean;
   headerCoverPosition: HeaderProps['headerCoverPosition'];
+  containerWidth?: number;
 }
 
 export interface ContainerWrapperProps {
@@ -28,4 +29,5 @@ export interface ContainerWrapperProps {
 
 export interface MainSectionProps {
   coverHeight: number;
+  containerWidth?: number;
 }

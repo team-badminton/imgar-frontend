@@ -14,6 +14,11 @@ export default {
       },
     },
   },
+  decorators: [
+    Story => {
+      return <div style={{ width: '100%', height: '100vh', position: 'relative' }}>{Story()}</div>;
+    },
+  ],
 } as ComponentMeta<typeof Tooltip>;
 
 const Template: ComponentStory<typeof Tooltip> = args => <Tooltip {...args} />;
@@ -45,16 +50,18 @@ Default.decorators = [
   ),
 ];
 
-export const TooltipBoxWithDownArrow = BoxTemplate.bind({});
+export const TooltipBoxWithDownArrow: ComponentStory<typeof TooltipBox> = BoxTemplate.bind({});
 TooltipBoxWithDownArrow.args = {
   arrow: 'down',
   arrowOffset: 0,
   children: 'Tooltip with down arrow',
+  style: { top: 'initial', bottom: 'initial' },
 };
 
-export const TooltipBoxWithUpArrow = BoxTemplate.bind({});
+export const TooltipBoxWithUpArrow: ComponentStory<typeof TooltipBox> = BoxTemplate.bind({});
 TooltipBoxWithUpArrow.args = {
   arrow: 'up',
   arrowOffset: 0,
   children: 'Tooltip with up arrow',
+  style: { top: 'initial', bottom: 'initial' },
 };

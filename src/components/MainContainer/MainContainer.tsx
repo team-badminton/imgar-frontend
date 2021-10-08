@@ -1,4 +1,4 @@
-import React, { ReactElement, useLayoutEffect, useRef, useState } from 'react';
+import React, { createContext, ReactElement, useLayoutEffect, useRef, useState } from 'react';
 import BasicHeader from './BasicHeader/BasicHeader';
 import {
   ChangeGlobalBackground,
@@ -8,6 +8,8 @@ import {
   MainSection,
 } from './MainContainer.styled';
 import { HeaderProps } from './MainContainer.type';
+
+export const ContainerWidthContext = createContext(0);
 
 export default function MainContainer({
   children,
@@ -29,14 +31,6 @@ export default function MainContainer({
   const BASIC_HEADER_HEIGHT = 75;
   const [showCustomHeader, setShowCustomHeader] = useState<boolean>(false);
   const [coverHeight, setCoverHeight] = useState<number>(0);
-
-  useLayoutEffect(() => {
-    Array.from(headerCoverRef.current.children).forEach((child: HTMLElement) => {
-      child.style.width = `${containerWidth}px`;
-    });
-    mainSectionRef.current.style.width = `${containerWidth}px`;
-    // mainSectionRef
-  }, [containerWidth]);
 
   useLayoutEffect(() => {
     const computedCoverHeight = headerCoverRef.current?.scrollHeight;
@@ -107,7 +101,7 @@ export default function MainContainer({
   }, [coverHeight, customHeaderHeight]);
 
   return (
-    <>
+    <ContainerWidthContext.Provider value={containerWidth}>
       {backgroundColor ? <ChangeGlobalBackground backgroundColor={backgroundColor} /> : null}
       <ContainerWrapper gradient={!headerCover}>
         <HeaderContainer ref={headerContainerRef}>{showCustomHeader ? customHeader : <BasicHeader />}</HeaderContainer>
@@ -118,14 +112,15 @@ export default function MainContainer({
           headerHeight={BASIC_HEADER_HEIGHT}
           ref={headerCoverRef}
           hasShadow={showCustomHeader}
+          containerWidth={containerWidth}
         >
           {headerCover ?? <div style={{ height: BASIC_HEADER_HEIGHT }} />}
         </HeaderCover>
-        <MainSection ref={mainSectionRef} coverHeight={coverHeight}>
+        <MainSection ref={mainSectionRef} coverHeight={coverHeight} containerWidth={containerWidth}>
           {children}
         </MainSection>
       </ContainerWrapper>
-    </>
+    </ContainerWidthContext.Provider>
   );
 }
 
