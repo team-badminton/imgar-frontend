@@ -36,7 +36,7 @@ export default function Profile(): ReactElement {
       }
       darkenBackground
       customHeaderHeight={customHederHeight}
-      containerWidth={GalleryWidth > 1264 ? 1264 : GalleryWidth}
+      containerWidth={GalleryWidth}
       noOffset
     >
       {isLoading ? (

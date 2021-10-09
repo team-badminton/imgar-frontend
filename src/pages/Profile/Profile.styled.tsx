@@ -17,5 +17,5 @@ export const ProfileCoverWrapper = styled.div<{ containerWidth: number }>`
   align-items: center;
   background-color: ${({ theme }) => theme.color.backgroundDarkNavy};
   width: 100vw;
-  padding: 0 ${({ containerWidth }) => `calc((100vw - ${pxToRem(containerWidth)}) / 2)`};
+  padding: 0 ${({ containerWidth }) => `calc((100vw - ${pxToRem(containerWidth < 450 ? 450 : containerWidth)}) / 2)`};
 `;
