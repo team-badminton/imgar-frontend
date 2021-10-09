@@ -14,13 +14,6 @@ import ProfileFavorite from './Favorite/ProfileFavorite';
 const Comments = () => <div>Comments</div>;
 const Posts = () => <div>Posts</div>;
 
-const tabs = [
-  { label: 'Posts', path: 'posts' },
-  { label: 'Favorites', path: 'favorites' },
-  { label: 'Comments', path: 'comments' },
-  { label: 'About', path: 'about' },
-];
-
 export default function Profile(): ReactElement {
   const { pathname } = useLocation();
   const { path } = useRouteMatch();
@@ -37,7 +30,6 @@ export default function Profile(): ReactElement {
       headerCoverPosition="top"
       headerCover={
         <ProfileCover username={data?.name} points={data?.points} notoriety={data?.notoriety}>
-          <TabNavigation tabs={tabs} />
           {currentTab === 'favorites' ? <ProfileFavoriteFolders username={username} /> : null}
         </ProfileCover>
       }
