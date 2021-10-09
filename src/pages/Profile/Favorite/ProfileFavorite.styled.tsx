@@ -2,6 +2,7 @@ import { pxToRem } from '@/util/styleUtils';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { ScrollButtonProps } from './ProfileFavorite.type';
+
 export const FolderIcon = styled.div`
   position: relative;
   width: ${pxToRem(74)};
@@ -34,23 +35,19 @@ export const FolderIcon = styled.div`
   }
 `;
 
-export const FoldersWrapper = styled.div<{ containerWidth: number }>`
-  position: absolute;
-  transform: translateX(${({ containerWidth }) => `calc((100vw - ${pxToRem(containerWidth)}) / 2 * -1)`});
+export const FoldersWrapper = styled.div`
+  width: 100%;
   height: ${pxToRem(130)};
-  background-color: ${({ theme }) => theme.color.backgroundDarkNavy};
-  margin-bottom: -1px;
-  width: 100vw;
-  padding: 0 ${({ containerWidth }) => `calc((100vw - ${pxToRem(containerWidth)}) / 2)`};
+  position: relative;
 `;
 
 export const FolderList = styled.ul`
   height: 100%;
   display: flex;
-  position: relative;
   align-items: center;
   overflow-x: auto;
   overflow-y: hidden;
+  padding-right: ${pxToRem(60)};
   &::-webkit-scrollbar {
     height: 4px;
   }
@@ -90,11 +87,36 @@ export const FolderName = styled.span`
   margin-top: ${({ theme }) => theme.spaceSize.m};
 `;
 
-export const ScrollButton = styled.div<ScrollButtonProps>`
+export const ScrollButton = styled.button<ScrollButtonProps>`
   height: 100%;
-  width: 200px;
-  background-color: ${({ theme }) => theme.color.backgroundDarkNavy};
+  width: ${pxToRem(60)};
   position: absolute;
-  ${({ direction }) => (direction === 'prev' ? `left: 0;` : `right: 0;`)}
+  flex-shrink: 0;
+  color: ${({ theme }) => theme.color.white};
+  ${({ $direction, theme }) =>
+    $direction === 'prev'
+      ? `
+  left: 0;
+  background-image: linear-gradient(to left, transparent, ${theme.color.backgroundDarkNavy});
+  `
+      : `
+  right: 0;
+  background-image: linear-gradient(to right, transparent, ${theme.color.backgroundDarkNavy});
+  `}
   z-index: 1;
+  svg {
+    position: absolute;
+    ${({ $direction }) =>
+      $direction === 'prev'
+        ? `
+  left: 0;
+  `
+        : `
+  right: 0;
+  `}
+    transform: translateY(-50%);
+  }
+  &:focus {
+    outline-offset: ${pxToRem(-8)};
+  }
 `;
