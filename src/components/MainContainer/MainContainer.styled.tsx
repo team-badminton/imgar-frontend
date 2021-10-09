@@ -15,6 +15,8 @@ export const ContainerWrapper = styled.div<ContainerWrapperProps>`
 
 export const HeaderCover = styled.header<HeaderCoverProps>`
   width: 100%;
+  min-width: ${pxToRem(450)};
+  max-width: ${pxToRem(1264)};
   height: auto;
   display: flex;
   flex-direction: column;
