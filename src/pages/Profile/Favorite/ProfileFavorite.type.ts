@@ -7,5 +7,5 @@ export interface ProfileFavoriteFoldersProps {
 }
 
 export interface ScrollButtonProps {
-  direction: 'prev' | 'next';
+  $direction: 'prev' | 'next';
 }
