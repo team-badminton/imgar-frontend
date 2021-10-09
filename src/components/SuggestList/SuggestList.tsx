@@ -26,14 +26,16 @@ function SuggestListLi({ to, keywordRegexp, children, leftIcon, prefix }: Sugges
     <StyledLi>
       <Link to={to} tabIndex={0}>
         {leftIcon}
-        {typeof children === 'string'
-          ? [
-              prefix ?? '',
-              ...children
-                .split(keywordRegexp)
-                .map(part => (part.match(keywordRegexp) ? <strong>{part}</strong> : part)),
-            ]
-          : `${prefix ?? ''}${children}`}
+        <span>
+          {typeof children === 'string'
+            ? [
+                prefix ?? '',
+                ...children
+                  .split(keywordRegexp)
+                  .map(part => (part.match(keywordRegexp) ? <strong>{part}</strong> : part)),
+              ]
+            : `${prefix ?? ''}${children}`}
+        </span>
       </Link>
     </StyledLi>
   );
