@@ -20,9 +20,7 @@ export default function Home(): ReactElement {
       headerBackground={'https://s.imgur.com/desktop-assets/desktop-assets/homebg.e52b5cdf24f83bcd55f9f1318855f2ef.png'}
       headerCover={<div style={{ height: '350px' }}>커버에 들어갈 내용 테스트</div>}
       customHeader={<div>커스템 헤더에 들어갈 내용 테스트</div>}
-      containerWidth={
-        galleryWidth < MASONRY_GALLERY_HEADER_MIN_WIDTH__PX ? MASONRY_GALLERY_HEADER_MIN_WIDTH__PX : galleryWidth
-      }
+      containerWidth={galleryWidth}
     >
       {isLoading ? (
         <Loading />
