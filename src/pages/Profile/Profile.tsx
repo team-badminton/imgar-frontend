@@ -22,7 +22,6 @@ export default function Profile(): ReactElement {
   const currentTab = pathname.split('/')[3];
   const customHederHeight = currentTab === 'favorites' ? 200 : currentTab === 'about' ? 70 : 100;
   const GalleryWidth = useTypedSelector(masonryGalleryWidthSelector);
-
   return (
     <MainContainer
       backgroundColor="backgroundDarkNavy"
@@ -30,12 +29,14 @@ export default function Profile(): ReactElement {
       headerCoverPosition="top"
       headerCover={
         <ProfileCover username={data?.name} points={data?.points} notoriety={data?.notoriety}>
-          {currentTab === 'favorites' ? <ProfileFavoriteFolders username={username} /> : null}
+          <Route path={`${path}/favorites`}>
+            <ProfileFavoriteFolders />
+          </Route>
         </ProfileCover>
       }
       darkenBackground
       customHeaderHeight={customHederHeight}
-      containerWidth={GalleryWidth < 450 ? 450 : GalleryWidth > 1264 ? 1264 : GalleryWidth}
+      containerWidth={GalleryWidth > 1264 ? 1264 : GalleryWidth}
       noOffset
     >
       {isLoading ? (
