@@ -34,7 +34,6 @@ export const displaySlice = createSlice({
       const MASONRY_GALLERY_WIDTH__PX =
         LAYOUT_TOTAL_COLUMN_NUM * (IMAGECARD_WIDTH_PX + COLUMN_GAP__PX) - COLUMN_GAP__PX;
 
-      state.totalColumnNum = LAYOUT_TOTAL_COLUMN_NUM;
       state.masonryGalleryWidth = MASONRY_GALLERY_WIDTH__PX;
     },
   },
@@ -49,4 +48,3 @@ export const sizeSelector: Selector<RootState, Pick<DisplayInfo, 'innerWidth' | 
 });
 
 export const masonryGalleryWidthSelector: Selector<RootState, number> = state => state.display.masonryGalleryWidth;
-export const totalColumnNumSelector: Selector<RootState, number> = state => state.display.totalColumnNum;
