@@ -1,17 +1,15 @@
-import { ContainerWidthContext } from '@/components/MainContainer/MainContainer';
+import { ReactComponent as LeftSvgIcon } from '@/assets/Icon/leftIcon.svg';
+import { ReactComponent as RightSvgIcon } from '@/assets/Icon/rightIcon.svg';
 import useThrottle from '@/hooks/useThrottle';
 import { useAccountFoldersQuery } from '@/redux/api';
 import { FolderInfo } from '@/redux/storeTypes';
 import { pxToRem } from '@/util/styleUtils';
-import React, { ReactElement, useContext, useEffect, useRef, useState } from 'react';
-import { useRouteMatch } from 'react-router-dom';
+import React, { ReactElement, useEffect, useRef, useState } from 'react';
+import { useRouteMatch, useParams } from 'react-router-dom';
 import { FolderIcon, FolderLink, FolderList, FolderName, FoldersWrapper, ScrollButton } from './ProfileFavorite.styled';
-import { ProfileFavoriteFoldersProps } from './ProfileFavorite.type';
-import { ReactComponent as LeftSvgIcon } from '@/assets/Icon/leftIcon.svg';
-import { ReactComponent as RightSvgIcon } from '@/assets/Icon/rightIcon.svg';
 
 function FolderItem({ id, name, allItem }: Partial<FolderInfo> & { allItem?: boolean }): ReactElement {
-  const { url } = useRouteMatch();
+  const { url } = useRouteMatch('/user/:username/');
   const to = id
     ? url +
       `/favorites/folder/${id}/${name
@@ -44,7 +42,8 @@ function FolderItem({ id, name, allItem }: Partial<FolderInfo> & { allItem?: boo
   );
 }
 
-export default function ProfileFavoriteFolders({ username }: ProfileFavoriteFoldersProps): ReactElement {
+export default function ProfileFavoriteFolders(): ReactElement {
+  const { username } = useParams<{ username: string }>();
   const { data } = useAccountFoldersQuery(username);
   const listRef = useRef<HTMLUListElement>(null);
   const [hasScroll, setHasScroll] = useState<boolean>(false);
@@ -76,15 +75,23 @@ export default function ProfileFavoriteFolders({ username }: ProfileFavoriteFold
     };
   }, [data]);
 
+  const scrollToStartHandler = () => {
+    listRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+  };
+  const scrollToNextHandler = () => {
+    const currentScroll = listRef.current.scrollLeft;
+    listRef.current.scrollTo({ left: currentScroll + listRef.current.offsetWidth, behavior: 'smooth' });
+  };
+
   return (
     <FoldersWrapper>
       {scrolled ? (
-        <ScrollButton $direction="prev">
+        <ScrollButton $direction="prev" onClick={scrollToStartHandler}>
           <LeftSvgIcon />
         </ScrollButton>
       ) : null}
       {hasScroll ? (
-        <ScrollButton $direction="next">
+        <ScrollButton $direction="next" onClick={scrollToNextHandler}>
           <RightSvgIcon />
         </ScrollButton>
       ) : null}
