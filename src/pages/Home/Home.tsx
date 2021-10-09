@@ -1,10 +1,9 @@
-import MainContainer from '@/components/MainContainer/MainContainer';
-import React, { ReactElement } from 'react';
 import { Loading, MasonryGallery, MasonryGalleryHeader } from '@/components/index';
+import MainContainer from '@/components/MainContainer/MainContainer';
 import { useTypedSelector } from '@/redux';
-import { masonryGalleryWidthSelector } from '@/redux/slices/displayReducer';
 import { useGalleryQuery } from '@/redux/api';
-import { MASONRY_GALLERY_HEADER_MIN_WIDTH__PX } from '@/components/MasonryGalleryHeader/MasonryGalleryHeader';
+import { masonryGalleryWidthSelector } from '@/redux/slices/displayReducer';
+import React, { ReactElement } from 'react';
 
 export default function Home(): ReactElement {
   // API 호출
