@@ -5,7 +5,6 @@ import { StyledSelectBoxListULProps } from './SelectBoxList.type';
 export const StyledSelectBoxListUL = styled.ul<StyledSelectBoxListULProps>`
   display: ${({ isShow }) => (isShow ? 'block' : 'none')};
   position: absolute;
-  z-index: 1; // ImageCard들이 z-index: 1;을 가지기 때문
   background: ${({ theme, themeType }) => (themeType === 'dark' ? theme.color.darkGray : theme.color.white)};
   color: ${({ theme, themeType }) => (themeType === 'dark' ? theme.color.white : theme.color.black)};
   font-size: ${({ theme }) => theme.fontSize.l};
