@@ -15,8 +15,6 @@ export const ContainerWrapper = styled.div<ContainerWrapperProps>`
 
 export const HeaderCover = styled.header<HeaderCoverProps>`
   width: 100%;
-  min-width: ${pxToRem(450)};
-  max-width: ${pxToRem(1264)};
   height: auto;
   display: flex;
   flex-direction: column;
@@ -41,7 +39,6 @@ export const HeaderCover = styled.header<HeaderCoverProps>`
   `
       : ''}
   transition: box-shadow 0.3s;
-  ${({ containerWidth }) => `padding: 0 calc((100% - ${pxToRem(containerWidth)}) / 2)`};
   padding-top: ${({ headerHeight }) => pxToRem(headerHeight)};
 `;
 
