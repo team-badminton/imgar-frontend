@@ -2,10 +2,10 @@ import { DropDownList, MasonryGalleryOptions } from '@/components';
 import { useAccountFoldersQuery } from '@/redux/api';
 import React, { ReactElement } from 'react';
 import { useRouteMatch } from 'react-router';
-import { ProfileSort } from './ProfileFavorite';
 import { ProfileFavoriteHeaderContainer, ProfileFavoriteHeaderTitle } from './ProfileFavorite.styled';
+import { ProfileFavoriteSort } from './ProfileFavorite.type';
 
-function ProfileFavoriteFields({ setSort }: { setSort: (s: ProfileSort) => void }): ReactElement {
+function ProfileFavoriteFields({ setSort }: { setSort: (s: ProfileFavoriteSort) => void }): ReactElement {
   const sortList = ['oldest', 'newest'];
 
   const handleSetSort = (_: never, item: ReactElement) => () => {
@@ -38,7 +38,11 @@ function ProfileFavoriteFields({ setSort }: { setSort: (s: ProfileSort) => void 
   );
 }
 
-export default function ProfileFavoriteHeader({ setSort }: { setSort: (s: ProfileSort) => void }): ReactElement {
+export default function ProfileFavoriteHeader({
+  setSort,
+}: {
+  setSort: (s: ProfileFavoriteSort) => void;
+}): ReactElement {
   const match = useRouteMatch<{ username: string; folderId: string }>([
     '/user/:username/favorites/folder/:folderId',
     '/user/:username/favorites',

@@ -13,3 +13,5 @@ export interface ScrollButtonProps {
 export interface ProfileFavoriteProps {
   categoryTitle: string;
 }
+
+export type ProfileFavoriteSort = 'oldest' | 'newest';
