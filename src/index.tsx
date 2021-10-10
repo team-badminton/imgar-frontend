@@ -7,6 +7,9 @@ import App from './App/App';
 import { store } from './redux';
 import GlobalStyle from './styles/GlobalStyle';
 import { defaultTheme } from './theme/themes';
+import smoothscroll from 'smoothscroll-polyfill';
+
+smoothscroll.polyfill();
 
 ReactDOM.render(
   <>

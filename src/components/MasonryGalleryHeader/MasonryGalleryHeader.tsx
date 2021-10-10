@@ -15,9 +15,13 @@ export default function MasonryGalleryHeader(): ReactElement {
         display: flex;
         justify-content: space-between;
         margin: 0 auto;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
         width: ${pxToRem(masonryGalleryWidth)};
         min-width: ${pxToRem(MASONRY_GALLERY_HEADER_MIN_WIDTH__PX)};
         padding: ${defaultTheme.spaceSize.m} 0;
+        z-index: 1;
       `}
     >
       <MasonryGalleryFields />

@@ -1,3 +1,4 @@
+import { pxToRem } from '@/util/styleUtils';
 import React, { createContext, ReactElement, useLayoutEffect, useRef, useState } from 'react';
 import BasicHeader from './BasicHeader/BasicHeader';
 import {
@@ -114,7 +115,14 @@ export default function MainContainer({
           hasShadow={showCustomHeader}
           containerWidth={containerWidth}
         >
-          {headerCover ?? <div style={{ height: BASIC_HEADER_HEIGHT }} />}
+          <div
+            css={`
+              width: ${pxToRem(containerWidth)};
+              min-width: ${pxToRem(450)};
+            `}
+          >
+            {headerCover ?? <div style={{ height: BASIC_HEADER_HEIGHT }} />}
+          </div>
         </HeaderCover>
         <MainSection ref={mainSectionRef} coverHeight={coverHeight} containerWidth={containerWidth}>
           {children}
