@@ -16,7 +16,7 @@ export const infiniteScrollMiddleware: Middleware = storeApi => next => action =
     if (page === 1 && action.payload.length > 30) {
       action.payload = action.payload.slice(0, 30);
       action.payload.next = true;
-    } else {
+    } else if (page !== 1) {
       const accState = [...lastState, ...action.payload];
       action.payload = accState;
     }
