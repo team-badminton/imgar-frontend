@@ -48,7 +48,6 @@ export default React.memo(function PostComment({
           {childrenComments?.length !== 0 && (
             <StyledButton
               onClick={() => setIsExpendedChildComments(!isExpendedChildComments)}
-              size="custom"
               text={`
                 ${isExpendedChildComments ? '-' : '+'}
                 ${childrenComments.length} 
