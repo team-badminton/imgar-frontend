@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 // types
-import { ContainterProps, Size } from './Vote.type';
+import { ContainterProps, OutputProps } from './Vote.type';
 
 // components
 import { ReactComponent as ArrowIcon } from '@/assets/Icon/upIcon.svg';
@@ -18,7 +18,7 @@ export const Container = styled.div<ContainterProps>`
   .down-btn {
     padding: ${({ size }) => (size === 'large' ? pxToRem(8) : pxToRem(5))};
     .img {
-      stroke: ${({ theme }) => theme.color.lightGray};
+      stroke: ${({ theme, color }) => theme.color[color]};
       width: ${({ size }) => (size === 'large' ? pxToRem(24) : pxToRem(16))};
       height: ${({ size }) => (size === 'large' ? pxToRem(24) : pxToRem(16))};
       stroke-width: ${({ size }) => (size === 'large' ? pxToRem(1.5) : pxToRem(2))};
@@ -54,9 +54,9 @@ export const DownBtn = styled(ArrowIcon)`
   transform: rotate(180deg);
 `;
 
-export const Output = styled.output<Size>`
+export const Output = styled.output<OutputProps>`
   padding: ${({ size }) => (size === 'large' ? pxToRem(8) : `0 ${pxToRem(6)}`)};
-  color: ${({ theme }) => theme.color.white};
+  color: ${({ theme, color }) => theme.color[color]};
   font-size: ${({ theme }) => theme.fontSize.xs};
   font-weight: 400;
 `;

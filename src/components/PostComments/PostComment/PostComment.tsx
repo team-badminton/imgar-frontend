@@ -44,7 +44,7 @@ export default React.memo(function PostComment({
         />
         <Comment isParent={isParent}>{comment}</Comment>
         <VoteContainer isParent={isParent}>
-          <Vote size="small" direction="row" count={upCount - downCount} />
+          <Vote color="lightGray" size="small" direction="row" count={upCount - downCount} />
           {childrenComments?.length !== 0 && (
             <StyledButton
               onClick={() => setIsExpendedChildComments(!isExpendedChildComments)}

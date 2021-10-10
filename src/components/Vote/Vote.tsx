@@ -9,11 +9,12 @@ import { UpBtn, DownBtn, Output, Container } from './Vote.styled';
 // types
 import { VoteProps } from './Vote.type';
 
-export default function Vote({ size, count, direction }: VoteProps): ReactElement {
+export default function Vote({ color, size, count, direction }: VoteProps): ReactElement {
   const [output, setOutput] = useState(count);
 
   return (
     <Container
+      color={color}
       size={size}
       direction={direction}
       selectedButton={output === count + 1 ? 'up-btn' : output === count - 1 ? 'down-btn' : null}
@@ -26,7 +27,9 @@ export default function Vote({ size, count, direction }: VoteProps): ReactElemen
         img={UpBtn}
         alt="Up Arrow"
       />
-      <Output size={size}>{output}</Output>
+      <Output color={color} size={size}>
+        {output}
+      </Output>
       <Button
         onClick={() => (output === count - 1 ? setOutput(count) : setOutput(count - 1))}
         className="down-btn"
