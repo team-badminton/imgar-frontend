@@ -82,7 +82,7 @@ export const imgurApi = createApi({
       query: ({ page = 0, sort = 'newest', username }) => `3/account/${username}/comments/${sort}/${page}`,
       transformResponse: (res: { data: PostComment[] }) => {
         const { data } = res;
-        return commentNormalizer(data);
+        return accountCommentNormalizer(data);
       },
     }),
     accountPosts: builder.query<PostV1Info[], AccountPostQuery>({

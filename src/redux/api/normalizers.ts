@@ -8,7 +8,7 @@ import {
   TagInfo,
   UserInfo,
 } from '../storeTypes';
-import { Folder, Image, Post, PostComment, PostV1, Suggest, Tag, User } from './types/fetchData';
+import { AccountComment, Folder, Image, Post, PostComment, PostV1, Suggest, Tag, User } from './types/fetchData';
 
 export function imageDataNormalizer(image: Image): ImageInfo;
 export function imageDataNormalizer(image: Image[]): ImageInfo[];
@@ -255,6 +255,39 @@ export function commentNormalizer(comment: PostComment | PostComment[]): PostCom
       parentCommentId: comment.parent_id.toString(),
       postId: comment.post_id,
       childrenComments: comment.comments ? commentNormalizer(comment.comments) : null,
+    }));
+  }
+}
+
+export function accountCommentNormalizer(comment: AccountComment): PostCommentInfo;
+export function accountCommentNormalizer(comment: AccountComment[]): PostCommentInfo[];
+export function accountCommentNormalizer(
+  comment: AccountComment | AccountComment[],
+): PostCommentInfo | PostCommentInfo[] {
+  if (!Array.isArray(comment)) {
+    return {
+      author: comment.author,
+      comment: comment.comment,
+      dateTime: comment.datetime,
+      downCount: comment.downs,
+      upCount: comment.ups,
+      id: comment.id.toString(),
+      parentCommentId: comment.parent_id.toString(),
+      postId: comment.image_id,
+      childrenComments: comment.children ? commentNormalizer(comment.children) : null,
+    };
+  } else {
+    const comments = comment;
+    return comments.map(comment => ({
+      author: comment.author,
+      comment: comment.comment,
+      dateTime: comment.datetime,
+      downCount: comment.downs,
+      upCount: comment.ups,
+      id: comment.id.toString(),
+      parentCommentId: comment.parent_id.toString(),
+      postId: comment.image_id,
+      childrenComments: comment.children ? commentNormalizer(comment.children) : null,
     }));
   }
 }
