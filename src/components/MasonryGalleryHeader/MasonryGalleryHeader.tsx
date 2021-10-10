@@ -21,6 +21,7 @@ export default function MasonryGalleryHeader(): ReactElement {
         width: ${pxToRem(masonryGalleryWidth)};
         min-width: ${pxToRem(MASONRY_GALLERY_HEADER_MIN_WIDTH__PX)};
         padding: ${defaultTheme.spaceSize.m} 0;
+        z-index: 1;
       `}
     >
       <MasonryGalleryFields />
