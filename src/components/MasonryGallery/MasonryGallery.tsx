@@ -3,13 +3,17 @@ import {
   IMAGECARD_WIDTH_PX,
   IMAGE_MAX_HEIGHT_PX,
 } from '@/components/ImageCard/ImageCard.styled';
-import { useTypedSelector } from '@/redux';
-import React, { ReactElement, useLayoutEffect, useState } from 'react';
+import { useTypedDispatch, useTypedSelector } from '@/redux';
+import { setQueryPage } from '@/redux/slices/listInfoReducer';
+import { createRandomHash } from '@/util/formatUtils';
+import React, { ReactElement, useLayoutEffect, useRef, useState } from 'react';
 // import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { COLUMN_GAP__PX, StyledImageCard } from './MasonryGallery.styled';
 import { MasonryGalleryProps, SetPositionProps } from './MasonryGallery.type';
 
 export default function MasonryGallery({ posts }: MasonryGalleryProps): ReactElement {
+  const dispatch = useTypedDispatch();
+  const queryPage = useTypedSelector(state => state.listInfo.queryPage);
   // 리덕스 전역 상태
   const isAutoPlay = useTypedSelector(state => state.listInfo.autoPlay);
   const layoutOption = useTypedSelector(state => state.listInfo.layout);
@@ -42,48 +46,64 @@ export default function MasonryGallery({ posts }: MasonryGalleryProps): ReactEle
     [key: string]: SetPositionProps;
   } = {};
 
-  return (
-    <section
-      css={`
-        position: relative;
-        margin: 0 auto;
-        width: 100%;
-      `}
-      ref={containerRef}
-    >
-      {posts.map((postInfo, index) => {
-        const row = Math.floor(index / totalColumn);
-        const column = index % totalColumn;
-        const objectKey = '' + row + column;
-        const aboveImageCardObjectKey = '' + (row - 1) + column;
-        const sumOfAboveImageHeightPx = ImageCardPositionInfos[aboveImageCardObjectKey]
-          ? ImageCardPositionInfos[aboveImageCardObjectKey].sumOfImageHeightPx
-          : 0;
-        ImageCardPositionInfos[objectKey] = {
-          column,
-          row,
-          sumOfAboveImageHeightPx,
-          sumOfImageHeightPx:
-            sumOfAboveImageHeightPx +
-            (layoutOption === 'uniform'
-              ? IMAGECARD_UNIFORM_HEIGHT__PX - 50
-              : (postInfo.thumbnailHeight * IMAGECARD_WIDTH_PX) / postInfo.thumbnailWidth > IMAGE_MAX_HEIGHT_PX
-              ? IMAGE_MAX_HEIGHT_PX
-              : (postInfo.thumbnailHeight * IMAGECARD_WIDTH_PX) / postInfo.thumbnailWidth),
-        };
+  const masonryGalleryObserverRef = useRef();
 
-        return (
-          <StyledImageCard
-            setPositionProps={{ ...ImageCardPositionInfos[objectKey] }}
-            key={postInfo.id}
-            isAutoPlay={isAutoPlay}
-            layoutOption={layoutOption}
-            postInfo={postInfo}
-            imageCardWidth={IMAGECARD_WIDTH_PX}
-            isLazyLoading={index < 20 ? false : true}
-          />
-        );
-      })}
-    </section>
+  return (
+    <>
+      <button
+        onClick={() => {
+          dispatch(setQueryPage(queryPage + 1));
+        }}
+        css={`
+          color: white;
+        `}
+      >
+        임시
+      </button>
+      <section
+        css={`
+          position: relative;
+          margin: 0 auto;
+          width: 100%;
+        `}
+        ref={containerRef}
+      >
+        {posts.map((postInfo, index) => {
+          const row = Math.floor(index / totalColumn);
+          const column = index % totalColumn;
+          const objectKey = '' + row + column;
+          const aboveImageCardObjectKey = '' + (row - 1) + column;
+          const sumOfAboveImageHeightPx = ImageCardPositionInfos[aboveImageCardObjectKey]
+            ? ImageCardPositionInfos[aboveImageCardObjectKey].sumOfImageHeightPx
+            : 0;
+          ImageCardPositionInfos[objectKey] = {
+            column,
+            row,
+            sumOfAboveImageHeightPx,
+            sumOfImageHeightPx:
+              sumOfAboveImageHeightPx +
+              (layoutOption === 'uniform'
+                ? IMAGECARD_UNIFORM_HEIGHT__PX - 50
+                : (postInfo.thumbnailHeight * IMAGECARD_WIDTH_PX) / postInfo.thumbnailWidth > IMAGE_MAX_HEIGHT_PX
+                ? IMAGE_MAX_HEIGHT_PX
+                : (postInfo.thumbnailHeight * IMAGECARD_WIDTH_PX) / postInfo.thumbnailWidth),
+          };
+
+          return (
+            <StyledImageCard
+              setPositionProps={{ ...ImageCardPositionInfos[objectKey] }}
+              key={postInfo.id}
+              isAutoPlay={isAutoPlay}
+              layoutOption={layoutOption}
+              postInfo={postInfo}
+              imageCardWidth={IMAGECARD_WIDTH_PX}
+              isLazyLoading={false}
+              // isLazyLoading={index < 20 ? false : true}
+              ref={index === posts.length - 1 ? masonryGalleryObserverRef : null}
+            />
+          );
+        })}
+      </section>
+    </>
   );
 }

@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { forwardRef, ReactElement } from 'react';
 import { ReactComponent as UpIconSVG } from '@/assets/Icon/upIcon.svg';
 import { ReactComponent as CommentIconSVG } from '@/assets/Icon/commentIcon.svg';
 import { ReactComponent as ViewIconSVG } from '@/assets/Icon/viewIcon.svg';
@@ -7,15 +7,10 @@ import { StyledArticle, StyledDiv, StyledFooter } from './ImageCard.styled';
 import { ImageCardProps } from './ImageCard.type';
 import { Link } from 'react-router-dom';
 
-export default function ImageCard({
-  style,
-  className,
-  isAutoPlay,
-  postInfo,
-  imageCardWidth,
-  layoutOption,
-  isLazyLoading,
-}: ImageCardProps): ReactElement {
+export default forwardRef<HTMLElement, ImageCardProps>(function ImageCard(
+  { style, className, isAutoPlay, postInfo, imageCardWidth, layoutOption, isLazyLoading }: ImageCardProps,
+  ref,
+): ReactElement {
   const {
     id,
     thumbnailImageId,
@@ -38,7 +33,7 @@ export default function ImageCard({
         display: inline-block;
       `}
     >
-      <StyledArticle imageCardWidth={imageCardWidth}>
+      <StyledArticle imageCardWidth={imageCardWidth} ref={ref}>
         <StyledDiv layoutOption={layoutOption}>
           {!isAutoPlay || type === 'image/jpeg' || type === 'image/png' ? (
             <Picture
@@ -76,4 +71,4 @@ export default function ImageCard({
       </StyledArticle>
     </Link>
   );
-}
+});
