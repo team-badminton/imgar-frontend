@@ -7,10 +7,10 @@ import React, { ReactElement } from 'react';
 import { Route, Switch, useLocation, useParams, useRouteMatch } from 'react-router-dom';
 import ProfileAbout from './About/ProfileAbout';
 import ProfileFavorite from './Favorite/ProfileFavorite';
+import ProfilePosts from './Posts/ProfilePosts';
 import ProfileCover from './ProfileCover';
 
 const Comments = () => <div>Comments</div>;
-const Posts = () => <div>Posts</div>;
 
 const FAVORITE_HEIGHT = 130;
 const TAB_NAVIGATION_HEIGHT = 65;
@@ -38,7 +38,7 @@ export default function Profile(): ReactElement {
       darkenBackground
       customHeaderHeight={customHederHeight}
       containerWidth={GalleryWidth}
-      noOffset
+      noOffset={currentTab !== 'about'}
     >
       {isLoading ? (
         <Loading />
@@ -51,7 +51,7 @@ export default function Profile(): ReactElement {
           />
           <Route path={path + `/comments`} exact component={Comments} />
           <Route path={path + `/about`} exact component={ProfileAbout} />
-          <Route path={path} component={Posts} />
+          <Route path={path} component={ProfilePosts} />
         </Switch>
       )}
     </MainContainer>
