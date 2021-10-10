@@ -33,3 +33,10 @@ Column.args = {
   direction: 'column',
   size: 'small',
 };
+
+export const sizeLarge = Template.bind({});
+sizeLarge.args = {
+  count: 10,
+  direction: 'column',
+  size: 'large',
+};

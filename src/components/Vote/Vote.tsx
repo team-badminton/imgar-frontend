@@ -26,7 +26,7 @@ export default function Vote({ size, count, direction }: VoteProps): ReactElemen
         img={UpBtn}
         alt="Up Arrow"
       />
-      <Output>{output}</Output>
+      <Output size={size}>{output}</Output>
       <Button
         onClick={() => (output === count - 1 ? setOutput(count) : setOutput(count - 1))}
         className="down-btn"
