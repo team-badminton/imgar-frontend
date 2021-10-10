@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 
 // types
 import { PostCommentsProps } from './PostComments.type';
@@ -10,14 +10,17 @@ import { usePostCommentsQuery } from '@/redux/api';
 import PostComment from './PostComment/PostComment';
 
 // styles
-import { Title, StyledButton, Container } from './PostComments.styled';
+import { Title, Container, LoadMoreButton, StyledButton } from './PostComments.styled';
 
 // assets
-import { ReactComponent as ExpandIcon } from './assets/ExpandIcon.svg';
+import { ReactComponent as ExpandIcon } from './assets/expandIcon.svg';
+import { ReactComponent as ArrowIcon } from '@/assets/Icon/arrow.svg';
 import { DropDownList } from '..';
 
-export default function PostComments({ postId, sort }: PostCommentsProps): ReactElement {
-  const { data, error, isLoading } = usePostCommentsQuery({ postId, sort });
+export default function PostComments({ postId, sort, commentCount }: PostCommentsProps): ReactElement {
+  const [page, setPage] = useState(1);
+  const { data, error, isLoading } = usePostCommentsQuery({ postId, sort, page });
+  const isNext = data?.next;
 
   return (
     <Container>
@@ -27,8 +30,8 @@ export default function PostComments({ postId, sort }: PostCommentsProps): React
           align-items: center;
         `}
       >
-        <Title>{data?.length} COMMENTS</Title>
-        <StyledButton size="custom" text="Expand All" img={ExpandIcon} alt="Expand Icon" />
+        <Title>{commentCount} COMMENTS</Title>
+        <StyledButton text="Expand All" img={ExpandIcon} alt="Expand Icon" />
         <DropDownList themeType="light" className="dropdown">
           <span>best</span>
           <span>top</span>
@@ -52,6 +55,24 @@ export default function PostComments({ postId, sort }: PostCommentsProps): React
           />
         ))}
       </ul>
+      {!!isNext && (
+        <div
+          css={`
+            display: flex;
+            justify-content: center;
+          `}
+        >
+          <LoadMoreButton
+            hoverBackgroundColor="blue"
+            text="Load More Components"
+            img={ArrowIcon}
+            alt="▼"
+            onClick={() => {
+              setPage(2);
+            }}
+          />
+        </div>
+      )}
     </Container>
   );
 }
