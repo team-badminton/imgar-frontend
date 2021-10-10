@@ -19,7 +19,9 @@ export default function ProfileCover({ username, points, notoriety, children }: 
     <ProfileCoverContainer>
       <UserInfo username={username} points={points} notoriety={notoriety} />
       <TabNavigation tabs={tabs} />
-      <ProfileCoverWrapper containerWidth={containerWidth}>{children}</ProfileCoverWrapper>
+      <ProfileCoverWrapper className="ProfileCover" containerWidth={containerWidth}>
+        {children}
+      </ProfileCoverWrapper>
     </ProfileCoverContainer>
   );
 }

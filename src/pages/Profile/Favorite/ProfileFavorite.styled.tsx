@@ -1,9 +1,10 @@
 import { pxToRem } from '@/util/styleUtils';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { ScrollButtonProps } from './ProfileFavorite.type';
 
-export const FolderIcon = styled.div`
+export const FolderIcon = React.memo(styled.div`
   position: relative;
   width: ${pxToRem(74)};
   height: ${pxToRem(54)};
@@ -33,7 +34,7 @@ export const FolderIcon = styled.div`
     transform: translateY(-100%);
     background-color: ${({ theme }) => theme.color.emeraldGreen};
   }
-`;
+`);
 
 export const FoldersWrapper = styled.div`
   width: 100%;
@@ -119,4 +120,18 @@ export const ScrollButton = styled.button<ScrollButtonProps>`
   &:focus {
     outline-offset: ${pxToRem(-8)};
   }
+`;
+
+export const ProfileFavoriteHeaderContainer = styled.div`
+  display: flex;
+  height: ${pxToRem(49)};
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 999;
+`;
+
+export const ProfileFavoriteHeaderTitle = styled.h3`
+  color: ${({ theme }) => theme.color.white};
+  font-size: ${pxToRem(24)};
 `;

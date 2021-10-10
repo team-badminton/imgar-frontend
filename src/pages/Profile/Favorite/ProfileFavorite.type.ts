@@ -9,3 +9,7 @@ export interface ProfileFavoriteFoldersProps {
 export interface ScrollButtonProps {
   $direction: 'prev' | 'next';
 }
+
+export interface ProfileFavoriteProps {
+  categoryTitle: string;
+}
