@@ -35,3 +35,17 @@ export const StyledButton = styled(Button)`
     order: -1;
   }
 `;
+
+export const LoadMoreButton = styled(Button)`
+  font-family: Proxima Nova Bold, Helvetica Neue, Helvetica, Arial, sans-serif;
+  border: ${({ theme }) => `${pxToRem(2)} solid ${theme.color.blue}`};
+  font-size: ${({ theme }) => theme.fontSize.xl};
+  margin: ${({ theme }) => theme.spaceSize.m} auto 0;
+  text-align: center;
+  max-width: ${pxToRem(320)};
+  width: 100%;
+  height: ${pxToRem(46)};
+  .text {
+    order: -1;
+  }
+`;
