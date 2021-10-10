@@ -7,6 +7,7 @@ const initialState: ListInfo = {
   category: 'mostViral',
   sortOption: 'newest',
   windowOption: 'day',
+  queryPage: 1,
   autoPlay: true,
   layout: 'waterfall',
 };
@@ -30,6 +31,9 @@ export const postListSlice = createSlice({
       // 시간 범위 옵션 변경
       state.windowOption = action.payload;
     },
+    setQueryPage(state, action: PayloadAction<GalleryQuery['page']>) {
+      state.queryPage = action.payload;
+    },
     toggleView(state) {
       // 보기 방식 변경
       state.layout = state.layout === 'waterfall' ? 'uniform' : 'waterfall';
@@ -41,6 +45,6 @@ export const postListSlice = createSlice({
   },
 });
 
-export const { getFetch, setCategory, setSortOption, setWindowOption, toggleAutoPlay, toggleView } =
+export const { getFetch, setCategory, setSortOption, setWindowOption, setQueryPage, toggleAutoPlay, toggleView } =
   postListSlice.actions;
 export default postListSlice.reducer;

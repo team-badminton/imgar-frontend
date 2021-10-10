@@ -5,6 +5,7 @@ export interface ListInfo {
   category: GalleryQuery['section'];
   sortOption: GalleryQuery['sort'];
   windowOption: GalleryQuery['window'];
+  queryPage: number;
   autoPlay: boolean;
   layout: 'waterfall' | 'uniform';
 }

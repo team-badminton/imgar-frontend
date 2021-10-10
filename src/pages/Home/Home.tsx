@@ -10,8 +10,14 @@ export default function Home(): ReactElement {
   const category = useTypedSelector(state => state.listInfo.category);
   const sortOption = useTypedSelector(state => state.listInfo.sortOption);
   const windowOption = useTypedSelector(state => state.listInfo.windowOption);
+  const queryPage = useTypedSelector(state => state.listInfo.queryPage);
   const galleryWidth = useTypedSelector(masonryGalleryWidthSelector);
-  const { data: posts, isLoading } = useGalleryQuery({ section: category, sort: sortOption, window: windowOption });
+  const { data: posts, isLoading } = useGalleryQuery({
+    section: category,
+    sort: sortOption,
+    window: windowOption,
+    page: queryPage,
+  });
 
   return (
     <MainContainer
