@@ -9,13 +9,11 @@ import ProfilePostsHeader from './ProfilePostsHeader';
 export default function ProfilePosts(): ReactElement {
   const { username } = useParams<{ username: string }>();
   const [sort, setSort] = React.useState<ProfilePostSort>('newest');
-  const { data, isLoading } = useAccountPostsQuery({ username, sort });
-  return isLoading ? (
-    <Loading />
-  ) : (
+  const { data, isFetching } = useAccountPostsQuery({ username, sort });
+  return (
     <>
-      {createPortal(<ProfilePostsHeader setSort={setSort} />, document.querySelector('.ProfileCover'))}
-      {isLoading ? <Loading /> : <MasonryGallery posts={data} />}
+      {createPortal(<ProfilePostsHeader setSort={setSort} sorted={sort} />, document.querySelector('.ProfileCover'))}
+      {isFetching ? <Loading /> : <MasonryGallery posts={data} />}
     </>
   );
 }
