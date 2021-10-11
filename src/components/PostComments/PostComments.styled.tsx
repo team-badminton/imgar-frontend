@@ -20,6 +20,14 @@ export const Container = styled.div`
   }
 `;
 
+export const CommentHeader = styled.div`
+  display: flex;
+  align-items: center;
+  padding-bottom: ${pxToRem(14)};
+  margin-bottom: ${({ theme }) => theme.spaceSize.m};
+  margin-top: ${pxToRem(46)}; ;
+`;
+
 export const Title = styled.h3`
   flex-grow: 1;
   margin: 0;
