@@ -71,6 +71,7 @@
     "@reduxjs/toolkit": "^1.6.1",
     "@types/styled-components": "^5.1.14",
     "core-js": "^3.17.3",
+    "dayjs": "^1.10.7",
     "dotenv": "^10.0.0",
     "dotenv-webpack": "^7.0.3",
     "lodash": "^4.17.21",
