@@ -15,3 +15,8 @@ export interface ProfileFavoriteProps {
 }
 
 export type ProfileFavoriteSort = 'oldest' | 'newest';
+
+export interface ProfileFavoriteHeaderState {
+  setSort: (s: ProfileFavoriteSort) => void;
+  sorted: string;
+}
