@@ -1,15 +1,18 @@
 import {
+  IMAGECARD_HEIGHT_EXCLUDING_IMAGE__REM,
   IMAGECARD_UNIFORM_HEIGHT__PX,
   IMAGECARD_WIDTH_PX,
   IMAGE_MAX_HEIGHT_PX,
 } from '@/components/ImageCard/ImageCard.styled';
+import { useInView } from 'react-intersection-observer';
 import { useTypedDispatch, useTypedSelector } from '@/redux';
 import { useGalleryQuery } from '@/redux/api';
 import { getFetch, setQueryPage } from '@/redux/slices/listInfoReducer';
 import { createRandomHash } from '@/util/formatUtils';
-import React, { ReactElement, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { pxToRem } from '@/util/styleUtils';
+import React, { Fragment, ReactElement, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 // import { useHistory, useLocation, useParams } from 'react-router-dom';
-import { COLUMN_GAP__PX, StyledImageCard } from './MasonryGallery.styled';
+import { COLUMN_GAP__PX, ROW_GAP__PX, StyledImageCard } from './MasonryGallery.styled';
 import { MasonryGalleryProps, SetPositionProps } from './MasonryGallery.type';
 
 export default function MasonryGallery({ posts }: MasonryGalleryProps): ReactElement {
@@ -20,6 +23,7 @@ export default function MasonryGallery({ posts }: MasonryGalleryProps): ReactEle
   const layoutOption = useTypedSelector(state => state.listInfo.layout);
   const [totalColumn, setTotalColumn] = useState<number>();
   const containerRef = React.useRef<HTMLElement>(null);
+  const masonryGalleryObserverRef = React.useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     const resizeObserver = new ResizeObserver(() => {
@@ -47,33 +51,19 @@ export default function MasonryGallery({ posts }: MasonryGalleryProps): ReactEle
     [key: string]: SetPositionProps;
   } = {};
 
-  // const masonryGalleryObserverRef = React.useRef<HTMLElement>(null);
+  const { ref: observerRef, inView: observerInView } = useInView();
+  const { ref: imageRef, inView: imageInView } = useInView();
 
-  // useLayoutEffect(() => {
-  //   let observer: IntersectionObserver = null;
-  //   if (masonryGalleryObserverRef) {
-  //     console.log(masonryGalleryObserverRef);
-  //     const observer = new IntersectionObserver(
-  //       ([entry]) => {
-  //         if (entry.isIntersecting) {
-  //           dispatch(setQueryPage(queryPage + 1));
-  //           dispatch(getFetch(posts));
-  //         }
-  //       },
-  //       { threshold: 1 },
-  //     );
-  //     observer.observe(masonryGalleryObserverRef.current);
-  //   }
-  //   return () => {
-  //     observer && observer.disconnect();
-  //   };
-  // }, []);
+  useEffect(() => {
+    if (observerInView) {
+      dispatch(setQueryPage(queryPage + 1));
+    }
+  }, [observerInView]);
 
   return (
     <>
       <button
         onClick={() => {
-          console.log('setpage');
           dispatch(setQueryPage(queryPage + 1));
         }}
       >
@@ -109,17 +99,34 @@ export default function MasonryGallery({ posts }: MasonryGalleryProps): ReactEle
           };
 
           return (
-            <StyledImageCard
-              setPositionProps={{ ...ImageCardPositionInfos[objectKey] }}
-              key={postInfo.id}
-              isAutoPlay={isAutoPlay}
-              layoutOption={layoutOption}
-              postInfo={postInfo}
-              imageCardWidth={IMAGECARD_WIDTH_PX}
-              isLazyLoading={false}
-              // isLazyLoading={index < 20 ? false : true}
-              // ref={index === posts.length - 1 ? masonryGalleryObserverRef : null}
-            />
+            <Fragment key={postInfo.id}>
+              <StyledImageCard
+                setPositionProps={{ ...ImageCardPositionInfos[objectKey] }}
+                isAutoPlay={isAutoPlay}
+                layoutOption={layoutOption}
+                postInfo={postInfo}
+                imageCardWidth={IMAGECARD_WIDTH_PX}
+                isLazyLoading={false}
+              />
+              {index === posts.length - 1 && (
+                <div
+                  css={`
+                    width: 100px;
+                    transform: translate3d(
+                      ${pxToRem(ImageCardPositionInfos[objectKey].column * (IMAGECARD_WIDTH_PX + COLUMN_GAP__PX))},
+                      ${ImageCardPositionInfos[objectKey].row *
+                        (parseFloat(IMAGECARD_HEIGHT_EXCLUDING_IMAGE__REM) + parseFloat(pxToRem(ROW_GAP__PX))) +
+                      parseFloat(pxToRem(ImageCardPositionInfos[objectKey].sumOfImageHeightPx)) +
+                      'rem'},
+                      0
+                    );
+                  `}
+                  ref={observerRef}
+                >
+                  Observer
+                </div>
+              )}
+            </Fragment>
           );
         })}
       </section>
