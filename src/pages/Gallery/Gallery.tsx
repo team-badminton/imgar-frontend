@@ -20,7 +20,9 @@ export default function Gallery(): ReactElement {
   const location = useLocation<useLocationProps>();
   const history = useHistory();
   const param = useParams<{ id: string }>();
-  const { data, error, isLoading } = usePostQuery({ postId: param.id });
+
+  const { data, error, isLoading } = usePostQuery({ postId: param.id, isAlbum: location.state?.isAlbum });
+
   return (
     <MainContainer sticky customHeader={<div>커스템 헤더에 들어갈 내용 테스트</div>}>
       {isLoading ? (
@@ -45,7 +47,7 @@ export default function Gallery(): ReactElement {
             ))}
           </ul>
           <div>
-            <PostComments postId={param.id} />
+            <PostComments commentCount={data.commentCount} postId={param.id} />
           </div>
         </GalleryContainer>
       )}
