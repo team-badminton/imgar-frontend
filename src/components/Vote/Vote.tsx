@@ -9,7 +9,7 @@ import { UpBtn, DownBtn, Output, Container } from './Vote.styled';
 // types
 import { VoteProps } from './Vote.type';
 
-export default function Vote({ color, size, count, direction }: VoteProps): ReactElement {
+export default function Vote({ color, size, count, direction, children }: VoteProps): ReactElement {
   const [output, setOutput] = useState(count);
 
   return (
@@ -36,6 +36,7 @@ export default function Vote({ color, size, count, direction }: VoteProps): Reac
         img={DownBtn}
         alt="Down Arrow"
       />
+      {children}
     </Container>
   );
 }
