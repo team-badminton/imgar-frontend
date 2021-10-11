@@ -16,7 +16,7 @@ export default function ProfileFavorite(): ReactElement {
       {createPortal(
         <>
           <ProfileFavoriteFolders />
-          <ProfileFavoriteHeader setSort={setSort} />
+          <ProfileFavoriteHeader setSort={setSort} sorted={sort} />
         </>,
         document.querySelector('.ProfileCover'),
       )}
