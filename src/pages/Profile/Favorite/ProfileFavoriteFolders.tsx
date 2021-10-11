@@ -71,7 +71,7 @@ export default function ProfileFavoriteFolders(): ReactElement {
 
     return () => {
       window.removeEventListener('resize', handleResize);
-      listRef.current.removeEventListener('scroll', handleScroll);
+      listRef.current?.removeEventListener('scroll', handleScroll);
     };
   }, [data]);
 
