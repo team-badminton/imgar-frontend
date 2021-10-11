@@ -14,7 +14,7 @@ import { Title, StyledButton, Container } from './PostComments.styled';
 
 // assets
 import { ReactComponent as ExpandIcon } from './assets/ExpandIcon.svg';
-import { DropDownList } from '..';
+import { SelectBox, SelectBoxList } from '@/components/index';
 
 export default function PostComments({ postId, sort }: PostCommentsProps): ReactElement {
   const { data, error, isLoading } = usePostCommentsQuery({ postId, sort });
@@ -28,13 +28,16 @@ export default function PostComments({ postId, sort }: PostCommentsProps): React
         `}
       >
         <Title>{data?.length} COMMENTS</Title>
-        <StyledButton size="custom" text="Expand All" img={ExpandIcon} alt="Expand Icon" />
-        <DropDownList themeType="light" className="dropdown">
-          <span>best</span>
-          <span>top</span>
-          <span>newest</span>
-          <span>oldest</span>
-        </DropDownList>
+
+        <SelectBox>
+          <StyledButton size="custom" text="Expand All" img={ExpandIcon} alt="Expand Icon" />
+          <SelectBoxList themeType="light">
+            <span>best</span>
+            <span>top</span>
+            <span>newest</span>
+            <span>oldest</span>
+          </SelectBoxList>
+        </SelectBox>
       </div>
       <ul>
         {data?.map(({ id, author, childrenComments, comment, dateTime, downCount, upCount, parentCommentId }) => (
