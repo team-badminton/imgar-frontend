@@ -33,6 +33,7 @@ const Picture = forwardRef<HTMLImageElement, PictureProps>(
           onClick={onClick}
           src={src}
           style={style}
+          className={className}
         />
       );
     }

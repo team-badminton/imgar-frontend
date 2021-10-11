@@ -268,6 +268,26 @@ export interface PostComment {
   vote?: number;
 }
 
+export interface AccountComment {
+  id: number;
+  image_id: string;
+  comment: string;
+  author: string;
+  author_id: number;
+  on_album: boolean;
+  album_cover: null | string;
+  ups: number;
+  downs: number;
+  points: number;
+  datetime: number;
+  parent_id: number;
+  deleted: boolean;
+  vote: null;
+  platform: string;
+  has_admin_badge: boolean;
+  children: any[];
+}
+
 // Fav Folder
 
 export interface Folder {

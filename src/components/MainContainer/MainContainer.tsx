@@ -88,7 +88,7 @@ export default function MainContainer({
       headerCoverRef.current.style.transform = `translate3d(0px, ${
         isOverThreshold2 ? `-${coverHeight - headerHeight}px` : `${coverPosition}px`
       }, 0px)`;
-      headerCoverRef.current.style.zIndex = isOverThreshold2 ? '1' : null;
+      headerCoverRef.current.style.zIndex = isOverThreshold2 ? '1' : noOffset ? '1' : null;
       headerCoverRef.current.style.background = isOverThreshold2 ? null : headerCover ? null : 'transparent';
 
       headerContainerRef.current.style.transform = `translate3d(0, ${
@@ -124,7 +124,12 @@ export default function MainContainer({
             {headerCover ?? <div style={{ height: BASIC_HEADER_HEIGHT }} />}
           </div>
         </HeaderCover>
-        <MainSection ref={mainSectionRef} coverHeight={coverHeight} containerWidth={containerWidth}>
+        <MainSection
+          ref={mainSectionRef}
+          coverHeight={coverHeight}
+          containerWidth={containerWidth}
+          className="MainSection"
+        >
           {children}
         </MainSection>
       </ContainerWrapper>
