@@ -1,4 +1,5 @@
 import { Loading, MasonryGallery } from '@/components';
+import useDomReady from '@/hooks/useDomReady';
 import { useAccountFolderPostsQuery } from '@/redux/api';
 import React, { ReactElement, useState } from 'react';
 import { createPortal } from 'react-dom';
@@ -11,15 +12,17 @@ export default function ProfileFavorite(): ReactElement {
   const [sort, setSort] = useState<ProfileFavoriteSort>('oldest');
   const { folderId, username } = useParams<{ folderId: string; username: string }>();
   const { data, isFetching } = useAccountFolderPostsQuery({ folderId, username, sort });
+  const domReady = useDomReady();
   return (
     <>
-      {createPortal(
-        <>
-          <ProfileFavoriteFolders />
-          <ProfileFavoriteHeader setSort={setSort} sorted={sort} />
-        </>,
-        document.querySelector('.ProfileCover'),
-      )}
+      {domReady &&
+        createPortal(
+          <>
+            <ProfileFavoriteFolders />
+            <ProfileFavoriteHeader setSort={setSort} sorted={sort} />
+          </>,
+          document.querySelector('.ProfileCover'),
+        )}
       {isFetching ? <Loading /> : <MasonryGallery posts={data} />}
     </>
   );
