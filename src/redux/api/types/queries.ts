@@ -15,11 +15,12 @@ export interface SuggestQuery {
 }
 export interface postQeury {
   postId: string;
+  isAlbum?: boolean;
 }
 export interface PostCommentQuery {
   postId: string;
   sort?: 'best' | 'top' | 'new';
-  loadMore?: boolean;
+  page?: number;
 }
 export interface AccountCommentQuery {
   username: string;
