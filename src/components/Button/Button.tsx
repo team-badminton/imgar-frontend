@@ -37,6 +37,7 @@ export default function Button({
       $hoverColor={hoverColor}
       onClick={onClick}
       style={style}
+      tabIndex={0}
     >
       {!img ? (
         ''
