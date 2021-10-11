@@ -7,6 +7,7 @@ import { PostCommentsProps } from './PostComments.type';
 import { usePostCommentsQuery } from '@/redux/api';
 
 // components
+import { SelectBox, SelectBoxList } from '@/components/index';
 import PostComment from './PostComment/PostComment';
 
 // styles
@@ -15,7 +16,6 @@ import { Title, Container, LoadMoreButton, StyledButton } from './PostComments.s
 // assets
 import { ReactComponent as ExpandIcon } from './assets/expandIcon.svg';
 import { ReactComponent as ArrowIcon } from '@/assets/Icon/arrow.svg';
-import { DropDownList } from '..';
 
 export default function PostComments({ postId, sort, commentCount }: PostCommentsProps): ReactElement {
   const [page, setPage] = useState(1);
@@ -30,14 +30,7 @@ export default function PostComments({ postId, sort, commentCount }: PostComment
           align-items: center;
         `}
       >
-        <Title>{commentCount} COMMENTS</Title>
-        <StyledButton text="Expand All" img={ExpandIcon} alt="Expand Icon" />
-        <DropDownList themeType="light" className="dropdown">
-          <span>best</span>
-          <span>top</span>
-          <span>newest</span>
-          <span>oldest</span>
-        </DropDownList>
+        <Title>{data?.length} COMMENTS</Title>
       </div>
       <ul>
         {data?.map(({ id, author, childrenComments, comment, dateTime, downCount, upCount, parentCommentId }) => (
