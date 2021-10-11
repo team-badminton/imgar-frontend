@@ -1,7 +1,7 @@
 import React, { ReactElement, useMemo, useState } from 'react';
 import { useTypedSelector, useTypedDispatch } from '@/redux';
 import { SelectBox, SelectBoxHeader, SelectBoxList } from '@/components';
-import { setCategory, setSortOption, setWindowOption } from '@/redux/slices/listInfoReducer';
+import { setCategory, setPrevPage, setQueryPage, setSortOption, setWindowOption } from '@/redux/slices/listInfoReducer';
 import { GalleryQuery } from '@/redux/api/types/queries';
 import { createRandomHash } from '@/util/formatUtils';
 
@@ -49,6 +49,8 @@ export default function MasonryGalleryFields(): ReactElement {
 
     const selectedCategory = allUpperCaseToGalleryQueryKey($selectedLi.children[0].children[0].textContent);
     const selectedSort = allUpperCaseToGalleryQueryKey(sortOptionList[selectedCategory as GalleryQuery['section']][0]);
+    dispatch(setQueryPage(1));
+    dispatch(setPrevPage(1));
     dispatch(setCategory(selectedCategory as GalleryQuery['section']));
     dispatch(setSortOption(selectedSort as GalleryQuery['sort']));
   };
@@ -61,6 +63,8 @@ export default function MasonryGalleryFields(): ReactElement {
     }
 
     const newSortOrWindowOption = allUpperCaseToGalleryQueryKey($selectedLi.children[0].children[0].textContent);
+    dispatch(setQueryPage(1));
+    dispatch(setPrevPage(1));
     if (category === 'highestScoring') {
       dispatch(setWindowOption(newSortOrWindowOption as GalleryQuery['window']));
     } else {

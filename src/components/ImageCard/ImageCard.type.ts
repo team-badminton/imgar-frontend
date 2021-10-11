@@ -1,3 +1,4 @@
+import React, { Ref } from 'react';
 import { PostV1Info } from '../../redux/storeTypes';
 
 export interface SetDisplayProps {
@@ -18,4 +19,8 @@ export interface ImageCardProps {
   imageCardWidth: string | number;
   layoutOption: 'uniform' | 'waterfall';
   isLazyLoading: boolean;
+}
+
+export interface StyledArticleProps extends SetDisplayProps {
+  ref?: Ref<HTMLElement>;
 }
