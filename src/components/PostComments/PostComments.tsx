@@ -7,11 +7,11 @@ import { PostCommentsProps } from './PostComments.type';
 import { usePostCommentsQuery } from '@/redux/api';
 
 // components
-import { SelectBox, SelectBoxList } from '@/components/index';
+import { SelectBox, SelectBoxList } from '@/components';
 import PostComment from './PostComment/PostComment';
 
 // styles
-import { Title, Container, LoadMoreButton, StyledButton } from './PostComments.styled';
+import { Title, Container, LoadMoreButton, StyledButton, CommentHeader } from './PostComments.styled';
 
 // assets
 import { ReactComponent as ExpandIcon } from './assets/expandIcon.svg';
@@ -23,15 +23,11 @@ export default function PostComments({ postId, sort, commentCount }: PostComment
   const isNext = data?.next;
 
   return (
-    <Container>
-      <div
-        css={`
-          display: flex;
-          align-items: center;
-        `}
-      >
-        <Title>{data?.length} COMMENTS</Title>
-      </div>
+    <Container id="comments">
+      <CommentHeader>
+        <Title>{commentCount} COMMENTS</Title>
+        <StyledButton text="Expand All" img={ExpandIcon} alt="Expand Icon" />
+      </CommentHeader>
       <ul>
         {data?.map(({ id, author, childrenComments, comment, dateTime, downCount, upCount, parentCommentId }) => (
           <PostComment
