@@ -13,6 +13,7 @@ export { default as ImageCard } from './ImageCard/ImageCard';
 export { default as MasonryGalleryFields } from './MasonryGalleryFields/MasonryGalleryFields';
 export { default as MasonryGalleryOptions } from './MasonryGalleryOptions/MasonryGalleryOptions';
 export { default as MasonryGalleryHeader } from './MasonryGalleryHeader/MasonryGalleryHeader';
+export { default as MasonryGalleryContainer } from './MasonryGalleryContainer/MasonryGalleryContainer';
 export { default as MasonryGallery } from './MasonryGallery/MasonryGallery';
 export { default as MoreButton } from './MoreButton/MoreButton';
 export { default as Modal } from './Modal/Modal';

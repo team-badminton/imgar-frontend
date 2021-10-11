@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ImageContainerProps, SetDisplayProps } from './ImageCard.type';
+import { ImageContainerProps, StyledArticleProps } from './ImageCard.type';
 import { pxToRem } from '@/util/styleUtils';
 import { defaultTheme } from '@/theme/themes';
 
@@ -33,7 +33,7 @@ export const IMAGECARD_HEIGHT_EXCLUDING_IMAGE__REM =
   parseFloat(H3_Height__REM) + parseFloat(FOOTER_Height__REM) + 'rem';
 /** ----------------------------------------------------------------- */
 
-export const StyledArticle = styled.article<SetDisplayProps>`
+export const StyledArticle = styled.article<StyledArticleProps>`
   width: ${({ imageCardWidth }) =>
     imageCardWidth && typeof imageCardWidth === 'number'
       ? imageCardWidth + 'px'

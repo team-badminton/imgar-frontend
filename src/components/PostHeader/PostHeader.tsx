@@ -8,9 +8,9 @@ import { ReactComponent as ArrowIcon } from '@/assets/Icon/arrow.svg';
 import { PostHeaderProps } from './PostHeader.type';
 import { Content, NextButton, StyledPostHeader, Title } from './PostHeader.styled';
 
-export default function PostHeader({ username, title, metaInfos }: PostHeaderProps): ReactElement {
+export default function PostHeader({ className, username, title, metaInfos }: PostHeaderProps): ReactElement {
   return (
-    <header>
+    <header className={className}>
       <Title>
         <StyledPostHeader>{title}</StyledPostHeader>;
         <NextButton size="medium" alt="Next Button" backgroundColor="blue" color="white" text="Next" img={ArrowIcon} />
