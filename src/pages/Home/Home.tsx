@@ -1,23 +1,11 @@
-import { Loading, MasonryGallery, MasonryGalleryHeader } from '@/components/index';
+import { MasonryGalleryHeader, MasonryGalleryContainer } from '@/components/index';
 import MainContainer from '@/components/MainContainer/MainContainer';
 import { useTypedSelector } from '@/redux';
-import { useGalleryQuery } from '@/redux/api';
 import { masonryGalleryWidthSelector } from '@/redux/slices/displayReducer';
 import React, { ReactElement } from 'react';
 
 export default function Home(): ReactElement {
-  // API 호출
-  const category = useTypedSelector(state => state.listInfo.category);
-  const sortOption = useTypedSelector(state => state.listInfo.sortOption);
-  const windowOption = useTypedSelector(state => state.listInfo.windowOption);
-  const queryPage = useTypedSelector(state => state.listInfo.queryPage);
   const galleryWidth = useTypedSelector(masonryGalleryWidthSelector);
-  const { data: posts, isLoading } = useGalleryQuery({
-    section: category,
-    sort: sortOption,
-    window: windowOption,
-    page: queryPage,
-  });
 
   return (
     <MainContainer
@@ -27,14 +15,10 @@ export default function Home(): ReactElement {
       customHeader={<div>커스템 헤더에 들어갈 내용 테스트</div>}
       containerWidth={galleryWidth}
     >
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <>
-          <MasonryGalleryHeader />
-          <MasonryGallery posts={posts} />
-        </>
-      )}
+      <>
+        <MasonryGalleryHeader />
+        <MasonryGalleryContainer />
+      </>
     </MainContainer>
   );
 }

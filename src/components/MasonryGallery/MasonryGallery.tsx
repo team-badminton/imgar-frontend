@@ -4,9 +4,10 @@ import {
   IMAGE_MAX_HEIGHT_PX,
 } from '@/components/ImageCard/ImageCard.styled';
 import { useTypedDispatch, useTypedSelector } from '@/redux';
-import { setQueryPage } from '@/redux/slices/listInfoReducer';
+import { useGalleryQuery } from '@/redux/api';
+import { getFetch, setQueryPage } from '@/redux/slices/listInfoReducer';
 import { createRandomHash } from '@/util/formatUtils';
-import React, { ReactElement, useLayoutEffect, useRef, useState } from 'react';
+import React, { ReactElement, useEffect, useLayoutEffect, useRef, useState } from 'react';
 // import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { COLUMN_GAP__PX, StyledImageCard } from './MasonryGallery.styled';
 import { MasonryGalleryProps, SetPositionProps } from './MasonryGallery.type';
@@ -46,17 +47,35 @@ export default function MasonryGallery({ posts }: MasonryGalleryProps): ReactEle
     [key: string]: SetPositionProps;
   } = {};
 
-  const masonryGalleryObserverRef = useRef();
+  // const masonryGalleryObserverRef = React.useRef<HTMLElement>(null);
+
+  // useLayoutEffect(() => {
+  //   let observer: IntersectionObserver = null;
+  //   if (masonryGalleryObserverRef) {
+  //     console.log(masonryGalleryObserverRef);
+  //     const observer = new IntersectionObserver(
+  //       ([entry]) => {
+  //         if (entry.isIntersecting) {
+  //           dispatch(setQueryPage(queryPage + 1));
+  //           dispatch(getFetch(posts));
+  //         }
+  //       },
+  //       { threshold: 1 },
+  //     );
+  //     observer.observe(masonryGalleryObserverRef.current);
+  //   }
+  //   return () => {
+  //     observer && observer.disconnect();
+  //   };
+  // }, []);
 
   return (
     <>
       <button
         onClick={() => {
+          console.log('setpage');
           dispatch(setQueryPage(queryPage + 1));
         }}
-        css={`
-          color: white;
-        `}
       >
         임시
       </button>
@@ -99,7 +118,7 @@ export default function MasonryGallery({ posts }: MasonryGalleryProps): ReactEle
               imageCardWidth={IMAGECARD_WIDTH_PX}
               isLazyLoading={false}
               // isLazyLoading={index < 20 ? false : true}
-              ref={index === posts.length - 1 ? masonryGalleryObserverRef : null}
+              // ref={index === posts.length - 1 ? masonryGalleryObserverRef : null}
             />
           );
         })}

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { GalleryQuery } from '../api/types/queries';
-import { ListInfo } from '../storeTypes';
+import { ListInfo, PostV1Info } from '../storeTypes';
 
 const initialState: ListInfo = {
   posts: [],
@@ -8,6 +8,7 @@ const initialState: ListInfo = {
   sortOption: 'newest',
   windowOption: 'day',
   queryPage: 1,
+  prevPage: 1,
   autoPlay: true,
   layout: 'waterfall',
 };
@@ -15,9 +16,10 @@ export const postListSlice = createSlice({
   name: 'postList',
   initialState,
   reducers: {
-    getFetch(state, action: PayloadAction) {
+    getFetch(state, action: PayloadAction<PostV1Info[]>) {
       // URL을 통해 리스트를 JSON으로 받은 뒤 정규화 처리해서 상태를
       // 업데이트 해주는 비동기 로직
+      state.posts = action.payload;
     },
     setCategory(state, action: PayloadAction<GalleryQuery['section']>) {
       // 카테고리 변경
@@ -32,7 +34,12 @@ export const postListSlice = createSlice({
       state.windowOption = action.payload;
     },
     setQueryPage(state, action: PayloadAction<GalleryQuery['page']>) {
+      // page 수 증가
       state.queryPage = action.payload;
+    },
+    setPrevPage(state, action: PayloadAction<GalleryQuery['page']>) {
+      // page 수 증가
+      state.prevPage = action.payload;
     },
     toggleView(state) {
       // 보기 방식 변경
@@ -45,6 +52,14 @@ export const postListSlice = createSlice({
   },
 });
 
-export const { getFetch, setCategory, setSortOption, setWindowOption, setQueryPage, toggleAutoPlay, toggleView } =
-  postListSlice.actions;
+export const {
+  getFetch,
+  setCategory,
+  setSortOption,
+  setWindowOption,
+  setQueryPage,
+  setPrevPage,
+  toggleAutoPlay,
+  toggleView,
+} = postListSlice.actions;
 export default postListSlice.reducer;
