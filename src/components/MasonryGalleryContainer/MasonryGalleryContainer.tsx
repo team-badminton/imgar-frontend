@@ -32,7 +32,6 @@ export default function MasonryGalleryContainer(): ReactElement {
 
   useEffect(() => {
     if (!isLoading) {
-      console.log(queryPage, data);
       if (prevPage !== queryPage) {
         dispatch(getFetch([...posts, ...data]));
         dispatch(setPrevPage(prevPage + 1));
@@ -42,5 +41,9 @@ export default function MasonryGalleryContainer(): ReactElement {
     }
   }, [data]);
 
-  return isLoading ? <Loading /> : <MasonryGallery posts={posts} />;
+  return (
+    <>
+      (isLoading ? <Loading /> : null )<MasonryGallery posts={posts} />
+    </>
+  );
 }
