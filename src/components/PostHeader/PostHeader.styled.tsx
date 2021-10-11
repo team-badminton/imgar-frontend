@@ -39,7 +39,7 @@ export const Content = styled.div`
 `;
 
 export const StyledPostHeader = styled.h2`
-  font-size: ${pxToRem(32)};
+  font-size: ${pxToRem(24)};
   margin: 0;
   color: ${({ theme }) => theme.color.white};
 `;
