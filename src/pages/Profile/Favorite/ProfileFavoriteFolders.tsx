@@ -96,10 +96,8 @@ export default function ProfileFavoriteFolders(): ReactElement {
         </ScrollButton>
       ) : null}
       <FolderList ref={listRef}>
-        {data && [
-          <FolderItem name="All Favorites" key={0} allItem />,
-          data.map(folder => <FolderItem key={folder.id} {...folder} />),
-        ]}
+        <FolderItem name="All Favorites" allItem />
+        {data && [data.map(folder => <FolderItem key={folder.id} {...folder} />)]}
       </FolderList>
     </FoldersWrapper>
   );
