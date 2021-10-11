@@ -5,6 +5,7 @@ export interface VoteProps {
   size: 'small' | 'large';
   color: Extract<keyof DefaultTheme['color'], string>;
   count: number;
+  className?: string;
   children?: React.ReactNode;
   direction: 'row' | 'column';
 }

@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 // types
 import { ContainterProps, OutputProps } from './Vote.type';

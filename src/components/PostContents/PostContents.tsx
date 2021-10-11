@@ -9,9 +9,9 @@ import { PostContentsProps } from './PostContents.type';
 // styles
 import { StyledTag } from './PostContents.styled';
 
-export default function PostContents({ images, tags }: PostContentsProps): ReactElement {
+export default function PostContents({ className, images, tags }: PostContentsProps): ReactElement {
   return (
-    <div>
+    <div className={className}>
       {images?.map(({ type, id, imageHeight, imageWidth, description }) => {
         return (
           <PostFigure
