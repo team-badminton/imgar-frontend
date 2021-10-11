@@ -9,6 +9,7 @@ import { usePostCommentsQuery } from '@/redux/api';
 // components
 import { SelectBox, SelectBoxList } from '@/components';
 import PostComment from './PostComment/PostComment';
+import PostCommentForm from './PostCommentForm/PostCommentForm';
 
 // styles
 import { Title, Container, LoadMoreButton, StyledButton, CommentHeader } from './PostComments.styled';
@@ -24,6 +25,7 @@ export default function PostComments({ postId, sort, commentCount }: PostComment
 
   return (
     <Container id="comments">
+      <PostCommentForm />
       <CommentHeader>
         <Title>{commentCount} COMMENTS</Title>
         <StyledButton text="Expand All" img={ExpandIcon} alt="Expand Icon" />
