@@ -2,7 +2,7 @@ import { Picture } from '@/components';
 import Tooltip from '@/components/Tooltip/Tooltip';
 import { useAccountQuery } from '@/redux/api';
 import { formattedNumber } from '@/util/formatUtils';
-import { pxToRem } from '@/util/styleUtils';
+import { convertLink, pxToRem } from '@/util/styleUtils';
 import moment from 'moment';
 import React, { ReactElement } from 'react';
 import { useParams } from 'react-router';
@@ -61,20 +61,7 @@ export default function ProfileAbout(): ReactElement {
           flex-shrink: 0;
         `}
       >
-        <DescriptionItem headline="ABOUT">
-          {data?.bio
-            .split(/(https?:\/\/[\w/.\-_=?&#$]+)|(\n)|(#.+)/)
-            .filter(str => str)
-            .map((str, index) =>
-              str.includes('http') ? (
-                <a key={str + index} href={str} target="_blank" rel="noopener noreferrer">
-                  {str}
-                </a>
-              ) : (
-                str
-              ),
-            )}
-        </DescriptionItem>
+        <DescriptionItem headline="ABOUT">{convertLink(data?.bio)}</DescriptionItem>
         <DescriptionItem headline="JOINED" large>
           {data && moment(data.createdDate).format('MMMM D, YYYY')}
         </DescriptionItem>
