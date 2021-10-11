@@ -8,8 +8,9 @@ import {
   suggestDataNormalizer,
   postV1DataNormalizer,
   postV3ToV1DataNormalizer,
+  accountCommentNormalizer,
 } from './normalizers';
-import { Folder, Post, PostComment, PostV1, Suggest, User } from './types/fetchData';
+import { AccountComment, Folder, Post, PostComment, PostV1, Suggest, User } from './types/fetchData';
 import {
   AccountCommentQuery,
   accountFavoriteFolderQuery,
@@ -80,7 +81,7 @@ export const imgurApi = createApi({
     }),
     accountComments: builder.query<PostCommentInfo[], AccountCommentQuery>({
       query: ({ page = 0, sort = 'newest', username }) => `3/account/${username}/comments/${sort}/${page}`,
-      transformResponse: (res: { data: PostComment[] }) => {
+      transformResponse: (res: { data: AccountComment[] }) => {
         const { data } = res;
         return accountCommentNormalizer(data);
       },
