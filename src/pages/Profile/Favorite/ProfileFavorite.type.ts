@@ -5,3 +5,13 @@ export interface FolderIconProps {
 export interface ProfileFavoriteFoldersProps {
   username: string;
 }
+
+export interface ScrollButtonProps {
+  $direction: 'prev' | 'next';
+}
+
+export interface ProfileFavoriteProps {
+  categoryTitle: string;
+}
+
+export type ProfileFavoriteSort = 'oldest' | 'newest';

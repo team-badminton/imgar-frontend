@@ -14,7 +14,7 @@ export default React.memo(function UserInfo({ username, points, notoriety }: Use
     <UserInfoContainer>
       <UserInfoAvatar src={`https://imgur.com/user/${username}/avatar`} />
       <UserInfoDescription>
-        <UserInfoUsername>{username}</UserInfoUsername>
+        <UserInfoUsername aria-label={`${username}'s Profile Page'`}>{username}</UserInfoUsername>
         <UserInfoExtra>
           <span>{points && formattedNumber(points)} PTS</span>
           <span>{notoriety?.toUpperCase()}</span>

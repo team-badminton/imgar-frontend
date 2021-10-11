@@ -45,6 +45,7 @@ export const TabNavigationLink = styled(NavLink)`
       margin-top: ${({ theme }) => theme.spaceSize.s};
       border-radius: ${({ theme }) => theme.borderRadius.s};
       border: ${pxToRem(2)} solid ${({ theme }) => theme.color.white};
+      background-color: ${({ theme }) => theme.color.white};
     }
   }
 `;

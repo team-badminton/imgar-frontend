@@ -85,11 +85,11 @@ export const imgurApi = createApi({
         return commentNormalizer(data);
       },
     }),
-    accountPosts: builder.query<PostInfo[], AccountPostQuery>({
-      query: ({ username, page = 0 }) => `3/account/${username}/submissions/${page}`,
+    accountPosts: builder.query<PostV1Info[], AccountPostQuery>({
+      query: ({ username, page = 0, sort }) => `3/account/${username}/submissions/${page}/${sort}`,
       transformResponse: (res: { data: Post[] }) => {
         const { data } = res;
-        return postDataNormalizer(data);
+        return postV3ToV1DataNormalizer(data);
       },
     }),
     accountFolders: builder.query<FolderInfo[], string>({
