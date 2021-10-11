@@ -1,4 +1,4 @@
-import React, { forwardRef, ReactElement, useEffect } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import { ReactComponent as UpIconSVG } from '@/assets/Icon/upIcon.svg';
 import { ReactComponent as CommentIconSVG } from '@/assets/Icon/commentIcon.svg';
 import { ReactComponent as ViewIconSVG } from '@/assets/Icon/viewIcon.svg';
@@ -6,7 +6,6 @@ import { Picture, Video } from '..';
 import { StyledArticle, StyledDiv, StyledFooter } from './ImageCard.styled';
 import { ImageCardProps } from './ImageCard.type';
 import { Link } from 'react-router-dom';
-import useNativeLazyLoading from '@charlietango/use-native-lazy-loading';
 import { useInView } from 'react-intersection-observer';
 
 export default function ImageCard({
@@ -32,6 +31,7 @@ export default function ImageCard({
     hasSound,
     isAlbum,
   } = postInfo;
+
   const { ref, inView } = useInView({
     triggerOnce: true,
     rootMargin: '200px 0px',
@@ -41,6 +41,7 @@ export default function ImageCard({
       console.log('interesting');
     }
   }, [inView]);
+
   return (
     <Link
       style={style}
