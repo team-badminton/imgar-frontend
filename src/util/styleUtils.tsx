@@ -1,3 +1,4 @@
+import React from 'react';
 import { css } from 'styled-components';
 export function pxToRem(px: number | string): string {
   return parseFloat(px as string) / 16 + 'rem';
@@ -30,4 +31,19 @@ export function hexToRgb(hex: string, alpha?: number): string {
 
   if (alpha) return `rgba(${r}, ${g}, ${b}, ${alpha})`;
   return `rgb(${r}, ${g}, ${b})`;
+}
+
+export function convertLink(text: string) {
+  return text
+    ?.split(/(https?:\/\/[\w/.\-_=?&#$]+)|(\n)|(#.+)/)
+    .filter(str => str)
+    .map((str, index) =>
+      str.includes('http') ? (
+        <a key={str + index} href={str} target="_blank" rel="noopener noreferrer">
+          {str}
+        </a>
+      ) : (
+        str
+      ),
+    );
 }
