@@ -241,6 +241,7 @@ export function commentNormalizer(comment: PostComment | PostComment[]): PostCom
       id: comment.id.toString(),
       parentCommentId: comment.parent_id.toString(),
       postId: comment.post_id,
+      cover: null,
       childrenComments: comment.comments ? commentNormalizer(comment.comments) : null,
     };
   } else {
@@ -254,6 +255,7 @@ export function commentNormalizer(comment: PostComment | PostComment[]): PostCom
       id: comment.id.toString(),
       parentCommentId: comment.parent_id.toString(),
       postId: comment.post_id,
+      cover: null,
       childrenComments: comment.comments ? commentNormalizer(comment.comments) : null,
     }));
   }
@@ -266,6 +268,7 @@ export function accountCommentNormalizer(
 ): PostCommentInfo | PostCommentInfo[] {
   if (!Array.isArray(comment)) {
     return {
+      cover: comment.album_cover ?? comment.image_id,
       author: comment.author,
       comment: comment.comment,
       dateTime: comment.datetime,
@@ -279,6 +282,7 @@ export function accountCommentNormalizer(
   } else {
     const comments = comment;
     return comments.map(comment => ({
+      cover: comment.album_cover ?? comment.image_id,
       author: comment.author,
       comment: comment.comment,
       dateTime: comment.datetime,
