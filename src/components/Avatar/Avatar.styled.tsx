@@ -35,7 +35,6 @@ export const GiveEmeraldButton = styled(Button)`
 
 export const Info = styled.div`
   display: flex;
-  width: ${pxToRem(500)};
   flex-wrap: wrap;
   align-items: center;
 `;
