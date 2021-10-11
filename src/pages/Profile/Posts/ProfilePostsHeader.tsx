@@ -1,9 +1,9 @@
-import { SelectBox, MasonryGalleryOptions, SelectBoxHeader, SortList } from '@/components';
+import { MasonryGalleryOptions, SortList } from '@/components';
 import React, { ReactElement } from 'react';
 import { ProfilePostsHeaderContainer, ProfilePostsHeaderTitle } from './ProfilePosts.styled';
-import { ProfilePostHeaderState, ProfilePostSort } from './ProfilePosts.type';
+import { ProfilePostHeaderState } from './ProfilePosts.type';
 
-const postSort = ['newest', 'oldest', 'best'];
+const postSort = ['oldest', 'newest', 'best'];
 
 export default function ProfilePostsHeader({ setSort, sorted }: ProfilePostHeaderState): ReactElement {
   return (
