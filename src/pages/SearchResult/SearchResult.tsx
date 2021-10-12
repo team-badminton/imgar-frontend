@@ -1,10 +1,96 @@
-import React, { ReactElement, useMemo } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { Loading, MainContainer, MasonryGallery } from '@/components';
+import { useTypedDispatch, useTypedSelector } from '@/redux';
+import { useSearchQuery } from '@/redux/api';
+import { GallerySearchQuery } from '@/redux/api/types/queries';
+import { masonryGalleryWidthSelector } from '@/redux/slices/displayReducer';
+import { setQueryPage } from '@/redux/slices/listInfoReducer';
+import { PostV1Info } from '@/redux/storeTypes';
+import React, { ReactElement, useEffect, useMemo } from 'react';
+import { useLocation } from 'react-router-dom';
+import { Notice } from '../Profile/Profile.styled';
+import { SearchResultPostSort1, SearchResultPostSort2 } from './SearchResult.type';
+import SearchResultCover from './SearchResultCover';
+import SearchResultHeader from './SearchResultHeader';
+
+const sort1Query = {
+  highestScoring: 'top',
+  mostViral: 'viral',
+  newest: 'time',
+};
+
+function CustomHeader(): ReactElement {
+  return;
+}
 
 export default function SearchResult(): ReactElement {
   const location = useLocation();
-  const history = useHistory();
   const searchQuery = useMemo(() => new URLSearchParams(location.search).get('q'), [location.search]);
+  const page = useTypedSelector(state => state.listInfo.queryPage);
+  const [posts, setPosts] = React.useState<PostV1Info[]>([]);
 
-  return <div>{searchQuery}</div>;
+  const [sort1, setSort1] = React.useState<SearchResultPostSort1>('highestScoring');
+  const [sort2, setSort2] = React.useState<SearchResultPostSort2>('all');
+
+  const [isFetching, setIsFetching] = React.useState<boolean>(false);
+  const galleryWidth = useTypedSelector(masonryGalleryWidthSelector);
+
+  const { data } = useSearchQuery({
+    keyword: searchQuery,
+    page,
+    sort: sort1Query[sort1] as GallerySearchQuery['sort'],
+    window: sort1Query[sort1] === 'top' ? sort2 : null,
+  });
+  const dispatch = useTypedDispatch();
+
+  const sortArray = useMemo(() => [sort1, sort2], [sort1, sort2]);
+  const setSortArray = useMemo(
+    () => [
+      (sort: SearchResultPostSort1) => {
+        setSort1(sort), dispatch(setQueryPage(0));
+      },
+      (sort: SearchResultPostSort2) => {
+        setSort2(sort), dispatch(setQueryPage(0));
+      },
+    ],
+    [setSort1, setSort2],
+  );
+
+  useEffect(() => {
+    dispatch(setQueryPage(0));
+    setIsFetching(true);
+  }, [location.search]);
+
+  useEffect(() => {
+    setIsFetching(true);
+  }, [sort1, sort2]);
+
+  // useEffect(() => {
+  //   setIsPageFetching(true);
+  // }, [page]);
+
+  useEffect(() => {
+    if (!data) {
+      return;
+    }
+    if (page === 0) {
+      setPosts(data);
+      setIsFetching(false);
+      // setIsPageFetching(false);
+    }
+    if (page > 0) {
+      setPosts(currPosts => [...currPosts, ...data]);
+      // setIsPageFetching(false);
+    }
+  }, [data]);
+
+  return (
+    <MainContainer
+      headerCover={<SearchResultCover />}
+      headerBackground="https://s.imgur.com/desktop-assets/desktop-assets/homebg.e52b5cdf24f83bcd55f9f1318855f2ef.png"
+      containerWidth={galleryWidth}
+    >
+      <SearchResultHeader sorted={sortArray} setSort={setSortArray} />
+      {isFetching ? <Loading /> : posts.length ? <MasonryGallery posts={posts} /> : <Notice>No search results</Notice>}
+    </MainContainer>
+  );
 }
