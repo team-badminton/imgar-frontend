@@ -22,22 +22,25 @@ export default React.forwardRef(function SearchBar(
     [setInputValue, throttledSetSearchQuery],
   );
 
-  const onSubmitHandler = useCallback<React.FormEventHandler<HTMLFormElement>>(
-    e => {
-      e.preventDefault();
-      history.push(`/search/${inputValue}`);
-    },
-    [inputValue],
-  );
-
   const clearInput = useCallback(() => {
     setInputValue('');
+    throttledSetSearchQuery('');
+    throttledSetSearchQuery.flush();
     inputRef.current.blur();
   }, []);
 
   useImperativeHandle(ref, () => ({
     clearInput,
   }));
+
+  const onSubmitHandler = useCallback<React.FormEventHandler<HTMLFormElement>>(
+    e => {
+      e.preventDefault();
+      clearInput();
+      history.push({ pathname: '/search', search: `?q=${inputValue}` });
+    },
+    [inputValue],
+  );
 
   return (
     <SearchBarContainer onSubmit={onSubmitHandler}>

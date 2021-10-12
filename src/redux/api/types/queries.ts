@@ -10,6 +10,10 @@ export interface GallerySearchQuery {
   page?: number;
   keyword: string;
 }
+export interface TagPostsQuery {
+  tagName: string;
+  page?: number;
+}
 export interface SuggestQuery {
   keyword: string;
 }
@@ -30,6 +34,7 @@ export interface AccountCommentQuery {
 export interface AccountPostQuery {
   username: string;
   page?: number;
+  sort: 'oldest' | 'newest' | 'best';
 }
 export interface accountFavoriteFolderQuery {
   username: string;

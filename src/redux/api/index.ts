@@ -1,5 +1,16 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { FolderInfo, PostCommentInfo, PostInfo, PostV1Info, SuggestInfo, UserInfo } from '../storeTypes';
+import { transform } from 'lodash';
+import {
+  FolderInfo,
+  PostCommentInfo,
+  PostInfo,
+  PostV1Info,
+  SuggestInfo,
+  TagInfo,
+  TagPostInfo,
+  UserInfo,
+  WelcomMessageInfo,
+} from '../storeTypes';
 import {
   userDataNormalizer,
   commentNormalizer,
@@ -8,8 +19,23 @@ import {
   suggestDataNormalizer,
   postV1DataNormalizer,
   postV3ToV1DataNormalizer,
+  accountCommentNormalizer,
+  tagDataNormalizer,
+  tagPostsDataNormalizer,
+  welcommessageNormalizer,
 } from './normalizers';
-import { Folder, Post, PostComment, PostV1, Suggest, User } from './types/fetchData';
+import {
+  AccountComment,
+  Folder,
+  Post,
+  PostComment,
+  PostV1,
+  Suggest,
+  User,
+  Tag,
+  TagPosts,
+  WelcomeMessage,
+} from './types/fetchData';
 import {
   AccountCommentQuery,
   accountFavoriteFolderQuery,
@@ -18,6 +44,7 @@ import {
   GallerySearchQuery,
   PostCommentQuery,
   postQeury,
+  TagPostsQuery,
 } from './types/queries';
 
 export const imgurApi = createApi({
@@ -64,6 +91,26 @@ export const imgurApi = createApi({
         return postDataNormalizer(data);
       },
     }),
+    tag: builder.query<TagInfo[], null>({
+      query: () => `3/tags`,
+      transformResponse: (res: { data: { tags: Tag[] } }) => {
+        const { data } = res;
+        return tagDataNormalizer(data.tags);
+      },
+    }),
+    tagPosts: builder.query<TagPostInfo, TagPostsQuery>({
+      query: ({ tagName, page = 1 }) =>
+        `post/v1/posts/t/${tagName}?filter[window]=week&include=adtiles,adconfig,cover&page=${page}&sort=-time`,
+      transformResponse: (data: TagPosts) => {
+        return tagPostsDataNormalizer(data);
+      },
+    }),
+    welcomeMessage: builder.query<WelcomMessageInfo, null>({
+      query: () => `homepage/v1/messages/random?filter[type]=welcome`,
+      transformResponse: (data: WelcomeMessage) => {
+        return welcommessageNormalizer(data);
+      },
+    }),
     suggest: builder.query<SuggestInfo, string>({
       query: keyword => `3/suggest?inflate=tags&q=${keyword}&types=users,tags,posts`,
       transformResponse: (res: { data: Suggest }) => {
@@ -80,16 +127,16 @@ export const imgurApi = createApi({
     }),
     accountComments: builder.query<PostCommentInfo[], AccountCommentQuery>({
       query: ({ page = 0, sort = 'newest', username }) => `3/account/${username}/comments/${sort}/${page}`,
-      transformResponse: (res: { data: PostComment[] }) => {
+      transformResponse: (res: { data: AccountComment[] }) => {
         const { data } = res;
-        return commentNormalizer(data);
+        return accountCommentNormalizer(data);
       },
     }),
-    accountPosts: builder.query<PostInfo[], AccountPostQuery>({
-      query: ({ username, page = 0 }) => `3/account/${username}/submissions/${page}`,
+    accountPosts: builder.query<PostV1Info[], AccountPostQuery>({
+      query: ({ username, page = 0, sort }) => `3/account/${username}/submissions/${page}/${sort}`,
       transformResponse: (res: { data: Post[] }) => {
         const { data } = res;
-        return postDataNormalizer(data);
+        return postV3ToV1DataNormalizer(data);
       },
     }),
     accountFolders: builder.query<FolderInfo[], string>({
@@ -147,6 +194,9 @@ export const {
   useLazySuggestQuery,
   usePostQuery,
   usePostCommentsQuery,
+  useTagQuery,
+  useTagPostsQuery,
+  useWelcomeMessageQuery,
 } = imgurApi;
 
 export default imgurApi;

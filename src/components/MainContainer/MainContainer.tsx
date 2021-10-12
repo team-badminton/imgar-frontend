@@ -24,11 +24,12 @@ export default function MainContainer({
   headerCoverPosition,
   noOffset,
   containerWidth,
+  headerCoverWidth,
 }: HeaderProps): ReactElement {
   const headerCoverRef = useRef<HTMLDivElement>(null);
   const headerContainerRef = useRef<HTMLDivElement>(null);
   const mainSectionRef = useRef<HTMLDivElement>(null);
-  const BODY_OFFSET = 75;
+  const BODY_OFFSET = 100;
   const BASIC_HEADER_HEIGHT = 75;
   const [showCustomHeader, setShowCustomHeader] = useState<boolean>(false);
   const [coverHeight, setCoverHeight] = useState<number>(0);
@@ -55,9 +56,9 @@ export default function MainContainer({
     const threshold2 = threshold1 + (headerCover ? BASIC_HEADER_HEIGHT : BASIC_HEADER_HEIGHT / 2);
 
     // 본문 내용을 패럴럭스 스크롤이 끝날 때 헤더 아래로 올 수 있도록 배치
-    mainSectionRef.current.style.transform = `translateY(${
-      !noOffset ? (headerCover ? coverHeight - BODY_OFFSET : BODY_OFFSET + headerHeight) : coverHeight
-    }px)`;
+    mainSectionRef.current.style.top = `${
+      !noOffset ? (headerCover ? coverHeight - BODY_OFFSET : headerHeight) : coverHeight
+    }px`;
 
     function handleScroll(): void {
       const scrollOffset = window.pageYOffset;
@@ -88,7 +89,7 @@ export default function MainContainer({
       headerCoverRef.current.style.transform = `translate3d(0px, ${
         isOverThreshold2 ? `-${coverHeight - headerHeight}px` : `${coverPosition}px`
       }, 0px)`;
-      headerCoverRef.current.style.zIndex = isOverThreshold2 ? '1' : null;
+      headerCoverRef.current.style.zIndex = isOverThreshold2 ? '6' : null;
       headerCoverRef.current.style.background = isOverThreshold2 ? null : headerCover ? null : 'transparent';
 
       headerContainerRef.current.style.transform = `translate3d(0, ${
@@ -104,8 +105,8 @@ export default function MainContainer({
   return (
     <ContainerWidthContext.Provider value={containerWidth}>
       {backgroundColor ? <ChangeGlobalBackground backgroundColor={backgroundColor} /> : null}
+      <HeaderContainer ref={headerContainerRef}>{showCustomHeader ? customHeader : <BasicHeader />}</HeaderContainer>
       <ContainerWrapper gradient={!headerCover}>
-        <HeaderContainer ref={headerContainerRef}>{showCustomHeader ? customHeader : <BasicHeader />}</HeaderContainer>
         <HeaderCover
           headerBackground={!!headerCover && headerBackground}
           darkenBackground={darkenBackground}
@@ -114,17 +115,23 @@ export default function MainContainer({
           ref={headerCoverRef}
           hasShadow={showCustomHeader}
           containerWidth={containerWidth}
+          headerCoverWidth={headerCoverWidth}
         >
           <div
             css={`
-              width: ${pxToRem(containerWidth)};
+              width: ${headerCoverWidth ? pxToRem(headerCoverWidth) : pxToRem(containerWidth)};
               min-width: ${pxToRem(450)};
             `}
           >
             {headerCover ?? <div style={{ height: BASIC_HEADER_HEIGHT }} />}
           </div>
         </HeaderCover>
-        <MainSection ref={mainSectionRef} coverHeight={coverHeight} containerWidth={containerWidth}>
+        <MainSection
+          ref={mainSectionRef}
+          coverHeight={coverHeight}
+          containerWidth={containerWidth}
+          className="MainSection"
+        >
           {children}
         </MainSection>
       </ContainerWrapper>

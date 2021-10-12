@@ -17,6 +17,7 @@ export default function Button({
   hoverColor,
   img,
   onClick,
+  onKeyUp,
   text,
   style,
   to,
@@ -36,7 +37,9 @@ export default function Button({
       $hoverBackgroundColor={hoverBackgroundColor}
       $hoverColor={hoverColor}
       onClick={onClick}
+      onKeyUp={onKeyUp}
       style={style}
+      tabIndex={0}
     >
       {!img ? (
         ''

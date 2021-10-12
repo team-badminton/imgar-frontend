@@ -1,7 +1,10 @@
 import { pxToRem } from '@/util/styleUtils';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-export const FolderIcon = styled.div`
+import { ScrollButtonProps } from './ProfileFavorite.type';
+
+export const FolderIcon = React.memo(styled.div`
   position: relative;
   width: ${pxToRem(74)};
   height: ${pxToRem(54)};
@@ -12,40 +15,52 @@ export const FolderIcon = styled.div`
     content: '';
     display: block;
     position: absolute;
-    top: 0;
-    width: ${pxToRem(30)};
+    top: ${pxToRem(1)};
+    left: ${pxToRem(23)};
+    width: ${pxToRem(0)};
     height: ${pxToRem(0)};
-    transform: translateY(-98%);
-    border: 6px solid white;
+    transform: translateY(-100%);
+    border: 7px solid white;
     border-color: ${({ theme }) => `transparent transparent ${theme.color.emeraldGreen} transparent`};
   }
   &::before {
     content: '';
     display: block;
     position: absolute;
-    top: 0;
-    width: ${pxToRem(6)};
-    height: ${pxToRem(6)};
+    top: ${pxToRem(1)};
+    width: ${pxToRem(30)};
+    height: ${pxToRem(7)};
     border-radius: ${({ theme }) => `${theme.borderRadius.xl} 0 0 0`};
-    transform: translateY(-98%);
+    transform: translateY(-100%);
     background-color: ${({ theme }) => theme.color.emeraldGreen};
   }
-`;
+`);
 
-export const FoldersWrapper = styled.div<{ containerWidth: number }>`
+export const FoldersWrapper = styled.div`
+  width: 100%;
   height: ${pxToRem(130)};
-  background-color: ${({ theme }) => theme.color.backgroundDarkNavy};
-  margin: 0 calc((100vw - ${({ containerWidth }) => pxToRem(containerWidth)}) / 2 * -1);
-  padding: 0 calc((100vw - ${({ containerWidth }) => pxToRem(containerWidth)}) / 2);
-  margin-bottom: -1px;
+  position: relative;
 `;
 
 export const FolderList = styled.ul`
   height: 100%;
-  margin: 0;
   display: flex;
   align-items: center;
-  overflow-x: scroll;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-right: ${pxToRem(60)};
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    width: 52px;
+    height: 4px;
+    border-radius: 2px;
+    background-color: #9fa9c4;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #3b4257;
+  }
 `;
 
 export const FolderLink = styled(NavLink)`
@@ -71,4 +86,52 @@ export const FolderName = styled.span`
   color: ${({ theme }) => theme.color.white};
   font-size: ${({ theme }) => theme.fontSize.xs};
   margin-top: ${({ theme }) => theme.spaceSize.m};
+`;
+
+export const ScrollButton = styled.button<ScrollButtonProps>`
+  height: 100%;
+  width: ${pxToRem(60)};
+  position: absolute;
+  flex-shrink: 0;
+  color: ${({ theme }) => theme.color.white};
+  ${({ $direction, theme }) =>
+    $direction === 'prev'
+      ? `
+  left: 0;
+  background-image: linear-gradient(to left, transparent, ${theme.color.backgroundDarkNavy});
+  `
+      : `
+  right: 0;
+  background-image: linear-gradient(to right, transparent, ${theme.color.backgroundDarkNavy});
+  `}
+  z-index: 1;
+  svg {
+    position: absolute;
+    ${({ $direction }) =>
+      $direction === 'prev'
+        ? `
+  left: 0;
+  `
+        : `
+  right: 0;
+  `}
+    transform: translateY(-50%);
+  }
+  &:focus {
+    outline-offset: ${pxToRem(-8)};
+  }
+`;
+
+export const ProfileFavoriteHeaderContainer = styled.div`
+  display: flex;
+  height: ${pxToRem(49)};
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 999;
+`;
+
+export const ProfileFavoriteHeaderTitle = styled.h3`
+  color: ${({ theme }) => theme.color.white};
+  font-size: ${pxToRem(24)};
 `;

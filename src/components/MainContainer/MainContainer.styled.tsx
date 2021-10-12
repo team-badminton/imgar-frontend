@@ -40,13 +40,14 @@ export const HeaderCover = styled.header<HeaderCoverProps>`
       : ''}
   transition: box-shadow 0.3s;
   padding-top: ${({ headerHeight }) => pxToRem(headerHeight)};
+  z-index: 4;
 `;
 
 export const HeaderContainer = styled.div`
   position: absolute;
   top: 0;
   width: 100%;
-  z-index: 2;
+  z-index: 999;
 `;
 
 export const MainSection = styled.main<MainSectionProps>`

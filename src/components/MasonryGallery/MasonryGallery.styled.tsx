@@ -26,4 +26,5 @@ export const StyledImageCard = styled(ImageCard).attrs<StyledImageCardProps>(({ 
   };
 })<StyledImageCardProps>`
   position: absolute;
+  z-index: 4;
 `;

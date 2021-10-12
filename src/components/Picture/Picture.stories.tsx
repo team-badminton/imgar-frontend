@@ -38,3 +38,9 @@ CircleImage.args = {
   imageWidth: '100px',
   src: 'https://imgur.com/user/yeongjong/avatar',
 };
+
+export const FocusableImage = Template.bind({});
+FocusableImage.args = {
+  imageId: 'AD3MbBi',
+  tabIndex: 0,
+};

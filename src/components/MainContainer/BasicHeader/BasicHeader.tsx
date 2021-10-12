@@ -8,7 +8,11 @@ export default React.memo(function BasicHeader(): ReactElement {
     <BasicHeaderContainer>
       <Logo as="h1" to="/" />
       <Search />
-      베이직헤더
+      <div
+        css={`
+          width: 100px;
+        `}
+      ></div>
     </BasicHeaderContainer>
   );
 });

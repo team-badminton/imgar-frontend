@@ -6,9 +6,23 @@ import {
   PostV1Info,
   SuggestInfo,
   TagInfo,
+  TagPostInfo,
   UserInfo,
+  WelcomMessageInfo,
 } from '../storeTypes';
-import { Folder, Image, Post, PostComment, PostV1, Suggest, Tag, User } from './types/fetchData';
+import {
+  AccountComment,
+  Folder,
+  Image,
+  Post,
+  PostComment,
+  PostV1,
+  Suggest,
+  Tag,
+  TagPosts,
+  User,
+  WelcomeMessage,
+} from './types/fetchData';
 
 export function imageDataNormalizer(image: Image): ImageInfo;
 export function imageDataNormalizer(image: Image[]): ImageInfo[];
@@ -47,6 +61,7 @@ export function tagDataNormalizer(tag: Tag | Tag[]): TagInfo | TagInfo[] {
       postCount: tag.total_items,
       backgroundImageId: tag.background_hash,
       description: tag.description,
+      accent: tag.accent,
     };
   } else {
     const tags = tag;
@@ -56,8 +71,37 @@ export function tagDataNormalizer(tag: Tag | Tag[]): TagInfo | TagInfo[] {
       postCount: tag.total_items,
       backgroundImageId: tag.background_hash,
       description: tag.description,
+      accent: tag.accent,
     }));
   }
+}
+export function tagPostsDataNormalizer(tagPosts: TagPosts): TagPostInfo;
+export function tagPostsDataNormalizer(tagPosts: TagPosts[]): TagPostInfo[];
+export function tagPostsDataNormalizer(tagPosts: TagPosts | TagPosts[]): TagPostInfo | TagPostInfo[] {
+  if (!Array.isArray(tagPosts)) {
+    return {
+      accent: tagPosts.accent,
+      backgroundId: tagPosts.background_id,
+      displayName: tagPosts.display,
+      description: tagPosts.description,
+      posts: postV1DataNormalizer(tagPosts.posts),
+    };
+  } else {
+    const tagPostsArray = tagPosts;
+    return tagPostsArray.map(tagPost => ({
+      accent: tagPost.accent,
+      backgroundId: tagPost.background_id,
+      displayName: tagPost.display,
+      description: tagPost.description,
+      posts: postV1DataNormalizer(tagPost.posts),
+    }));
+  }
+}
+
+export function welcommessageNormalizer(welcomMessage: WelcomeMessage): WelcomMessageInfo {
+  return {
+    message: welcomMessage.message,
+  };
 }
 
 export function postDataNormalizer(post: Post): PostInfo;
@@ -241,6 +285,7 @@ export function commentNormalizer(comment: PostComment | PostComment[]): PostCom
       id: comment.id.toString(),
       parentCommentId: comment.parent_id.toString(),
       postId: comment.post_id,
+      cover: null,
       childrenComments: comment.comments ? commentNormalizer(comment.comments) : null,
     };
   } else {
@@ -254,7 +299,43 @@ export function commentNormalizer(comment: PostComment | PostComment[]): PostCom
       id: comment.id.toString(),
       parentCommentId: comment.parent_id.toString(),
       postId: comment.post_id,
+      cover: null,
       childrenComments: comment.comments ? commentNormalizer(comment.comments) : null,
+    }));
+  }
+}
+
+export function accountCommentNormalizer(comment: AccountComment): PostCommentInfo;
+export function accountCommentNormalizer(comment: AccountComment[]): PostCommentInfo[];
+export function accountCommentNormalizer(
+  comment: AccountComment | AccountComment[],
+): PostCommentInfo | PostCommentInfo[] {
+  if (!Array.isArray(comment)) {
+    return {
+      cover: comment.album_cover ?? comment.image_id,
+      author: comment.author,
+      comment: comment.comment,
+      dateTime: comment.datetime,
+      downCount: comment.downs,
+      upCount: comment.ups,
+      id: comment.id.toString(),
+      parentCommentId: comment.parent_id.toString(),
+      postId: comment.image_id,
+      childrenComments: comment.children ? commentNormalizer(comment.children) : null,
+    };
+  } else {
+    const comments = comment;
+    return comments.map(comment => ({
+      cover: comment.album_cover ?? comment.image_id,
+      author: comment.author,
+      comment: comment.comment,
+      dateTime: comment.datetime,
+      downCount: comment.downs,
+      upCount: comment.ups,
+      id: comment.id.toString(),
+      parentCommentId: comment.parent_id.toString(),
+      postId: comment.image_id,
+      childrenComments: comment.children ? commentNormalizer(comment.children) : null,
     }));
   }
 }
