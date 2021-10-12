@@ -20,6 +20,7 @@ const Template: ComponentStory<typeof PostSideRelativeList> = args => <PostSideR
 
 export const Default: ComponentStory<typeof PostSideRelativeList> = Template.bind({});
 Default.args = {
+  mainPostId: 'CqS6Z4H',
   title: 'Rander',
   posts: [
     {
