@@ -6,6 +6,7 @@ export const ProfileCoverContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  z-index: 10;
 `;
 
 export const ProfileCoverWrapper = styled.div<{ containerWidth: number }>`
