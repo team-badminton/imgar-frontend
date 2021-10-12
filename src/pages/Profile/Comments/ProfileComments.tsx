@@ -12,7 +12,7 @@ import ProfileCommentsHeader from './ProfileCommentsHeader';
 import ProfileCommentsItem from './ProfileCommentsItem';
 
 export default React.memo(function ProfileComments(): ReactElement {
-  const [sort, setSort] = useState<ProfileCommentsSort>('oldest');
+  const [sort, setSort] = useState<ProfileCommentsSort>('newest');
   const [page, setPage] = useState<number>(0);
   const [comments, setComments] = useState<PostCommentInfo[]>([]);
   const [isScrollFetching, setIsScrollFetching] = useState<boolean>(false);

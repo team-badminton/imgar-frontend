@@ -40,6 +40,7 @@ export const ProfileCommentItemContainer = styled.div`
   background-color: ${({ theme }) => theme.color.darkGray};
   border-radius: ${({ theme }) => theme.borderRadius.s};
   width: 100%;
+  position: relative;
   color: ${({ theme }) => theme.color.white};
   p {
     margin: 0;
@@ -50,11 +51,39 @@ export const ProfileCommentItemContainer = styled.div`
     color: ${({ theme }) => theme.color.emeraldGreen};
   }
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+  ::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: ${pxToRem(10)};
+    border: transparent solid ${pxToRem(5)};
+    border-left: ${({ theme }) => theme.color.darkGray} solid ${pxToRem(10)};
+    border-right: 0;
+    transform-origin: left top;
+    transform: translateX(50%) rotate(90deg);
+  }
 `;
 
 export const ProfileCommentItemThumbnail = styled(Picture)`
   border-radius: ${({ theme }) => theme.borderRadius.xl};
-  margin-right: ${({ theme }) => theme.spaceSize.m};
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
-  flex-shrink: 0;
+`;
+
+export const ProfileCommentItemInfo = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: ${({ theme }) => theme.spaceSize.m};
+  color: ${({ theme }) => theme.color.lightGray};
+  font-size: ${({ theme }) => theme.fontSize.s};
+  > span:not(:last-child) {
+    margin-right: ${({ theme }) => theme.spaceSize.m};
+  }
+  svg {
+    fill: ${({ theme }) => theme.color.lightGray};
+    display: inline-block;
+    margin-right: ${({ theme }) => theme.spaceSize.xs};
+    vertical-align: ${pxToRem(-1)};
+  }
 `;
