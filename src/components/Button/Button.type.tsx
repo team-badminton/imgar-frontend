@@ -1,4 +1,4 @@
-import { CSSProperties, MouseEventHandler } from 'react';
+import { CSSProperties, KeyboardEventHandler, MouseEventHandler } from 'react';
 import { DefaultTheme } from 'styled-components';
 
 type colors = Extract<keyof DefaultTheme['color'], string>;
@@ -42,4 +42,5 @@ export interface ButtonProps
   text?: string;
   /** 버튼의 클릭 이벤트를 설정할 수 있습니다. */
   onClick?: MouseEventHandler<HTMLAnchorElement>;
+  onKeyUp?: KeyboardEventHandler<HTMLAnchorElement>;
 }

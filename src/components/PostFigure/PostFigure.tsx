@@ -73,6 +73,7 @@ export default function PostFigure({
                 ref={imageRef}
                 imageId={imageId}
                 onClick={isZoomAble ? handleToggleModal : null}
+                tabIndex={0}
               />
               {isVisibleModal && (
                 <Modal handleHide={handleToggleModal}>

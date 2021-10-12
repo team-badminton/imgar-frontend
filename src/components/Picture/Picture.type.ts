@@ -30,4 +30,6 @@ export interface PictureProps extends StyledImageProps {
   src?: string;
   /** 이미지에 inline 스타일을 적용할 수 있습니다. */
   style?: CSSProperties;
+  /** tabIndex를 입력하면 포커스가 가도록 설정할 수 있습니다. */
+  tabIndex?: number;
 }
