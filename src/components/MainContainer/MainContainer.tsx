@@ -24,6 +24,7 @@ export default function MainContainer({
   headerCoverPosition,
   noOffset,
   containerWidth,
+  headerCoverWidth,
 }: HeaderProps): ReactElement {
   const headerCoverRef = useRef<HTMLDivElement>(null);
   const headerContainerRef = useRef<HTMLDivElement>(null);
@@ -114,10 +115,11 @@ export default function MainContainer({
           ref={headerCoverRef}
           hasShadow={showCustomHeader}
           containerWidth={containerWidth}
+          headerCoverWidth={headerCoverWidth}
         >
           <div
             css={`
-              width: ${pxToRem(containerWidth)};
+              width: ${headerCoverWidth ? pxToRem(headerCoverWidth) : pxToRem(containerWidth)};
               min-width: ${pxToRem(450)};
             `}
           >

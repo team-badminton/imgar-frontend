@@ -30,4 +30,4 @@ export { default as Logo } from './Logo/Logo';
 export { default as TabNavigation } from './TabNavigation/TabNavigation';
 export { default as MainContainer } from './MainContainer/MainContainer';
 export { default as GalleryHeader } from './GalleryHeader/GalleryHeader';
-// export { default as TagCard } from './TagCard/TagCard';
+export { default as TagCard } from './TagCard/TagCard';
