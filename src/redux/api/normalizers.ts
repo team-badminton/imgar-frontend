@@ -6,9 +6,21 @@ import {
   PostV1Info,
   SuggestInfo,
   TagInfo,
+  TagPostInfo,
   UserInfo,
 } from '../storeTypes';
-import { AccountComment, Folder, Image, Post, PostComment, PostV1, Suggest, Tag, User } from './types/fetchData';
+import {
+  AccountComment,
+  Folder,
+  Image,
+  Post,
+  PostComment,
+  PostV1,
+  Suggest,
+  Tag,
+  TagPosts,
+  User,
+} from './types/fetchData';
 
 export function imageDataNormalizer(image: Image): ImageInfo;
 export function imageDataNormalizer(image: Image[]): ImageInfo[];
@@ -56,6 +68,28 @@ export function tagDataNormalizer(tag: Tag | Tag[]): TagInfo | TagInfo[] {
       postCount: tag.total_items,
       backgroundImageId: tag.background_hash,
       description: tag.description,
+    }));
+  }
+}
+export function tagPostsDataNormalizer(tagPosts: TagPosts): TagPostInfo;
+export function tagPostsDataNormalizer(tagPosts: TagPosts[]): TagPostInfo[];
+export function tagPostsDataNormalizer(tagPosts: TagPosts | TagPosts[]): TagPostInfo | TagPostInfo[] {
+  if (!Array.isArray(tagPosts)) {
+    return {
+      accent: tagPosts.accent,
+      backgroundId: tagPosts.background_id,
+      displayName: tagPosts.display,
+      description: tagPosts.description,
+      post: postV1DataNormalizer(tagPosts.posts),
+    };
+  } else {
+    const tagPostsArray = tagPosts;
+    return tagPostsArray.map(tagPost => ({
+      accent: tagPost.accent,
+      backgroundId: tagPost.background_id,
+      displayName: tagPost.display,
+      description: tagPost.description,
+      post: postV1DataNormalizer(tagPost.posts),
     }));
   }
 }

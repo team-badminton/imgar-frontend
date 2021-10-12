@@ -33,6 +33,19 @@ export interface Tag {
   description_annotations: DescriptionAnnotations;
 }
 
+export interface TagPosts {
+  accent: string;
+  background_id: string;
+  description: string;
+  display: string;
+  is_promoted: boolean;
+  is_whitelisted: boolean;
+  logo_id?: any;
+  logo_url?: any;
+  post_count: number;
+  posts: PostV1[];
+}
+
 export interface Image {
   id: string;
   title?: any;

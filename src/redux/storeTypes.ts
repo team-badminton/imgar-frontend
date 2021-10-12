@@ -58,6 +58,14 @@ export interface TagInfo {
   description: string;
 }
 
+export interface TagPostInfo {
+  accent: string;
+  backgroundId: string;
+  displayName: string;
+  description: string;
+  post: PostV1Info[];
+}
+
 export interface ImageInfo {
   id: string;
   description: string | null;

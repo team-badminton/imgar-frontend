@@ -1,5 +1,14 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { FolderInfo, PostCommentInfo, PostInfo, PostV1Info, SuggestInfo, TagInfo, UserInfo } from '../storeTypes';
+import {
+  FolderInfo,
+  PostCommentInfo,
+  PostInfo,
+  PostV1Info,
+  SuggestInfo,
+  TagInfo,
+  TagPostInfo,
+  UserInfo,
+} from '../storeTypes';
 import {
   userDataNormalizer,
   commentNormalizer,
@@ -10,8 +19,9 @@ import {
   postV3ToV1DataNormalizer,
   accountCommentNormalizer,
   tagDataNormalizer,
+  tagPostsDataNormalizer,
 } from './normalizers';
-import { AccountComment, Folder, Post, PostComment, PostV1, Suggest, User, Tag } from './types/fetchData';
+import { AccountComment, Folder, Post, PostComment, PostV1, Suggest, User, Tag, TagPosts } from './types/fetchData';
 import {
   AccountCommentQuery,
   accountFavoriteFolderQuery,
@@ -20,6 +30,7 @@ import {
   GallerySearchQuery,
   PostCommentQuery,
   postQeury,
+  TagPostsQuery,
 } from './types/queries';
 
 export const imgurApi = createApi({
@@ -71,6 +82,13 @@ export const imgurApi = createApi({
       transformResponse: (res: { data: { tags: Tag[] } }) => {
         const { data } = res;
         return tagDataNormalizer(data.tags);
+      },
+    }),
+    tagPosts: builder.query<TagPostInfo, TagPostsQuery>({
+      query: ({ tagName, page = 1 }) =>
+        `post/v1/posts/t/${tagName}?filter[window]=day&include=adtiles,adconfig,cover&page=${page}&sort=random`,
+      transformResponse: (data: TagPosts) => {
+        return tagPostsDataNormalizer(data);
       },
     }),
     suggest: builder.query<SuggestInfo, string>({
@@ -157,6 +175,7 @@ export const {
   usePostQuery,
   usePostCommentsQuery,
   useTagQuery,
+  useTagPostsQuery,
 } = imgurApi;
 
 export default imgurApi;
