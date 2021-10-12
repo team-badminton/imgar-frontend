@@ -1,48 +1,13 @@
-import { DropDownList, MasonryGalleryOptions } from '@/components';
+import { SortList, MasonryGalleryOptions } from '@/components';
 import { useAccountFoldersQuery } from '@/redux/api';
 import React, { ReactElement } from 'react';
 import { useRouteMatch } from 'react-router';
 import { ProfileFavoriteHeaderContainer, ProfileFavoriteHeaderTitle } from './ProfileFavorite.styled';
-import { ProfileFavoriteSort } from './ProfileFavorite.type';
+import { ProfileFavoriteHeaderState } from './ProfileFavorite.type';
 
-function ProfileFavoriteFields({ setSort }: { setSort: (s: ProfileFavoriteSort) => void }): ReactElement {
-  const sortList = ['oldest', 'newest'];
+const favoriteSort = ['newest', 'oldest'];
 
-  const handleSetSort = (_: never, item: ReactElement) => () => {
-    setSort(item.props.children.toLowerCase());
-  };
-
-  return (
-    <>
-      <div
-        css={`
-          display: flex;
-          justify-content: space-between;
-          width: 100%;
-        `}
-      >
-        <DropDownList
-          handlerOption={{
-            useType: 'selectBox',
-            handleDropDownList: handleSetSort,
-          }}
-        >
-          {sortList
-            .map(sortOption => sortOption)
-            .map((sortOption, index) => (
-              <span key={index}>{sortOption.toUpperCase()}</span>
-            ))}
-        </DropDownList>
-      </div>
-    </>
-  );
-}
-
-export default function ProfileFavoriteHeader({
-  setSort,
-}: {
-  setSort: (s: ProfileFavoriteSort) => void;
-}): ReactElement {
+export default function ProfileFavoriteHeader({ setSort, sorted }: ProfileFavoriteHeaderState): ReactElement {
   const match = useRouteMatch<{ username: string; folderId: string }>([
     '/user/:username/favorites/folder/:folderId',
     '/user/:username/favorites',
@@ -59,7 +24,7 @@ export default function ProfileFavoriteHeader({
           display: flex;
         `}
       >
-        <ProfileFavoriteFields setSort={setSort} />
+        <SortList items={favoriteSort} setItem={setSort} selectedItem={sorted} />
         <MasonryGalleryOptions />
       </div>
     </ProfileFavoriteHeaderContainer>

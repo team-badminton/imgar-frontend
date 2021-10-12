@@ -1,4 +1,5 @@
 import { Loading, MasonryGallery } from '@/components';
+import useDomReady from '@/hooks/useDomReady';
 import { useAccountPostsQuery } from '@/redux/api';
 import React, { ReactElement } from 'react';
 import { createPortal } from 'react-dom';
@@ -9,13 +10,14 @@ import ProfilePostsHeader from './ProfilePostsHeader';
 export default function ProfilePosts(): ReactElement {
   const { username } = useParams<{ username: string }>();
   const [sort, setSort] = React.useState<ProfilePostSort>('newest');
-  const { data, isLoading } = useAccountPostsQuery({ username, sort });
-  return isLoading ? (
-    <Loading />
-  ) : (
+  const { data, isFetching } = useAccountPostsQuery({ username, sort });
+
+  const domReady = useDomReady();
+  return (
     <>
-      {createPortal(<ProfilePostsHeader setSort={setSort} />, document.querySelector('.ProfileCover'))}
-      {isLoading ? <Loading /> : <MasonryGallery posts={data} />}
+      {domReady &&
+        createPortal(<ProfilePostsHeader setSort={setSort} sorted={sort} />, document.querySelector('.ProfileCover'))}
+      {isFetching ? <Loading /> : <MasonryGallery posts={data} />}
     </>
   );
 }

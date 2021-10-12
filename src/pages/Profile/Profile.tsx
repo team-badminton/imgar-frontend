@@ -6,11 +6,10 @@ import { masonryGalleryWidthSelector } from '@/redux/slices/displayReducer';
 import React, { ReactElement } from 'react';
 import { Route, Switch, useLocation, useParams, useRouteMatch } from 'react-router-dom';
 import ProfileAbout from './About/ProfileAbout';
+import ProfileComments from './Comments/ProfileComments';
 import ProfileFavorite from './Favorite/ProfileFavorite';
 import ProfilePosts from './Posts/ProfilePosts';
 import ProfileCover from './ProfileCover';
-
-const Comments = () => <div>Comments</div>;
 
 const FAVORITE_HEIGHT = 130;
 const TAB_NAVIGATION_HEIGHT = 65;
@@ -49,7 +48,7 @@ export default function Profile(): ReactElement {
             component={ProfileFavorite}
             exact
           />
-          <Route path={path + `/comments`} exact component={Comments} />
+          <Route path={path + `/comments`} exact component={ProfileComments} />
           <Route path={path + `/about`} exact component={ProfileAbout} />
           <Route path={path} component={ProfilePosts} />
         </Switch>

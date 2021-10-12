@@ -14,6 +14,7 @@ const Picture = forwardRef<HTMLImageElement, PictureProps>(
       objectFit,
       src,
       style,
+      tabIndex,
       imageWidth,
       imageHeight,
       isLazyLoading,
@@ -33,6 +34,8 @@ const Picture = forwardRef<HTMLImageElement, PictureProps>(
           onClick={onClick}
           src={src}
           style={style}
+          tabIndex={tabIndex}
+          className={className}
         />
       );
     }
@@ -67,6 +70,7 @@ const Picture = forwardRef<HTMLImageElement, PictureProps>(
               style={style}
               data-src={isLazyLoading ? imageSrc : null}
               src={!isLazyLoading ? imageSrc : null}
+              tabIndex={tabIndex}
             />
           );
         })}

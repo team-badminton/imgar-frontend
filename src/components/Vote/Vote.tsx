@@ -9,20 +9,34 @@ import { UpBtn, DownBtn, Output, Container } from './Vote.styled';
 // types
 import { VoteProps } from './Vote.type';
 
-export default function Vote({ color, size, count, direction }: VoteProps): ReactElement {
+export default function Vote({ className, color, size, count, direction, children }: VoteProps): ReactElement {
   const [output, setOutput] = useState(count);
+
+  const handleUpButtonEvent = (
+    e: React.KeyboardEvent<HTMLAnchorElement> | React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+  ) => {
+    if (e.type === 'keyup' && (e as React.KeyboardEvent<HTMLAnchorElement>).key !== 'Enter') return;
+    output === count + 1 ? setOutput(count) : setOutput(count + 1);
+  };
+
+  const handleDownButtonEvent = (
+    e: React.KeyboardEvent<HTMLAnchorElement> | React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+  ) => {
+    if (e.type === 'keyup' && (e as React.KeyboardEvent<HTMLAnchorElement>).key !== 'Enter') return;
+    output === count - 1 ? setOutput(count) : setOutput(count - 1);
+  };
 
   return (
     <Container
+      className={className}
       color={color}
       size={size}
       direction={direction}
       selectedButton={output === count + 1 ? 'up-btn' : output === count - 1 ? 'down-btn' : null}
     >
       <Button
-        onClick={() => {
-          output === count + 1 ? setOutput(count) : setOutput(count + 1);
-        }}
+        onClick={handleUpButtonEvent}
+        onKeyUp={handleUpButtonEvent}
         className="up-btn"
         img={UpBtn}
         alt="Up Arrow"
@@ -31,11 +45,13 @@ export default function Vote({ color, size, count, direction }: VoteProps): Reac
         {output}
       </Output>
       <Button
-        onClick={() => (output === count - 1 ? setOutput(count) : setOutput(count - 1))}
+        onClick={handleDownButtonEvent}
+        onKeyUp={handleDownButtonEvent}
         className="down-btn"
         img={DownBtn}
         alt="Down Arrow"
       />
+      {children}
     </Container>
   );
 }
