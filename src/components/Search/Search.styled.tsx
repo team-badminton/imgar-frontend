@@ -6,4 +6,5 @@ export const SearchContainer = styled.div`
   max-width: ${pxToRem(550)};
   width: 100%;
   height: ${pxToRem(36)};
+  z-index: 999;
 `;
