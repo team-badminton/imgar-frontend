@@ -21,3 +21,4 @@ export { default as Loading } from './Loading/Loading';
 export { default as SelectBoxList } from './SelectBoxList/SelectBoxList';
 export { default as SelectBoxHeader } from './SelectBoxHeader/SelectBoxHeader';
 export { default as SelectBox } from './SelectBox/SelectBox';
+export { default as TagCard } from './TagCard/TagCard';
