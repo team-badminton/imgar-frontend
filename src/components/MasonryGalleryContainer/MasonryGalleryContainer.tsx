@@ -12,6 +12,7 @@ export default function MasonryGalleryContainer(): ReactElement {
   const windowOption = useTypedSelector(state => state.listInfo.windowOption);
   const queryPage = useTypedSelector(state => state.listInfo.queryPage);
   const prevPage = useTypedSelector(state => state.listInfo.prevPage);
+  const posts = useTypedSelector(state => state.listInfo.posts);
 
   const { data, isLoading } =
     category !== 'highestScoring'
@@ -28,8 +29,6 @@ export default function MasonryGalleryContainer(): ReactElement {
           page: queryPage,
         });
 
-  const posts = useTypedSelector(state => state.listInfo.posts);
-
   useEffect(() => {
     if (!isLoading) {
       if (prevPage !== queryPage) {
@@ -43,7 +42,8 @@ export default function MasonryGalleryContainer(): ReactElement {
 
   return (
     <>
-      (isLoading ? <Loading /> : null )<MasonryGallery posts={posts} />
+      {isLoading ? <Loading /> : null}
+      <MasonryGallery posts={posts} />
     </>
   );
 }
