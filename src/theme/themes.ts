@@ -16,6 +16,7 @@ export const defaultTheme: DefaultTheme = {
     emeraldGreen: `#44d0bd`,
     lightBlue: `#8da6c9`,
     crimsonRed: '#fc6369',
+    aquaBlue: `#aed8ea`,
   },
   fontSize: {
     xs: pxToRem(12),
