@@ -41,6 +41,17 @@ export const RelativeItem = styled.li`
   gap: ${pxToRem(8)};
   align-items: center;
   margin-bottom: ${pxToRem(16)};
+  img {
+    transition: ease 0.4s;
+  }
+  &:hover {
+    .item-title {
+      color: ${({ theme }) => theme.color.white};
+    }
+    img {
+      transform: scale(1.1);
+    }
+  }
 `;
 
 export const ImageContainer = styled.div`

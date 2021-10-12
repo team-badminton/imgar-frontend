@@ -30,7 +30,7 @@ export default function PostSideRelativeList({ title, posts, mainPostId }: PostS
               <span className="item-title">{title}</span>
               <ImageContainer>
                 <Picture imageId={thumbnailImageId} imageHeight={64} imageWidth={64} />
-                <span className="image-count">{imageCount}</span>
+                {imageCount > 1 && <span className="image-count">{imageCount}</span>}
               </ImageContainer>
             </RelativeItem>
           </Link>
