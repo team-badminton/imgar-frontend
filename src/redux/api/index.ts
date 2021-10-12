@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { FolderInfo, PostCommentInfo, PostInfo, PostV1Info, SuggestInfo, UserInfo } from '../storeTypes';
+import { FolderInfo, PostCommentInfo, PostInfo, PostV1Info, SuggestInfo, TagInfo, UserInfo } from '../storeTypes';
 import {
   userDataNormalizer,
   commentNormalizer,
@@ -9,8 +9,9 @@ import {
   postV1DataNormalizer,
   postV3ToV1DataNormalizer,
   accountCommentNormalizer,
+  tagDataNormalizer,
 } from './normalizers';
-import { AccountComment, Folder, Post, PostComment, PostV1, Suggest, User } from './types/fetchData';
+import { AccountComment, Folder, Post, PostComment, PostV1, Suggest, User, Tag } from './types/fetchData';
 import {
   AccountCommentQuery,
   accountFavoriteFolderQuery,
@@ -63,6 +64,13 @@ export const imgurApi = createApi({
       transformResponse: (res: { data: Post[] }) => {
         const { data } = res;
         return postDataNormalizer(data);
+      },
+    }),
+    tag: builder.query<TagInfo[], null>({
+      query: () => `3/tags`,
+      transformResponse: (res: { data: { tags: Tag[] } }) => {
+        const { data } = res;
+        return tagDataNormalizer(data.tags);
       },
     }),
     suggest: builder.query<SuggestInfo, string>({
@@ -148,6 +156,7 @@ export const {
   useLazySuggestQuery,
   usePostQuery,
   usePostCommentsQuery,
+  useTagQuery,
 } = imgurApi;
 
 export default imgurApi;

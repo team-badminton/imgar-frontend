@@ -62,13 +62,6 @@ export default function MasonryGallery({ posts }: MasonryGalleryProps): ReactEle
 
   return (
     <>
-      <button
-        onClick={() => {
-          dispatch(setQueryPage(queryPage + 1));
-        }}
-      >
-        임시
-      </button>
       <section
         css={`
           position: relative;
