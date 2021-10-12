@@ -44,7 +44,13 @@ function MedalItem({ name, description, imageUrl }: MedalItemProps): ReactElemen
   return (
     <ProfileAboutGridItem innerItemWidth={70} marginTop={10}>
       <Tooltip tooltipText={description}>
-        <Picture imageWidth={70} imageHeight={70} src={imageUrl} alt={name} />
+        <Picture
+          imageWidth={70}
+          imageHeight={70}
+          src={`//s.imgur.com/images/medal/${name.toLowerCase()}.png`}
+          alt={name}
+          css={imageUrl.includes('empty_state') ? `filter: grayscale(100%) opacity(0.5);` : null}
+        />
       </Tooltip>
     </ProfileAboutGridItem>
   );

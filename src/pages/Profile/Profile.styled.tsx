@@ -20,3 +20,11 @@ export const ProfileCoverWrapper = styled.div<{ containerWidth: number }>`
   width: 100vw;
   padding: 0 ${({ containerWidth }) => `calc((100vw - ${pxToRem(containerWidth < 450 ? 450 : containerWidth)}) / 2)`};
 `;
+
+export const Notice = styled.div`
+  font-size: ${pxToRem(24)};
+  color: ${({ theme }) => theme.color.lightGray};
+  font-weight: bold;
+  margin-top: calc(${({ theme }) => theme.spaceSize.xl} * 2);
+  text-align: center;
+`;
