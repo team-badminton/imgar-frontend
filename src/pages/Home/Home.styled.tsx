@@ -26,4 +26,5 @@ export const StyledArticle = styled.article<StyledArticleProps>`
   flex-wrap: wrap;
   width: ${({ articleWidth }) => articleWidth + 'px'};
   padding-bottom: 100px;
+  max-width: 2280px;
 `;
