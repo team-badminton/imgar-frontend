@@ -6,6 +6,7 @@ import { pxToRem } from '@/util/styleUtils';
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useParams } from 'react-router';
+import { Notice } from '../Profile.styled';
 import { ProfileCommentsUl } from './ProfileComments.styled';
 import { ProfileCommentsSort } from './ProfileComments.type';
 import ProfileCommentsHeader from './ProfileCommentsHeader';
@@ -83,7 +84,7 @@ export default React.memo(function ProfileComments(): ReactElement {
       <ProfileCommentsUl>
         {isFetching ? (
           <Loading />
-        ) : (
+        ) : comments.length ? (
           comments.map(comment => (
             <ProfileCommentsItem
               key={comment.id}
@@ -94,6 +95,8 @@ export default React.memo(function ProfileComments(): ReactElement {
               cover={comment.cover}
             />
           ))
+        ) : (
+          <Notice>This Imgarian doesn&apos;t have any favorites yet.</Notice>
         )}
         {isScrollFetching ? (
           <div

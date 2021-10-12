@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { useGalleryQuery } from '../api';
 import { GalleryQuery } from '../api/types/queries';
 import { ListInfo, PostV1Info } from '../storeTypes';
 
@@ -11,6 +12,8 @@ const initialState: ListInfo = {
   prevPage: 1,
   autoPlay: true,
   layout: 'waterfall',
+  latestQueryFn: useGalleryQuery,
+  latestQueryOption: {},
 };
 export const postListSlice = createSlice({
   name: 'postList',
@@ -48,6 +51,12 @@ export const postListSlice = createSlice({
     toggleAutoPlay(state) {
       // 자동재생 변경
       state.autoPlay = !state.autoPlay;
+    },
+    setLatestQueryFn(state, action: PayloadAction<ListInfo['latestQueryFn']>) {
+      state.latestQueryFn = action.payload;
+    },
+    setLatestQueryOption(state, action: PayloadAction<ListInfo['latestQueryOption']>) {
+      state.latestQueryOption = action.payload;
     },
   },
 });

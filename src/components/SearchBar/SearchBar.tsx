@@ -1,7 +1,7 @@
 import useThrottle from '@/hooks/useThrottle';
 import { a11yHidden } from '@/util/styleUtils';
-import React, { ReactElement, useCallback, useImperativeHandle, useRef, useState } from 'react';
-import { useHistory } from 'react-router';
+import React, { ReactElement, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import { useHistory, useLocation } from 'react-router';
 import { SearchBarButton, SearchBarContainer, SearchBarInput } from './SearchBar.styled';
 import { SearchBarProps } from './SearchBar.type';
 
@@ -12,6 +12,12 @@ export default React.forwardRef(function SearchBar(
   const [inputValue, setInputValue] = useState<string>();
   const history = useHistory();
   const inputRef = useRef<HTMLInputElement>();
+  const location = useLocation();
+  useEffect(() => {
+    const query = new URLSearchParams(location.search).get('q');
+    setInputValue(query ?? '');
+    onQueryChange(query ?? '');
+  }, [location.search]);
 
   const throttledSetSearchQuery = useThrottle(onQueryChange, throttleTime ?? 500, { leading: false });
   const onChangeHandler = useCallback(
