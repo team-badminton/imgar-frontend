@@ -10,6 +10,10 @@ export interface GallerySearchQuery {
   page?: number;
   keyword: string;
 }
+export interface TagPostsQuery {
+  tagName: string;
+  page?: number;
+}
 export interface SuggestQuery {
   keyword: string;
 }
