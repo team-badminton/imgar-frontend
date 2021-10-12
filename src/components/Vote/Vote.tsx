@@ -34,7 +34,7 @@ export default function Vote({ className, color, size, count, direction, childre
       direction={direction}
       selectedButton={output === count + 1 ? 'up-btn' : output === count - 1 ? 'down-btn' : null}
     >
-      <Button onClick={handleUpButtonEvent} onKeyUp={handleUpButtonEvent} className="up-btn" img={UpBtn} alt="Up" />
+      <Button onClick={handleUpButtonEvent} onKeyUp={handleUpButtonEvent} className="up-btn" img={UpBtn} alt="UpVote" />
       <Output color={color} size={size}>
         {output}
       </Output>
@@ -43,7 +43,7 @@ export default function Vote({ className, color, size, count, direction, childre
         onKeyUp={handleDownButtonEvent}
         className="down-btn"
         img={DownBtn}
-        alt="Down"
+        alt="DownVote"
       />
       {children}
     </Container>
