@@ -56,6 +56,7 @@ export interface TagInfo {
   postCount: number /* total_items */;
   backgroundImageId: string /* background_hash */;
   description: string;
+  accent: string;
 }
 
 export interface TagPostInfo {
@@ -63,7 +64,11 @@ export interface TagPostInfo {
   backgroundId: string;
   displayName: string;
   description: string;
-  post: PostV1Info[];
+  posts: PostV1Info[];
+}
+
+export interface WelcomMessageInfo {
+  message: string;
 }
 
 export interface ImageInfo {

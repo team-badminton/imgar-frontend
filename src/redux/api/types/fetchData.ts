@@ -46,6 +46,16 @@ export interface TagPosts {
   posts: PostV1[];
 }
 
+export interface WelcomeMessage {
+  created_at: string;
+  starts_at: string;
+  ends_at: string;
+  updated_at: string;
+  id: number;
+  message: string;
+  type: string;
+}
+
 export interface Image {
   id: string;
   title?: any;

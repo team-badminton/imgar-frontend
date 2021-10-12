@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { transform } from 'lodash';
 import {
   FolderInfo,
   PostCommentInfo,
@@ -8,6 +9,7 @@ import {
   TagInfo,
   TagPostInfo,
   UserInfo,
+  WelcomMessageInfo,
 } from '../storeTypes';
 import {
   userDataNormalizer,
@@ -20,8 +22,20 @@ import {
   accountCommentNormalizer,
   tagDataNormalizer,
   tagPostsDataNormalizer,
+  welcommessageNormalizer,
 } from './normalizers';
-import { AccountComment, Folder, Post, PostComment, PostV1, Suggest, User, Tag, TagPosts } from './types/fetchData';
+import {
+  AccountComment,
+  Folder,
+  Post,
+  PostComment,
+  PostV1,
+  Suggest,
+  User,
+  Tag,
+  TagPosts,
+  WelcomeMessage,
+} from './types/fetchData';
 import {
   AccountCommentQuery,
   accountFavoriteFolderQuery,
@@ -86,9 +100,15 @@ export const imgurApi = createApi({
     }),
     tagPosts: builder.query<TagPostInfo, TagPostsQuery>({
       query: ({ tagName, page = 1 }) =>
-        `post/v1/posts/t/${tagName}?filter[window]=day&include=adtiles,adconfig,cover&page=${page}&sort=random`,
+        `post/v1/posts/t/${tagName}?filter[window]=week&include=adtiles,adconfig,cover&page=${page}&sort=-time`,
       transformResponse: (data: TagPosts) => {
         return tagPostsDataNormalizer(data);
+      },
+    }),
+    welcomeMessage: builder.query<WelcomMessageInfo, null>({
+      query: () => `homepage/v1/messages/random?filter[type]=welcome`,
+      transformResponse: (data: WelcomeMessage) => {
+        return welcommessageNormalizer(data);
       },
     }),
     suggest: builder.query<SuggestInfo, string>({
@@ -176,6 +196,7 @@ export const {
   usePostCommentsQuery,
   useTagQuery,
   useTagPostsQuery,
+  useWelcomeMessageQuery,
 } = imgurApi;
 
 export default imgurApi;

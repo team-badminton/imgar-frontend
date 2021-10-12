@@ -8,6 +8,7 @@ import {
   TagInfo,
   TagPostInfo,
   UserInfo,
+  WelcomMessageInfo,
 } from '../storeTypes';
 import {
   AccountComment,
@@ -20,6 +21,7 @@ import {
   Tag,
   TagPosts,
   User,
+  WelcomeMessage,
 } from './types/fetchData';
 
 export function imageDataNormalizer(image: Image): ImageInfo;
@@ -59,6 +61,7 @@ export function tagDataNormalizer(tag: Tag | Tag[]): TagInfo | TagInfo[] {
       postCount: tag.total_items,
       backgroundImageId: tag.background_hash,
       description: tag.description,
+      accent: tag.accent,
     };
   } else {
     const tags = tag;
@@ -68,6 +71,7 @@ export function tagDataNormalizer(tag: Tag | Tag[]): TagInfo | TagInfo[] {
       postCount: tag.total_items,
       backgroundImageId: tag.background_hash,
       description: tag.description,
+      accent: tag.accent,
     }));
   }
 }
@@ -80,7 +84,7 @@ export function tagPostsDataNormalizer(tagPosts: TagPosts | TagPosts[]): TagPost
       backgroundId: tagPosts.background_id,
       displayName: tagPosts.display,
       description: tagPosts.description,
-      post: postV1DataNormalizer(tagPosts.posts),
+      posts: postV1DataNormalizer(tagPosts.posts),
     };
   } else {
     const tagPostsArray = tagPosts;
@@ -89,9 +93,15 @@ export function tagPostsDataNormalizer(tagPosts: TagPosts | TagPosts[]): TagPost
       backgroundId: tagPost.background_id,
       displayName: tagPost.display,
       description: tagPost.description,
-      post: postV1DataNormalizer(tagPost.posts),
+      posts: postV1DataNormalizer(tagPost.posts),
     }));
   }
+}
+
+export function welcommessageNormalizer(welcomMessage: WelcomeMessage): WelcomMessageInfo {
+  return {
+    message: welcomMessage.message,
+  };
 }
 
 export function postDataNormalizer(post: Post): PostInfo;
