@@ -11,6 +11,6 @@ export interface StyledArticleProps {
 }
 
 export interface StyledTagCardLinkProps {
-  $isfeatured: boolean;
-  $backgroundimageid: string;
+  $isFeatured: boolean;
+  $backgroundImageId: string;
 }
