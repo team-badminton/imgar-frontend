@@ -1,19 +1,20 @@
 import React, { ReactElement } from 'react';
 
 // components
-import { Avatar } from '@/components';
-import { ReactComponent as ArrowIcon } from '@/assets/Icon/arrow.svg';
+import { Avatar, PostNextButton } from '@/components';
 
 // types
 import { PostHeaderProps } from './PostHeader.type';
-import { Content, NextButton, StyledPostHeader, Title } from './PostHeader.styled';
+
+// styles
+import { Content, StyledPostHeader, Title } from './PostHeader.styled';
 
 export default function PostHeader({ className, username, title, metaInfos }: PostHeaderProps): ReactElement {
   return (
     <header className={className}>
       <Title>
         <StyledPostHeader>{title}</StyledPostHeader>;
-        <NextButton size="medium" alt="Next Button" backgroundColor="blue" color="white" text="Next" img={ArrowIcon} />
+        <PostNextButton />
       </Title>
       <Content>
         <Avatar metaInfos={metaInfos} username={username} size="medium" transScaleImage={1.1} infoRows={2} />

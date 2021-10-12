@@ -1,5 +1,6 @@
 export { default as Button } from './Button/Button';
 export { default as Avatar } from './Avatar/Avatar';
+export { default as PostNextButton } from './PostNextButton/PostNextButton';
 export { default as Picture } from './Picture/Picture';
 export { default as PostHeader } from './PostHeader/PostHeader';
 export { default as Video } from './Video/Video';
@@ -27,4 +28,4 @@ export { default as Search } from './Search/Search';
 export { default as Logo } from './Logo/Logo';
 export { default as TabNavigation } from './TabNavigation/TabNavigation';
 export { default as MainContainer } from './MainContainer/MainContainer';
-export { default as TagCard } from './TagCard/TagCard';
+export { default as GalleryHeader } from './GalleryHeader/GalleryHeader';
