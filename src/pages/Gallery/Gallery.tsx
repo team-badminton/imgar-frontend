@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 
 // components
-import { PostComments, PostContents, PostHeader } from '@/components';
+import { PostComments, PostContents, PostHeader, PostSideRelativeList } from '@/components';
 import MainContainer from '@/components/MainContainer/MainContainer';
 
 // assets
@@ -9,7 +9,7 @@ import { ReactComponent as HeartIcon } from '@/assets/Icon/heartIcon.svg';
 import { ReactComponent as CommentIcon } from '@/assets/Icon/commentIcon.svg';
 
 // styles
-import { GalleryContainer, PostSideVoteBar, FavoriteButton, LinkToComment, StyledVote } from './Gallery.styled';
+import { PostContainer, PostSideVoteBar, FavoriteButton, LinkToComment, StyledVote } from './Gallery.styled';
 
 // types
 import { useLocationProps } from './Gallery.type';
@@ -36,7 +36,7 @@ export default function Gallery(): ReactElement {
         'loading'
       ) : (
         <>
-          <GalleryContainer
+          <PostContainer
             css={`
               display: grid;
               column-gap: ${pxToRem(48)};
@@ -91,7 +91,8 @@ export default function Gallery(): ReactElement {
               commentCount={data.commentCount}
               postId={param.id}
             />
-          </GalleryContainer>
+            {/* <PostSideRelativeList></PostSideRelativeList> */}
+          </PostContainer>
           {/* MasonryGallery */}
         </>
       )}

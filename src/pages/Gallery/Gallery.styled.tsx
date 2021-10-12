@@ -7,7 +7,7 @@ import { Button, Vote } from '@/components';
 // utils
 import { pxToRem } from '@/util/styleUtils';
 
-export const GalleryContainer = styled.div`
+export const PostContainer = styled.div`
   position: relative;
   margin: 0 ${({ theme }) => theme.spaceSize.l};
   ${({ theme }) => theme.spaceSize.l};
