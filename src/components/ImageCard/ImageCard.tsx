@@ -36,11 +36,12 @@ export default function ImageCard({
     triggerOnce: true,
     rootMargin: '200px 0px',
   });
-  useEffect(() => {
-    if (inView) {
-      console.log('interesting');
-    }
-  }, [inView]);
+
+  // useEffect(() => {
+  //   if (inView) {
+  //     console.log('interesting');
+  //   }
+  // }, [inView]);
 
   return (
     <Link
