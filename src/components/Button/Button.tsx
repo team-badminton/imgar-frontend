@@ -47,8 +47,13 @@ export default function Button({
         <img className="img" src={img} alt={alt} />
       ) : (
         (() => {
-          const Img = img as React.FC<React.SVGProps<SVGSVGElement>>;
-          return <Img className="img" aria-label={alt} />;
+          const Img = img as React.FC<
+            {
+              title?: string;
+              titleId?: string;
+            } & React.SVGProps<SVGSVGElement>
+          >;
+          return <Img className="img" title={alt} />;
         })()
       )}
       {text && <span className="text">{text}</span>}
