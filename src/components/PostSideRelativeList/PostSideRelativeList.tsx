@@ -11,6 +11,7 @@ import { PostSideRelativeListProps } from './PostSideRelativeList.type';
 
 // etc
 import { Link } from 'react-router-dom';
+import { pxToRem } from '@/util/styleUtils';
 
 export default function PostSideRelativeList({ title, posts, mainPostId }: PostSideRelativeListProps): ReactElement {
   const ContainerRef = useRef<HTMLUListElement>();
@@ -25,15 +26,24 @@ export default function PostSideRelativeList({ title, posts, mainPostId }: PostS
       <Title>{title}</Title>
       <Container ref={ContainerRef}>
         {posts.map(({ id, title, thumbnailImageId, imageCount }) => (
-          <Link key={id} to={`/gallery/${id}`}>
-            <RelativeItem>
+          <RelativeItem key={id}>
+            <Link
+              css={`
+                display: block;
+                display: flex;
+                gap: ${pxToRem(8)};
+                align-items: center;
+                margin-bottom: ${pxToRem(16)};
+              `}
+              to={`/gallery/${id}`}
+            >
               <span className="item-title">{title}</span>
               <ImageContainer>
                 <Picture imageId={thumbnailImageId} imageHeight={64} imageWidth={64} />
                 {imageCount > 1 && <span className="image-count">{imageCount}</span>}
               </ImageContainer>
-            </RelativeItem>
-          </Link>
+            </Link>
+          </RelativeItem>
         ))}
       </Container>
     </div>

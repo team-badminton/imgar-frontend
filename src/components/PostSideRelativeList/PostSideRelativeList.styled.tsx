@@ -37,10 +37,6 @@ export const Container = styled.ul`
 `;
 
 export const RelativeItem = styled.li`
-  display: flex;
-  gap: ${pxToRem(8)};
-  align-items: center;
-  margin-bottom: ${pxToRem(16)};
   img {
     transition: ease 0.4s;
   }
