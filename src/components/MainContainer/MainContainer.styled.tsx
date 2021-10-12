@@ -40,6 +40,7 @@ export const HeaderCover = styled.header<HeaderCoverProps>`
       : ''}
   transition: box-shadow 0.3s;
   padding-top: ${({ headerHeight }) => pxToRem(headerHeight)};
+  z-index: 4;
 `;
 
 export const HeaderContainer = styled.div`
