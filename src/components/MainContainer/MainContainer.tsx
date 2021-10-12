@@ -113,7 +113,6 @@ export default function MainContainer({
           headerHeight={BASIC_HEADER_HEIGHT}
           ref={headerCoverRef}
           hasShadow={showCustomHeader}
-          containerWidth={containerWidth}
         >
           <div
             css={`
