@@ -35,6 +35,7 @@ const Picture = forwardRef<HTMLImageElement, PictureProps>(
           src={src}
           style={style}
           tabIndex={tabIndex}
+          className={className}
         />
       );
     }

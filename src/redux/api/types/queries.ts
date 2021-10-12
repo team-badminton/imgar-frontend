@@ -30,6 +30,7 @@ export interface AccountCommentQuery {
 export interface AccountPostQuery {
   username: string;
   page?: number;
+  sort: 'oldest' | 'newest' | 'best';
 }
 export interface accountFavoriteFolderQuery {
   username: string;

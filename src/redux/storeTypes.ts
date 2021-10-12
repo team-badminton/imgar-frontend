@@ -1,10 +1,12 @@
 import { GalleryQuery } from './api/types/queries';
 
 export interface ListInfo {
-  posts: PostInfo[];
+  posts: PostV1Info[];
   category: GalleryQuery['section'];
   sortOption: GalleryQuery['sort'];
   windowOption: GalleryQuery['window'];
+  queryPage: number;
+  prevPage: number;
   autoPlay: boolean;
   layout: 'waterfall' | 'uniform';
 }
@@ -111,6 +113,7 @@ export interface MedalInfo {
 export interface PostCommentInfo {
   id: string;
   postId: string;
+  cover?: string;
   comment: string;
   author: string;
   upCount: number;
