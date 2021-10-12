@@ -3,7 +3,7 @@ import Tooltip from '@/components/Tooltip/Tooltip';
 import { useAccountQuery } from '@/redux/api';
 import { formattedNumber } from '@/util/formatUtils';
 import { convertLink, pxToRem } from '@/util/styleUtils';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import React, { ReactElement } from 'react';
 import { useParams } from 'react-router';
 import {
@@ -63,7 +63,7 @@ export default function ProfileAbout(): ReactElement {
       >
         <DescriptionItem headline="ABOUT">{convertLink(data?.bio)}</DescriptionItem>
         <DescriptionItem headline="JOINED" large>
-          {data && moment(data.createdDate).format('MMMM D, YYYY')}
+          {data && dayjs(data.createdDate).format('MMMM D, YYYY')}
         </DescriptionItem>
         <DescriptionItem headline="INTERNET POINTS" large>
           {data && formattedNumber(data?.points)}
