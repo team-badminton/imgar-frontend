@@ -27,7 +27,6 @@ export default function SortList({ items, selectedItem, setItem }: Props): React
       <SelectBoxHeader onClickHandler={toggleList}>{camelCaseToUpperCase(selectedItem)}</SelectBoxHeader>
       <SelectBoxList isShow={isShow} onClickHandler={selectHandler}>
         {items.map(item => {
-          console.log(item, selectedItem);
           return (
             <button key={item} data-item={item} css={item === selectedItem ? 'font-weight: bold;' : null}>
               {camelCaseToUpperCase(item)}

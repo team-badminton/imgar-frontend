@@ -52,7 +52,7 @@ export const HeaderContainer = styled.div`
 
 export const MainSection = styled.main<MainSectionProps>`
   min-height: calc(100vh - ${({ coverHeight }) => pxToRem(coverHeight)});
-  ${({ containerWidth }) => `width: ${pxToRem(containerWidth)};`}
+  ${({ containerWidth }) => `width: ${containerWidth ? pxToRem(containerWidth) : '100%'};`}
   position: relative;
   margin: 0 auto;
   padding-bottom: ${({ theme }) => theme.spaceSize.xl};
