@@ -75,6 +75,7 @@ export interface TagPostInfo {
   backgroundId: string;
   displayName: string;
   description: string;
+  postCount: number;
   posts: PostV1Info[];
 }
 
