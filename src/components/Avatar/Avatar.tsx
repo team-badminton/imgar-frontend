@@ -38,7 +38,7 @@ export default function Avatar({
     <StyledAvatar className={className} size={size} transScaleImage={transScaleImage}>
       <Link to={PROFILE_LINK}>
         <Picture
-          alt={`profile image of ${username}`}
+          alt={`profile of ${username}`}
           isCircle
           src={`https://imgur.com/user/${username}/avatar`}
           imageWidth={size === 'medium' ? 32 : 24}

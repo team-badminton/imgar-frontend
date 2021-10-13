@@ -33,9 +33,15 @@ export const StyledVideo = styled(Video)<StyledVideoProps>`
 `;
 
 export const StyledPicture = styled(Picture)<StyledPictureProps>`
-  margin-bottom: ${({ theme }) => theme.spaceSize.l};
   img {
     margin: 0 auto ${({ theme }) => theme.spaceSize.l};
+    cursor: ${({ isZoomAble, isVisibleModal }) => (isVisibleModal && 'zoom-out') || (isZoomAble && 'zoom-in')};
+    display: block;
+  }
+`;
+
+export const ModalPicture = styled(Picture)<StyledPictureProps>`
+  img {
     cursor: ${({ isZoomAble, isVisibleModal }) => (isVisibleModal && 'zoom-out') || (isZoomAble && 'zoom-in')};
     display: block;
   }

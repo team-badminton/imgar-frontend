@@ -1,7 +1,7 @@
 import { Loading, MainContainer, MasonryGallery } from '@/components';
 import { useTypedDispatch, useTypedSelector } from '@/redux';
 import { useSearchQuery } from '@/redux/api';
-import { GallerySearchQuery } from '@/redux/api/types/queries';
+import { GallerySearchQuery, SearchUrlQuery } from '@/redux/api/types/queries';
 import { masonryGalleryWidthSelector } from '@/redux/slices/displayReducer';
 import { setQueryPage } from '@/redux/slices/listInfoReducer';
 import { PostV1Info } from '@/redux/storeTypes';
@@ -24,7 +24,21 @@ function CustomHeader(): ReactElement {
 
 export default function SearchResult(): ReactElement {
   const location = useLocation();
-  const searchQuery = useMemo(() => new URLSearchParams(location.search).get('q'), [location.search]);
+  const searchQuery = useMemo<SearchUrlQuery>(() => {
+    const urlParams = new URLSearchParams(location.search);
+    return {
+      q: urlParams.get('q'),
+      q_all: urlParams.get('q_all'),
+      q_any: urlParams.get('q_any'),
+      q_exactly: urlParams.get('q_exactly'),
+      q_not: urlParams.get('q_not'),
+      q_tags: urlParams.get('q_tags'),
+      q_type: urlParams.get('q_type'),
+      q_size_px: urlParams.get('q_size_px'),
+      q_size_mpx: urlParams.get('q_size_mpx'),
+      q_size_is_mpx: urlParams.get('q_size_is_mpx'),
+    };
+  }, [location.search]);
   const page = useTypedSelector(state => state.listInfo.queryPage);
   const [posts, setPosts] = React.useState<PostV1Info[]>([]);
 
@@ -35,7 +49,7 @@ export default function SearchResult(): ReactElement {
   const galleryWidth = useTypedSelector(masonryGalleryWidthSelector);
 
   const { data } = useSearchQuery({
-    keyword: searchQuery,
+    query: searchQuery,
     page,
     sort: sort1Query[sort1] as GallerySearchQuery['sort'],
     window: sort1Query[sort1] === 'top' ? sort2 : null,
@@ -85,7 +99,7 @@ export default function SearchResult(): ReactElement {
 
   return (
     <MainContainer
-      headerCover={<SearchResultCover />}
+      headerCover={<SearchResultCover isFetching={isFetching} />}
       headerBackground="https://s.imgur.com/desktop-assets/desktop-assets/homebg.e52b5cdf24f83bcd55f9f1318855f2ef.png"
       containerWidth={galleryWidth}
     >
