@@ -14,7 +14,6 @@ export const StyledTagCardLink = styled(Link)<StyledTagCardLinkProps>`
   overflow: hidden;
   border-radius: ${({ theme }) => theme.borderRadius.s};
   margin: ${({ theme }) => theme.spaceSize.xs};
-  order: ${({ $isFeatured }) => ($isFeatured ? -1 : 0)};
 `;
 
 export const StyledArticle = styled.article<StyledArticleProps>`

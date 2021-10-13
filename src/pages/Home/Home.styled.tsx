@@ -19,7 +19,6 @@ export const StyledTagHeading = styled.h2`
   color: ${({ theme }) => theme.color.white};
   width: 100%;
   margin-left: 4px;
-  order: -2;
 `;
 
 export const StyledArticle = styled.article<StyledArticleProps>`
@@ -29,7 +28,6 @@ export const StyledArticle = styled.article<StyledArticleProps>`
   flex-wrap: wrap;
   height: ${({ isOpen }) => (isOpen ? '' : 156 + 'px')};
   overflow: ${({ isOpen }) => (isOpen ? '' : 'hidden')};
-
   width: ${({ articleWidth }) => articleWidth + 'px'};
   max-width: 2280px;
 `;
