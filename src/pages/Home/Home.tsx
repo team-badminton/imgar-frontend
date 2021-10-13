@@ -39,7 +39,7 @@ export default function Home(): ReactElement {
           </StyledWelcomeMessage>
           <StyledArticle isOpen={isOpen} articleWidth={TAGS_WIDTH__PX}>
             <StyledTagHeading>EXPLORE TAG</StyledTagHeading>
-            {tags?.map(tag => {
+            {tags?.slice(0, !isOpen ? Math.floor((innerWidth - 100) / 118) : tags.length).map(tag => {
               return <TagCard key={tag.name} tag={tag} />;
             })}
             <StyledMoreTagsButton
