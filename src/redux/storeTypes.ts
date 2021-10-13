@@ -10,8 +10,10 @@ export interface ListInfo {
   prevPage: number;
   autoPlay: boolean;
   layout: 'waterfall' | 'uniform';
-  latestQueryFn: (...args: unknown[]) => unknown;
-  latestQueryOption: unknown;
+  latestQuery: {
+    name: 'gallery' | 'search' | 'userPosts' | 'userFavorites';
+    option: any;
+  };
 }
 
 export interface PostInfo {
