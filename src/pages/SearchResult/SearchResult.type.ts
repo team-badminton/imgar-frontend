@@ -5,3 +5,7 @@ export interface SearchResultPostHeaderState {
   setSort: (((s: SearchResultPostSort1) => void) | ((s: SearchResultPostSort2) => void))[];
   sorted: (SearchResultPostSort1 | SearchResultPostSort2)[];
 }
+
+export interface AdvancedSearchContainerProps {
+  columns: number;
+}
