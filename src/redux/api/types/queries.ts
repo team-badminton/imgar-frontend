@@ -8,7 +8,19 @@ export interface GallerySearchQuery {
   sort?: 'viral' | 'top' | 'time';
   window?: 'day' | 'week' | 'month' | 'year' | 'all';
   page?: number;
-  keyword: string;
+  query: SearchUrlQuery;
+}
+export interface SearchUrlQuery {
+  q?: string;
+  q_any?: string;
+  q_all?: string;
+  q_exactly?: string;
+  q_not?: string;
+  q_tags?: string;
+  q_type?: string;
+  q_size_px?: string;
+  q_size_mpx?: string;
+  q_size_is_mpx?: string;
 }
 export interface TagPostsQuery {
   tagName: string;

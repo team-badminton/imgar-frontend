@@ -5,6 +5,7 @@ export const StyledSection = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 100px;
 `;
 
 export const StyledWelcomeMessage = styled.h2`
@@ -21,10 +22,19 @@ export const StyledTagHeading = styled.h2`
 `;
 
 export const StyledArticle = styled.article<StyledArticleProps>`
+  position: relative;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  height: ${({ isOpen }) => (isOpen ? '' : 156 + 'px')};
+  overflow: ${({ isOpen }) => (isOpen ? '' : 'hidden')};
   width: ${({ articleWidth }) => articleWidth + 'px'};
-  padding-bottom: 100px;
   max-width: 2280px;
+`;
+
+export const StyledMoreTagsButton = styled.button`
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: ${({ theme }) => theme.color.white};
 `;

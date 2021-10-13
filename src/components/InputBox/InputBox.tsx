@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react';
 import { StyledInput, StyledLabel } from './InputBox.styled';
 import { InputBoxProps } from './InputBox.type';
 
-export default function InputBox({ labelText, placeholder, value, setValue }: InputBoxProps): ReactElement {
+function InputBox({ labelText, placeholder, value, setValue, type = 'text' }: InputBoxProps): ReactElement {
   const idHash = createRandomHash();
   return (
     <div
@@ -19,7 +19,10 @@ export default function InputBox({ labelText, placeholder, value, setValue }: In
         value={value}
         placeholder={placeholder}
         onChange={e => setValue(e.target.value)}
+        type={type}
       ></StyledInput>
     </div>
   );
 }
+
+export default React.memo(InputBox);
