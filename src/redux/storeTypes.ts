@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { GalleryQuery } from './api/types/queries';
 
 export interface ListInfo {
@@ -9,6 +10,8 @@ export interface ListInfo {
   prevPage: number;
   autoPlay: boolean;
   layout: 'waterfall' | 'uniform';
+  latestQueryFn: (...args: unknown[]) => unknown;
+  latestQueryOption: unknown;
 }
 
 export interface PostInfo {
@@ -45,7 +48,7 @@ export interface PostV1Info {
   commentCount: number;
   favoriteCount: number;
   imageCount: number;
-  type: 'image/jpeg' | 'image/png' | 'video/mp4';
+  type: 'image/jpeg' | 'image/png' | 'video/mp4' | 'image/gif';
   hasSound: boolean;
   isAlbum: boolean;
 }
@@ -78,7 +81,7 @@ export interface WelcomMessageInfo {
 export interface ImageInfo {
   id: string;
   description: string | null;
-  type: 'image/jpeg' | 'image/png' | 'video/mp4';
+  type: 'image/jpeg' | 'image/png' | 'video/mp4' | 'image/gif';
   hasSound: boolean;
   imageWidth: number;
   imageHeight: number;

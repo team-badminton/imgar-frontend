@@ -89,7 +89,7 @@ export default function MainContainer({
       headerCoverRef.current.style.transform = `translate3d(0px, ${
         isOverThreshold2 ? `-${coverHeight - headerHeight}px` : `${coverPosition}px`
       }, 0px)`;
-      headerCoverRef.current.style.zIndex = isOverThreshold2 ? '6' : null;
+      headerCoverRef.current.style.zIndex = isOverThreshold2 ? '6' : noOffset ? '6' : null;
       headerCoverRef.current.style.background = isOverThreshold2 ? null : headerCover ? null : 'transparent';
 
       headerContainerRef.current.style.transform = `translate3d(0, ${
@@ -114,12 +114,15 @@ export default function MainContainer({
           headerHeight={BASIC_HEADER_HEIGHT}
           ref={headerCoverRef}
           hasShadow={showCustomHeader}
-          containerWidth={containerWidth}
           headerCoverWidth={headerCoverWidth}
         >
           <div
             css={`
-              width: ${headerCoverWidth ? pxToRem(headerCoverWidth) : pxToRem(containerWidth)};
+              width: ${headerCoverWidth
+                ? pxToRem(headerCoverWidth)
+                : containerWidth
+                ? pxToRem(containerWidth)
+                : '100%'};
               min-width: ${pxToRem(450)};
             `}
           >

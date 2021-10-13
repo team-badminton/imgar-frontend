@@ -7,6 +7,7 @@ import { PostV1Info } from '@/redux/storeTypes';
 import React, { ReactElement, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useParams } from 'react-router-dom';
+import { Notice } from '../Profile.styled';
 import { ProfilePostSort } from './ProfilePosts.type';
 import ProfilePostsHeader from './ProfilePostsHeader';
 
@@ -63,7 +64,13 @@ export default function ProfilePosts(): ReactElement {
           />,
           document.querySelector('.ProfileCover'),
         )}
-      {isFetching ? <Loading /> : <MasonryGallery posts={posts} />}
+      {isFetching ? (
+        <Loading />
+      ) : posts.length ? (
+        <MasonryGallery posts={posts} />
+      ) : (
+        <Notice>This user has no posts</Notice>
+      )}
     </>
   );
 }
