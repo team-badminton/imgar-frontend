@@ -107,8 +107,8 @@ export const imgurApi = createApi({
       },
     }),
     tagPosts: builder.query<TagPostInfo, TagPostsQuery>({
-      query: ({ tagName, page = 1 }) =>
-        `post/v1/posts/t/${tagName}?filter[window]=week&include=adtiles,adconfig,cover&page=${page}&sort=-time`,
+      query: ({ tagName, page = 1, sortOption = 'time' }) =>
+        `post/v1/posts/t/${tagName}?filter[window]=week&include=adtiles,adconfig,cover&page=${page}&sort=-${sortOption}`,
       transformResponse: (data: TagPosts) => {
         return tagPostsDataNormalizer(data);
       },
