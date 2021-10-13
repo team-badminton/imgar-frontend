@@ -10,8 +10,10 @@ export interface ListInfo {
   prevPage: number;
   autoPlay: boolean;
   layout: 'waterfall' | 'uniform';
-  latestQueryFn: (...args: unknown[]) => unknown;
-  latestQueryOption: unknown;
+  latestQuery: {
+    name: 'gallery' | 'search' | 'userPosts' | 'userFavorites';
+    option: any;
+  };
 }
 
 export interface PostInfo {
@@ -62,6 +64,10 @@ export interface TagInfo {
   accent: string;
 }
 
+export interface FeaturedTagInfo extends TagInfo {
+  isFeatured: boolean;
+}
+
 export interface TagPostInfo {
   accent: string;
   backgroundId: string;
@@ -88,7 +94,6 @@ export interface DisplayInfo {
   innerWidth: number;
   innerHeight: number;
   masonryGalleryWidth: number;
-  totalColumnNum: number;
 }
 
 export interface SuggestInfo {

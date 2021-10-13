@@ -14,20 +14,22 @@ export default function MasonryGalleryContainer(): ReactElement {
   const prevPage = useTypedSelector(state => state.listInfo.prevPage);
   const posts = useTypedSelector(state => state.listInfo.posts);
 
-  const { data, isLoading } =
+  const galleryQueryOption =
     category !== 'highestScoring'
-      ? useGalleryQuery({
+      ? {
           section: category,
-          sort: sortOption,
           // window: windowOption,
+          sort: sortOption,
           page: queryPage,
-        })
-      : useGalleryQuery({
+        }
+      : {
           section: category,
           // sort: sortOption,
           window: windowOption,
           page: queryPage,
-        });
+        };
+
+  const { data, isLoading } = useGalleryQuery(galleryQueryOption);
 
   useEffect(() => {
     if (!isLoading) {

@@ -9,7 +9,6 @@ const initialState: DisplayInfo = {
   innerHeight: null,
   innerWidth: null,
   masonryGalleryWidth: null,
-  totalColumnNum: null,
 };
 
 export const displaySlice = createSlice({
