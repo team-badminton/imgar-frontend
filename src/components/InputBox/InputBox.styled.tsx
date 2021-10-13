@@ -2,8 +2,10 @@ import { pxToRem } from '@/util/styleUtils';
 import styled from 'styled-components';
 
 export const StyledLabel = styled.label`
+  width: 20%;
   color: ${({ theme }) => theme.color.white};
-  margin-right: ${({ theme }) => theme.spaceSize.s};
+  margin-right: ${({ theme }) => theme.spaceSize.m};
+  text-align: right;
 `;
 
 export const StyledInput = styled.input`
