@@ -88,7 +88,6 @@ export interface DisplayInfo {
   innerWidth: number;
   innerHeight: number;
   masonryGalleryWidth: number;
-  totalColumnNum: number;
 }
 
 export interface SuggestInfo {
