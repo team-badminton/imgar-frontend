@@ -98,6 +98,7 @@ export function tagPostsDataNormalizer(tagPosts: TagPosts | TagPosts[]): TagPost
       backgroundId: tagPosts.background_id,
       displayName: tagPosts.display,
       description: tagPosts.description,
+      postCount: tagPosts.post_count,
       posts: postV1DataNormalizer(tagPosts.posts),
     };
   } else {
@@ -107,6 +108,7 @@ export function tagPostsDataNormalizer(tagPosts: TagPosts | TagPosts[]): TagPost
       backgroundId: tagPost.background_id,
       displayName: tagPost.display,
       description: tagPost.description,
+      postCount: tagPost.post_count,
       posts: postV1DataNormalizer(tagPost.posts),
     }));
   }
