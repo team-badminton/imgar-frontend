@@ -1,4 +1,5 @@
 import { Loading, MainContainer, MasonryGallery } from '@/components';
+import useUpdateLatestQuery from '@/hooks/useUpdateLatestQuery';
 import { useTypedDispatch, useTypedSelector } from '@/redux';
 import { useSearchQuery } from '@/redux/api';
 import { GallerySearchQuery, SearchUrlQuery } from '@/redux/api/types/queries';
@@ -47,13 +48,16 @@ export default function SearchResult(): ReactElement {
 
   const [isFetching, setIsFetching] = React.useState<boolean>(false);
   const galleryWidth = useTypedSelector(masonryGalleryWidthSelector);
-
-  const { data } = useSearchQuery({
+  const option = {
     query: searchQuery,
     page,
     sort: sort1Query[sort1] as GallerySearchQuery['sort'],
     window: sort1Query[sort1] === 'top' ? sort2 : null,
-  });
+  };
+  const { data } = useSearchQuery(option);
+
+  useUpdateLatestQuery('search', option);
+
   const dispatch = useTypedDispatch();
 
   const sortArray = useMemo(() => [sort1, sort2], [sort1, sort2]);
