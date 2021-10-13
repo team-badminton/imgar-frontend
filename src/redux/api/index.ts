@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { transform } from 'lodash';
 import {
+  FeaturedTagInfo,
   FolderInfo,
   PostCommentInfo,
   PostInfo,
@@ -23,6 +24,7 @@ import {
   tagDataNormalizer,
   tagPostsDataNormalizer,
   welcommessageNormalizer,
+  featuredTagDataNormalizer,
 } from './normalizers';
 import {
   AccountComment,
@@ -83,19 +85,19 @@ export const imgurApi = createApi({
         return postV1DataNormalizer(data);
       },
     }),
-    search: builder.query<PostInfo[], GallerySearchQuery>({
-      query: ({ sort = 'time', window = 'all', page = 1, keyword }) =>
-        `3/gallery/search/${sort}/${window}/${page}?q=${keyword}`,
+    search: builder.query<PostV1Info[], GallerySearchQuery>({
+      query: ({ sort = 'time', window = 'all', page = 0, keyword }) =>
+        `3/gallery/search/${sort}/${window}/${page}?q_all=${keyword}`,
       transformResponse: (res: { data: Post[] }) => {
         const { data } = res;
-        return postDataNormalizer(data);
+        return postV3ToV1DataNormalizer(data);
       },
     }),
-    tag: builder.query<TagInfo[], null>({
+    tag: builder.query<FeaturedTagInfo[], null>({
       query: () => `3/tags`,
-      transformResponse: (res: { data: { tags: Tag[] } }) => {
+      transformResponse: (res: { data: { featured: string; tags: Tag[] } }) => {
         const { data } = res;
-        return tagDataNormalizer(data.tags);
+        return featuredTagDataNormalizer(data);
       },
     }),
     tagPosts: builder.query<TagPostInfo, TagPostsQuery>({

@@ -21,7 +21,6 @@ export interface HeaderCoverProps {
   headerHeight: number;
   darkenBackground?: boolean;
   headerCoverPosition: HeaderProps['headerCoverPosition'];
-  containerWidth?: number;
   headerCoverWidth?: number;
 }
 

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { StyledArticleProps, StyledTagCardLinkProps } from './TagCrad.type';
 
 export const StyledTagCardLink = styled(Link)<StyledTagCardLinkProps>`
-  width: ${({ $isFeatured }) => ($isFeatured ? 220 + 'px' : 110 + 'px')};
+  width: ${({ $isFeatured }) => ($isFeatured ? 228 + 'px' : 110 + 'px')};
   height: 130px;
   display: inline-block;
   position: relative;

@@ -21,7 +21,7 @@ export const TooltipWrapper = styled(Link)`
 export const TooltipBox = styled.div<TooltipBoxProps>`
   position: absolute;
   display: flex;
-  z-index: 1;
+  z-index: 5;
   justify-content: center;
   align-items: center;
   animation: ${TooltipAppearAnimation} 0.2s backwards;

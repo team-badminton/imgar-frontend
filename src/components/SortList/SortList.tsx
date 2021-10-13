@@ -7,6 +7,10 @@ interface Props {
   setItem: (item: string) => void;
 }
 
+function camelCaseToUpperCase(str: string) {
+  return str.replace(/([a-z])([A-Z])/g, '$1 $2').toUpperCase();
+}
+
 export default function SortList({ items, selectedItem, setItem }: Props): ReactElement {
   const [isShow, setIsShow] = useState<boolean>(false);
   const selectHandler = useCallback<React.MouseEventHandler<HTMLUListElement>>(e => {
@@ -17,15 +21,18 @@ export default function SortList({ items, selectedItem, setItem }: Props): React
     setIsShow(false);
   }, []);
   const toggleList: React.MouseEventHandler<HTMLButtonElement> = () => setIsShow(state => !state);
+
   return (
     <SelectBox>
-      <SelectBoxHeader onClickHandler={toggleList}>{selectedItem.toUpperCase()}</SelectBoxHeader>
+      <SelectBoxHeader onClickHandler={toggleList}>{camelCaseToUpperCase(selectedItem)}</SelectBoxHeader>
       <SelectBoxList isShow={isShow} onClickHandler={selectHandler}>
-        {items.map(item => (
-          <button key={item} data-item={item} css={item === selectedItem ? 'font-weight: bold;' : null}>
-            {item.toUpperCase()}
-          </button>
-        ))}
+        {items.map(item => {
+          return (
+            <button key={item} data-item={item} css={item === selectedItem ? 'font-weight: bold;' : null}>
+              {camelCaseToUpperCase(item)}
+            </button>
+          );
+        })}
       </SelectBoxList>
     </SelectBox>
   );

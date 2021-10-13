@@ -6,13 +6,15 @@ import { setQueryPage } from '@/redux/slices/listInfoReducer';
 import { PostV1Info } from '@/redux/storeTypes';
 import React, { ReactElement, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
+import { Notice } from '../Profile.styled';
 import { ProfileFavoriteSort } from './ProfileFavorite.type';
 import ProfileFavoriteFolders from './ProfileFavoriteFolders';
 import ProfileFavoriteHeader from './ProfileFavoriteHeader';
 
 export default function ProfileFavorite(): ReactElement {
   const [sort, setSort] = useState<ProfileFavoriteSort>('oldest');
+  const { pathname } = useLocation();
   const { folderId, username } = useParams<{ folderId: string; username: string }>();
   const page = useTypedSelector(state => state.listInfo.queryPage);
   const { data } = useAccountFolderPostsQuery({ folderId, username, sort, page });
@@ -24,7 +26,8 @@ export default function ProfileFavorite(): ReactElement {
 
   useEffect(() => {
     dispatch(setQueryPage(0));
-  }, []);
+    setIsFetching(true);
+  }, [pathname]);
 
   useEffect(() => {
     setIsFetching(true);
@@ -62,7 +65,13 @@ export default function ProfileFavorite(): ReactElement {
           </>,
           document.querySelector('.ProfileCover'),
         )}
-      {isFetching ? <Loading /> : <MasonryGallery posts={posts} />}
+      {isFetching ? (
+        <Loading />
+      ) : posts.length ? (
+        <MasonryGallery posts={posts} />
+      ) : (
+        <Notice>This Imgarian doesn&apos;t have any favorites yet.</Notice>
+      )}
     </>
   );
 }

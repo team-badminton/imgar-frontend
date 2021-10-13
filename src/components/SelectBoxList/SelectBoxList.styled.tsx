@@ -19,4 +19,5 @@ export const StyledSelectBoxListUL = styled.ul<StyledSelectBoxListULProps>`
     padding: ${({ theme }) => theme.spaceSize.s} ${({ theme }) => theme.spaceSize.m};
     text-align: left;
   }
+  z-index: 999;
 `;
