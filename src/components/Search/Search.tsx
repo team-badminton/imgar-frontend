@@ -64,7 +64,7 @@ export default React.memo(function Search({ className }: SearchProps): ReactElem
 
   return (
     <SearchContainer
-      className={`search-container ${className}`}
+      className={`search-container ${className ?? ''}`}
       onFocus={() => {
         setFocus(true);
       }}
