@@ -65,6 +65,7 @@ export default React.forwardRef(function SearchBar(
         value={inputValue ?? ''}
         onChange={onChangeHandler}
         ref={inputRef}
+        autoComplete="off"
       />
       <SearchBarButton type="submit" aria-label="Submit" />
     </SearchBarContainer>
