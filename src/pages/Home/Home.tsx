@@ -56,7 +56,7 @@ export default function Home(): ReactElement {
           </StyledArticle>
         </StyledSection>
       }
-      customHeader={<div>커스템 헤더에 들어갈 내용 테스트</div>}
+      customHeader={null}
       containerWidth={galleryWidth}
       headerCoverWidth={TAGS_WIDTH__PX}
     >
