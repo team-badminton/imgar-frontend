@@ -61,7 +61,7 @@ body *::after {
   box-sizing: border-box;
 }
 
-:focus {
+:focus:not(::focus-visible) {
   outline:3px solid ${({ theme }) => theme.color.white}; 
   outline-offset: ${pxToRem(2)};
 }
