@@ -1,19 +1,16 @@
+import React, { Fragment, ReactElement, useEffect, useLayoutEffect, useState } from 'react';
+import { useTypedDispatch, useTypedSelector } from '@/redux';
+import { useInView } from 'react-intersection-observer';
+import { pxToRem } from '@/util/styleUtils';
+import { setQueryPage } from '@/redux/slices/listInfoReducer';
 import {
   IMAGECARD_HEIGHT_EXCLUDING_IMAGE__REM,
   IMAGECARD_UNIFORM_HEIGHT__PX,
   IMAGECARD_WIDTH_PX,
   IMAGE_MAX_HEIGHT_PX,
 } from '@/components/ImageCard/ImageCard.styled';
-import { useInView } from 'react-intersection-observer';
-import { useTypedDispatch, useTypedSelector } from '@/redux';
-import { useGalleryQuery } from '@/redux/api';
-import { getFetch, setQueryPage } from '@/redux/slices/listInfoReducer';
-import { createRandomHash } from '@/util/formatUtils';
-import { pxToRem } from '@/util/styleUtils';
-import React, { Fragment, ReactElement, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
-// import { useHistory, useLocation, useParams } from 'react-router-dom';
-import { COLUMN_GAP__PX, ROW_GAP__PX, StyledImageCard } from './MasonryGallery.styled';
 import { MasonryGalleryProps, SetPositionProps } from './MasonryGallery.type';
+import { COLUMN_GAP__PX, ROW_GAP__PX, StyledImageCard } from './MasonryGallery.styled';
 
 export default function MasonryGallery({ posts }: MasonryGalleryProps): ReactElement {
   const dispatch = useTypedDispatch();
@@ -23,7 +20,6 @@ export default function MasonryGallery({ posts }: MasonryGalleryProps): ReactEle
   const layoutOption = useTypedSelector(state => state.listInfo.layout);
   const [totalColumn, setTotalColumn] = useState<number>();
   const containerRef = React.useRef<HTMLElement>(null);
-  const masonryGalleryObserverRef = React.useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     const resizeObserver = new ResizeObserver(() => {
@@ -52,7 +48,6 @@ export default function MasonryGallery({ posts }: MasonryGalleryProps): ReactEle
   } = {};
 
   const { ref: observerRef, inView: observerInView } = useInView();
-  const { ref: imageRef, inView: imageInView } = useInView();
 
   useEffect(() => {
     if (observerInView) {
