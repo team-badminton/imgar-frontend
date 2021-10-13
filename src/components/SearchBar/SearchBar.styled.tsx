@@ -19,13 +19,13 @@ export const SearchBarContainer = styled.form`
   }
 `;
 
-export const SearchBarButton = React.memo(styled.button`
+export const SearchBarButton = styled.button`
   appearance: none;
   border: none;
   background: url(${searchIconUrl}) no-repeat center / contain;
-  height: 100%;
+  height: ${({ theme }) => theme.spaceSize.l};
   width: ${({ theme }) => theme.spaceSize.l};
-`);
+`;
 
 export const SearchBarInput = styled.input`
   width: 100%;
