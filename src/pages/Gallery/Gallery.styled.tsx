@@ -11,12 +11,12 @@ export const PostContainer = styled.div`
   position: relative;
   margin: 0 ${({ theme }) => theme.spaceSize.l};
   max-width: ${pxToRem(1250)};
-  margin-top: ${pxToRem(30)};
+  padding-top: ${pxToRem(55)};
 `;
 
 export const PostSideVoteBar = styled.div`
   position: sticky;
-  top: ${pxToRem(140)};
+  top: ${pxToRem(250)};
   display: flex;
   width: ${pxToRem(58)};
   flex-direction: column;
