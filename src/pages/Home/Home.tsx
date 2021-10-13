@@ -39,9 +39,13 @@ export default function Home(): ReactElement {
           </StyledWelcomeMessage>
           <StyledArticle isOpen={isOpen} articleWidth={TAGS_WIDTH__PX}>
             <StyledTagHeading>EXPLORE TAG</StyledTagHeading>
-            {tags?.slice(0, !isOpen ? Math.floor((innerWidth - 100) / 118) : tags.length).map(tag => {
-              return <TagCard key={tag.name} tag={tag} />;
-            })}
+            {tags &&
+              [...tags]
+                .sort((a, b) => +b.isFeatured - +a.isFeatured)
+                ?.slice(0, !isOpen ? Math.floor((innerWidth - 100) / 118) : tags.length)
+                .map(tag => {
+                  return <TagCard key={tag.name} tag={tag} isFeatured={tag.isFeatured} />;
+                })}
             <StyledMoreTagsButton
               onClick={() => {
                 setIsOpen(!isOpen);

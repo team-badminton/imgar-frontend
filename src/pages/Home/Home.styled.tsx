@@ -19,6 +19,7 @@ export const StyledTagHeading = styled.h2`
   color: ${({ theme }) => theme.color.white};
   width: 100%;
   margin-left: 4px;
+  order: -2;
 `;
 
 export const StyledArticle = styled.article<StyledArticleProps>`
