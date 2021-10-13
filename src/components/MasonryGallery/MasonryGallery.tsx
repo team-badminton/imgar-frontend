@@ -10,16 +10,21 @@ import {
   IMAGE_MAX_HEIGHT_PX,
 } from '@/components/ImageCard/ImageCard.styled';
 import { MasonryGalleryProps, SetPositionProps } from './MasonryGallery.type';
-import { COLUMN_GAP__PX, ROW_GAP__PX, StyledImageCard } from './MasonryGallery.styled';
+import { COLUMN_GAP__PX, ROW_GAP__PX, StyledImageCard, StyledSection } from './MasonryGallery.styled';
 
 export default function MasonryGallery({ posts }: MasonryGalleryProps): ReactElement {
   const dispatch = useTypedDispatch();
-  const queryPage = useTypedSelector(state => state.listInfo.queryPage);
   // 리덕스 전역 상태
+  const queryPage = useTypedSelector(state => state.listInfo.queryPage);
   const isAutoPlay = useTypedSelector(state => state.listInfo.autoPlay);
   const layoutOption = useTypedSelector(state => state.listInfo.layout);
+
+  // 상태
   const [totalColumn, setTotalColumn] = useState<number>();
+
+  // Ref
   const containerRef = React.useRef<HTMLElement>(null);
+  const { ref: observerRef, inView: observerInView } = useInView();
 
   useLayoutEffect(() => {
     const resizeObserver = new ResizeObserver(() => {
@@ -47,8 +52,6 @@ export default function MasonryGallery({ posts }: MasonryGalleryProps): ReactEle
     [key: string]: SetPositionProps;
   } = {};
 
-  const { ref: observerRef, inView: observerInView } = useInView();
-
   useEffect(() => {
     if (observerInView) {
       dispatch(setQueryPage(queryPage + 1));
@@ -57,14 +60,7 @@ export default function MasonryGallery({ posts }: MasonryGalleryProps): ReactEle
 
   return (
     <>
-      <section
-        css={`
-          position: relative;
-          margin: 0 auto;
-          width: 100%;
-        `}
-        ref={containerRef}
-      >
+      <StyledSection ref={containerRef}>
         {posts.map((postInfo, index) => {
           const row = Math.floor(index / totalColumn);
           const column = index % totalColumn;
@@ -117,7 +113,7 @@ export default function MasonryGallery({ posts }: MasonryGalleryProps): ReactEle
             </Fragment>
           );
         })}
-      </section>
+      </StyledSection>
     </>
   );
 }
