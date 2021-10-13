@@ -36,7 +36,7 @@ export default function ProfileCommentItem({ postId, comment, points, dateTime, 
         <ProfileCommentItemThumbnail src={`https://i.imgur.com/${cover}b.png`} imageWidth={77} imageHeight={77} />
       </Link>
       <ProfileCommentItemContainer>
-        <p>{convertLink(comment, true)}</p>
+        {convertLink(comment, true)}
         <ProfileCommentItemInfo>
           <span>
             <UpIconSVG width="12" height="12" />
