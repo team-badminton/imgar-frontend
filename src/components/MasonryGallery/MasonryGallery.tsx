@@ -9,7 +9,7 @@ import {
   IMAGECARD_WIDTH_PX,
   IMAGE_MAX_HEIGHT_PX,
 } from '@/components/ImageCard/ImageCard.styled';
-import { MasonryGalleryProps, SetPositionProps } from './MasonryGallery.type';
+import { ImageCardPositionInfosType, MasonryGalleryProps, SetPositionProps } from './MasonryGallery.type';
 import { COLUMN_GAP__PX, ROW_GAP__PX, StyledImageCard, StyledSection } from './MasonryGallery.styled';
 
 export default function MasonryGallery({ posts }: MasonryGalleryProps): ReactElement {
@@ -48,15 +48,13 @@ export default function MasonryGallery({ posts }: MasonryGalleryProps): ReactEle
     return () => resizeObserver.disconnect();
   }, []);
 
-  const ImageCardPositionInfos: {
-    [key: string]: SetPositionProps;
-  } = {};
-
   useEffect(() => {
     if (observerInView) {
       dispatch(setQueryPage(queryPage + 1));
     }
   }, [observerInView]);
+
+  const ImageCardPositionInfos: ImageCardPositionInfosType = {};
 
   return (
     <>

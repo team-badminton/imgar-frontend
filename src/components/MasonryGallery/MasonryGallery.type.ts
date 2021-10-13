@@ -14,3 +14,7 @@ export interface SetPositionProps {
 export interface StyledImageCardProps {
   setPositionProps: SetPositionProps;
 }
+
+export interface ImageCardPositionInfosType {
+  [key: string]: SetPositionProps;
+}
