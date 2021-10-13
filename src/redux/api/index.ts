@@ -91,6 +91,7 @@ export const imgurApi = createApi({
         Object.entries(query).forEach(([key, value]) => {
           queryString += value ? `${key}=${value}&` : '';
         });
+        queryString = queryString.replace(/&$/, '');
         return queryString;
       },
       transformResponse: (res: { data: Post[] }) => {
