@@ -6,7 +6,7 @@ import { pxToRem } from '@/util/styleUtils';
 export const Title = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 `;
 
 export const Content = styled.div`
