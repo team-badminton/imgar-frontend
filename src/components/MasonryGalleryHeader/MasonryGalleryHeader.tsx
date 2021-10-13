@@ -8,9 +8,9 @@ export const MASONRY_GALLERY_HEADER_MIN_WIDTH__PX = 450;
 
 export default function MasonryGalleryHeader(): ReactElement {
   const masonryGalleryWidth = useTypedSelector(state => state.display.masonryGalleryWidth);
-
   return (
     <div
+      className="masonryGalleryHeader"
       css={`
         display: flex;
         justify-content: space-between;

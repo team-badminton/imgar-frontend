@@ -96,6 +96,16 @@ export default function MainContainer({
         isOverThreshold2 ? '0' : `${sticky ? headerPosition : coverPosition}px`
       },0)`;
       headerContainerRef.current.style.position = sticky ? 'fixed' : null;
+
+      const masonryGalleryHeader = mainSectionRef.current.children[0] as HTMLElement;
+      if (masonryGalleryHeader.classList.contains('masonryGalleryHeader')) {
+        masonryGalleryHeader.style.position = isOverThreshold2 ? 'fixed' : 'relative';
+        masonryGalleryHeader.style.top = isOverThreshold2 ? '50px' : '0';
+        masonryGalleryHeader.style.transform = `translate3d(-50%, ${
+          isOverThreshold2 ? Math.max(coverPosition / 2 + 20.6172, -39.6172) : coverPosition / 2
+        }px
+      , 0px)`;
+      }
     }
     handleScroll();
     window.addEventListener('scroll', handleScroll);
