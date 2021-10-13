@@ -9,35 +9,35 @@ export function convertLink(text: string, withImage?: boolean) {
 
   if (withImage) {
     result = result
-      .map((str: string) => {
+      .map((str: string, index) => {
         if (str.includes('http')) {
-          if (withImage && str.match(/i\.imgur.*\/.*\.(jpeg|jpg|png)$/)) {
+          if (withImage && str.match(/i\.imgur.*\/.*\.(jpeg|jpg|png)/)) {
             const splicedStr = str.split('/');
             return (
-              <div>
-                <Picture
-                  css={`
-                    margin-top: ${pxToRem(4)};
-                  `}
-                  imageHeight="100"
-                  imageId={splicedStr[splicedStr.length - 1]}
-                />
-              </div>
+              <Picture
+                key={index}
+                css={`
+                  margin-top: ${pxToRem(4)};
+                  display: block;
+                `}
+                imageHeight="100"
+                imageId={splicedStr[splicedStr.length - 1]}
+              />
             );
           }
-          if (withImage && str.match(/i\.imgur.*\/.*\.(gif|mp4)$/)) {
+          if (withImage && str.match(/i\.imgur.*\/.*\.(gifv?|mp4)/)) {
             const splicedStr = str.split('/');
             return (
-              <div>
-                <Video
-                  css={`
-                    height: ${pxToRem(100)};
-                    margin-top: ${pxToRem(4)};
-                    width: auto;
-                  `}
-                  imageId={splicedStr[splicedStr.length - 1].slice(0, -4)}
-                />
-              </div>
+              <Video
+                key={index}
+                css={`
+                  height: ${pxToRem(100)};
+                  margin-top: ${pxToRem(4)};
+                  width: auto;
+                  display: block;
+                `}
+                imageId={splicedStr[splicedStr.length - 1].replace(/\?.*$/, '').replace(/\.(gifv?|mp4)/, '')}
+              />
             );
           }
         }
