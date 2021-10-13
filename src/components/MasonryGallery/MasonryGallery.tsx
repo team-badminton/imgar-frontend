@@ -9,7 +9,7 @@ import {
   IMAGECARD_WIDTH_PX,
   IMAGE_MAX_HEIGHT_PX,
 } from '@/components/ImageCard/ImageCard.styled';
-import { ImageCardPositionInfosType, MasonryGalleryProps, SetPositionProps } from './MasonryGallery.type';
+import { ImageCardPositionInfosType, MasonryGalleryProps } from './MasonryGallery.type';
 import { COLUMN_GAP__PX, ROW_GAP__PX, StyledImageCard, StyledSection } from './MasonryGallery.styled';
 
 export default function MasonryGallery({ posts }: MasonryGalleryProps): ReactElement {
@@ -54,6 +54,7 @@ export default function MasonryGallery({ posts }: MasonryGalleryProps): ReactEle
     }
   }, [observerInView]);
 
+  // ImageCard의 transform x좌표, y좌표 계산 결과를 저장하기 위한 객체
   const ImageCardPositionInfos: ImageCardPositionInfosType = {};
 
   return (
