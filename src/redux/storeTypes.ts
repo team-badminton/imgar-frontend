@@ -62,6 +62,10 @@ export interface TagInfo {
   accent: string;
 }
 
+export interface FeaturedTagInfo extends TagInfo {
+  isFeatured: boolean;
+}
+
 export interface TagPostInfo {
   accent: string;
   backgroundId: string;
