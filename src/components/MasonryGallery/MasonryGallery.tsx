@@ -15,7 +15,7 @@ import React, { Fragment, ReactElement, useCallback, useEffect, useLayoutEffect,
 import { COLUMN_GAP__PX, ROW_GAP__PX, StyledImageCard } from './MasonryGallery.styled';
 import { MasonryGalleryProps, SetPositionProps } from './MasonryGallery.type';
 
-export default function MasonryGallery({ posts }: MasonryGalleryProps): ReactElement {
+export default function MasonryGallery({ posts, id }: MasonryGalleryProps): ReactElement {
   const dispatch = useTypedDispatch();
   const queryPage = useTypedSelector(state => state.listInfo.queryPage);
   // 리덕스 전역 상태
@@ -63,6 +63,7 @@ export default function MasonryGallery({ posts }: MasonryGalleryProps): ReactEle
   return (
     <>
       <section
+        id={id}
         css={`
           position: relative;
           margin: 0 auto;

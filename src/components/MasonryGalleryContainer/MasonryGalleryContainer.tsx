@@ -3,8 +3,9 @@ import { Loading, MasonryGallery } from '@/components/index';
 import { useTypedDispatch, useTypedSelector } from '@/redux';
 import { useGalleryQuery } from '@/redux/api';
 import { getFetch, setPrevPage, setQueryPage } from '@/redux/slices/listInfoReducer';
+import { MasonryGalleryContainerProps } from './MasonryGalleryContainer.type';
 
-export default function MasonryGalleryContainer(): ReactElement {
+export default function MasonryGalleryContainer({ id }: MasonryGalleryContainerProps): ReactElement {
   const dispatch = useTypedDispatch();
   // API 호출
   const category = useTypedSelector(state => state.listInfo.category);
@@ -45,7 +46,7 @@ export default function MasonryGalleryContainer(): ReactElement {
   return (
     <>
       {isLoading ? <Loading /> : null}
-      <MasonryGallery posts={posts} />
+      <MasonryGallery id={id} posts={posts} />
     </>
   );
 }
