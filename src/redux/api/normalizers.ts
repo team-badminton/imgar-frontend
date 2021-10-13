@@ -1,4 +1,5 @@
 import {
+  FeaturedTagInfo,
   FolderInfo,
   ImageInfo,
   PostCommentInfo,
@@ -49,6 +50,19 @@ export function imageDataNormalizer(image: Image | Image[]): ImageInfo | ImageIn
       bandWidth: image.bandwidth,
     })) as ImageInfo[];
   }
+}
+
+export function featuredTagDataNormalizer(data: { featured: string; tags: Tag[] }): FeaturedTagInfo[] {
+  const { featured, tags } = data;
+  return tags.map(tag => ({
+    name: tag.name,
+    displayName: tag.display_name,
+    postCount: tag.total_items,
+    backgroundImageId: tag.background_hash,
+    description: tag.description,
+    accent: tag.accent,
+    isFeatured: featured === tag.name,
+  }));
 }
 
 export function tagDataNormalizer(tag: Tag): TagInfo;

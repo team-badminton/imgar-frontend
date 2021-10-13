@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { transform } from 'lodash';
 import {
+  FeaturedTagInfo,
   FolderInfo,
   PostCommentInfo,
   PostInfo,
@@ -23,6 +24,7 @@ import {
   tagDataNormalizer,
   tagPostsDataNormalizer,
   welcommessageNormalizer,
+  featuredTagDataNormalizer,
 } from './normalizers';
 import {
   AccountComment,
@@ -91,11 +93,11 @@ export const imgurApi = createApi({
         return postV3ToV1DataNormalizer(data);
       },
     }),
-    tag: builder.query<TagInfo[], null>({
+    tag: builder.query<FeaturedTagInfo[], null>({
       query: () => `3/tags`,
-      transformResponse: (res: { data: { tags: Tag[] } }) => {
+      transformResponse: (res: { data: { featured: string; tags: Tag[] } }) => {
         const { data } = res;
-        return tagDataNormalizer(data.tags);
+        return featuredTagDataNormalizer(data);
       },
     }),
     tagPosts: builder.query<TagPostInfo, TagPostsQuery>({
