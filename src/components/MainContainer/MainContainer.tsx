@@ -118,7 +118,11 @@ export default function MainContainer({
         >
           <div
             css={`
-              width: ${headerCoverWidth ? pxToRem(headerCoverWidth) : pxToRem(containerWidth)};
+              width: ${headerCoverWidth
+                ? pxToRem(headerCoverWidth)
+                : containerWidth
+                ? pxToRem(containerWidth)
+                : '100%'};
               min-width: ${pxToRem(450)};
             `}
           >

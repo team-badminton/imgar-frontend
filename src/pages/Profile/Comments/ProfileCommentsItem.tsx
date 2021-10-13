@@ -21,7 +21,6 @@ interface Props {
 }
 
 export default function ProfileCommentItem({ postId, comment, points, dateTime, cover }: Props): ReactElement {
-  console.log(dateTime);
   return (
     <ProfileCommentItemWrapper>
       <Link
