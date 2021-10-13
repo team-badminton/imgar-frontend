@@ -9,13 +9,17 @@ import { NextButton } from './PostNextButton.styled';
 // redux
 import { useTypedSelector } from '@/redux';
 
-export default function PostNextButton(): ReactElement {
+// types
+import { PostNextButtonProps } from './PostNextButton.type';
+
+export default function PostNextButton({ className }: PostNextButtonProps): ReactElement {
   const BREAKPOINT = 1025;
 
   const innerWidth = useTypedSelector(state => state.display.innerWidth);
 
   return (
     <NextButton
+      className={className}
       size="medium"
       alt={innerWidth < BREAKPOINT ? 'Move to the next post' : ''}
       backgroundColor="blue"
