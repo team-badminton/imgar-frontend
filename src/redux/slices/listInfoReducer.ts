@@ -68,5 +68,6 @@ export const {
   setPrevPage,
   toggleAutoPlay,
   toggleView,
+  setLatestQuery,
 } = postListSlice.actions;
 export default postListSlice.reducer;

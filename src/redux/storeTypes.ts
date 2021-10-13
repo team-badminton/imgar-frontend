@@ -11,10 +11,12 @@ export interface ListInfo {
   autoPlay: boolean;
   layout: 'waterfall' | 'uniform';
   latestQuery: {
-    name: 'gallery' | 'search' | 'userPosts' | 'userFavorites';
+    name: LatestQueryName;
     option: any;
   };
 }
+
+export type LatestQueryName = 'gallery' | 'search' | 'userPosts' | 'userFavorites' | 'tagPosts';
 
 export interface PostInfo {
   id: string;
@@ -73,6 +75,7 @@ export interface TagPostInfo {
   backgroundId: string;
   displayName: string;
   description: string;
+  postCount: number;
   posts: PostV1Info[];
 }
 
