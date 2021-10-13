@@ -3,8 +3,14 @@ import MainContainer from '@/components/MainContainer/MainContainer';
 import { useTypedSelector } from '@/redux';
 import { useTagPostsQuery, useTagQuery, useWelcomeMessageQuery } from '@/redux/api';
 import { masonryGalleryWidthSelector } from '@/redux/slices/displayReducer';
-import React, { ReactElement } from 'react';
-import { StyledArticle, StyledSection, StyledTagHeading, StyledWelcomeMessage } from './Home.styled';
+import React, { ReactElement, useState } from 'react';
+import {
+  StyledArticle,
+  StyledMoreTagsButton,
+  StyledSection,
+  StyledTagHeading,
+  StyledWelcomeMessage,
+} from './Home.styled';
 
 export default function Home(): ReactElement {
   // 리덕스 상태
@@ -14,6 +20,9 @@ export default function Home(): ReactElement {
   // API 요청
   const { data: tags, isLoading: isTagsLoading } = useTagQuery(null);
   const { data: welcomMessage, isLoading: isWelcomeMessageLoading } = useWelcomeMessageQuery(null);
+
+  // 상태
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   //상수
   const TAGS_WIDTH__PX = Math.floor((innerWidth - 100) / 118) * 118;
@@ -28,12 +37,18 @@ export default function Home(): ReactElement {
           <StyledWelcomeMessage>
             {isWelcomeMessageLoading ? 'Welcome Imgar.com' : welcomMessage.message}
           </StyledWelcomeMessage>
-          <StyledArticle articleWidth={TAGS_WIDTH__PX}>
+          <StyledArticle isOpen={isOpen} articleWidth={TAGS_WIDTH__PX}>
             <StyledTagHeading>EXPLORE TAG</StyledTagHeading>
             {tags?.map(tag => {
               return <TagCard key={tag.name} tag={tag} />;
             })}
-            <button>더보기</button>
+            <StyledMoreTagsButton
+              onClick={() => {
+                setIsOpen(!isOpen);
+              }}
+            >
+              더보기
+            </StyledMoreTagsButton>
           </StyledArticle>
         </StyledSection>
       }
