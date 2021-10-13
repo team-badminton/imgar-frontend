@@ -84,8 +84,13 @@ export const imgurApi = createApi({
       },
     }),
     search: builder.query<PostV1Info[], GallerySearchQuery>({
-      query: ({ sort = 'time', window = 'all', page = 0, keyword }) =>
-        `3/gallery/search/${sort}/${window}/${page}?q_all=${keyword}`,
+      query: ({ sort = 'time', window = 'all', page = 0, query }) => {
+        let queryString = `3/gallery/search/${sort}/${window}/${page}?`;
+        Object.entries(query).forEach(([key, value]) => {
+          queryString += value ? `${key}=${value}&` : '';
+        });
+        return queryString;
+      },
       transformResponse: (res: { data: Post[] }) => {
         const { data } = res;
         return postV3ToV1DataNormalizer(data);
