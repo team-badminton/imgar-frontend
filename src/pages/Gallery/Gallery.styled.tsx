@@ -10,7 +10,6 @@ import { pxToRem } from '@/util/styleUtils';
 export const PostContainer = styled.div`
   position: relative;
   margin: 0 ${({ theme }) => theme.spaceSize.l};
-  ${({ theme }) => theme.spaceSize.l};
   max-width: ${pxToRem(1250)};
   margin-top: ${pxToRem(30)};
 `;
