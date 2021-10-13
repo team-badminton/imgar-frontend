@@ -9,17 +9,19 @@ import {
   GalleryHeader,
   PostSideVoteBar,
   MasonryGalleryContainer,
+  Button,
 } from '@/components';
 import MainContainer from '@/components/MainContainer/MainContainer';
 
 // styles
-import { PostContainer } from './Gallery.styled';
+import { ExplorePostsContainer, PostContainer } from './Gallery.styled';
 
 // types
 import { useLocationProps } from './Gallery.type';
 
 //apis
 import { usePostQuery } from '@/redux/api';
+import { useTypedSelector } from '@/redux';
 
 // etc
 import { useHistory, useLocation, useParams } from 'react-router-dom';
@@ -33,6 +35,10 @@ export default function Gallery(): ReactElement {
 
   const [postHeaderTitlePosX, setPostHeaderTitlePosX] = useState(0);
   const [postHeaderTitleWidth, setPostHeaderTitleWidth] = useState(0);
+
+  const [isOpenMasonry, setIsOpenMasonry] = useState(true);
+
+  const masonryWidth = useTypedSelector(state => state.display.masonryGalleryWidth);
 
   const { data, isLoading } = usePostQuery({ postId: param.id, isAlbum: location.state?.isAlbum });
 
@@ -81,9 +87,24 @@ export default function Gallery(): ReactElement {
           <PostComments className="comments" commentCount={data.commentCount} postId={param.id} />
           {/* <PostSideRelativeList mainPostId={param.id}></PostSideRelativeList> */}
         </PostContainer>
-        <div css={``}>
-          <MasonryGalleryContainer />
-        </div>
+        <ExplorePostsContainer $width={masonryWidth}>
+          <h3>
+            <Button
+              className="explore-btn"
+              size="large"
+              backgroundColor="darkGray"
+              hoverBackgroundColor="secondaryColor"
+              text={isOpenMasonry ? 'UNEXPLORE POSTS' : 'EXPLORE POSTS'}
+              onClick={() => {
+                setIsOpenMasonry(!isOpenMasonry);
+              }}
+              aria-haspopup="true"
+              aria-owns="masonry"
+              aria-expanded={isOpenMasonry}
+            />
+          </h3>
+          {isOpenMasonry && <MasonryGalleryContainer id="masonry" />}
+        </ExplorePostsContainer>
       </MainContainer>
     )
   );
