@@ -1,4 +1,4 @@
-import { MasonryGalleryHeader, MasonryGalleryContainer, TagCard, Loading } from '@/components/index';
+import { MasonryGalleryHeader, MasonryGalleryContainer, TagCard, Loading, Search } from '@/components/index';
 import MainContainer from '@/components/MainContainer/MainContainer';
 import { useTypedSelector } from '@/redux';
 import { useTagPostsQuery, useTagQuery, useWelcomeMessageQuery } from '@/redux/api';
@@ -25,7 +25,7 @@ export default function Home(): ReactElement {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   //상수
-  const TAGS_WIDTH__PX = Math.floor((innerWidth - 100) / 118) * 118;
+  const TAGS_WIDTH__PX = (Math.floor((innerWidth - 100) / 118) - 1) * 118;
   return isTagsLoading || isWelcomeMessageLoading ? (
     <Loading />
   ) : (
