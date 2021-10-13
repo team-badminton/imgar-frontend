@@ -1,7 +1,6 @@
-import styled from 'styled-components';
 import { pxToRem } from '@/util/styleUtils';
+import styled from 'styled-components';
 import searchIconUrl from './assets/icon-search.svg';
-import React from 'react';
 
 export const SearchBarContainer = styled.form`
   position: absolute;
