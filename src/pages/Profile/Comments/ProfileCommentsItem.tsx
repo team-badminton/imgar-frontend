@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { convertLink } from '@/util/styleUtils';
+import { convertLink } from '@/util/jsxUtils';
 import React, { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import { formatDistanceToNowStrict } from 'date-fns';
