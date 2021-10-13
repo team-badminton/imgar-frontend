@@ -98,6 +98,7 @@ export function tagPostsDataNormalizer(tagPosts: TagPosts | TagPosts[]): TagPost
       backgroundId: tagPosts.background_id,
       displayName: tagPosts.display,
       description: tagPosts.description,
+      postCount: tagPosts.post_count,
       posts: postV1DataNormalizer(tagPosts.posts),
     };
   } else {
@@ -107,6 +108,7 @@ export function tagPostsDataNormalizer(tagPosts: TagPosts | TagPosts[]): TagPost
       backgroundId: tagPost.background_id,
       displayName: tagPost.display,
       description: tagPost.description,
+      postCount: tagPost.post_count,
       posts: postV1DataNormalizer(tagPost.posts),
     }));
   }
@@ -178,9 +180,9 @@ export function postV1DataNormalizer(post: PostV1[] | PostV1): PostV1Info | Post
       id: post.id,
       title: post.title,
       dateTime: new Date(post.created_at).getTime(),
-      thumbnailImageId: post.cover.id,
-      thumbnailWidth: post.cover.width,
-      thumbnailHeight: post.cover.height,
+      thumbnailImageId: post.cover?.id ?? null,
+      thumbnailWidth: post.cover?.width ?? null,
+      thumbnailHeight: post.cover?.height ?? null,
       accountId: post.account_id,
       views: post.view_count,
       upCount: post.upvote_count,
@@ -189,8 +191,8 @@ export function postV1DataNormalizer(post: PostV1[] | PostV1): PostV1Info | Post
       commentCount: post.comment_count,
       favoriteCount: post.favorite_count,
       imageCount: post.image_count,
-      type: post.cover.mime_type as PostV1Info['type'],
-      hasSound: post.cover.metadata.has_sound,
+      type: (post.cover?.mime_type as PostV1Info['type']) ?? null,
+      hasSound: post.cover?.metadata.has_sound ?? null,
       isAlbum: post.is_album,
     };
   } else {
@@ -200,9 +202,9 @@ export function postV1DataNormalizer(post: PostV1[] | PostV1): PostV1Info | Post
         id: post.id,
         title: post.title,
         dateTime: new Date(post.created_at).getTime(),
-        thumbnailImageId: post.cover.id,
-        thumbnailWidth: post.cover.width,
-        thumbnailHeight: post.cover.height,
+        thumbnailImageId: post.cover?.id ?? null,
+        thumbnailWidth: post.cover?.width ?? null,
+        thumbnailHeight: post.cover?.height ?? null,
         accountId: post.account_id,
         views: post.view_count,
         upCount: post.upvote_count,
@@ -211,8 +213,8 @@ export function postV1DataNormalizer(post: PostV1[] | PostV1): PostV1Info | Post
         commentCount: post.comment_count,
         favoriteCount: post.favorite_count,
         imageCount: post.image_count,
-        type: post.cover.mime_type as PostV1Info['type'],
-        hasSound: post.cover.metadata.has_sound,
+        type: (post.cover?.mime_type as PostV1Info['type']) ?? null,
+        hasSound: post.cover?.metadata.has_sound ?? null,
         isAlbum: post.is_album,
       };
     });
