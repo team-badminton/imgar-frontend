@@ -12,9 +12,28 @@ export const PostContainer = styled.div`
   margin: 0 ${({ theme }) => theme.spaceSize.l};
   max-width: ${pxToRem(1250)};
   padding-top: ${pxToRem(55)};
+  display: grid;
+  column-gap: ${pxToRem(48)};
+  grid-template:
+    'leftSide header'
+    'leftSide contents'
+    'leftSide comments'
+    'masonry masonry';
+
+  .header {
+    grid-area: header;
+  }
+  .comments {
+    grid-area: comments;
+  }
+  .contents {
+    grid-area: contents;
+  }
 `;
 
 export const PostSideVoteBar = styled.div`
+  grid-area: leftSide;
+  height: ${pxToRem(250)};
   position: sticky;
   top: ${pxToRem(250)};
   display: flex;

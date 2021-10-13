@@ -18,13 +18,13 @@ import { Title, Container, LoadMoreButton, StyledButton, CommentHeader } from '.
 import { ReactComponent as ExpandIcon } from './assets/expandIcon.svg';
 import { ReactComponent as ArrowIcon } from '@/assets/Icon/arrow.svg';
 
-export default function PostComments({ postId, sort, commentCount }: PostCommentsProps): ReactElement {
+export default function PostComments({ className, postId, sort, commentCount }: PostCommentsProps): ReactElement {
   const [page, setPage] = useState(1);
   const { data, error, isLoading } = usePostCommentsQuery({ postId, sort, page });
   const isNext = data?.next;
 
   return (
-    <Container id="comments">
+    <Container className={className} id="comments">
       <PostCommentForm />
       <CommentHeader>
         <Title>{commentCount} COMMENTS</Title>
