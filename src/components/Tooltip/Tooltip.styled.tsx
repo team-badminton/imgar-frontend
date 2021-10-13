@@ -16,6 +16,9 @@ export const TooltipWrapper = styled(Link)`
   position: relative;
   display: block;
   height: auto;
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
 `;
 
 export const TooltipBox = styled.div<TooltipBoxProps>`
