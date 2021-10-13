@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { ReactElement, useEffect, useRef, useState } from 'react';
 
 // components
 import {
@@ -7,17 +7,13 @@ import {
   PostHeader,
   PostSideRelativeList,
   GalleryHeader,
-  MasonryGallery,
+  PostSideVoteBar,
   MasonryGalleryContainer,
 } from '@/components';
 import MainContainer from '@/components/MainContainer/MainContainer';
 
-// assets
-import { ReactComponent as HeartIcon } from '@/assets/Icon/heartIcon.svg';
-import { ReactComponent as CommentIcon } from '@/assets/Icon/commentIcon.svg';
-
 // styles
-import { PostContainer, PostSideVoteBar, FavoriteButton, LinkToComment, StyledVote } from './Gallery.styled';
+import { PostContainer } from './Gallery.styled';
 
 // types
 import { useLocationProps } from './Gallery.type';
@@ -46,7 +42,7 @@ export default function Gallery(): ReactElement {
     setPostHeaderTitleWidth(width);
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (postHeaderRef.current) {
       const resizeObserver = new ResizeObserver(handleResizeObserver);
 
@@ -81,27 +77,13 @@ export default function Gallery(): ReactElement {
             metaInfos={{ time: data.dateTime, views: data.views, platform: 'Iphone' }}
           />
           <PostContents className="contents" images={data.images} tags={data.tags} />
-          <PostSideVoteBar>
-            <StyledVote color="white" size="large" count={data.points} direction="column">
-              <FavoriteButton img={HeartIcon} alt="heart" />
-            </StyledVote>
-            <LinkToComment
-              to="#comments"
-              scroll={e =>
-                window.scrollTo({
-                  top: e.offsetTop + 150,
-                  behavior: 'smooth',
-                })
-              }
-            >
-              <CommentIcon title="comment" />
-              {data.commentCount}
-            </LinkToComment>
-          </PostSideVoteBar>
+          <PostSideVoteBar className="left-side" votePoints={data.points} commentCount={data.commentCount} />
           <PostComments className="comments" commentCount={data.commentCount} postId={param.id} />
           {/* <PostSideRelativeList mainPostId={param.id}></PostSideRelativeList> */}
-          <MasonryGalleryContainer />
         </PostContainer>
+        <div css={``}>
+          <MasonryGalleryContainer />
+        </div>
       </MainContainer>
     )
   );

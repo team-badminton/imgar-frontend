@@ -9,6 +9,7 @@ export { default as PostFigure } from './PostFigure/PostFigure';
 export { default as PostContents } from './PostContents/PostContents';
 export { default as PostComments } from './PostComments/PostComments';
 export { default as PostSideRelativeList } from './PostSideRelativeList/PostSideRelativeList';
+export { default as PostSideVoteBar } from './PostSideVoteBar/PostSideVoteBar';
 export { default as SearchBar } from './SearchBar/SearchBar';
 export { default as SuggestList } from './SuggestList/SuggestList';
 export { default as ImageCard } from './ImageCard/ImageCard';
