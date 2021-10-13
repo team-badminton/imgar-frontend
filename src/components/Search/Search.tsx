@@ -2,8 +2,9 @@ import { useSuggestQuery } from '@/redux/api';
 import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react';
 import { SearchBar, SuggestList } from '..';
 import { SearchContainer } from './Search.styled';
+import { SearchProps } from './Search.type';
 
-export default React.memo(function Search(): ReactElement {
+export default React.memo(function Search({ className }: SearchProps): ReactElement {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [searchQueryOption, setSearchQueryOption] = useState<'all' | 'tag' | 'user'>('all');
   const [focus, setFocus] = useState<boolean>(false);
@@ -63,7 +64,7 @@ export default React.memo(function Search(): ReactElement {
 
   return (
     <SearchContainer
-      className="search-container"
+      className={`search-container ${className}`}
       onFocus={() => {
         setFocus(true);
       }}
