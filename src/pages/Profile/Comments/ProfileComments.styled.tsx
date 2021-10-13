@@ -24,6 +24,7 @@ export const ProfileCommentsUl = styled.ul<{ containerWidth: number }>`
   position: relative;
   left: 50%;
   min-width: 100vw;
+  height: 100%;
   padding: 0
     ${({ containerWidth }) =>
       `calc((100vw - ${pxToRem(containerWidth < 450 ? 450 : 875 < containerWidth ? 875 : containerWidth)}) / 2)`};
