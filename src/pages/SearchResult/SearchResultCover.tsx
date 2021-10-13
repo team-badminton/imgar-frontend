@@ -18,8 +18,8 @@ function AdvancedSearch({ isFetching }: { isFetching: boolean }): ReactElement {
   const [exactly, setExactly] = React.useState<string>('');
   const [not, setNot] = React.useState<string>('');
   const [tag, setTag] = React.useState<string>('');
-  const [fileType, setFileType] = React.useState<string>('');
-  const [imageSize, setImageSize] = React.useState<string>('');
+  // const [fileType, setFileType] = React.useState<string>('');
+  // const [imageSize, setImageSize] = React.useState<string>('');
   const containerWidth = useTypedSelector(state => state.display.masonryGalleryWidth);
   const history = useHistory();
   const formRef = useRef<HTMLFormElement>(null);
@@ -65,7 +65,7 @@ function AdvancedSearch({ isFetching }: { isFetching: boolean }): ReactElement {
       queryString = queryString.replace(/&$/, '');
       history.push(queryString);
     },
-    [allOf, anyOf, exactly, not, tag, fileType, imageSize],
+    [allOf, anyOf, exactly, not, tag],
   );
 
   return (
