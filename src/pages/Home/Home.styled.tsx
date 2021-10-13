@@ -26,7 +26,7 @@ export const StyledArticle = styled.article<StyledArticleProps>`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  height: ${({ isOpen }) => (isOpen ? '' : 152 + 'px')};
+  height: ${({ isOpen }) => (isOpen ? '' : 156 + 'px')};
   overflow: ${({ isOpen }) => (isOpen ? '' : 'hidden')};
 
   width: ${({ articleWidth }) => articleWidth + 'px'};
