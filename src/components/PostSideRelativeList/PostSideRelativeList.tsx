@@ -29,10 +29,9 @@ export default React.memo(function PostSideRelativeList({
   const containerRef = useRef<HTMLUListElement>();
   const lastRelativeItemRef = useRef<HTMLLIElement>();
 
-  const { name, option } = useTypedSelector(state => state.listInfo.latestQuery);
-  const [page, setPage] = useState<number>(option.page || 1);
+  const [page, setPage] = useState(1);
 
-  const title = !option.sort && 'Newest In Most Viral';
+  const title = 'Newest In Most Viral';
 
   const { data, isFetching } = useGalleryQuery({ page, isInfinite: true });
   const isLoading = data?.isLoading;

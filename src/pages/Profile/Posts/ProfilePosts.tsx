@@ -1,6 +1,5 @@
 import { Loading, MasonryGallery } from '@/components';
 import useDomReady from '@/hooks/useDomReady';
-import useUpdateLatestQuery from '@/hooks/useUpdateLatestQuery';
 import { useTypedDispatch, useTypedSelector } from '@/redux';
 import { useAccountPostsQuery } from '@/redux/api';
 import { setQueryPage } from '@/redux/slices/listInfoReducer';
@@ -22,7 +21,6 @@ export default function ProfilePosts(): ReactElement {
   const option = { username, sort, page };
   const { data } = useAccountPostsQuery(option);
   const domReady = useDomReady();
-  useUpdateLatestQuery('userPosts', option);
 
   const dispatch = useTypedDispatch();
 
