@@ -30,16 +30,18 @@ export default React.memo(function PostSideRelativeList({
   const lastRelativeItemRef = useRef<HTMLLIElement>();
 
   const { name, option } = useTypedSelector(state => state.listInfo.latestQuery);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState<number>(option.page || 1);
 
   const title = !option.sort && 'Newest In Most Viral';
 
   const { data, isFetching } = useGalleryQuery({ page, isInfinite: true });
   const isLoading = data?.isLoading;
-
+  // console.log(isLoading);
   useEffect(() => {
-    const ConatinerScrollY = data?.findIndex(({ id }) => id === mainPostId) * ITEM_HEIGHT;
-    containerRef.current.scrollTo(0, ConatinerScrollY);
+    if (isLoading) {
+      const ConatinerScrollY = data?.findIndex(({ id }) => id === mainPostId) * ITEM_HEIGHT;
+      containerRef.current.scrollTo(0, ConatinerScrollY);
+    }
   }, [isLoading]);
 
   useEffect(() => {

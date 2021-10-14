@@ -35,12 +35,14 @@ export const infiniteScrollMiddleware: Middleware = storeApi => next => action =
     if (endPointName === 'gallery') {
       const queryCacheKey = action.meta.arg.queryCacheKey.replace(`"page":${page}`, `"page":${page - 1}`);
       const lastData = apiQueries[queryCacheKey]?.data;
-      if (lastData) {
+      if (lastData.length !== 0) {
         action.payload = [...lastData, ...action.payload];
         action.payload.isLoading = false;
       } else {
         action.payload.isLoading = true;
       }
+      console.log(lastData);
+      console.log('last', action.payload, 'key', queryCacheKey, action.payload.isLoading);
     }
     next(action);
   } catch (e) {
