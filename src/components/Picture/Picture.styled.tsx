@@ -8,7 +8,7 @@ export const StyledImage = styled.img.attrs<StyledImageProps>(({ imageWidth, ima
       width: widthConvertor(imageWidth),
       height: pxToRem(imageHeight) ?? (isCircle ? pxToRem(imageWidth) : ''),
       objectFit: objectFit,
-      borderRadius: isCircle ? 'border-radius: 50%' : null,
+      borderRadius: isCircle ? '50%' : null,
     },
   };
 })<StyledImageProps>`

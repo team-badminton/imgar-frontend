@@ -71,7 +71,7 @@ export default function MasonryGallery({ posts, id }: MasonryGalleryProps): Reac
           const aboveImageCardObjectKey = '' + (row - 1) + column;
           const imageCardHeight =
             layoutOption === 'uniform'
-              ? IMAGECARD_UNIFORM_HEIGHT__PX - 50
+              ? IMAGECARD_UNIFORM_HEIGHT__PX - 70
               : (postInfo.thumbnailHeight * IMAGECARD_WIDTH_PX) / postInfo.thumbnailWidth > IMAGE_MAX_HEIGHT_PX
               ? IMAGE_MAX_HEIGHT_PX
               : (postInfo.thumbnailHeight * IMAGECARD_WIDTH_PX) / postInfo.thumbnailWidth;
