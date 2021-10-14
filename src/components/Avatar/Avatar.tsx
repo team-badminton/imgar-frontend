@@ -33,7 +33,6 @@ export default function Avatar({
   };
   const CREATED_TIME = metaInfos.time * 1000;
   const TIME_DIFF = +new Date() - CREATED_TIME;
-
   return (
     <StyledAvatar className={className} size={size} transScaleImage={transScaleImage}>
       <Link to={PROFILE_LINK}>
@@ -56,7 +55,9 @@ export default function Avatar({
           >
             {metaInfos?.views && `${formattedNumber(metaInfos.views)} views`}
           </span>
-          {TIME_DIFF > TIME_UNIT.Month ? (
+          {Number.isNaN(TIME_DIFF) ? (
+            ''
+          ) : TIME_DIFF > TIME_UNIT.Month ? (
             <Moment interval={0} date={CREATED_TIME} format={'MMM D YYYY'} />
           ) : (
             <Moment
