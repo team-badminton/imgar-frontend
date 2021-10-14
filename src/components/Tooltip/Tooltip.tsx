@@ -43,7 +43,7 @@ export default React.memo(function Tooltip({ children, tooltipText, to }: Toolti
       onBlur={hideTooltip}
       ref={elementRef}
       {...(to ? { to } : { as: 'div', tabIndex: 0 })}
-      aria-describedby={randomId}
+      {...(isShow ? { 'aria-describedby': randomId } : null)}
     >
       {children}
       {isShow && (

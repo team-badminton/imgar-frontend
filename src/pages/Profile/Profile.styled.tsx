@@ -19,6 +19,7 @@ export const ProfileCoverWrapper = styled.div<{ containerWidth: number }>`
   background-color: ${({ theme }) => theme.color.backgroundDarkNavy};
   width: 100vw;
   padding: 0 ${({ containerWidth }) => `calc((100vw - ${pxToRem(containerWidth < 450 ? 450 : containerWidth)}) / 2)`};
+  margin-bottom: -1px;
 `;
 
 export const Notice = styled.div`

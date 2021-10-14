@@ -35,7 +35,7 @@ function TrophyItem({ name, description, imageUrl, to }: TrophyItemProps): React
   return (
     <ProfileAboutGridItem innerItemWidth={150}>
       <Tooltip tooltipText={description} to={to}>
-        <Picture imageWidth={150} imageHeight={150} src={imageUrl} alt={name} />
+        <Picture imageWidth={150} imageHeight={150} src={imageUrl} />
         <p>{name.toUpperCase()}</p>
       </Tooltip>
     </ProfileAboutGridItem>

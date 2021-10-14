@@ -91,11 +91,13 @@ export default function MainContainer({
       }, 0px)`;
       headerCoverRef.current.style.zIndex = isOverThreshold2 ? '6' : noOffset ? '6' : null;
       headerCoverRef.current.style.background = isOverThreshold2 ? null : headerCover ? null : 'transparent';
+      (headerCoverRef.current.children[0] as HTMLDivElement).style.visibility =
+        isOverThreshold2 && !noOffset ? 'hidden' : 'visible';
 
       headerContainerRef.current.style.transform = `translate3d(0, ${
         isOverThreshold2 ? '0' : `${sticky ? headerPosition : coverPosition}px`
       },0)`;
-      headerContainerRef.current.style.position = sticky ? 'fixed' : null;
+      headerContainerRef.current.style.position = sticky || isOverThreshold2 ? 'fixed' : null;
 
       // 메인 페이지에서 현재 스크롤이 두번째 임계값을 넘어갔는지 확인
       const masonryGalleryHeader = mainSectionRef.current.children[0] as HTMLElement;
