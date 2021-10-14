@@ -33,13 +33,11 @@ export const IMAGECARD_HEIGHT_EXCLUDING_IMAGE__REM =
   parseFloat(H3_Height__REM) + parseFloat(FOOTER_Height__REM) + 'rem';
 /** ----------------------------------------------------------------- */
 
-export const StyledArticle = styled.article<StyledArticleProps>`
-  width: ${({ imageCardWidth }) =>
-    imageCardWidth && typeof imageCardWidth === 'number'
-      ? imageCardWidth + 'px'
-      : imageCardWidth && typeof imageCardWidth === 'string'
-      ? imageCardWidth
-      : '100%'};
+export const StyledArticle = styled.article.attrs<StyledArticleProps>(({ imageCardWidth }) => ({
+  style: {
+    width: pxToRem(imageCardWidth),
+  },
+}))<StyledArticleProps>`
   background: ${({ theme }) => theme.color.darkGray};
   border-radius: ${({ theme }) => theme.borderRadius.s};
   box-shadow: 0 0 ${pxToRem(10)} ${({ theme }) => theme.color.black};
