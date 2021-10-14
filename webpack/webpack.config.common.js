@@ -50,4 +50,13 @@ module.exports = {
     new ForkTsCheckerWebpackPlugin(),
     new Dotenv(),
   ],
+  devServer: {
+    port: 3000,
+    hot: true,
+    liveReload: true,
+    static: {
+      directory: path.resolve(rootDir, 'public'),
+    },
+    historyApiFallback: true,
+  },
 };

@@ -11,13 +11,4 @@ module.exports = merge(commonConfig, {
     filename: '[name].bundle.js',
     chunkFilename: '[name].chunk.js',
   },
-  devServer: {
-    port: 3000,
-    hot: true,
-    liveReload: true,
-    static: {
-      directory: path.resolve(rootDir, 'public'),
-    },
-    historyApiFallback: true,
-  },
 });
