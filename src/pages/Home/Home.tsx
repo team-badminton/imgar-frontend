@@ -51,7 +51,7 @@ export default function Home(): ReactElement {
                 setIsOpen(!isOpen);
               }}
             >
-              더보기
+              {isOpen ? 'LESS TAGS' : 'MORE TAGS'}
             </StyledMoreTagsButton>
           </StyledArticle>
         </StyledSection>

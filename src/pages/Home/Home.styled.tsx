@@ -37,4 +37,6 @@ export const StyledMoreTagsButton = styled.button`
   top: 0;
   right: 0;
   color: ${({ theme }) => theme.color.white};
+  font-weight: 700;
+  margin-right: 4px;
 `;
