@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ImageContainerProps, StyledArticleProps } from './ImageCard.type';
+import { FakeImageCardProps, ImageContainerProps, StyledArticleProps } from './ImageCard.type';
 import { pxToRem } from '@/util/styleUtils';
 import { defaultTheme } from '@/theme/themes';
 
@@ -122,4 +122,13 @@ export const StyledFooter = styled.footer`
   div:hover {
     color: ${({ theme }) => theme.color.white};
   }
+`;
+
+export const FakeImageCard = styled.div.attrs<FakeImageCardProps>(({ imageCardWidth, imageCardHeight }) => ({
+  style: {
+    width: `${pxToRem(imageCardWidth)}`,
+    height: `${pxToRem(imageCardHeight)}`,
+  },
+}))<FakeImageCardProps>`
+  background: white;
 `;
