@@ -17,7 +17,7 @@ export default function Vote({ className, color, size, count, direction, childre
       if (e.type === 'keyup' && (e as React.KeyboardEvent<HTMLAnchorElement>).key !== 'Enter') return;
       output === count + 1 ? setOutput(count) : setOutput(count + 1);
     },
-    [],
+    [output],
   );
 
   const handleDownButtonEvent = useCallback(
@@ -25,7 +25,7 @@ export default function Vote({ className, color, size, count, direction, childre
       if (e.type === 'keyup' && (e as React.KeyboardEvent<HTMLAnchorElement>).key !== 'Enter') return;
       output === count - 1 ? setOutput(count) : setOutput(count - 1);
     },
-    [],
+    [output],
   );
 
   return (
