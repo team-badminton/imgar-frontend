@@ -87,7 +87,7 @@ export default function Gallery(): ReactElement {
           <PostSideVoteBar className="left-side" votePoints={data.points} commentCount={data.commentCount} />
           <PostComments className="comments" commentCount={data.commentCount} postId={param.id} />
           <div className="right-side">
-            <PostSideRelativeList className="relative-list" title="123" mainPostId={param.id}></PostSideRelativeList>
+            <PostSideRelativeList className="relative-list" mainPostId={param.id}></PostSideRelativeList>
           </div>
         </PostContainer>
         <ExplorePostsContainer $width={masonryWidth}>
