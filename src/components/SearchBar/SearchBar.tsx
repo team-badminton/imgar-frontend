@@ -1,6 +1,7 @@
 import useThrottle from '@/hooks/useThrottle';
+import { createRandomHash } from '@/util/formatUtils';
 import { a11yHidden } from '@/util/styleUtils';
-import React, { ReactElement, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import React, { ReactElement, useCallback, useImperativeHandle, useLayoutEffect, useRef, useState } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { SearchBarButton, SearchBarContainer, SearchBarInput } from './SearchBar.styled';
 import { SearchBarProps } from './SearchBar.type';
@@ -13,7 +14,9 @@ export default React.forwardRef(function SearchBar(
   const history = useHistory();
   const inputRef = useRef<HTMLInputElement>();
   const location = useLocation();
-  useEffect(() => {
+
+  // useLayoutEffect를 사용해서 직전의 placeholder가 보여지는것을 방지
+  useLayoutEffect(() => {
     const query = new URLSearchParams(location.search).get('q');
     setInputValue(query ?? '');
     onQueryChange(query ?? '');
@@ -47,11 +50,12 @@ export default React.forwardRef(function SearchBar(
     },
     [inputValue],
   );
+  const htmlForId = createRandomHash();
 
   return (
     <SearchBarContainer onSubmit={onSubmitHandler}>
       <label
-        htmlFor="search-bar-input"
+        htmlFor={htmlForId}
         css={`
           ${a11yHidden}
         `}
@@ -59,7 +63,7 @@ export default React.forwardRef(function SearchBar(
         Search Posts, Tags, Users
       </label>
       <SearchBarInput
-        id="search-bar-input"
+        id={htmlForId}
         type="text"
         placeholder={placeholder}
         value={inputValue ?? ''}

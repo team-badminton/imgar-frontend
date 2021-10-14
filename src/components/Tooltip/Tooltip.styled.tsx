@@ -16,12 +16,15 @@ export const TooltipWrapper = styled(Link)`
   position: relative;
   display: block;
   height: auto;
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
 `;
 
 export const TooltipBox = styled.div<TooltipBoxProps>`
   position: absolute;
   display: flex;
-  z-index: 5;
+  z-index: 6;
   justify-content: center;
   align-items: center;
   animation: ${TooltipAppearAnimation} 0.2s backwards;
