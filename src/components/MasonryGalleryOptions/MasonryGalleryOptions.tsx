@@ -24,10 +24,10 @@ export default function MasonryGalleryOptions(): ReactElement {
       `}
     >
       <button onClick={handleAnimationToggle}>
-        <AnimationPlayIconSVG />
+        <AnimationPlayIconSVG title="animation play" />
       </button>
       <button onClick={handleLayoutToggle}>
-        <UniformLayoutIconSVG />
+        <UniformLayoutIconSVG title="change layout to uniform" />
       </button>
     </div>
   );
