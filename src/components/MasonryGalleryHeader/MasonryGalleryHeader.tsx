@@ -1,9 +1,6 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, { ReactElement } from 'react';
 import { useTypedSelector } from '@/redux';
-import { pxToRem } from '@/util/styleUtils';
-import { MasonryGalleryFields, MasonryGalleryOptions, Search } from '@/components/index';
-import { defaultTheme } from '@/theme/themes';
-import { StyledMasonryGalleryHeaderSearch } from './MasonryGalleryHeader.styled';
+import { MasonryGalleryFields, MasonryGalleryOptions } from '@/components/index';
 import { ControlHeaderContainer } from '@/pages/SearchResult/SearchResult.styled';
 
 export const MASONRY_GALLERY_HEADER_MIN_WIDTH__PX = 450;
