@@ -65,6 +65,12 @@ export default function MasonryGallery({ posts }: MasonryGalleryProps): ReactEle
           const column = index % totalColumn;
           const objectKey = '' + row + column;
           const aboveImageCardObjectKey = '' + (row - 1) + column;
+          const imageCardHeight =
+            layoutOption === 'uniform'
+              ? IMAGECARD_UNIFORM_HEIGHT__PX - 50
+              : (postInfo.thumbnailHeight * IMAGECARD_WIDTH_PX) / postInfo.thumbnailWidth > IMAGE_MAX_HEIGHT_PX
+              ? IMAGE_MAX_HEIGHT_PX
+              : (postInfo.thumbnailHeight * IMAGECARD_WIDTH_PX) / postInfo.thumbnailWidth;
           const sumOfAboveImageHeightPx = ImageCardPositionInfos[aboveImageCardObjectKey]
             ? ImageCardPositionInfos[aboveImageCardObjectKey].sumOfImageHeightPx
             : 0;
@@ -72,13 +78,7 @@ export default function MasonryGallery({ posts }: MasonryGalleryProps): ReactEle
             column,
             row,
             sumOfAboveImageHeightPx,
-            sumOfImageHeightPx:
-              sumOfAboveImageHeightPx +
-              (layoutOption === 'uniform'
-                ? IMAGECARD_UNIFORM_HEIGHT__PX - 50
-                : (postInfo.thumbnailHeight * IMAGECARD_WIDTH_PX) / postInfo.thumbnailWidth > IMAGE_MAX_HEIGHT_PX
-                ? IMAGE_MAX_HEIGHT_PX
-                : (postInfo.thumbnailHeight * IMAGECARD_WIDTH_PX) / postInfo.thumbnailWidth),
+            sumOfImageHeightPx: sumOfAboveImageHeightPx + imageCardHeight,
           };
 
           return (
@@ -89,6 +89,7 @@ export default function MasonryGallery({ posts }: MasonryGalleryProps): ReactEle
                 layoutOption={layoutOption}
                 postInfo={postInfo}
                 imageCardWidth={IMAGECARD_WIDTH_PX}
+                imageCardHeight={imageCardHeight}
                 isLazyLoading={false}
               />
               {index === posts.length - 1 && (
