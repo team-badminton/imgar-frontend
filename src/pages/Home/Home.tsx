@@ -1,4 +1,4 @@
-import { MasonryGalleryHeader, MasonryGalleryContainer, Loading, Search } from '@/components/index';
+import { MasonryGalleryHeader, MasonryGalleryContainer, Loading } from '@/components/index';
 import MainContainer from '@/components/MainContainer/MainContainer';
 import { TAG_GAP, TAG_WIDTH__PX } from '@/components/TagCard/TagCard.styled';
 import TagList, { TAGLIST_MARGIN } from '@/components/TagList/TagList';
@@ -19,7 +19,7 @@ export default function Home(): ReactElement {
   const innerWidth = useTypedSelector(state => state.display.innerWidth);
   const TAGLIST_COLUMN = Math.floor((innerWidth - TAGLIST_MARGIN) / (TAG_WIDTH__PX + TAG_GAP * 2));
   const TAGS_WIDTH__PX = TAGLIST_COLUMN * (TAG_WIDTH__PX + TAG_GAP * 2);
-  console.log(TAGLIST_COLUMN, TAGS_WIDTH__PX);
+
   return isTagsLoading || isWelcomeMessageLoading ? (
     <Loading />
   ) : (
