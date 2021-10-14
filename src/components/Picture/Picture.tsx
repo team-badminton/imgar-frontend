@@ -17,7 +17,7 @@ const Picture = forwardRef<HTMLImageElement, PictureProps>(
       tabIndex,
       imageWidth,
       imageHeight,
-      inView,
+      inView = true,
     }: PictureProps,
     ref,
   ): ReactElement => {
