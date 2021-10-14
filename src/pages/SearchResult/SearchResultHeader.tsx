@@ -1,7 +1,7 @@
 import { MasonryGalleryOptions, SortList } from '@/components';
 import { useTypedSelector } from '@/redux';
 import React, { ReactElement } from 'react';
-import { SearchResultHeaderContainer, SearchResultHeaderTitle } from './SearchResult.styled';
+import { ControlHeaderContainer, SearchResultHeaderTitle } from './SearchResult.styled';
 import { SearchResultPostHeaderState } from './SearchResult.type';
 
 const searchSort1 = ['highestScoring', 'mostViral', 'newest'];
@@ -10,7 +10,7 @@ const searchSort2 = ['all', 'day', 'week', 'month', 'year'];
 export default function SearchResultHeader({ setSort, sorted }: SearchResultPostHeaderState): ReactElement {
   const containerWidth = useTypedSelector(state => state.display.masonryGalleryWidth);
   return (
-    <SearchResultHeaderContainer isMinWidth={containerWidth <= 240}>
+    <ControlHeaderContainer isMinWidth={containerWidth <= 240}>
       <SearchResultHeaderTitle>
         <SortList setItem={setSort[0]} selectedItem={sorted[0]} items={searchSort1} />
       </SearchResultHeaderTitle>
@@ -24,6 +24,6 @@ export default function SearchResultHeader({ setSort, sorted }: SearchResultPost
         ) : null}
         <MasonryGalleryOptions />
       </div>
-    </SearchResultHeaderContainer>
+    </ControlHeaderContainer>
   );
 }

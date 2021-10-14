@@ -59,7 +59,7 @@ export const imgurApi = createApi({
     },
   }),
   endpoints: builder => ({
-    gallery: builder.query<PostV1Info[], GalleryQuery>({
+    gallery: builder.query<PostV1Info[] & { isLoading?: boolean }, GalleryQuery>({
       query: ({ page = 1, section = 'mostViral', sort = 'newest', window = 'all' }) => {
         if (sort === 'random') {
           return `post/v1/posts?filter[section]=eq:random&include=adtiles,adconfig,cover&page=${page}&sort=random`;

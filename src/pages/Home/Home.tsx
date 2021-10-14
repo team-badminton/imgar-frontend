@@ -7,6 +7,7 @@ import { useTagQuery, useWelcomeMessageQuery } from '@/redux/api';
 import { masonryGalleryWidthSelector } from '@/redux/slices/displayReducer';
 import React, { ReactElement } from 'react';
 import { StyledSection, StyledWelcomeMessage } from './Home.styled';
+import { CustomHeader } from '../SearchResult/SearchResult';
 
 export default function Home(): ReactElement {
   // 리덕스 상태
@@ -34,7 +35,7 @@ export default function Home(): ReactElement {
           <TagList tags={tags} />
         </StyledSection>
       }
-      customHeader={null}
+      customHeader={<CustomHeader />}
       containerWidth={galleryWidth}
       headerCoverWidth={TAGS_WIDTH__PX}
     >

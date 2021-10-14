@@ -1,6 +1,5 @@
 import { Loading, MasonryGallery } from '@/components';
 import useDomReady from '@/hooks/useDomReady';
-import useUpdateLatestQuery from '@/hooks/useUpdateLatestQuery';
 import { useTypedDispatch, useTypedSelector } from '@/redux';
 import { useAccountFolderPostsQuery } from '@/redux/api';
 import { setQueryPage } from '@/redux/slices/listInfoReducer';
@@ -23,7 +22,6 @@ export default function ProfileFavorite(): ReactElement {
   const [posts, setPosts] = React.useState<PostV1Info[]>([]);
   const [isFetching, setIsFetching] = React.useState<boolean>(false);
   const domReady = useDomReady();
-  useUpdateLatestQuery('userFavorites', option);
 
   const dispatch = useTypedDispatch();
 

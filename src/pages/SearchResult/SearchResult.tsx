@@ -1,5 +1,4 @@
 import { Loading, Logo, MainContainer, MasonryGallery, Search } from '@/components';
-import useUpdateLatestQuery from '@/hooks/useUpdateLatestQuery';
 import { useTypedDispatch, useTypedSelector } from '@/redux';
 import { useSearchQuery } from '@/redux/api';
 import { GallerySearchQuery, SearchUrlQuery } from '@/redux/api/types/queries';
@@ -20,7 +19,7 @@ const sort1Query = {
   newest: 'time',
 };
 
-function CustomHeader(): ReactElement {
+export function CustomHeader(): ReactElement {
   return (
     <div
       css={`
@@ -41,7 +40,7 @@ function CustomHeader(): ReactElement {
       />
       <div
         css={`
-          width: 1px;
+          width: 100px;
         `}
       />
     </div>
@@ -80,8 +79,6 @@ export default function SearchResult(): ReactElement {
     window: sort1Query[sort1] === 'top' ? sort2 : null,
   };
   const { data } = useSearchQuery(option);
-
-  useUpdateLatestQuery('search', option);
 
   const dispatch = useTypedDispatch();
 
