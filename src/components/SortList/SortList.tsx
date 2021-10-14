@@ -25,15 +25,17 @@ export default function SortList({ items, selectedItem, setItem }: Props): React
   return (
     <SelectBox>
       <SelectBoxHeader onClickHandler={toggleList}>{camelCaseToUpperCase(selectedItem)}</SelectBoxHeader>
-      <SelectBoxList isShow={isShow} onClickHandler={selectHandler}>
-        {items.map(item => {
-          return (
-            <button key={item} data-item={item} css={item === selectedItem ? 'font-weight: bold;' : null}>
-              {camelCaseToUpperCase(item)}
-            </button>
-          );
-        })}
-      </SelectBoxList>
+      {isShow ? (
+        <SelectBoxList isShow={isShow} onClickHandler={selectHandler} setIsShow={setIsShow}>
+          {items.map(item => {
+            return (
+              <button key={item} data-item={item} css={item === selectedItem ? 'font-weight: bold;' : null}>
+                {camelCaseToUpperCase(item)}
+              </button>
+            );
+          })}
+        </SelectBoxList>
+      ) : null}
     </SelectBox>
   );
 }
