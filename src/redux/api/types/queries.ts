@@ -25,6 +25,7 @@ export interface SearchUrlQuery {
 export interface TagPostsQuery {
   tagName: string;
   page?: number;
+  sortOption?: 'viral' | 'time' | 'top';
 }
 export interface SuggestQuery {
   keyword: string;
