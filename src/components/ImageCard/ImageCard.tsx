@@ -43,7 +43,7 @@ export default function ImageCard({
           {!isAutoPlay || type === 'image/jpeg' || type === 'image/png' ? (
             <Picture
               alt=""
-              objectFit="contain"
+              objectFit="cover"
               imageWidth={imageCardWidth}
               imageHeight={imageCardHeight}
               imageId={thumbnailImageId}
