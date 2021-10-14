@@ -1,12 +1,16 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, { ReactElement } from 'react';
+import { Link } from 'react-router-dom';
+import { useInView } from 'react-intersection-observer';
+
+// components
+import { Picture, Video } from '@/components';
+import { FakeImageCard, StyledArticle, StyledDiv, StyledFooter } from './ImageCard.styled';
+import { ImageCardProps } from './ImageCard.type';
+
+// SVG
 import { ReactComponent as UpIconSVG } from '@/assets/Icon/upIcon.svg';
 import { ReactComponent as CommentIconSVG } from '@/assets/Icon/commentIcon.svg';
 import { ReactComponent as ViewIconSVG } from '@/assets/Icon/viewIcon.svg';
-import { Picture, Video } from '..';
-import { StyledArticle, StyledDiv, StyledFooter } from './ImageCard.styled';
-import { ImageCardProps } from './ImageCard.type';
-import { Link } from 'react-router-dom';
-import { useInView } from 'react-intersection-observer';
 
 export default function ImageCard({
   style,
@@ -14,34 +18,16 @@ export default function ImageCard({
   isAutoPlay,
   postInfo,
   imageCardWidth,
+  imageCardHeight,
   layoutOption,
   isLazyLoading,
 }: ImageCardProps): ReactElement {
-  const {
-    id,
-    thumbnailImageId,
-    thumbnailWidth,
-    thumbnailHeight,
-    title,
-    upCount,
-    downCount,
-    commentCount,
-    views,
-    type,
-    hasSound,
-    isAlbum,
-  } = postInfo;
+  const { id, thumbnailImageId, title, upCount, downCount, commentCount, views, type, hasSound, isAlbum } = postInfo;
 
   const { ref, inView } = useInView({
     triggerOnce: true,
     rootMargin: '200px 0px',
   });
-
-  // useEffect(() => {
-  //   if (inView) {
-  //     console.log('interesting');
-  //   }
-  // }, [inView]);
 
   return (
     <Link
@@ -60,25 +46,15 @@ export default function ImageCard({
                 alt=""
                 objectFit="contain"
                 imageWidth={imageCardWidth}
+                imageHeight={imageCardHeight}
                 imageId={thumbnailImageId}
                 isLazyLoading={isLazyLoading}
-                className={isLazyLoading ? 'lazyLoadingPicture' : ''}
               />
             ) : (
-              <Video
-                imageId={thumbnailImageId}
-                isLazyLoading={isLazyLoading}
-                className={isLazyLoading ? 'lazyLoadingPicture' : ''}
-              />
+              <Video imageId={thumbnailImageId} isLazyLoading={isLazyLoading} />
             )
           ) : (
-            <div
-              css={`
-                width: ${thumbnailWidth + 'px'};
-                height: ${thumbnailHeight + 'px'};
-                background: white;
-              `}
-            ></div>
+            <FakeImageCard imageCardWidth={imageCardWidth} imageCardHeight={imageCardHeight} />
           )}
         </StyledDiv>
         {!isAutoPlay && type === 'video/mp4' && <em>{hasSound ? 'Has Sound' : 'Has No Sound'}</em>}
