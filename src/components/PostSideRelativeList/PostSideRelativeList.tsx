@@ -36,7 +36,7 @@ export default React.memo(function PostSideRelativeList({
 
   const { data, isFetching } = useGalleryQuery({ page, isInfinite: true });
   const isLoading = data?.isLoading;
-  // console.log(isLoading);
+
   useEffect(() => {
     if (isLoading) {
       const ConatinerScrollY = data?.findIndex(({ id }) => id === mainPostId) * ITEM_HEIGHT;
