@@ -4,7 +4,7 @@ import { ContainerWrapperProps, HeaderCoverProps, HeaderProps, MainSectionProps 
 
 export const ChangeGlobalBackground = createGlobalStyle<{ backgroundColor: HeaderProps['backgroundColor'] }>`
 body {
-  background-color: ${({ theme, backgroundColor }) => theme.color[backgroundColor]};
+  background-color: ${({ theme, backgroundColor }) => theme.color[backgroundColor]} !important;
 }
 `;
 
