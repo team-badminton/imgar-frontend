@@ -37,8 +37,10 @@ export default React.memo(function PostSideRelativeList({
   const isLoading = data?.isLoading;
 
   useEffect(() => {
-    const ConatinerScrollY = data?.findIndex(({ id }) => id === mainPostId) * ITEM_HEIGHT;
-    containerRef.current.scrollTo(0, ConatinerScrollY);
+    if (isLoading) {
+      const ConatinerScrollY = data?.findIndex(({ id }) => id === mainPostId) * ITEM_HEIGHT;
+      containerRef.current.scrollTo(0, ConatinerScrollY);
+    }
   }, [isLoading]);
 
   useEffect(() => {
