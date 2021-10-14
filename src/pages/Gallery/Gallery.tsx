@@ -36,7 +36,7 @@ export default function Gallery(): ReactElement {
   const [postHeaderTitlePosX, setPostHeaderTitlePosX] = useState(0);
   const [postHeaderTitleWidth, setPostHeaderTitleWidth] = useState(0);
 
-  const [isOpenMasonry, setIsOpenMasonry] = useState(true);
+  const [isOpenMasonry, setIsOpenMasonry] = useState(false);
 
   const masonryWidth = useTypedSelector(state => state.display.masonryGalleryWidth);
 
@@ -83,9 +83,12 @@ export default function Gallery(): ReactElement {
             metaInfos={{ time: data.dateTime, views: data.views, platform: 'Iphone' }}
           />
           <PostContents className="contents" images={data.images} tags={data.tags} />
+
           <PostSideVoteBar className="left-side" votePoints={data.points} commentCount={data.commentCount} />
           <PostComments className="comments" commentCount={data.commentCount} postId={param.id} />
-          {/* <PostSideRelativeList mainPostId={param.id}></PostSideRelativeList> */}
+          <div className="right-side">
+            <PostSideRelativeList className="relative-list" title="123" mainPostId={param.id}></PostSideRelativeList>
+          </div>
         </PostContainer>
         <ExplorePostsContainer $width={masonryWidth}>
           <h3>
