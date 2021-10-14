@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import { VideoProps } from './Video.type';
 
-export default function Video({ className, controls, imageId, inView }: VideoProps): ReactElement {
+export default function Video({ className, controls, imageId, inView = true }: VideoProps): ReactElement {
   const src = `https://i.imgur.com/${imageId}_lq.mp4`;
 
   return (
