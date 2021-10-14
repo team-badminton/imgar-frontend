@@ -34,6 +34,10 @@ export const TabNavigationItem = styled.li`
 export const TabNavigationLink = styled(NavLink)`
   position: relative;
   padding: ${({ theme }) => theme.spaceSize.s};
+
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
   &.active {
     font-weight: bold;
     &::after {

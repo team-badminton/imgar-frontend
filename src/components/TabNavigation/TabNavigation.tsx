@@ -8,7 +8,7 @@ import {
 } from './TabNavigation.styled';
 import { TabNavigationProps } from './TabNavigation.type';
 
-export default React.memo(function TabNavigation({ tabs }: TabNavigationProps): ReactElement {
+function TabNavigation({ tabs }: TabNavigationProps): ReactElement {
   const { url } = useRouteMatch();
   return (
     <TabNavigationContainer>
@@ -36,4 +36,6 @@ export default React.memo(function TabNavigation({ tabs }: TabNavigationProps): 
       </TabNavigationList>
     </TabNavigationContainer>
   );
-});
+}
+
+export default React.memo(TabNavigation);

@@ -32,7 +32,7 @@ function SuggestListLi({ to, keywordRegexp, children, leftIcon, prefix }: Sugges
                 prefix ?? '',
                 ...children
                   .split(keywordRegexp)
-                  .map(part => (part.match(keywordRegexp) ? <strong>{part}</strong> : part)),
+                  .map((part, idx) => (part.match(keywordRegexp) ? <strong key={idx}>{part}</strong> : part)),
               ]
             : `${prefix ?? ''}${children}`}
         </span>
