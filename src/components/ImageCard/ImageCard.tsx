@@ -4,7 +4,7 @@ import { useInView } from 'react-intersection-observer';
 
 // components
 import { Picture, Video } from '@/components';
-import { FakeImageCard, StyledArticle, StyledDiv, StyledFooter } from './ImageCard.styled';
+import { StyledArticle, StyledDiv, StyledExtraData, StyledFooter } from './ImageCard.styled';
 import { ImageCardProps } from './ImageCard.type';
 
 // SVG
@@ -22,7 +22,8 @@ export default function ImageCard({
   layoutOption,
   isLazyLoading,
 }: ImageCardProps): ReactElement {
-  const { id, thumbnailImageId, title, upCount, downCount, commentCount, views, type, hasSound, isAlbum } = postInfo;
+  const { id, thumbnailImageId, title, upCount, downCount, commentCount, views, type, hasSound, isAlbum, imageCount } =
+    postInfo;
 
   const { ref, inView } = useInView({
     triggerOnce: true,
@@ -53,7 +54,15 @@ export default function ImageCard({
             <Video imageId={thumbnailImageId} inView={inView} />
           )}
         </StyledDiv>
-        {!isAutoPlay && type === 'video/mp4' && <em>{hasSound ? 'Has Sound' : 'Has No Sound'}</em>}
+        <StyledExtraData>
+          {imageCount > 1 && (
+            <strong>
+              <span className="a11y">Number of Image in Post</span>
+              <span>{imageCount}</span>
+            </strong>
+          )}
+          {!isAutoPlay && type === 'video/mp4' && <em>{hasSound ? 'Has Sound' : 'Has No Sound'}</em>}
+        </StyledExtraData>
         <h3>{title}</h3>
         <StyledFooter>
           <div>

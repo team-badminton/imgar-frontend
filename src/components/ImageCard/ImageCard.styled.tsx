@@ -75,17 +75,31 @@ export const StyledArticle = styled.article.attrs<StyledArticleProps>(({ imageCa
     background: ${({ theme }) => theme.color.darkGray};
     width: 100%;
   }
-  em {
-    position: absolute;
-    top: ${({ theme }) => theme.spaceSize.s};
-    right: ${({ theme }) => theme.spaceSize.s};
-    background: ${({ theme }) => theme.color.primaryColor};
-    color: ${({ theme }) => theme.color.white};
+  strong {
+    background: ${({ theme }) => theme.color.lightGray};
+    color: ${({ theme }) => theme.color.black};
     font-style: normal;
     padding: ${({ theme }) => theme.spaceSize.xs} ${({ theme }) => theme.spaceSize.s};
     border-radius: ${({ theme }) => theme.borderRadius.s};
     box-shadow: 0 0 ${pxToRem(10)} ${({ theme }) => theme.color.black};
   }
+  em {
+    background: ${({ theme }) => theme.color.primaryColor};
+    color: ${({ theme }) => theme.color.white};
+    font-style: normal;
+    font-weight: 700;
+    padding: ${({ theme }) => theme.spaceSize.xs} ${({ theme }) => theme.spaceSize.s};
+    border-radius: ${({ theme }) => theme.borderRadius.s};
+    box-shadow: 0 0 ${pxToRem(10)} ${({ theme }) => theme.color.black};
+    margin-left: ${({ theme }) => theme.spaceSize.xs};
+  }
+`;
+
+export const StyledExtraData = styled.div`
+  position: absolute;
+  display: flex;
+  top: ${({ theme }) => theme.spaceSize.s};
+  right: ${({ theme }) => theme.spaceSize.s};
 `;
 
 export const StyledDiv = styled.div<ImageContainerProps>`
