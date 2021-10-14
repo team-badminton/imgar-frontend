@@ -66,6 +66,9 @@ export const FolderList = styled.ul`
 export const FolderLink = styled(NavLink)`
   display: block;
   padding-top: ${({ theme }) => theme.spaceSize.s};
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
   &.isActive {
     transform: scale(1.2);
     span {
