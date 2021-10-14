@@ -54,9 +54,12 @@ export const store = configureStore({
     display: displayReducer,
     [imgurApi.reducerPath]: imgurApi.reducer,
   },
-  devTools: {
-    trace: true,
-  },
+  devTools:
+    process.env.NODE_ENV === 'development'
+      ? {
+          trace: true,
+        }
+      : false,
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware().concat(imgurApi.middleware).concat(infiniteScrollMiddleware),
 });

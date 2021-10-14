@@ -25,6 +25,7 @@ import { useTypedSelector } from '@/redux';
 
 // etc
 import { useHistory, useLocation, useParams } from 'react-router-dom';
+import { pxToRem } from '@/util/styleUtils';
 
 export default function Gallery(): ReactElement {
   const postHeaderRef = useRef<HTMLDivElement>(null);
@@ -104,6 +105,10 @@ export default function Gallery(): ReactElement {
               aria-haspopup="true"
               aria-owns="masonry"
               aria-expanded={isOpenMasonry}
+              css={`
+                width: ${pxToRem(400)};
+                margin-bottom: ${pxToRem(20)};
+              `}
             />
           </h3>
           {isOpenMasonry && <MasonryGalleryContainer id="masonry" />}
