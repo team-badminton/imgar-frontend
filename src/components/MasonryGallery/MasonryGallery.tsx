@@ -12,7 +12,7 @@ import {
 import { ImageCardPositionInfosType, MasonryGalleryProps } from './MasonryGallery.type';
 import { COLUMN_GAP__PX, ROW_GAP__PX, StyledImageCard, StyledSection } from './MasonryGallery.styled';
 
-export default function MasonryGallery({ posts }: MasonryGalleryProps): ReactElement {
+export default function MasonryGallery({ posts, id }: MasonryGalleryProps): ReactElement {
   const dispatch = useTypedDispatch();
   // 리덕스 전역 상태
   const queryPage = useTypedSelector(state => state.listInfo.queryPage);
@@ -56,14 +56,14 @@ export default function MasonryGallery({ posts }: MasonryGalleryProps): ReactEle
 
   // ImageCard의 transform x좌표, y좌표 계산 결과를 저장하기 위한 객체
   const ImageCardPositionInfos: ImageCardPositionInfosType = {};
-  
+
   useEffect(() => {
     containerRef.current.style.height = pxToRem(document.body.scrollHeight - window.innerHeight);
   }, [document.body.scrollHeight]);
 
   return (
     <>
-      <StyledSection ref={containerRef}>
+      <StyledSection ref={containerRef} id={id}>
         {posts.map((postInfo, index) => {
           const row = Math.floor(index / totalColumn);
           const column = index % totalColumn;

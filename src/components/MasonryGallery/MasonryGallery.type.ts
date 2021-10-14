@@ -2,6 +2,7 @@ import { PostV1Info } from '@/redux/storeTypes';
 
 export interface MasonryGalleryProps {
   posts: PostV1Info[];
+  id?: string;
 }
 
 export interface SetPositionProps {

@@ -1,51 +1,88 @@
-import React, { ReactElement, useEffect, useRef } from 'react';
+import React, { ReactElement, useEffect, useRef, useState } from 'react';
 
 // components
-import { Picture } from '@/components';
+import { Loading } from '@/components';
+import RelativeItem from './RelativeItem/RelativeItem';
 
 // styles
-import { Container, RelativeItem, ImageContainer, Title } from './PostSideRelativeList.styled';
+import { Container, Title } from './PostSideRelativeList.styled';
 
 // types
 import { PostSideRelativeListProps } from './PostSideRelativeList.type';
 
-// etc
-import { Link } from 'react-router-dom';
-import { pxToRem } from '@/util/styleUtils';
+// redux
+import { useGalleryQuery } from '@/redux/api';
+import { useTypedSelector } from '@/redux';
 
-export default function PostSideRelativeList({ title, posts, mainPostId }: PostSideRelativeListProps): ReactElement {
-  const ContainerRef = useRef<HTMLUListElement>();
+// etc
+import { useLocation } from 'react-router-dom';
+import { useLocationProps } from '@/pages/Gallery/Gallery.type';
+
+export default React.memo(function PostSideRelativeList({
+  mainPostId,
+  className,
+}: PostSideRelativeListProps): ReactElement {
   const ITEM_HEIGHT = 80;
 
+  const location = useLocation<useLocationProps>();
+
+  const containerRef = useRef<HTMLUListElement>();
+  const lastRelativeItemRef = useRef<HTMLLIElement>();
+
+  const { name, option } = useTypedSelector(state => state.listInfo.latestQuery);
+  const [page, setPage] = useState(1);
+
+  const title = !option.sort && 'Newest In Most Viral';
+
+  const { data, isFetching } = useGalleryQuery({ page, isInfinite: true });
+  const isLoading = data?.isLoading;
+
   useEffect(() => {
-    const ConatinerScrollY = posts.findIndex(({ id }) => id === mainPostId) * ITEM_HEIGHT;
-    ContainerRef.current.scrollTo(0, ConatinerScrollY);
-  }, []);
+    const ConatinerScrollY = data?.findIndex(({ id }) => id === mainPostId) * ITEM_HEIGHT;
+    containerRef.current.scrollTo(0, ConatinerScrollY);
+  }, [isLoading]);
+
+  useEffect(() => {
+    const handlePage = (entries: IntersectionObserverEntry[]) => {
+      const first = entries[0];
+
+      if (first.isIntersecting) {
+        setPage(page => page + 1);
+      }
+    };
+
+    if (data) {
+      const observer = new IntersectionObserver(handlePage, {
+        root: containerRef.current,
+      });
+      observer.observe(lastRelativeItemRef.current);
+
+      return () => {
+        observer.disconnect();
+      };
+    }
+  }, [data]);
+
   return (
-    <div>
-      <Title>{title}</Title>
-      <Container ref={ContainerRef}>
-        {posts.map(({ id, title, thumbnailImageId, imageCount }) => (
-          <RelativeItem key={id}>
-            <Link
-              css={`
-                display: block;
-                display: flex;
-                gap: ${pxToRem(8)};
-                align-items: center;
-                margin-bottom: ${pxToRem(16)};
-              `}
-              to={`/gallery/${id}`}
-            >
-              <span className="item-title">{title}</span>
-              <ImageContainer>
-                <Picture imageId={thumbnailImageId} imageHeight={64} imageWidth={64} />
-                {imageCount > 1 && <span className="image-count">{imageCount}</span>}
-              </ImageContainer>
-            </Link>
-          </RelativeItem>
-        ))}
-      </Container>
-    </div>
+    <>
+      <div className={className}>
+        <Title>{title}</Title>
+        <Container ref={containerRef}>
+          {data?.map(({ id, title, thumbnailImageId, imageCount }, index) => {
+            return (
+              <RelativeItem
+                postId={id}
+                title={title}
+                thumbnailImageId={thumbnailImageId}
+                imageCount={imageCount}
+                key={id + index}
+                ref={index === data.length - 1 ? lastRelativeItemRef : null}
+              ></RelativeItem>
+            );
+          })}
+          {isFetching && <Loading />}
+        </Container>
+      </div>
+    </>
   );
-}
+});

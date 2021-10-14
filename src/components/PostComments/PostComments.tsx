@@ -18,9 +18,14 @@ import { Title, Container, LoadMoreButton, StyledButton, CommentHeader } from '.
 import { ReactComponent as ExpandIcon } from './assets/expandIcon.svg';
 import { ReactComponent as ArrowIcon } from '@/assets/Icon/arrow.svg';
 
-export default function PostComments({ className, postId, sort, commentCount }: PostCommentsProps): ReactElement {
+export default React.memo(function PostComments({
+  className,
+  postId,
+  sort,
+  commentCount,
+}: PostCommentsProps): ReactElement {
   const [page, setPage] = useState(1);
-  const { data, error, isLoading } = usePostCommentsQuery({ postId, sort, page });
+  const { data } = usePostCommentsQuery({ postId, sort, page });
   const isNext = data?.next;
 
   return (
@@ -66,4 +71,4 @@ export default function PostComments({ className, postId, sort, commentCount }: 
       )}
     </Container>
   );
-}
+});
