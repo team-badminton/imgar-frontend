@@ -10,11 +10,9 @@ export interface ListInfo {
   prevPage: number;
   autoPlay: boolean;
   layout: 'waterfall' | 'uniform';
-  latestQuery: {
-    name: 'gallery' | 'search' | 'userPosts' | 'userFavorites';
-    option: any;
-  };
 }
+
+export type LatestQueryName = 'gallery' | 'search' | 'userPosts' | 'userFavorites' | 'tagPosts';
 
 export interface PostInfo {
   id: string;

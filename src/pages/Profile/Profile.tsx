@@ -37,7 +37,7 @@ export default function Profile(): ReactElement {
       darkenBackground
       customHeaderHeight={customHederHeight}
       containerWidth={GalleryWidth}
-      noOffset={currentTab !== 'about'}
+      noOffset
     >
       {isLoading ? (
         <Loading />

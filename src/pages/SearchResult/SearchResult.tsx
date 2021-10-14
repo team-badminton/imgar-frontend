@@ -1,10 +1,11 @@
-import { Loading, MainContainer, MasonryGallery } from '@/components';
+import { Loading, Logo, MainContainer, MasonryGallery, Search } from '@/components';
 import { useTypedDispatch, useTypedSelector } from '@/redux';
 import { useSearchQuery } from '@/redux/api';
 import { GallerySearchQuery, SearchUrlQuery } from '@/redux/api/types/queries';
 import { masonryGalleryWidthSelector } from '@/redux/slices/displayReducer';
 import { setQueryPage } from '@/redux/slices/listInfoReducer';
 import { PostV1Info } from '@/redux/storeTypes';
+import { pxToRem } from '@/util/styleUtils';
 import React, { ReactElement, useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Notice } from '../Profile/Profile.styled';
@@ -18,8 +19,32 @@ const sort1Query = {
   newest: 'time',
 };
 
-function CustomHeader(): ReactElement {
-  return;
+export function CustomHeader(): ReactElement {
+  return (
+    <div
+      css={`
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: ${pxToRem(75)};
+        padding: 0 ${pxToRem(15)};
+      `}
+    >
+      <Logo to="/" icon />
+      <Search
+        css={`
+          @media (max-width: ${pxToRem(1200)}) {
+            display: none;
+          }
+        `}
+      />
+      <div
+        css={`
+          width: 100px;
+        `}
+      />
+    </div>
+  );
 }
 
 export default function SearchResult(): ReactElement {
@@ -47,13 +72,14 @@ export default function SearchResult(): ReactElement {
 
   const [isFetching, setIsFetching] = React.useState<boolean>(false);
   const galleryWidth = useTypedSelector(masonryGalleryWidthSelector);
-
-  const { data } = useSearchQuery({
+  const option = {
     query: searchQuery,
     page,
     sort: sort1Query[sort1] as GallerySearchQuery['sort'],
     window: sort1Query[sort1] === 'top' ? sort2 : null,
-  });
+  };
+  const { data } = useSearchQuery(option);
+
   const dispatch = useTypedDispatch();
 
   const sortArray = useMemo(() => [sort1, sort2], [sort1, sort2]);
@@ -102,6 +128,7 @@ export default function SearchResult(): ReactElement {
       headerCover={<SearchResultCover isFetching={isFetching} />}
       headerBackground="https://s.imgur.com/desktop-assets/desktop-assets/homebg.e52b5cdf24f83bcd55f9f1318855f2ef.png"
       containerWidth={galleryWidth}
+      customHeader={<CustomHeader />}
     >
       <SearchResultHeader sorted={sortArray} setSort={setSortArray} />
       {isFetching ? <Loading /> : posts.length ? <MasonryGallery posts={posts} /> : <Notice>No search results</Notice>}

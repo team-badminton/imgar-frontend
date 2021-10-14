@@ -2,17 +2,24 @@ import { pxToRem } from '@/util/styleUtils';
 import styled from 'styled-components';
 import { AdvancedSearchContainerProps } from './SearchResult.type';
 
-export const SearchResultHeaderContainer = styled.div`
+export const ControlHeaderContainer = styled.div<{ isMinWidth: boolean }>`
   display: flex;
-  position: relative;
-  height: ${pxToRem(70)};
+  position: sticky;
+  height: ${pxToRem(75)};
   width: 100%;
   min-width: ${pxToRem(450)};
   align-items: center;
   justify-content: space-between;
   z-index: 999;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 0;
+  pointer-events: none;
+  ${({ isMinWidth }) => (isMinWidth ? `transform: translateX(-23%);padding-left: ${pxToRem(30)};` : null)}
+  button {
+    pointer-events: auto;
+  }
+  a {
+    pointer-events: auto;
+  }
 `;
 
 export const SearchResultHeaderTitle = styled.h3`

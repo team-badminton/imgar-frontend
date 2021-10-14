@@ -18,7 +18,8 @@ export default function ProfilePosts(): ReactElement {
   const [isFetching, setIsFetching] = React.useState<boolean>(false);
   // const [isPageFetching, setIsPageFetching] = React.useState<boolean>(false);
   const page = useTypedSelector(state => state.listInfo.queryPage);
-  const { data } = useAccountPostsQuery({ username, sort, page });
+  const option = { username, sort, page };
+  const { data } = useAccountPostsQuery(option);
   const domReady = useDomReady();
 
   const dispatch = useTypedDispatch();

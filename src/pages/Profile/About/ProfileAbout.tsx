@@ -2,7 +2,8 @@ import { Picture } from '@/components';
 import Tooltip from '@/components/Tooltip/Tooltip';
 import { useAccountQuery } from '@/redux/api';
 import { formattedNumber } from '@/util/formatUtils';
-import { convertLink, pxToRem } from '@/util/styleUtils';
+import { pxToRem } from '@/util/styleUtils';
+import { convertLink } from '@/util/jsxUtils';
 import { format } from 'date-fns';
 import React, { ReactElement } from 'react';
 import { useParams } from 'react-router';
@@ -34,7 +35,7 @@ function TrophyItem({ name, description, imageUrl, to }: TrophyItemProps): React
   return (
     <ProfileAboutGridItem innerItemWidth={150}>
       <Tooltip tooltipText={description} to={to}>
-        <Picture imageWidth={150} imageHeight={150} src={imageUrl} alt={name} />
+        <Picture imageWidth={150} imageHeight={150} src={imageUrl} />
         <p>{name.toUpperCase()}</p>
       </Tooltip>
     </ProfileAboutGridItem>

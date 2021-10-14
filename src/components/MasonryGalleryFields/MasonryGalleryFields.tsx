@@ -88,7 +88,7 @@ export default function MasonryGalleryFields(): ReactElement {
           <SelectBoxHeader onClickHandler={() => setIsShowCategory(!isShowCategory)}>
             {displayedCategory}
           </SelectBoxHeader>
-          <SelectBoxList onClickHandler={handleSetCategory} isShow={isShowCategory}>
+          <SelectBoxList setIsShow={setIsShowCategory} onClickHandler={handleSetCategory} isShow={isShowCategory}>
             {categoryList
               .map(category => galleryQueryKeyToAllUpperCase(category))
               .map(item => (
@@ -102,7 +102,11 @@ export default function MasonryGalleryFields(): ReactElement {
           <SelectBoxHeader onClickHandler={() => setIsShowSortOrWindowOption(!isShowSortOrWindowOption)}>
             {category !== 'highestScoring' ? displayedSortOption : displayedWindowOption}
           </SelectBoxHeader>
-          <SelectBoxList onClickHandler={handleSetSortOrWindowOption} isShow={isShowSortOrWindowOption}>
+          <SelectBoxList
+            setIsShow={setIsShowSortOrWindowOption}
+            onClickHandler={handleSetSortOrWindowOption}
+            isShow={isShowSortOrWindowOption}
+          >
             {sortOptionList[category]
               .map(sortOption => galleryQueryKeyToAllUpperCase(sortOption))
               .map(sortOption => (

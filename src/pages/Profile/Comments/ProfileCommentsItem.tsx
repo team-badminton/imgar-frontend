@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { convertLink } from '@/util/styleUtils';
+import { convertLink } from '@/util/jsxUtils';
 import React, { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import { formatDistanceToNowStrict } from 'date-fns';
@@ -36,7 +36,7 @@ export default function ProfileCommentItem({ postId, comment, points, dateTime, 
         <ProfileCommentItemThumbnail src={`https://i.imgur.com/${cover}b.png`} imageWidth={77} imageHeight={77} />
       </Link>
       <ProfileCommentItemContainer>
-        <p>{convertLink(comment)}</p>
+        {convertLink(comment, true)}
         <ProfileCommentItemInfo>
           <span>
             <UpIconSVG width="12" height="12" />
