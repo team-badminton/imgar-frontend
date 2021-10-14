@@ -17,14 +17,19 @@ export const ProfileCommentsHeaderTitle = styled.h3`
   font-size: ${({ theme }) => theme.fontSize.l};
 `;
 
-export const ProfileCommentsUl = styled.ul`
+export const ProfileCommentsUl = styled.ul<{ containerWidth: number }>`
   margin: 0;
-  width: 100%;
+  transform: translateX(-50%);
+  position: relative;
+  left: 50%;
+  min-width: 100vw;
+  min-height: 50vh;
+  padding: 0
+    ${({ containerWidth }) =>
+      `calc((100vw - ${pxToRem(containerWidth < 450 ? 450 : 875 < containerWidth ? 875 : containerWidth)}) / 2)`};
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0 auto;
-  max-width: ${pxToRem(875)};
 `;
 
 export const ProfileCommentItemWrapper = styled.li`

@@ -56,6 +56,10 @@ export default function MasonryGallery({ posts }: MasonryGalleryProps): ReactEle
 
   // ImageCard의 transform x좌표, y좌표 계산 결과를 저장하기 위한 객체
   const ImageCardPositionInfos: ImageCardPositionInfosType = {};
+  
+  useEffect(() => {
+    containerRef.current.style.height = pxToRem(document.body.scrollHeight - window.innerHeight);
+  }, [document.body.scrollHeight]);
 
   return (
     <>
@@ -94,21 +98,21 @@ export default function MasonryGallery({ posts }: MasonryGalleryProps): ReactEle
               />
               {index === posts.length - 1 && (
                 <div
-                  css={`
-                    width: 100px;
-                    transform: translate3d(
+                  style={{
+                    width: '100px',
+                    transform: `translate3d(
                       ${pxToRem(ImageCardPositionInfos[objectKey].column * (IMAGECARD_WIDTH_PX + COLUMN_GAP__PX))},
-                      ${ImageCardPositionInfos[objectKey].row *
-                        (parseFloat(IMAGECARD_HEIGHT_EXCLUDING_IMAGE__REM) + parseFloat(pxToRem(ROW_GAP__PX))) +
-                      parseFloat(pxToRem(ImageCardPositionInfos[objectKey].sumOfImageHeightPx)) +
-                      'rem'},
+                      ${
+                        ImageCardPositionInfos[objectKey].row *
+                          (parseFloat(IMAGECARD_HEIGHT_EXCLUDING_IMAGE__REM) + parseFloat(pxToRem(ROW_GAP__PX))) +
+                        parseFloat(pxToRem(ImageCardPositionInfos[objectKey].sumOfImageHeightPx)) +
+                        'rem'
+                      },
                       0
-                    );
-                  `}
+                    )`,
+                  }}
                   ref={observerRef}
-                >
-                  Observer
-                </div>
+                ></div>
               )}
             </Fragment>
           );
