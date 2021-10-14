@@ -1,10 +1,16 @@
+import { pxToRem } from '@/util/styleUtils';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { StyledArticleProps, StyledTagCardLinkProps } from './TagCrad.type';
 
+export const TAG_GAP = 4;
+export const TAG_WIDTH__PX = 110;
+export const FEATURED_TAG_WIDTH__PX = (TAG_WIDTH__PX + TAG_GAP) * 2;
+export const TAG_HEIGHT__PX = 130;
+
 export const StyledTagCardLink = styled(Link)<StyledTagCardLinkProps>`
-  width: ${({ $isFeatured }) => ($isFeatured ? 228 + 'px' : 110 + 'px')};
-  height: 130px;
+  width: ${({ $isFeatured }) => ($isFeatured ? FEATURED_TAG_WIDTH__PX + 'px' : TAG_WIDTH__PX + 'px')};
+  height: ${pxToRem(TAG_HEIGHT__PX)};
   display: inline-block;
   position: relative;
   color: white;

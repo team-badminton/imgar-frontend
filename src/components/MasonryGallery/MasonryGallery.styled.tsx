@@ -5,7 +5,7 @@ import { pxToRem } from '@/util/styleUtils';
 import { IMAGECARD_WIDTH_PX, IMAGECARD_HEIGHT_EXCLUDING_IMAGE__REM } from '@/components/ImageCard/ImageCard.styled';
 
 export const COLUMN_GAP__PX = 15;
-export const ROW_GAP__PX = 30;
+export const ROW_GAP__PX = 20;
 
 export const StyledSection = styled.section`
   position: relative;

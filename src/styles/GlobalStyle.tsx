@@ -61,6 +61,11 @@ body *::after {
   box-sizing: border-box;
 }
 
+:focus {
+  outline:3px solid ${({ theme }) => theme.color.white}; 
+  outline-offset: ${pxToRem(2)};
+}
+
 a {
   color: inherit;
   text-decoration: none;
