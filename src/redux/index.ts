@@ -6,41 +6,46 @@ import listInfoReducer from './slices/listInfoReducer';
 import { Middleware } from 'redux';
 
 export const infiniteScrollMiddleware: Middleware = storeApi => next => action => {
-  if (!action.meta?.arg.originalArgs.isInfinite || action.type !== 'imgurApi/executeQuery/fulfilled') {
+  try {
+    const isInfinite = action.meta?.arg?.originalArgs?.isInfinite;
+
+    if (!isInfinite || action.type !== 'imgurApi/executeQuery/fulfilled') {
+      next(action);
+      return;
+    }
+
+    const apiQueries = storeApi.getState().imgurApi.queries;
+    const endPointName = action.meta?.arg.endpointName;
+    const { page } = action.meta.arg.originalArgs;
+
+    if (endPointName === 'postComments') {
+      const { postId } = action.meta.arg.originalArgs;
+      const queryCacheKey = `postComments({"page":${page - 1},"postId":"${postId}"})`;
+      const lastData = apiQueries[queryCacheKey]?.data;
+
+      if (page === 1 && action.payload.length > 30) {
+        action.payload = action.payload.slice(0, 30);
+        action.payload.next = true;
+      } else if (page !== 1) {
+        const accData = [...lastData, ...action.payload];
+        action.payload = accData;
+      }
+    }
+
+    if (endPointName === 'gallery') {
+      const queryCacheKey = action.meta.arg.queryCacheKey.replace(`"page":${page}`, `"page":${page - 1}`);
+      const lastData = apiQueries[queryCacheKey]?.data;
+      if (lastData) {
+        action.payload = [...lastData, ...action.payload];
+        action.payload.isLoading = false;
+      } else {
+        action.payload.isLoading = true;
+      }
+    }
     next(action);
-    return;
+  } catch (e) {
+    next(action);
   }
-
-  const apiQueries = storeApi.getState().imgurApi.queries;
-  const endPointName = action.meta?.arg.endpointName;
-  const { page } = action.meta.arg.originalArgs;
-
-  if (endPointName === 'postComments') {
-    const { postId } = action.meta.arg.originalArgs;
-    const queryCacheKey = `postComments({"page":${page - 1},"postId":"${postId}"})`;
-    const lastData = apiQueries[queryCacheKey]?.data;
-
-    if (page === 1 && action.payload.length > 30) {
-      action.payload = action.payload.slice(0, 30);
-      action.payload.next = true;
-    } else if (page !== 1) {
-      const accData = [...lastData, ...action.payload];
-      action.payload = accData;
-    }
-  }
-
-  if (endPointName === 'gallery') {
-    const queryCacheKey = action.meta.arg.queryCacheKey.replace(`"page":${page}`, `"page":${page - 1}`);
-    const lastData = apiQueries[queryCacheKey]?.data;
-    if (lastData) {
-      action.payload = [...lastData, ...action.payload];
-      action.payload.isLoading = false;
-    } else {
-      action.payload.isLoading = true;
-    }
-  }
-
-  next(action);
 };
 
 export const store = configureStore({
