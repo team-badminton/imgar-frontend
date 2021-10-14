@@ -57,11 +57,11 @@ export default function ImageCard({
         <h3>{title}</h3>
         <StyledFooter>
           <div>
-            <UpIconSVG title="Upvote" fill="white" />
+            <UpIconSVG title="Upvote" width="16px" height="16px" fill="currentColor" />
             <span>{upCount - downCount}</span>
           </div>
           <div>
-            <CommentIconSVG title="Comment" />
+            <CommentIconSVG title="Comment" width="16px" height="16px" fill="currentColor" />
             <span>{commentCount}</span>
           </div>
           <div>
