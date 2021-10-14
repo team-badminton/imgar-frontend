@@ -3,4 +3,5 @@ export interface VideoProps {
   className?: string;
   controls?: boolean;
   isLazyLoading?: boolean;
+  inView?: boolean;
 }
