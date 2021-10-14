@@ -40,21 +40,17 @@ export default function ImageCard({
     >
       <StyledArticle imageCardWidth={imageCardWidth} ref={ref}>
         <StyledDiv layoutOption={layoutOption}>
-          {inView ? (
-            !isAutoPlay || type === 'image/jpeg' || type === 'image/png' ? (
-              <Picture
-                alt=""
-                objectFit="contain"
-                imageWidth={imageCardWidth}
-                imageHeight={imageCardHeight}
-                imageId={thumbnailImageId}
-                isLazyLoading={isLazyLoading}
-              />
-            ) : (
-              <Video imageId={thumbnailImageId} isLazyLoading={isLazyLoading} />
-            )
+          {!isAutoPlay || type === 'image/jpeg' || type === 'image/png' ? (
+            <Picture
+              alt=""
+              objectFit="contain"
+              imageWidth={imageCardWidth}
+              imageHeight={imageCardHeight}
+              imageId={thumbnailImageId}
+              inView={inView}
+            />
           ) : (
-            <FakeImageCard imageCardWidth={imageCardWidth} imageCardHeight={imageCardHeight} />
+            <Video imageId={thumbnailImageId} isLazyLoading={isLazyLoading} />
           )}
         </StyledDiv>
         {!isAutoPlay && type === 'video/mp4' && <em>{hasSound ? 'Has Sound' : 'Has No Sound'}</em>}
