@@ -12,6 +12,7 @@ export { default as PostSideRelativeList } from './PostSideRelativeList/PostSide
 export { default as PostSideVoteBar } from './PostSideVoteBar/PostSideVoteBar';
 export { default as SearchBar } from './SearchBar/SearchBar';
 export { default as SuggestList } from './SuggestList/SuggestList';
+export { default as Search } from './Search/Search';
 export { default as ImageCard } from './ImageCard/ImageCard';
 export { default as MasonryGalleryFields } from './MasonryGalleryFields/MasonryGalleryFields';
 export { default as MasonryGalleryOptions } from './MasonryGalleryOptions/MasonryGalleryOptions';
@@ -26,7 +27,6 @@ export { default as SelectBoxHeader } from './SelectBoxHeader/SelectBoxHeader';
 export { default as SelectBox } from './SelectBox/SelectBox';
 export { default as SortList } from './SortList/SortList';
 export { default as Tooltip } from './Tooltip/Tooltip';
-export { default as Search } from './Search/Search';
 export { default as Logo } from './Logo/Logo';
 export { default as TabNavigation } from './TabNavigation/TabNavigation';
 export { default as MainContainer } from './MainContainer/MainContainer';

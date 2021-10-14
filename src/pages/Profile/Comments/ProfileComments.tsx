@@ -1,9 +1,10 @@
 import { Loading } from '@/components';
+import { ContainerWidthContext } from '@/components/MainContainer/MainContainer';
 import useDomReady from '@/hooks/useDomReady';
 import { useAccountCommentsQuery } from '@/redux/api';
 import { PostCommentInfo } from '@/redux/storeTypes';
 import { pxToRem } from '@/util/styleUtils';
-import React, { ReactElement, useEffect, useRef, useState } from 'react';
+import React, { ReactElement, useContext, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useParams } from 'react-router';
 import { Notice } from '../Profile.styled';
@@ -22,6 +23,7 @@ export default React.memo(function ProfileComments(): ReactElement {
   const { data } = useAccountCommentsQuery({ username, sort, page });
   const scrollThreshold = useRef<HTMLDivElement>(null);
   const domReady = useDomReady();
+  const containerWidth = useContext(ContainerWidthContext);
 
   useEffect(() => {
     scrollThreshold.current = document.createElement('div');
@@ -81,7 +83,7 @@ export default React.memo(function ProfileComments(): ReactElement {
           />,
           document.querySelector('.ProfileCover'),
         )}
-      <ProfileCommentsUl>
+      <ProfileCommentsUl containerWidth={containerWidth}>
         {isFetching ? (
           <Loading />
         ) : comments.length ? (

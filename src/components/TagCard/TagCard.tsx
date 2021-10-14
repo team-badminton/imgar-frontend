@@ -13,11 +13,7 @@ export default function TagCard({ tag, isFeatured }: TagCardProps): ReactElement
 
   return (
     <>
-      <StyledTagCardLink
-        $isFeatured={isFeatured}
-        $backgroundImageId={backgroundImageId}
-        to={`/t/${name}?source=featured_tag_module`}
-      >
+      <StyledTagCardLink $isFeatured={isFeatured} $backgroundImageId={backgroundImageId} to={`/t/${name}`}>
         <StyledArticle accentColor={accent}>
           <h3>{_displayName}</h3>
           <p>

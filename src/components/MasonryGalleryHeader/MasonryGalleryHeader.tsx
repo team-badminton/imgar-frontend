@@ -1,16 +1,17 @@
 import React, { ReactElement, useEffect } from 'react';
 import { useTypedSelector } from '@/redux';
 import { pxToRem } from '@/util/styleUtils';
-import { MasonryGalleryFields, MasonryGalleryOptions } from '@/components/index';
+import { MasonryGalleryFields, MasonryGalleryOptions, Search } from '@/components/index';
 import { defaultTheme } from '@/theme/themes';
+import { StyledMasonryGalleryHeaderSearch } from './MasonryGalleryHeader.styled';
 
 export const MASONRY_GALLERY_HEADER_MIN_WIDTH__PX = 450;
 
 export default function MasonryGalleryHeader(): ReactElement {
   const masonryGalleryWidth = useTypedSelector(state => state.display.masonryGalleryWidth);
-
   return (
     <div
+      className="masonryGalleryHeader"
       css={`
         display: flex;
         justify-content: space-between;
@@ -24,6 +25,9 @@ export default function MasonryGalleryHeader(): ReactElement {
         z-index: 6;
       `}
     >
+      {masonryGalleryWidth >= 1005 ? (
+        <StyledMasonryGalleryHeaderSearch className={'mainMasonryGalleryHeaderSearch'} />
+      ) : null}
       <MasonryGalleryFields />
       <MasonryGalleryOptions />
     </div>

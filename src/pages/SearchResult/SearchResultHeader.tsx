@@ -8,7 +8,7 @@ const searchSort2 = ['all', 'day', 'week', 'month', 'year'];
 
 export default function SearchResultHeader({ setSort, sorted }: SearchResultPostHeaderState): ReactElement {
   return (
-    <SearchResultHeaderContainer>
+    <SearchResultHeaderContainer className="masonryGalleryHeader">
       <SearchResultHeaderTitle>
         <SortList setItem={setSort[0]} selectedItem={sorted[0]} items={searchSort1} />
       </SearchResultHeaderTitle>
