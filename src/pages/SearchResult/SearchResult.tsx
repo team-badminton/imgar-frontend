@@ -1,4 +1,4 @@
-import { Loading, MainContainer, MasonryGallery } from '@/components';
+import { Loading, Logo, MainContainer, MasonryGallery, Search } from '@/components';
 import useUpdateLatestQuery from '@/hooks/useUpdateLatestQuery';
 import { useTypedDispatch, useTypedSelector } from '@/redux';
 import { useSearchQuery } from '@/redux/api';
@@ -6,6 +6,7 @@ import { GallerySearchQuery, SearchUrlQuery } from '@/redux/api/types/queries';
 import { masonryGalleryWidthSelector } from '@/redux/slices/displayReducer';
 import { setQueryPage } from '@/redux/slices/listInfoReducer';
 import { PostV1Info } from '@/redux/storeTypes';
+import { pxToRem } from '@/util/styleUtils';
 import React, { ReactElement, useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Notice } from '../Profile/Profile.styled';
@@ -20,7 +21,31 @@ const sort1Query = {
 };
 
 function CustomHeader(): ReactElement {
-  return;
+  return (
+    <div
+      css={`
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: ${pxToRem(75)};
+        padding: 0 ${pxToRem(15)};
+      `}
+    >
+      <Logo to="/" icon />
+      <Search
+        css={`
+          @media (max-width: ${pxToRem(1200)}) {
+            display: none;
+          }
+        `}
+      />
+      <div
+        css={`
+          width: 1px;
+        `}
+      />
+    </div>
+  );
 }
 
 export default function SearchResult(): ReactElement {
@@ -106,6 +131,7 @@ export default function SearchResult(): ReactElement {
       headerCover={<SearchResultCover isFetching={isFetching} />}
       headerBackground="https://s.imgur.com/desktop-assets/desktop-assets/homebg.e52b5cdf24f83bcd55f9f1318855f2ef.png"
       containerWidth={galleryWidth}
+      customHeader={<CustomHeader />}
     >
       <SearchResultHeader sorted={sortArray} setSort={setSortArray} />
       {isFetching ? <Loading /> : posts.length ? <MasonryGallery posts={posts} /> : <Notice>No search results</Notice>}

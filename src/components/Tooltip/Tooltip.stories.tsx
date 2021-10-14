@@ -37,7 +37,6 @@ Default.decorators = [
         gap: '20px',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '300vh',
       }}
     >
       <Story />
@@ -55,7 +54,7 @@ TooltipBoxWithDownArrow.args = {
   arrow: 'down',
   arrowOffset: 0,
   children: 'Tooltip with down arrow',
-  style: { top: 'initial', bottom: 'initial' },
+  style: { top: 'initial', bottom: 'initial', marginTop: 200 },
 };
 
 export const TooltipBoxWithUpArrow: ComponentStory<typeof TooltipBox> = BoxTemplate.bind({});

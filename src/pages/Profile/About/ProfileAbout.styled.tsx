@@ -5,7 +5,7 @@ import { DescriptionItemParagraphProps } from './ProfileAbout.type';
 export const ProfileAboutContainer = styled.div`
   display: flex;
   width: 100%;
-  margin-top: calc(${({ theme }) => theme.spaceSize.l} + ${pxToRem(75)});
+  /* margin-top: calc(${({ theme }) => theme.spaceSize.l} + ${pxToRem(75)}); */
 `;
 
 export const ProfileAboutDescription = styled.div`
