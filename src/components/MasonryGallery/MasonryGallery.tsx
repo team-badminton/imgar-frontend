@@ -1,29 +1,30 @@
+import React, { Fragment, ReactElement, useEffect, useLayoutEffect, useState } from 'react';
+import { useTypedDispatch, useTypedSelector } from '@/redux';
+import { useInView } from 'react-intersection-observer';
+import { pxToRem } from '@/util/styleUtils';
+import { setQueryPage } from '@/redux/slices/listInfoReducer';
 import {
   IMAGECARD_HEIGHT_EXCLUDING_IMAGE__REM,
   IMAGECARD_UNIFORM_HEIGHT__PX,
   IMAGECARD_WIDTH_PX,
   IMAGE_MAX_HEIGHT_PX,
 } from '@/components/ImageCard/ImageCard.styled';
-import { useInView } from 'react-intersection-observer';
-import { useTypedDispatch, useTypedSelector } from '@/redux';
-import { useGalleryQuery } from '@/redux/api';
-import { getFetch, setQueryPage } from '@/redux/slices/listInfoReducer';
-import { createRandomHash } from '@/util/formatUtils';
-import { pxToRem } from '@/util/styleUtils';
-import React, { Fragment, ReactElement, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
-// import { useHistory, useLocation, useParams } from 'react-router-dom';
-import { COLUMN_GAP__PX, ROW_GAP__PX, StyledImageCard } from './MasonryGallery.styled';
-import { MasonryGalleryProps, SetPositionProps } from './MasonryGallery.type';
+import { ImageCardPositionInfosType, MasonryGalleryProps } from './MasonryGallery.type';
+import { COLUMN_GAP__PX, ROW_GAP__PX, StyledImageCard, StyledSection } from './MasonryGallery.styled';
 
 export default function MasonryGallery({ posts }: MasonryGalleryProps): ReactElement {
   const dispatch = useTypedDispatch();
-  const queryPage = useTypedSelector(state => state.listInfo.queryPage);
   // 리덕스 전역 상태
+  const queryPage = useTypedSelector(state => state.listInfo.queryPage);
   const isAutoPlay = useTypedSelector(state => state.listInfo.autoPlay);
   const layoutOption = useTypedSelector(state => state.listInfo.layout);
+
+  // 상태
   const [totalColumn, setTotalColumn] = useState<number>();
+
+  // Ref
   const containerRef = React.useRef<HTMLElement>(null);
-  const masonryGalleryObserverRef = React.useRef<HTMLDivElement>(null);
+  const { ref: observerRef, inView: observerInView } = useInView();
 
   useLayoutEffect(() => {
     const resizeObserver = new ResizeObserver(() => {
@@ -47,38 +48,33 @@ export default function MasonryGallery({ posts }: MasonryGalleryProps): ReactEle
     return () => resizeObserver.disconnect();
   }, []);
 
-  const ImageCardPositionInfos: {
-    [key: string]: SetPositionProps;
-  } = {};
-
-  const { ref: observerRef, inView: observerInView } = useInView();
-  const { ref: imageRef, inView: imageInView } = useInView();
-
   useEffect(() => {
     if (observerInView) {
       dispatch(setQueryPage(queryPage + 1));
     }
   }, [observerInView]);
 
+  // ImageCard의 transform x좌표, y좌표 계산 결과를 저장하기 위한 객체
+  const ImageCardPositionInfos: ImageCardPositionInfosType = {};
+  
   useEffect(() => {
     containerRef.current.style.height = pxToRem(document.body.scrollHeight - window.innerHeight);
   }, [document.body.scrollHeight]);
 
   return (
     <>
-      <section
-        css={`
-          position: relative;
-          margin: 0 auto;
-          width: 100%;
-        `}
-        ref={containerRef}
-      >
+      <StyledSection ref={containerRef}>
         {posts.map((postInfo, index) => {
           const row = Math.floor(index / totalColumn);
           const column = index % totalColumn;
           const objectKey = '' + row + column;
           const aboveImageCardObjectKey = '' + (row - 1) + column;
+          const imageCardHeight =
+            layoutOption === 'uniform'
+              ? IMAGECARD_UNIFORM_HEIGHT__PX - 50
+              : (postInfo.thumbnailHeight * IMAGECARD_WIDTH_PX) / postInfo.thumbnailWidth > IMAGE_MAX_HEIGHT_PX
+              ? IMAGE_MAX_HEIGHT_PX
+              : (postInfo.thumbnailHeight * IMAGECARD_WIDTH_PX) / postInfo.thumbnailWidth;
           const sumOfAboveImageHeightPx = ImageCardPositionInfos[aboveImageCardObjectKey]
             ? ImageCardPositionInfos[aboveImageCardObjectKey].sumOfImageHeightPx
             : 0;
@@ -86,13 +82,7 @@ export default function MasonryGallery({ posts }: MasonryGalleryProps): ReactEle
             column,
             row,
             sumOfAboveImageHeightPx,
-            sumOfImageHeightPx:
-              sumOfAboveImageHeightPx +
-              (layoutOption === 'uniform'
-                ? IMAGECARD_UNIFORM_HEIGHT__PX - 50
-                : (postInfo.thumbnailHeight * IMAGECARD_WIDTH_PX) / postInfo.thumbnailWidth > IMAGE_MAX_HEIGHT_PX
-                ? IMAGE_MAX_HEIGHT_PX
-                : (postInfo.thumbnailHeight * IMAGECARD_WIDTH_PX) / postInfo.thumbnailWidth),
+            sumOfImageHeightPx: sumOfAboveImageHeightPx + imageCardHeight,
           };
 
           return (
@@ -103,6 +93,7 @@ export default function MasonryGallery({ posts }: MasonryGalleryProps): ReactEle
                 layoutOption={layoutOption}
                 postInfo={postInfo}
                 imageCardWidth={IMAGECARD_WIDTH_PX}
+                imageCardHeight={imageCardHeight}
                 isLazyLoading={false}
               />
               {index === posts.length - 1 && (
@@ -126,7 +117,7 @@ export default function MasonryGallery({ posts }: MasonryGalleryProps): ReactEle
             </Fragment>
           );
         })}
-      </section>
+      </StyledSection>
     </>
   );
 }

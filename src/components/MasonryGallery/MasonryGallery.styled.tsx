@@ -7,6 +7,12 @@ import { IMAGECARD_WIDTH_PX, IMAGECARD_HEIGHT_EXCLUDING_IMAGE__REM } from '@/com
 export const COLUMN_GAP__PX = 15;
 export const ROW_GAP__PX = 30;
 
+export const StyledSection = styled.section`
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+`;
+
 export const StyledImageCard = styled(ImageCard).attrs<StyledImageCardProps>(({ setPositionProps }) => {
   // x좌표 : 열 개수 * (이미지 카드 컴포넌트 너비 + 열 사이 간격)
   // y좌표 : 행 개수 * (이미지 높이를 제외한 이미지 카드 컴포넌트 높이 + 행 사이 간격) + 자신 위의 전체 이미지 높이 합
