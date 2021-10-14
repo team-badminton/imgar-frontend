@@ -11,10 +11,6 @@ const initialState: ListInfo = {
   prevPage: 1,
   autoPlay: true,
   layout: 'waterfall',
-  latestQuery: {
-    name: 'gallery',
-    option: {},
-  },
 };
 export const postListSlice = createSlice({
   name: 'postList',
@@ -53,9 +49,6 @@ export const postListSlice = createSlice({
       // 자동재생 변경
       state.autoPlay = !state.autoPlay;
     },
-    setLatestQuery(state, action: PayloadAction<ListInfo['latestQuery']>) {
-      state.latestQuery = action.payload;
-    },
   },
 });
 
@@ -68,6 +61,6 @@ export const {
   setPrevPage,
   toggleAutoPlay,
   toggleView,
-  setLatestQuery,
 } = postListSlice.actions;
+
 export default postListSlice.reducer;

@@ -4,6 +4,7 @@ import { useTypedSelector } from '@/redux';
 import { useTagPostsQuery, useTagQuery, useWelcomeMessageQuery } from '@/redux/api';
 import { masonryGalleryWidthSelector } from '@/redux/slices/displayReducer';
 import React, { ReactElement, useState } from 'react';
+import { CustomHeader } from '../SearchResult/SearchResult';
 import {
   StyledArticle,
   StyledMoreTagsButton,
@@ -56,7 +57,7 @@ export default function Home(): ReactElement {
           </StyledArticle>
         </StyledSection>
       }
-      customHeader={null}
+      customHeader={<CustomHeader />}
       containerWidth={galleryWidth}
       headerCoverWidth={TAGS_WIDTH__PX}
     >
