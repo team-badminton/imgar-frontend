@@ -57,6 +57,7 @@ module.exports = {
     static: {
       directory: path.resolve(rootDir, 'public'),
     },
+    client: { overlay: false },
     historyApiFallback: true,
   },
 };
