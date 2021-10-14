@@ -1,31 +1,25 @@
-import { MasonryGalleryHeader, MasonryGalleryContainer, TagCard, Loading, Search } from '@/components/index';
+import { MasonryGalleryHeader, MasonryGalleryContainer, Loading, Search } from '@/components/index';
 import MainContainer from '@/components/MainContainer/MainContainer';
+import { TAG_GAP, TAG_WIDTH__PX } from '@/components/TagCard/TagCard.styled';
+import TagList, { TAGLIST_MARGIN } from '@/components/TagList/TagList';
 import { useTypedSelector } from '@/redux';
-import { useTagPostsQuery, useTagQuery, useWelcomeMessageQuery } from '@/redux/api';
+import { useTagQuery, useWelcomeMessageQuery } from '@/redux/api';
 import { masonryGalleryWidthSelector } from '@/redux/slices/displayReducer';
-import React, { ReactElement, useState } from 'react';
-import {
-  StyledArticle,
-  StyledMoreTagsButton,
-  StyledSection,
-  StyledTagHeading,
-  StyledWelcomeMessage,
-} from './Home.styled';
+import React, { ReactElement } from 'react';
+import { StyledSection, StyledWelcomeMessage } from './Home.styled';
 
 export default function Home(): ReactElement {
   // 리덕스 상태
   const galleryWidth = useTypedSelector(masonryGalleryWidthSelector);
-  const innerWidth = useTypedSelector(state => state.display.innerWidth);
 
   // API 요청
   const { data: tags, isLoading: isTagsLoading } = useTagQuery(null);
   const { data: welcomMessage, isLoading: isWelcomeMessageLoading } = useWelcomeMessageQuery(null);
 
-  // 상태
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  //상수
-  const TAGS_WIDTH__PX = (Math.floor((innerWidth - 100) / 118) - 1) * 118;
+  const innerWidth = useTypedSelector(state => state.display.innerWidth);
+  const TAGLIST_COLUMN = Math.floor((innerWidth - TAGLIST_MARGIN) / (TAG_WIDTH__PX + TAG_GAP * 2));
+  const TAGS_WIDTH__PX = TAGLIST_COLUMN * (TAG_WIDTH__PX + TAG_GAP * 2);
+  console.log(TAGLIST_COLUMN, TAGS_WIDTH__PX);
   return isTagsLoading || isWelcomeMessageLoading ? (
     <Loading />
   ) : (
@@ -37,23 +31,7 @@ export default function Home(): ReactElement {
           <StyledWelcomeMessage>
             {isWelcomeMessageLoading ? 'Welcome Imgar.com' : welcomMessage.message}
           </StyledWelcomeMessage>
-          <StyledArticle isOpen={isOpen} articleWidth={TAGS_WIDTH__PX}>
-            <StyledTagHeading>EXPLORE TAG</StyledTagHeading>
-            {tags &&
-              [...tags]
-                .sort((a, b) => +b.isFeatured - +a.isFeatured)
-                ?.slice(0, !isOpen ? Math.floor((innerWidth - 100) / 118) : tags.length)
-                .map(tag => {
-                  return <TagCard key={tag.name} tag={tag} isFeatured={tag.isFeatured} />;
-                })}
-            <StyledMoreTagsButton
-              onClick={() => {
-                setIsOpen(!isOpen);
-              }}
-            >
-              {isOpen ? 'LESS TAGS' : 'MORE TAGS'}
-            </StyledMoreTagsButton>
-          </StyledArticle>
+          <TagList tags={tags} />
         </StyledSection>
       }
       customHeader={null}
