@@ -1,4 +1,5 @@
 import useThrottle from '@/hooks/useThrottle';
+import { createRandomHash } from '@/util/formatUtils';
 import { a11yHidden } from '@/util/styleUtils';
 import React, { ReactElement, useCallback, useImperativeHandle, useLayoutEffect, useRef, useState } from 'react';
 import { useHistory, useLocation } from 'react-router';
@@ -49,11 +50,12 @@ export default React.forwardRef(function SearchBar(
     },
     [inputValue],
   );
+  const htmlForId = createRandomHash();
 
   return (
     <SearchBarContainer onSubmit={onSubmitHandler}>
       <label
-        htmlFor="search-bar-input"
+        htmlFor={htmlForId}
         css={`
           ${a11yHidden}
         `}
@@ -61,7 +63,7 @@ export default React.forwardRef(function SearchBar(
         Search Posts, Tags, Users
       </label>
       <SearchBarInput
-        id="search-bar-input"
+        id={htmlForId}
         type="text"
         placeholder={placeholder}
         value={inputValue ?? ''}
