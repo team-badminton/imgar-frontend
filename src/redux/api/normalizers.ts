@@ -197,27 +197,29 @@ export function postV1DataNormalizer(post: PostV1[] | PostV1): PostV1Info | Post
     };
   } else {
     const posts = post;
-    return posts.map(post => {
-      return {
-        id: post.id,
-        title: post.title,
-        dateTime: new Date(post.created_at).getTime(),
-        thumbnailImageId: post.cover?.id ?? null,
-        thumbnailWidth: post.cover?.width ?? null,
-        thumbnailHeight: post.cover?.height ?? null,
-        accountId: post.account_id,
-        views: post.view_count,
-        upCount: post.upvote_count,
-        downCount: post.downvote_count,
-        points: post.point_count,
-        commentCount: post.comment_count,
-        favoriteCount: post.favorite_count,
-        imageCount: post.image_count,
-        type: (post.cover?.mime_type as PostV1Info['type']) ?? null,
-        hasSound: post.cover?.metadata.has_sound ?? null,
-        isAlbum: post.is_album,
-      };
-    });
+    return posts
+      .map(post => {
+        return {
+          id: post.id,
+          title: post.title,
+          dateTime: new Date(post.created_at).getTime(),
+          thumbnailImageId: post.cover?.id ?? null,
+          thumbnailWidth: post.cover?.width ?? null,
+          thumbnailHeight: post.cover?.height ?? null,
+          accountId: post.account_id,
+          views: post.view_count,
+          upCount: post.upvote_count,
+          downCount: post.downvote_count,
+          points: post.point_count,
+          commentCount: post.comment_count,
+          favoriteCount: post.favorite_count,
+          imageCount: post.image_count,
+          type: (post.cover?.mime_type as PostV1Info['type']) ?? null,
+          hasSound: post.cover?.metadata.has_sound ?? null,
+          isAlbum: post.is_album,
+        };
+      })
+      .filter(post => post.thumbnailImageId && post.thumbnailHeight && post.thumbnailWidth);
   }
 }
 
