@@ -10,6 +10,7 @@ import { TagDetailSortOption } from './TagDetail.type';
 import { TagPostsQuery } from '@/redux/api/types/queries';
 import { PostV1Info } from '@/redux/storeTypes';
 import TagDetailHeader from '@/components/TagDetailHeader/TagDetailHeader';
+import { CustomHeader } from '../SearchResult/SearchResult';
 
 const sortQuery = {
   popular: 'viral',
@@ -68,7 +69,7 @@ export default function TagDetail(): ReactElement {
           <p className="postCount">{data?.postCount} POSTS</p>
         </StyledDiv>
       }
-      customHeader={null}
+      customHeader={<CustomHeader />}
       containerWidth={masonryGalleryWidth}
     >
       <TagDetailHeader sorted={sortOptionList} setSort={setSortOptionList} />
