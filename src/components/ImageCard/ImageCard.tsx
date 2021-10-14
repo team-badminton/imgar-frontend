@@ -50,7 +50,7 @@ export default function ImageCard({
               inView={inView}
             />
           ) : (
-            <Video imageId={thumbnailImageId} isLazyLoading={isLazyLoading} />
+            <Video imageId={thumbnailImageId} inView={inView} />
           )}
         </StyledDiv>
         {!isAutoPlay && type === 'video/mp4' && <em>{hasSound ? 'Has Sound' : 'Has No Sound'}</em>}
