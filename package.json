@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack serve --config ./webpack/webpack.config.dev.js",
+    "build:serve": "webpack serve --config ./webpack/webpack.config.prod.js",
     "build": "webpack build --config ./webpack/webpack.config.prod.js",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
