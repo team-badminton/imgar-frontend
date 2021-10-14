@@ -10,5 +10,5 @@ import { StyledMoreButton } from './MoreButton.styled';
 import { MoreButtonProps } from './MoreButton.type';
 
 export default function MoreButton({ className }: MoreButtonProps): ReactElement {
-  return <StyledMoreButton alt="More Icon" className={className} img={MoreIcon} size="large"></StyledMoreButton>;
+  return <StyledMoreButton alt="More options" className={className} img={MoreIcon} size="large"></StyledMoreButton>;
 }

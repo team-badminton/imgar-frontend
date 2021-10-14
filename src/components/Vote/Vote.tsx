@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useState, useCallback } from 'react';
 
 // components
 import { Button } from '..';
@@ -12,19 +12,21 @@ import { VoteProps } from './Vote.type';
 export default function Vote({ className, color, size, count, direction, children }: VoteProps): ReactElement {
   const [output, setOutput] = useState(count);
 
-  const handleUpButtonEvent = (
-    e: React.KeyboardEvent<HTMLAnchorElement> | React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-  ) => {
-    if (e.type === 'keyup' && (e as React.KeyboardEvent<HTMLAnchorElement>).key !== 'Enter') return;
-    output === count + 1 ? setOutput(count) : setOutput(count + 1);
-  };
+  const handleUpButtonEvent = useCallback(
+    (e: React.KeyboardEvent<HTMLAnchorElement> | React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+      if (e.type === 'keyup' && (e as React.KeyboardEvent<HTMLAnchorElement>).key !== 'Enter') return;
+      output === count + 1 ? setOutput(count) : setOutput(count + 1);
+    },
+    [output],
+  );
 
-  const handleDownButtonEvent = (
-    e: React.KeyboardEvent<HTMLAnchorElement> | React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-  ) => {
-    if (e.type === 'keyup' && (e as React.KeyboardEvent<HTMLAnchorElement>).key !== 'Enter') return;
-    output === count - 1 ? setOutput(count) : setOutput(count - 1);
-  };
+  const handleDownButtonEvent = useCallback(
+    (e: React.KeyboardEvent<HTMLAnchorElement> | React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+      if (e.type === 'keyup' && (e as React.KeyboardEvent<HTMLAnchorElement>).key !== 'Enter') return;
+      output === count - 1 ? setOutput(count) : setOutput(count - 1);
+    },
+    [output],
+  );
 
   return (
     <Container

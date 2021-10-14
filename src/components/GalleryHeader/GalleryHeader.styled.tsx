@@ -30,10 +30,15 @@ export const Title = React.memo(styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: ${pxToRem(16)};
+  overflow: hidden;
 
   .title {
     color: ${({ theme }) => theme.color.white};
     font-size: ${({ theme }) => theme.fontSize.l};
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .author {
