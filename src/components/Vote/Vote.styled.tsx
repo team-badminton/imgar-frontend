@@ -1,7 +1,7 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 // types
-import { ContainterProps, Size } from './Vote.type';
+import { ContainterProps, OutputProps } from './Vote.type';
 
 // components
 import { ReactComponent as ArrowIcon } from '@/assets/Icon/upIcon.svg';
@@ -16,9 +16,12 @@ export const Container = styled.div<ContainterProps>`
   justify-content: center;
   .up-btn,
   .down-btn {
-    padding: ${pxToRem(5)};
+    padding: ${({ size }) => (size === 'large' ? pxToRem(8) : pxToRem(5))};
     .img {
-      stroke: ${({ theme }) => theme.color.lightGray};
+      stroke: ${({ theme, color }) => theme.color[color]};
+      width: ${({ size }) => (size === 'large' ? pxToRem(24) : pxToRem(16))};
+      height: ${({ size }) => (size === 'large' ? pxToRem(24) : pxToRem(16))};
+      stroke-width: ${({ size }) => (size === 'large' ? pxToRem(1.5) : pxToRem(2))};
     }
   }
   .up-btn:hover {
@@ -45,26 +48,15 @@ export const Container = styled.div<ContainterProps>`
   }
 `;
 
-const commonBtnCss = css<Size>`
-  width: ${pxToRem(16)};
-  height: ${pxToRem(16)};
-  stroke-width: ${pxToRem(2)};
-
-  stroke: ${({ theme }) => theme.color.primaryColor};
-`;
-
-export const UpBtn = styled(ArrowIcon)`
-  ${commonBtnCss}
-`;
+export const UpBtn = styled(ArrowIcon)``;
 
 export const DownBtn = styled(ArrowIcon)`
   transform: rotate(180deg);
-  ${commonBtnCss}
 `;
 
-export const Output = styled.output`
-  color: ${({ theme }) => theme.color.white};
-  padding: 0 ${pxToRem(6)};
+export const Output = styled.output<OutputProps>`
+  padding: ${({ size }) => (size === 'large' ? pxToRem(8) : `0 ${pxToRem(6)}`)};
+  color: ${({ theme, color }) => theme.color[color]};
   font-size: ${({ theme }) => theme.fontSize.xs};
   font-weight: 400;
 `;

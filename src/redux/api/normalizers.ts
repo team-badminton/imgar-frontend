@@ -1,4 +1,5 @@
 import {
+  FeaturedTagInfo,
   FolderInfo,
   ImageInfo,
   PostCommentInfo,
@@ -6,9 +7,23 @@ import {
   PostV1Info,
   SuggestInfo,
   TagInfo,
+  TagPostInfo,
   UserInfo,
+  WelcomMessageInfo,
 } from '../storeTypes';
-import { Folder, Image, Post, PostComment, PostV1, Suggest, Tag, User } from './types/fetchData';
+import {
+  AccountComment,
+  Folder,
+  Image,
+  Post,
+  PostComment,
+  PostV1,
+  Suggest,
+  Tag,
+  TagPosts,
+  User,
+  WelcomeMessage,
+} from './types/fetchData';
 
 export function imageDataNormalizer(image: Image): ImageInfo;
 export function imageDataNormalizer(image: Image[]): ImageInfo[];
@@ -37,6 +52,19 @@ export function imageDataNormalizer(image: Image | Image[]): ImageInfo | ImageIn
   }
 }
 
+export function featuredTagDataNormalizer(data: { featured: string; tags: Tag[] }): FeaturedTagInfo[] {
+  const { featured, tags } = data;
+  return tags.map(tag => ({
+    name: tag.name,
+    displayName: tag.display_name,
+    postCount: tag.total_items,
+    backgroundImageId: tag.background_hash,
+    description: tag.description,
+    accent: tag.accent,
+    isFeatured: featured === tag.name,
+  }));
+}
+
 export function tagDataNormalizer(tag: Tag): TagInfo;
 export function tagDataNormalizer(tag: Tag[]): TagInfo[];
 export function tagDataNormalizer(tag: Tag | Tag[]): TagInfo | TagInfo[] {
@@ -47,6 +75,7 @@ export function tagDataNormalizer(tag: Tag | Tag[]): TagInfo | TagInfo[] {
       postCount: tag.total_items,
       backgroundImageId: tag.background_hash,
       description: tag.description,
+      accent: tag.accent,
     };
   } else {
     const tags = tag;
@@ -56,8 +85,39 @@ export function tagDataNormalizer(tag: Tag | Tag[]): TagInfo | TagInfo[] {
       postCount: tag.total_items,
       backgroundImageId: tag.background_hash,
       description: tag.description,
+      accent: tag.accent,
     }));
   }
+}
+export function tagPostsDataNormalizer(tagPosts: TagPosts): TagPostInfo;
+export function tagPostsDataNormalizer(tagPosts: TagPosts[]): TagPostInfo[];
+export function tagPostsDataNormalizer(tagPosts: TagPosts | TagPosts[]): TagPostInfo | TagPostInfo[] {
+  if (!Array.isArray(tagPosts)) {
+    return {
+      accent: tagPosts.accent,
+      backgroundId: tagPosts.background_id,
+      displayName: tagPosts.display,
+      description: tagPosts.description,
+      postCount: tagPosts.post_count,
+      posts: postV1DataNormalizer(tagPosts.posts),
+    };
+  } else {
+    const tagPostsArray = tagPosts;
+    return tagPostsArray.map(tagPost => ({
+      accent: tagPost.accent,
+      backgroundId: tagPost.background_id,
+      displayName: tagPost.display,
+      description: tagPost.description,
+      postCount: tagPost.post_count,
+      posts: postV1DataNormalizer(tagPost.posts),
+    }));
+  }
+}
+
+export function welcommessageNormalizer(welcomMessage: WelcomeMessage): WelcomMessageInfo {
+  return {
+    message: welcomMessage.message,
+  };
 }
 
 export function postDataNormalizer(post: Post): PostInfo;
@@ -120,9 +180,9 @@ export function postV1DataNormalizer(post: PostV1[] | PostV1): PostV1Info | Post
       id: post.id,
       title: post.title,
       dateTime: new Date(post.created_at).getTime(),
-      thumbnailImageId: post.cover.id,
-      thumbnailWidth: post.cover.width,
-      thumbnailHeight: post.cover.height,
+      thumbnailImageId: post.cover?.id ?? null,
+      thumbnailWidth: post.cover?.width ?? null,
+      thumbnailHeight: post.cover?.height ?? null,
       accountId: post.account_id,
       views: post.view_count,
       upCount: post.upvote_count,
@@ -131,33 +191,35 @@ export function postV1DataNormalizer(post: PostV1[] | PostV1): PostV1Info | Post
       commentCount: post.comment_count,
       favoriteCount: post.favorite_count,
       imageCount: post.image_count,
-      type: post.cover.mime_type as PostV1Info['type'],
-      hasSound: post.cover.metadata.has_sound,
+      type: (post.cover?.mime_type as PostV1Info['type']) ?? null,
+      hasSound: post.cover?.metadata.has_sound ?? null,
       isAlbum: post.is_album,
     };
   } else {
     const posts = post;
-    return posts.map(post => {
-      return {
-        id: post.id,
-        title: post.title,
-        dateTime: new Date(post.created_at).getTime(),
-        thumbnailImageId: post.cover.id,
-        thumbnailWidth: post.cover.width,
-        thumbnailHeight: post.cover.height,
-        accountId: post.account_id,
-        views: post.view_count,
-        upCount: post.upvote_count,
-        downCount: post.downvote_count,
-        points: post.point_count,
-        commentCount: post.comment_count,
-        favoriteCount: post.favorite_count,
-        imageCount: post.image_count,
-        type: post.cover.mime_type as PostV1Info['type'],
-        hasSound: post.cover.metadata.has_sound,
-        isAlbum: post.is_album,
-      };
-    });
+    return posts
+      .map(post => {
+        return {
+          id: post.id,
+          title: post.title,
+          dateTime: new Date(post.created_at).getTime(),
+          thumbnailImageId: post.cover?.id ?? null,
+          thumbnailWidth: post.cover?.width ?? null,
+          thumbnailHeight: post.cover?.height ?? null,
+          accountId: post.account_id,
+          views: post.view_count,
+          upCount: post.upvote_count,
+          downCount: post.downvote_count,
+          points: post.point_count,
+          commentCount: post.comment_count,
+          favoriteCount: post.favorite_count,
+          imageCount: post.image_count,
+          type: (post.cover?.mime_type as PostV1Info['type']) ?? null,
+          hasSound: post.cover?.metadata.has_sound ?? null,
+          isAlbum: post.is_album,
+        };
+      })
+      .filter(post => post.thumbnailImageId && post.thumbnailHeight && post.thumbnailWidth);
   }
 }
 
@@ -241,6 +303,7 @@ export function commentNormalizer(comment: PostComment | PostComment[]): PostCom
       id: comment.id.toString(),
       parentCommentId: comment.parent_id.toString(),
       postId: comment.post_id,
+      cover: null,
       childrenComments: comment.comments ? commentNormalizer(comment.comments) : null,
     };
   } else {
@@ -254,7 +317,43 @@ export function commentNormalizer(comment: PostComment | PostComment[]): PostCom
       id: comment.id.toString(),
       parentCommentId: comment.parent_id.toString(),
       postId: comment.post_id,
+      cover: null,
       childrenComments: comment.comments ? commentNormalizer(comment.comments) : null,
+    }));
+  }
+}
+
+export function accountCommentNormalizer(comment: AccountComment): PostCommentInfo;
+export function accountCommentNormalizer(comment: AccountComment[]): PostCommentInfo[];
+export function accountCommentNormalizer(
+  comment: AccountComment | AccountComment[],
+): PostCommentInfo | PostCommentInfo[] {
+  if (!Array.isArray(comment)) {
+    return {
+      cover: comment.album_cover ?? comment.image_id,
+      author: comment.author,
+      comment: comment.comment,
+      dateTime: comment.datetime,
+      downCount: comment.downs,
+      upCount: comment.ups,
+      id: comment.id.toString(),
+      parentCommentId: comment.parent_id.toString(),
+      postId: comment.image_id,
+      childrenComments: comment.children ? commentNormalizer(comment.children) : null,
+    };
+  } else {
+    const comments = comment;
+    return comments.map(comment => ({
+      cover: comment.album_cover ?? comment.image_id,
+      author: comment.author,
+      comment: comment.comment,
+      dateTime: comment.datetime,
+      downCount: comment.downs,
+      upCount: comment.ups,
+      id: comment.id.toString(),
+      parentCommentId: comment.parent_id.toString(),
+      postId: comment.image_id,
+      childrenComments: comment.children ? commentNormalizer(comment.children) : null,
     }));
   }
 }

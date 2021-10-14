@@ -1,7 +1,9 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { Vote } from '@/components';
+// components
+import { Button, Vote } from '@/components';
+import { ReactComponent as HeartIcon } from '@/assets/Icon/heartIcon.svg';
 
 export default {
   title: 'Components/Vote',
@@ -15,6 +17,7 @@ export default {
   },
   args: {
     type: 'image/jpeg',
+    color: 'white',
   },
 } as ComponentMeta<typeof Vote>;
 
@@ -32,4 +35,27 @@ Column.args = {
   count: 10,
   direction: 'column',
   size: 'small',
+};
+
+export const sizeLarge = Template.bind({});
+sizeLarge.args = {
+  count: 10,
+  direction: 'column',
+  size: 'large',
+};
+
+export const ligthGrayColor = Template.bind({});
+ligthGrayColor.args = {
+  count: 10,
+  direction: 'column',
+  size: 'large',
+  color: 'lightGray',
+};
+
+export const withChildren = Template.bind({});
+withChildren.args = {
+  count: 10,
+  direction: 'column',
+  size: 'large',
+  children: <Button img={HeartIcon} alt="heart" />,
 };

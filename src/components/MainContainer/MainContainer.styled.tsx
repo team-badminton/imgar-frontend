@@ -4,7 +4,7 @@ import { ContainerWrapperProps, HeaderCoverProps, HeaderProps, MainSectionProps 
 
 export const ChangeGlobalBackground = createGlobalStyle<{ backgroundColor: HeaderProps['backgroundColor'] }>`
 body {
-  background-color: ${({ theme, backgroundColor }) => theme.color[backgroundColor]};
+  background-color: ${({ theme, backgroundColor }) => theme.color[backgroundColor]} !important;
 }
 `;
 
@@ -39,20 +39,20 @@ export const HeaderCover = styled.header<HeaderCoverProps>`
   `
       : ''}
   transition: box-shadow 0.3s;
-  ${({ containerWidth }) => `padding: 0 calc((100% - ${pxToRem(containerWidth)}) / 2)`};
   padding-top: ${({ headerHeight }) => pxToRem(headerHeight)};
+  z-index: 4;
 `;
 
 export const HeaderContainer = styled.div`
   position: absolute;
   top: 0;
   width: 100%;
-  z-index: 2;
+  z-index: 999;
 `;
 
 export const MainSection = styled.main<MainSectionProps>`
   min-height: calc(100vh - ${({ coverHeight }) => pxToRem(coverHeight)});
-  ${({ containerWidth }) => `width: ${pxToRem(containerWidth)};`}
+  ${({ containerWidth }) => `width: ${containerWidth ? pxToRem(containerWidth) : '100%'};`}
   position: relative;
   margin: 0 auto;
   padding-bottom: ${({ theme }) => theme.spaceSize.xl};

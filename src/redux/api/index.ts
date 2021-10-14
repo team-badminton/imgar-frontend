@@ -1,5 +1,17 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { FolderInfo, PostCommentInfo, PostInfo, PostV1Info, SuggestInfo, UserInfo } from '../storeTypes';
+import { transform } from 'lodash';
+import {
+  FeaturedTagInfo,
+  FolderInfo,
+  PostCommentInfo,
+  PostInfo,
+  PostV1Info,
+  SuggestInfo,
+  TagInfo,
+  TagPostInfo,
+  UserInfo,
+  WelcomMessageInfo,
+} from '../storeTypes';
 import {
   userDataNormalizer,
   commentNormalizer,
@@ -8,8 +20,24 @@ import {
   suggestDataNormalizer,
   postV1DataNormalizer,
   postV3ToV1DataNormalizer,
+  accountCommentNormalizer,
+  tagDataNormalizer,
+  tagPostsDataNormalizer,
+  welcommessageNormalizer,
+  featuredTagDataNormalizer,
 } from './normalizers';
-import { Folder, Post, PostComment, PostV1, Suggest, User } from './types/fetchData';
+import {
+  AccountComment,
+  Folder,
+  Post,
+  PostComment,
+  PostV1,
+  Suggest,
+  User,
+  Tag,
+  TagPosts,
+  WelcomeMessage,
+} from './types/fetchData';
 import {
   AccountCommentQuery,
   accountFavoriteFolderQuery,
@@ -18,6 +46,7 @@ import {
   GallerySearchQuery,
   PostCommentQuery,
   postQeury,
+  TagPostsQuery,
 } from './types/queries';
 
 export const imgurApi = createApi({
@@ -30,7 +59,7 @@ export const imgurApi = createApi({
     },
   }),
   endpoints: builder => ({
-    gallery: builder.query<PostV1Info[], GalleryQuery>({
+    gallery: builder.query<PostV1Info[] & { isLoading?: boolean }, GalleryQuery>({
       query: ({ page = 1, section = 'mostViral', sort = 'newest', window = 'all' }) => {
         if (sort === 'random') {
           return `post/v1/posts?filter[section]=eq:random&include=adtiles,adconfig,cover&page=${page}&sort=random`;
@@ -56,12 +85,38 @@ export const imgurApi = createApi({
         return postV1DataNormalizer(data);
       },
     }),
-    search: builder.query<PostInfo[], GallerySearchQuery>({
-      query: ({ sort = 'time', window = 'all', page = 1, keyword }) =>
-        `3/gallery/search/${sort}/${window}/${page}?q=${keyword}`,
+    search: builder.query<PostV1Info[], GallerySearchQuery>({
+      query: ({ sort = 'time', window = 'all', page = 0, query }) => {
+        let queryString = `3/gallery/search/${sort}/${window}/${page}?`;
+        Object.entries(query).forEach(([key, value]) => {
+          queryString += value ? `${key}=${value}&` : '';
+        });
+        queryString = queryString.replace(/&$/, '');
+        return queryString;
+      },
       transformResponse: (res: { data: Post[] }) => {
         const { data } = res;
-        return postDataNormalizer(data);
+        return postV3ToV1DataNormalizer(data);
+      },
+    }),
+    tag: builder.query<FeaturedTagInfo[], null>({
+      query: () => `3/tags`,
+      transformResponse: (res: { data: { featured: string; tags: Tag[] } }) => {
+        const { data } = res;
+        return featuredTagDataNormalizer(data);
+      },
+    }),
+    tagPosts: builder.query<TagPostInfo, TagPostsQuery>({
+      query: ({ tagName, page = 1, sortOption = 'time' }) =>
+        `post/v1/posts/t/${tagName}?filter[window]=week&include=adtiles,adconfig,cover&page=${page}&sort=-${sortOption}`,
+      transformResponse: (data: TagPosts) => {
+        return tagPostsDataNormalizer(data);
+      },
+    }),
+    welcomeMessage: builder.query<WelcomMessageInfo, null>({
+      query: () => `homepage/v1/messages/random?filter[type]=welcome`,
+      transformResponse: (data: WelcomeMessage) => {
+        return welcommessageNormalizer(data);
       },
     }),
     suggest: builder.query<SuggestInfo, string>({
@@ -80,16 +135,16 @@ export const imgurApi = createApi({
     }),
     accountComments: builder.query<PostCommentInfo[], AccountCommentQuery>({
       query: ({ page = 0, sort = 'newest', username }) => `3/account/${username}/comments/${sort}/${page}`,
-      transformResponse: (res: { data: PostComment[] }) => {
+      transformResponse: (res: { data: AccountComment[] }) => {
         const { data } = res;
-        return commentNormalizer(data);
+        return accountCommentNormalizer(data);
       },
     }),
-    accountPosts: builder.query<PostInfo[], AccountPostQuery>({
-      query: ({ username, page = 0 }) => `3/account/${username}/submissions/${page}`,
+    accountPosts: builder.query<PostV1Info[], AccountPostQuery>({
+      query: ({ username, page = 0, sort }) => `3/account/${username}/submissions/${page}/${sort}`,
       transformResponse: (res: { data: Post[] }) => {
         const { data } = res;
-        return postDataNormalizer(data);
+        return postV3ToV1DataNormalizer(data);
       },
     }),
     accountFolders: builder.query<FolderInfo[], string>({
@@ -113,19 +168,19 @@ export const imgurApi = createApi({
       },
     }),
     post: builder.query<PostInfo, postQeury>({
-      query: ({ postId }) => `3/gallery/album/${postId}`,
+      query: ({ postId, isAlbum }) => `3/gallery/album/${postId}`,
       transformResponse: (res: { data: Post }) => {
         const { data } = res;
         return postDataNormalizer(data);
       },
     }),
-    postComments: builder.query<PostCommentInfo[], PostCommentQuery>({
-      query: ({ postId, sort = 'best', loadMore = false }) => {
-        const nextIndex =
+    postComments: builder.query<PostCommentInfo[] & { next?: boolean }, PostCommentQuery>({
+      query: ({ postId, sort = 'best', page = 1 }) => {
+        const next =
           'WyJ7XCJjb21tZW50c1wiOntcImxhc3Rfb2Zmc2V0XCI6MzB9LFwiY3JlYXRlZFwiOlwiMTk3MC0wMS0wMVQwMDowMDowMFpcIn0iLCJlMzBqRHo4OWJ0ZWp0Q2NBUXBkbWRYV0cxSzkxMy8wQlBGc1FGVWJjci9sV0NhOUZJd1Z0OTRCMjNHTFVtREJoY0YySTdmVnhFbVRaTnRnanA3b3Bxa3BFT1JKL3p0V2RGRWFmYy8rbnhYdGgwdDlPNUZCZ2tQNFlINzBMeTlPWW1Bc2x6b2pEbHF0RnRRK2RLeHcyTkFxS05QUWd2dXd2MjdFdTB6ay92UGhsUFlCTFVWcmpBbWNCTWJPeGNGc2pvT1dPTFh3ck8rd3lmc2hSa3JVWFRKQ2tZWlJoZTl0aFlvQTlDMzRzNHJER1ZST0RXRURzd3pOaC9rbEtFTjFuZFJsWUZlbDdJRENiSStZR1kyQmZxamNSRVJkTHAxVW5FYmNrYm5xeWlMa1hKOGJPSVVENDRHdjVlR3FHd2hhY3Ira0drZnJvQTYyUGswWDdnRmNFZWc9PSJd';
         return `comment/v1/comments?filter[post]=eq:${postId}&include=account,adconfig&per_page=${
-          loadMore ? 1000 : 30
-        }&sort=${sort}${loadMore ? `cursor=${nextIndex}` : ''}`;
+          page === 1 ? 31 : 1000
+        }&sort=${sort}${page !== 1 ? `&cursor=${next}` : ''}`;
       },
       transformResponse: (res: { data: PostComment[] }) => {
         const { data } = res;
@@ -147,6 +202,9 @@ export const {
   useLazySuggestQuery,
   usePostQuery,
   usePostCommentsQuery,
+  useTagQuery,
+  useTagPostsQuery,
+  useWelcomeMessageQuery,
 } = imgurApi;
 
 export default imgurApi;

@@ -3,7 +3,8 @@ import Tooltip from '@/components/Tooltip/Tooltip';
 import { useAccountQuery } from '@/redux/api';
 import { formattedNumber } from '@/util/formatUtils';
 import { pxToRem } from '@/util/styleUtils';
-import moment from 'moment';
+import { convertLink } from '@/util/jsxUtils';
+import { format } from 'date-fns';
 import React, { ReactElement } from 'react';
 import { useParams } from 'react-router';
 import {
@@ -34,7 +35,7 @@ function TrophyItem({ name, description, imageUrl, to }: TrophyItemProps): React
   return (
     <ProfileAboutGridItem innerItemWidth={150}>
       <Tooltip tooltipText={description} to={to}>
-        <Picture imageWidth={150} imageHeight={150} src={imageUrl} alt={name} />
+        <Picture imageWidth={150} imageHeight={150} src={imageUrl} />
         <p>{name.toUpperCase()}</p>
       </Tooltip>
     </ProfileAboutGridItem>
@@ -44,7 +45,13 @@ function MedalItem({ name, description, imageUrl }: MedalItemProps): ReactElemen
   return (
     <ProfileAboutGridItem innerItemWidth={70} marginTop={10}>
       <Tooltip tooltipText={description}>
-        <Picture imageWidth={70} imageHeight={70} src={imageUrl} alt={name} />
+        <Picture
+          imageWidth={70}
+          imageHeight={70}
+          src={`//s.imgur.com/images/medal/${name.toLowerCase()}.png`}
+          alt={name}
+          css={imageUrl.includes('empty_state') ? `filter: grayscale(100%) opacity(0.5);` : null}
+        />
       </Tooltip>
     </ProfileAboutGridItem>
   );
@@ -61,22 +68,9 @@ export default function ProfileAbout(): ReactElement {
           flex-shrink: 0;
         `}
       >
-        <DescriptionItem headline="ABOUT">
-          {data?.bio
-            .split(/(https?:\/\/[\w/.\-_=?&#$]+)|(\n)|(#.+)/)
-            .filter(str => str)
-            .map((str, index) =>
-              str.includes('http') ? (
-                <a key={str + index} href={str} target="_blank" rel="noopener noreferrer">
-                  {str}
-                </a>
-              ) : (
-                str
-              ),
-            )}
-        </DescriptionItem>
+        <DescriptionItem headline="ABOUT">{convertLink(data?.bio)}</DescriptionItem>
         <DescriptionItem headline="JOINED" large>
-          {data && moment(data.createdDate).format('MMMM D, YYYY')}
+          {data && format(new Date(data.createdDate), 'MMMM d, yyyy')}
         </DescriptionItem>
         <DescriptionItem headline="INTERNET POINTS" large>
           {data && formattedNumber(data?.points)}

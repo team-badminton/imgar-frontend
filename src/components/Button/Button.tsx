@@ -17,11 +17,12 @@ export default function Button({
   hoverColor,
   img,
   onClick,
+  onKeyUp,
   text,
   style,
   to,
 }: ButtonProps): ReactElement {
-  if (img && !alt) throw new Error('img는 alt prop과 함께 사용되어야 합니다.');
+  if (img && alt !== '' && !alt) throw new Error('img는 alt prop과 함께 사용되어야 합니다.');
 
   return (
     <StyledButton
@@ -36,7 +37,9 @@ export default function Button({
       $hoverBackgroundColor={hoverBackgroundColor}
       $hoverColor={hoverColor}
       onClick={onClick}
+      onKeyUp={onKeyUp}
       style={style}
+      tabIndex={0}
     >
       {!img ? (
         ''
@@ -44,8 +47,13 @@ export default function Button({
         <img className="img" src={img} alt={alt} />
       ) : (
         (() => {
-          const Img = img as React.FC<React.SVGProps<SVGSVGElement>>;
-          return <Img className="img" aria-label={alt} />;
+          const Img = img as React.FC<
+            {
+              title?: string;
+              titleId?: string;
+            } & React.SVGProps<SVGSVGElement>
+          >;
+          return <Img className="img" title={alt} />;
         })()
       )}
       {text && <span className="text">{text}</span>}

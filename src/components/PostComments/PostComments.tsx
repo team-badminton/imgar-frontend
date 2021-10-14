@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 
 // types
 import { PostCommentsProps } from './PostComments.type';
@@ -7,35 +7,34 @@ import { PostCommentsProps } from './PostComments.type';
 import { usePostCommentsQuery } from '@/redux/api';
 
 // components
+import { SelectBox, SelectBoxList } from '@/components';
 import PostComment from './PostComment/PostComment';
+import PostCommentForm from './PostCommentForm/PostCommentForm';
 
 // styles
-import { Title, StyledButton, Container } from './PostComments.styled';
+import { Title, Container, LoadMoreButton, StyledButton, CommentHeader } from './PostComments.styled';
 
 // assets
-import { ReactComponent as ExpandIcon } from './assets/ExpandIcon.svg';
-import { DropDownList } from '..';
+import { ReactComponent as ExpandIcon } from './assets/expandIcon.svg';
+import { ReactComponent as ArrowIcon } from '@/assets/Icon/arrow.svg';
 
-export default function PostComments({ postId, sort }: PostCommentsProps): ReactElement {
-  const { data, error, isLoading } = usePostCommentsQuery({ postId, sort });
+export default React.memo(function PostComments({
+  className,
+  postId,
+  sort,
+  commentCount,
+}: PostCommentsProps): ReactElement {
+  const [page, setPage] = useState(1);
+  const { data } = usePostCommentsQuery({ postId, sort, page });
+  const isNext = data?.next;
 
   return (
-    <Container>
-      <div
-        css={`
-          display: flex;
-          align-items: center;
-        `}
-      >
-        <Title>{data?.length} COMMENTS</Title>
-        <StyledButton size="custom" text="Expand All" img={ExpandIcon} alt="Expand Icon" />
-        <DropDownList themeType="light" className="dropdown">
-          <span>best</span>
-          <span>top</span>
-          <span>newest</span>
-          <span>oldest</span>
-        </DropDownList>
-      </div>
+    <Container className={className} id="comments">
+      <PostCommentForm />
+      <CommentHeader>
+        <Title>{commentCount} COMMENTS</Title>
+        <StyledButton text="Expand All" img={ExpandIcon} alt="Expand Icon" />
+      </CommentHeader>
       <ul>
         {data?.map(({ id, author, childrenComments, comment, dateTime, downCount, upCount, parentCommentId }) => (
           <PostComment
@@ -52,6 +51,24 @@ export default function PostComments({ postId, sort }: PostCommentsProps): React
           />
         ))}
       </ul>
+      {!!isNext && (
+        <div
+          css={`
+            display: flex;
+            justify-content: center;
+          `}
+        >
+          <LoadMoreButton
+            hoverBackgroundColor="blue"
+            text="Load More Components"
+            img={ArrowIcon}
+            alt="▼"
+            onClick={() => {
+              setPage(2);
+            }}
+          />
+        </div>
+      )}
     </Container>
   );
-}
+});

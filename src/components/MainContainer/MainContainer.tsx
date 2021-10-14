@@ -1,3 +1,4 @@
+import { pxToRem } from '@/util/styleUtils';
 import React, { createContext, ReactElement, useLayoutEffect, useRef, useState } from 'react';
 import BasicHeader from './BasicHeader/BasicHeader';
 import {
@@ -23,11 +24,12 @@ export default function MainContainer({
   headerCoverPosition,
   noOffset,
   containerWidth,
+  headerCoverWidth,
 }: HeaderProps): ReactElement {
   const headerCoverRef = useRef<HTMLDivElement>(null);
   const headerContainerRef = useRef<HTMLDivElement>(null);
   const mainSectionRef = useRef<HTMLDivElement>(null);
-  const BODY_OFFSET = 75;
+  const BODY_OFFSET = 100;
   const BASIC_HEADER_HEIGHT = 75;
   const [showCustomHeader, setShowCustomHeader] = useState<boolean>(false);
   const [coverHeight, setCoverHeight] = useState<number>(0);
@@ -54,9 +56,9 @@ export default function MainContainer({
     const threshold2 = threshold1 + (headerCover ? BASIC_HEADER_HEIGHT : BASIC_HEADER_HEIGHT / 2);
 
     // 본문 내용을 패럴럭스 스크롤이 끝날 때 헤더 아래로 올 수 있도록 배치
-    mainSectionRef.current.style.transform = `translateY(${
-      !noOffset ? (headerCover ? coverHeight - BODY_OFFSET : BODY_OFFSET + headerHeight) : coverHeight
-    }px)`;
+    mainSectionRef.current.style.top = `${
+      !noOffset ? (headerCover ? coverHeight - BODY_OFFSET : headerHeight) : coverHeight
+    }px`;
 
     function handleScroll(): void {
       const scrollOffset = window.pageYOffset;
@@ -87,13 +89,15 @@ export default function MainContainer({
       headerCoverRef.current.style.transform = `translate3d(0px, ${
         isOverThreshold2 ? `-${coverHeight - headerHeight}px` : `${coverPosition}px`
       }, 0px)`;
-      headerCoverRef.current.style.zIndex = isOverThreshold2 ? '1' : null;
+      headerCoverRef.current.style.zIndex = isOverThreshold2 ? '6' : noOffset ? '6' : null;
       headerCoverRef.current.style.background = isOverThreshold2 ? null : headerCover ? null : 'transparent';
+      (headerCoverRef.current.children[0] as HTMLDivElement).style.visibility =
+        isOverThreshold2 && !noOffset ? 'hidden' : 'visible';
 
       headerContainerRef.current.style.transform = `translate3d(0, ${
         isOverThreshold2 ? '0' : `${sticky ? headerPosition : coverPosition}px`
       },0)`;
-      headerContainerRef.current.style.position = sticky ? 'fixed' : null;
+      headerContainerRef.current.style.position = sticky || isOverThreshold2 ? 'fixed' : null;
     }
     handleScroll();
     window.addEventListener('scroll', handleScroll);
@@ -103,8 +107,8 @@ export default function MainContainer({
   return (
     <ContainerWidthContext.Provider value={containerWidth}>
       {backgroundColor ? <ChangeGlobalBackground backgroundColor={backgroundColor} /> : null}
+      <HeaderContainer ref={headerContainerRef}>{showCustomHeader ? customHeader : <BasicHeader />}</HeaderContainer>
       <ContainerWrapper gradient={!headerCover}>
-        <HeaderContainer ref={headerContainerRef}>{showCustomHeader ? customHeader : <BasicHeader />}</HeaderContainer>
         <HeaderCover
           headerBackground={!!headerCover && headerBackground}
           darkenBackground={darkenBackground}
@@ -112,11 +116,27 @@ export default function MainContainer({
           headerHeight={BASIC_HEADER_HEIGHT}
           ref={headerCoverRef}
           hasShadow={showCustomHeader}
-          containerWidth={containerWidth}
+          headerCoverWidth={headerCoverWidth}
         >
-          {headerCover ?? <div style={{ height: BASIC_HEADER_HEIGHT }} />}
+          <div
+            css={`
+              width: ${headerCoverWidth
+                ? pxToRem(headerCoverWidth)
+                : containerWidth
+                ? pxToRem(containerWidth)
+                : '100%'};
+              min-width: ${pxToRem(450)};
+            `}
+          >
+            {headerCover ?? <div style={{ height: BASIC_HEADER_HEIGHT }} />}
+          </div>
         </HeaderCover>
-        <MainSection ref={mainSectionRef} coverHeight={coverHeight} containerWidth={containerWidth}>
+        <MainSection
+          ref={mainSectionRef}
+          coverHeight={coverHeight}
+          containerWidth={containerWidth}
+          className="MainSection"
+        >
           {children}
         </MainSection>
       </ContainerWrapper>

@@ -1,7 +1,14 @@
 import React, { ReactElement, useEffect, useRef, useState, Fragment } from 'react';
 
 // styles
-import { ContentContainer, StyledFigure, StyledFigureCaption, StyledPicture, StyledVideo } from './PostFigure.styled';
+import {
+  ContentContainer,
+  ModalPicture,
+  StyledFigure,
+  StyledFigureCaption,
+  StyledPicture,
+  StyledVideo,
+} from './PostFigure.styled';
 
 // types
 import { PostFigureProps } from './PostFigure.type';
@@ -73,10 +80,11 @@ export default function PostFigure({
                 ref={imageRef}
                 imageId={imageId}
                 onClick={isZoomAble ? handleToggleModal : null}
+                tabIndex={0}
               />
               {isVisibleModal && (
                 <Modal handleHide={handleToggleModal}>
-                  <StyledPicture isVisibleModal={isVisibleModal} isZoomAble={isZoomAble} imageId={imageId} />
+                  <ModalPicture isVisibleModal={isVisibleModal} isZoomAble={isZoomAble} imageId={imageId} />
                 </Modal>
               )}
             </>

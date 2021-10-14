@@ -22,9 +22,10 @@ export const UserInfoDescription = styled.div`
   color: ${({ theme }) => theme.color.white};
 `;
 
-export const UserInfoUsername = styled.div`
+export const UserInfoUsername = styled.h2`
   font-size: ${pxToRem(44)};
   font-weight: bold;
+  margin: 0;
   margin-bottom: ${({ theme }) => theme.spaceSize.s};
 `;
 

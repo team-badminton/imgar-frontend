@@ -5,7 +5,13 @@ import { pxToRem } from '@/util/styleUtils';
 import { IMAGECARD_WIDTH_PX, IMAGECARD_HEIGHT_EXCLUDING_IMAGE__REM } from '@/components/ImageCard/ImageCard.styled';
 
 export const COLUMN_GAP__PX = 15;
-const ROW_GAP__PX = 30;
+export const ROW_GAP__PX = 20;
+
+export const StyledSection = styled.section`
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+`;
 
 export const StyledImageCard = styled(ImageCard).attrs<StyledImageCardProps>(({ setPositionProps }) => {
   // x좌표 : 열 개수 * (이미지 카드 컴포넌트 너비 + 열 사이 간격)
@@ -26,4 +32,5 @@ export const StyledImageCard = styled(ImageCard).attrs<StyledImageCardProps>(({ 
   };
 })<StyledImageCardProps>`
   position: absolute;
+  z-index: 4;
 `;

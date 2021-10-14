@@ -35,7 +35,6 @@ export const GiveEmeraldButton = styled(Button)`
 
 export const Info = styled.div`
   display: flex;
-  width: ${pxToRem(500)};
   flex-wrap: wrap;
   align-items: center;
 `;
@@ -66,7 +65,7 @@ export const Platform = styled.span`
 export const UserInfo = styled(Link)<infoRowsProps>`
   cursor: pointer;
   font-weight: 700;
-  color: ${({ theme }) => theme.color.primaryColor};
+  color: ${({ theme }) => theme.color.green};
   font-size: ${({ $infoRows, theme }) => ($infoRows === 2 ? theme.fontSize.s : theme.fontSize.xs)};
   &:hover {
     text-decoration: ${({ $infoRows }) => $infoRows === 1 && 'underline'};

@@ -20,6 +20,14 @@ export const Container = styled.div`
   }
 `;
 
+export const CommentHeader = styled.div`
+  display: flex;
+  align-items: center;
+  padding-bottom: ${pxToRem(14)};
+  margin-bottom: ${({ theme }) => theme.spaceSize.m};
+  margin-top: ${pxToRem(46)}; ;
+`;
+
 export const Title = styled.h3`
   flex-grow: 1;
   margin: 0;
@@ -31,6 +39,20 @@ export const StyledButton = styled(Button)`
   gap: ${({ theme }) => theme.spaceSize.s};
   font-size: ${pxToRem(14)};
   color: ${({ theme }) => theme.color.lightGray};
+  .text {
+    order: -1;
+  }
+`;
+
+export const LoadMoreButton = styled(Button)`
+  font-family: Proxima Nova Bold, Helvetica Neue, Helvetica, Arial, sans-serif;
+  border: ${({ theme }) => `${pxToRem(2)} solid ${theme.color.blue}`};
+  font-size: ${({ theme }) => theme.fontSize.xl};
+  margin: ${({ theme }) => theme.spaceSize.m} auto 0;
+  text-align: center;
+  max-width: ${pxToRem(320)};
+  width: 100%;
+  height: ${pxToRem(46)};
   .text {
     order: -1;
   }

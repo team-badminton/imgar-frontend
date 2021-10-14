@@ -34,6 +34,10 @@ export const TabNavigationItem = styled.li`
 export const TabNavigationLink = styled(NavLink)`
   position: relative;
   padding: ${({ theme }) => theme.spaceSize.s};
+
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
   &.active {
     font-weight: bold;
     &::after {
@@ -45,6 +49,7 @@ export const TabNavigationLink = styled(NavLink)`
       margin-top: ${({ theme }) => theme.spaceSize.s};
       border-radius: ${({ theme }) => theme.borderRadius.s};
       border: ${pxToRem(2)} solid ${({ theme }) => theme.color.white};
+      background-color: ${({ theme }) => theme.color.white};
     }
   }
 `;

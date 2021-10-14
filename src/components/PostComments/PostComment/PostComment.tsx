@@ -17,7 +17,11 @@ import {
 } from './PostComment.styled';
 import { DefaultTheme } from 'styled-components';
 
-export default React.memo(function PostComment({
+// utils
+
+import { convertLink } from '@/util/jsxUtils';
+
+export default function PostComment({
   id,
   author,
   childrenComments,
@@ -42,13 +46,12 @@ export default React.memo(function PostComment({
           infoRows={1}
           metaInfos={{ time: dateTime, platform: 'Iphone' }}
         />
-        <Comment isParent={isParent}>{comment}</Comment>
+        <Comment isParent={isParent}>{convertLink(comment, true)}</Comment>
         <VoteContainer isParent={isParent}>
-          <Vote size="small" direction="row" count={upCount - downCount} />
+          <Vote color="lightGray" size="small" direction="row" count={upCount - downCount} />
           {childrenComments?.length !== 0 && (
             <StyledButton
               onClick={() => setIsExpendedChildComments(!isExpendedChildComments)}
-              size="custom"
               text={`
                 ${isExpendedChildComments ? '-' : '+'}
                 ${childrenComments.length} 
@@ -81,4 +84,4 @@ export default React.memo(function PostComment({
       )}
     </Container>
   );
-});
+}

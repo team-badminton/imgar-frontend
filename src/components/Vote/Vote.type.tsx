@@ -1,13 +1,23 @@
-export interface Size {
-  size: 'small' | 'large';
-}
+import React from 'react';
+import { DefaultTheme } from 'styled-components';
 
-export interface VoteProps extends Size {
+export interface VoteProps {
+  size: 'small' | 'large';
+  color: Extract<keyof DefaultTheme['color'], string>;
   count: number;
+  className?: string;
+  children?: React.ReactNode;
   direction: 'row' | 'column';
 }
 
-export interface ContainterProps extends Size {
+export interface OutputProps {
+  size: VoteProps['size'];
+  color: VoteProps['color'];
+}
+
+export interface ContainterProps {
+  size: VoteProps['size'];
+  color: VoteProps['color'];
   selectedButton?: 'up-btn' | 'down-btn';
   direction: VoteProps['direction'];
 }

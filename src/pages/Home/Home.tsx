@@ -1,37 +1,48 @@
+import { MasonryGalleryHeader, MasonryGalleryContainer, Loading } from '@/components/index';
 import MainContainer from '@/components/MainContainer/MainContainer';
-import React, { ReactElement } from 'react';
-import { Loading, MasonryGallery, MasonryGalleryHeader } from '@/components/index';
+import { TAG_GAP, TAG_WIDTH__PX } from '@/components/TagCard/TagCard.styled';
+import TagList, { TAGLIST_MARGIN } from '@/components/TagList/TagList';
 import { useTypedSelector } from '@/redux';
+import { useTagQuery, useWelcomeMessageQuery } from '@/redux/api';
 import { masonryGalleryWidthSelector } from '@/redux/slices/displayReducer';
-import { useGalleryQuery } from '@/redux/api';
-import { MASONRY_GALLERY_HEADER_MIN_WIDTH__PX } from '@/components/MasonryGalleryHeader/MasonryGalleryHeader';
+import React, { ReactElement } from 'react';
+import { StyledSection, StyledWelcomeMessage } from './Home.styled';
+import { CustomHeader } from '../SearchResult/SearchResult';
 
 export default function Home(): ReactElement {
-  // API 호출
-  const category = useTypedSelector(state => state.listInfo.category);
-  const sortOption = useTypedSelector(state => state.listInfo.sortOption);
-  const windowOption = useTypedSelector(state => state.listInfo.windowOption);
+  // 리덕스 상태
   const galleryWidth = useTypedSelector(masonryGalleryWidthSelector);
-  const { data: posts, isLoading } = useGalleryQuery({ section: category, sort: sortOption, window: windowOption });
 
-  return (
+  // API 요청
+  const { data: tags, isLoading: isTagsLoading } = useTagQuery(null);
+  const { data: welcomMessage, isLoading: isWelcomeMessageLoading } = useWelcomeMessageQuery(null);
+
+  const innerWidth = useTypedSelector(state => state.display.innerWidth);
+  const TAGLIST_COLUMN = Math.floor((innerWidth - TAGLIST_MARGIN) / (TAG_WIDTH__PX + TAG_GAP * 2));
+  const TAGS_WIDTH__PX = TAGLIST_COLUMN * (TAG_WIDTH__PX + TAG_GAP * 2);
+
+  return isTagsLoading || isWelcomeMessageLoading ? (
+    <Loading />
+  ) : (
     <MainContainer
       sticky
       headerBackground={'https://s.imgur.com/desktop-assets/desktop-assets/homebg.e52b5cdf24f83bcd55f9f1318855f2ef.png'}
-      headerCover={<div style={{ height: '350px' }}>커버에 들어갈 내용 테스트</div>}
-      customHeader={<div>커스템 헤더에 들어갈 내용 테스트</div>}
-      containerWidth={
-        galleryWidth < MASONRY_GALLERY_HEADER_MIN_WIDTH__PX ? MASONRY_GALLERY_HEADER_MIN_WIDTH__PX : galleryWidth
+      headerCover={
+        <StyledSection>
+          <StyledWelcomeMessage>
+            {isWelcomeMessageLoading ? 'Welcome Imgar.com' : welcomMessage.message}
+          </StyledWelcomeMessage>
+          <TagList tags={tags} />
+        </StyledSection>
       }
+      customHeader={<CustomHeader />}
+      containerWidth={galleryWidth}
+      headerCoverWidth={TAGS_WIDTH__PX}
     >
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <>
-          <MasonryGalleryHeader />
-          <MasonryGallery posts={posts} />
-        </>
-      )}
+      <>
+        <MasonryGalleryHeader />
+        <MasonryGalleryContainer />
+      </>
     </MainContainer>
   );
 }

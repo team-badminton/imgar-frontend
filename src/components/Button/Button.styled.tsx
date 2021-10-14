@@ -20,10 +20,10 @@ export const StyledButton = styled(Link)<StyledButtonProps>`
   color: ${({ $color, theme }) => theme.color[$color]};
   cursor: pointer;
   font-size: ${({ fontSize, size, theme }) =>
-    fontSize ? theme.fontSize[fontSize] : size === 'custom' ? '' : size === 'large' ? pxToRem(15) : pxToRem(12)};
-  gap: ${({ size }) => (size === 'custom' ? '' : size === 'large' ? pxToRem(13) : pxToRem(5))};
+    fontSize ? theme.fontSize[fontSize] : !size ? '' : size === 'large' ? pxToRem(15) : pxToRem(12)};
+  gap: ${({ size }) => (!size ? '' : size === 'large' ? pxToRem(13) : pxToRem(5))};
   height: ${({ size }) =>
-    size === 'custom' ? '' : size === 'medium' ? pxToRem(24) : size === 'large' ? pxToRem(36) : pxToRem(16)};
+    !size ? '' : size === 'medium' ? pxToRem(24) : size === 'large' ? pxToRem(36) : pxToRem(16)};
   padding: 0 ${pxToRem(9)} 0 ${pxToRem(9)};
   :hover {
     background-color: ${({ $hoverBackgroundColor, theme }) => theme.color[$hoverBackgroundColor]};
@@ -31,8 +31,8 @@ export const StyledButton = styled(Link)<StyledButtonProps>`
   }
   > .img {
     width: ${({ size }) =>
-      size === 'custom' ? '' : size === 'medium' ? pxToRem(15) : size === 'large' ? pxToRem(22) : pxToRem(10)};
+      !size ? '' : size === 'medium' ? pxToRem(15) : size === 'large' ? pxToRem(22) : pxToRem(10)};
     height: ${({ size }) =>
-      size === 'custom' ? '' : size === 'medium' ? pxToRem(15) : size === 'large' ? pxToRem(22) : pxToRem(10)};
+      !size ? '' : size === 'medium' ? pxToRem(15) : size === 'large' ? pxToRem(22) : pxToRem(10)};
   }
 `;

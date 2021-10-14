@@ -1,12 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { store } from './redux';
 import { Provider as ReduxProvider } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App/App';
-import { store } from './redux';
 import GlobalStyle from './styles/GlobalStyle';
 import { defaultTheme } from './theme/themes';
+import smoothscroll from 'smoothscroll-polyfill';
+
+smoothscroll.polyfill();
 
 ReactDOM.render(
   <>

@@ -12,6 +12,7 @@ export interface HeaderProps {
   backgroundColor?: keyof DefaultTheme['color'];
   noOffset?: boolean;
   containerWidth?: number;
+  headerCoverWidth?: number;
 }
 
 export interface HeaderCoverProps {
@@ -20,7 +21,7 @@ export interface HeaderCoverProps {
   headerHeight: number;
   darkenBackground?: boolean;
   headerCoverPosition: HeaderProps['headerCoverPosition'];
-  containerWidth?: number;
+  headerCoverWidth?: number;
 }
 
 export interface ContainerWrapperProps {

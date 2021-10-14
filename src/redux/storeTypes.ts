@@ -1,13 +1,18 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { GalleryQuery } from './api/types/queries';
 
 export interface ListInfo {
-  posts: PostInfo[];
+  posts: PostV1Info[];
   category: GalleryQuery['section'];
   sortOption: GalleryQuery['sort'];
   windowOption: GalleryQuery['window'];
+  queryPage: number;
+  prevPage: number;
   autoPlay: boolean;
   layout: 'waterfall' | 'uniform';
 }
+
+export type LatestQueryName = 'gallery' | 'search' | 'userPosts' | 'userFavorites' | 'tagPosts';
 
 export interface PostInfo {
   id: string;
@@ -43,7 +48,7 @@ export interface PostV1Info {
   commentCount: number;
   favoriteCount: number;
   imageCount: number;
-  type: 'image/jpeg' | 'image/png' | 'video/mp4';
+  type: 'image/jpeg' | 'image/png' | 'video/mp4' | 'image/gif';
   hasSound: boolean;
   isAlbum: boolean;
 }
@@ -54,12 +59,30 @@ export interface TagInfo {
   postCount: number /* total_items */;
   backgroundImageId: string /* background_hash */;
   description: string;
+  accent: string;
+}
+
+export interface FeaturedTagInfo extends TagInfo {
+  isFeatured: boolean;
+}
+
+export interface TagPostInfo {
+  accent: string;
+  backgroundId: string;
+  displayName: string;
+  description: string;
+  postCount: number;
+  posts: PostV1Info[];
+}
+
+export interface WelcomMessageInfo {
+  message: string;
 }
 
 export interface ImageInfo {
   id: string;
   description: string | null;
-  type: 'image/jpeg' | 'image/png' | 'video/mp4';
+  type: 'image/jpeg' | 'image/png' | 'video/mp4' | 'image/gif';
   hasSound: boolean;
   imageWidth: number;
   imageHeight: number;
@@ -70,7 +93,6 @@ export interface DisplayInfo {
   innerWidth: number;
   innerHeight: number;
   masonryGalleryWidth: number;
-  totalColumnNum: number;
 }
 
 export interface SuggestInfo {
@@ -111,6 +133,7 @@ export interface MedalInfo {
 export interface PostCommentInfo {
   id: string;
   postId: string;
+  cover?: string;
   comment: string;
   author: string;
   upCount: number;

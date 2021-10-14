@@ -14,9 +14,10 @@ const Picture = forwardRef<HTMLImageElement, PictureProps>(
       objectFit,
       src,
       style,
+      tabIndex,
       imageWidth,
       imageHeight,
-      isLazyLoading,
+      inView = true,
     }: PictureProps,
     ref,
   ): ReactElement => {
@@ -33,6 +34,8 @@ const Picture = forwardRef<HTMLImageElement, PictureProps>(
           onClick={onClick}
           src={src}
           style={style}
+          tabIndex={tabIndex}
+          className={className}
         />
       );
     }
@@ -49,8 +52,8 @@ const Picture = forwardRef<HTMLImageElement, PictureProps>(
           return index !== extensions.length - 1 ? (
             <source
               key={extension}
-              data-src={isLazyLoading ? imageSrc : null}
-              srcSet={!isLazyLoading ? imageSrc : null}
+              data-src={!inView ? imageSrc : null}
+              srcSet={inView ? imageSrc : null}
               type={`image/${extensions[index]}`}
             />
           ) : (
@@ -65,8 +68,9 @@ const Picture = forwardRef<HTMLImageElement, PictureProps>(
               onClick={onClick}
               ref={ref}
               style={style}
-              data-src={isLazyLoading ? imageSrc : null}
-              src={!isLazyLoading ? imageSrc : null}
+              data-src={inView ? imageSrc : null}
+              src={!inView ? imageSrc : null}
+              tabIndex={tabIndex}
             />
           );
         })}

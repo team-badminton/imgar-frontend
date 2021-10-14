@@ -33,6 +33,29 @@ export interface Tag {
   description_annotations: DescriptionAnnotations;
 }
 
+export interface TagPosts {
+  accent: string;
+  background_id: string;
+  description: string;
+  display: string;
+  is_promoted: boolean;
+  is_whitelisted: boolean;
+  logo_id?: any;
+  logo_url?: any;
+  post_count: number;
+  posts: PostV1[];
+}
+
+export interface WelcomeMessage {
+  created_at: string;
+  starts_at: string;
+  ends_at: string;
+  updated_at: string;
+  id: number;
+  message: string;
+  type: string;
+}
+
 export interface Image {
   id: string;
   title?: any;
@@ -266,6 +289,26 @@ export interface PostComment {
   updated_at: string;
   upvote_count: number;
   vote?: number;
+}
+
+export interface AccountComment {
+  id: number;
+  image_id: string;
+  comment: string;
+  author: string;
+  author_id: number;
+  on_album: boolean;
+  album_cover: null | string;
+  ups: number;
+  downs: number;
+  points: number;
+  datetime: number;
+  parent_id: number;
+  deleted: boolean;
+  vote: null;
+  platform: string;
+  has_admin_badge: boolean;
+  children: any[];
 }
 
 // Fav Folder
