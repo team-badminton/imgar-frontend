@@ -98,24 +98,6 @@ export default function MainContainer({
         isOverThreshold2 ? '0' : `${sticky ? headerPosition : coverPosition}px`
       },0)`;
       headerContainerRef.current.style.position = sticky || isOverThreshold2 ? 'fixed' : null;
-
-      // 메인 페이지에서 현재 스크롤이 두번째 임계값을 넘어갔는지 확인
-      const masonryGalleryHeader = mainSectionRef.current.children[0] as HTMLElement;
-      if (masonryGalleryHeader?.classList.contains('masonryGalleryHeader')) {
-        // masonryGalleryHeader를 위에 고정
-        masonryGalleryHeader.style.position = isOverThreshold2 ? 'fixed' : 'relative';
-        masonryGalleryHeader.style.top = isOverThreshold2 ? '50px' : '0';
-        masonryGalleryHeader.style.transform = `translate3d(-50%, ${
-          isOverThreshold2 ? Math.max(coverPosition / 2 + 20.6172, -39.6172) : coverPosition / 2
-        }px
-        , 0px)`;
-
-        // 그리고 masonryGalleryHeader에 Search 컴포넌트가 보이도록 설정
-        const mainMasonryGalleryHeaderSearch = masonryGalleryHeader.children[0] as HTMLElement;
-        if (mainMasonryGalleryHeaderSearch?.classList.contains('mainMasonryGalleryHeaderSearch')) {
-          mainMasonryGalleryHeaderSearch.style.display = isOverThreshold2 ? 'block' : 'none';
-        }
-      }
     }
     handleScroll();
     window.addEventListener('scroll', handleScroll);

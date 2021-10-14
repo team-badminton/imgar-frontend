@@ -44,10 +44,6 @@ export default function PostCommentForm(): ReactElement {
 
   useEffect(() => {
     formRef.current.addEventListener('submit', handleSubmit);
-
-    return () => {
-      formRef.current.removeEventListener('submit', handleSubmit);
-    };
   }, []);
 
   return (

@@ -34,7 +34,7 @@ export default function Home(): ReactElement {
           <TagList tags={tags} />
         </StyledSection>
       }
-      customHeader={null}
+      customHeader={<CustomHeader />}
       containerWidth={galleryWidth}
       headerCoverWidth={TAGS_WIDTH__PX}
     >
