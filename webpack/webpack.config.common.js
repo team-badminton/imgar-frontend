@@ -48,7 +48,9 @@ module.exports = {
       title: 'Imgar',
     }),
     new ForkTsCheckerWebpackPlugin(),
-    new Dotenv(),
+    new Dotenv({
+      systemvars: true,
+    }),
   ],
   devServer: {
     port: 3000,
