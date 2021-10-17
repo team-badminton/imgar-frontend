@@ -41,7 +41,7 @@ export default React.memo(function Search({ className }: SearchProps): ReactElem
 
       const currentAnchorIndex = anchorArray.findIndex(li => li === document.activeElement);
 
-      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+      if (e.key === 'ArrowDown') {
         e.preventDefault();
         if (currentAnchorIndex === -1) {
           anchorArray[0].focus();
@@ -51,7 +51,7 @@ export default React.memo(function Search({ className }: SearchProps): ReactElem
         }
         anchorArray[currentAnchorIndex + 1].focus();
       }
-      if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+      if (e.key === 'ArrowUp') {
         e.preventDefault();
         if (currentAnchorIndex <= 0) {
           e.currentTarget.querySelector('input')?.focus();
