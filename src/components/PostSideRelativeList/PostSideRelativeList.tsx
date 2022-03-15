@@ -12,19 +12,12 @@ import { PostSideRelativeListProps } from './PostSideRelativeList.type';
 
 // redux
 import { useGalleryQuery } from '@/redux/api';
-import { useTypedSelector } from '@/redux';
-
-// etc
-import { useLocation } from 'react-router-dom';
-import { useLocationProps } from '@/pages/Gallery/Gallery.type';
 
 export default React.memo(function PostSideRelativeList({
   mainPostId,
   className,
 }: PostSideRelativeListProps): ReactElement {
   const ITEM_HEIGHT = 80;
-
-  const location = useLocation<useLocationProps>();
 
   const containerRef = useRef<HTMLUListElement>();
   const lastRelativeItemRef = useRef<HTMLLIElement>();
@@ -33,7 +26,7 @@ export default React.memo(function PostSideRelativeList({
 
   const title = 'Newest In Most Viral';
 
-  const { data, isFetching } = useGalleryQuery({ page, isInfinite: true });
+  const { data, isFetching } = useGalleryQuery({ page, isAccumulated: true });
   const isLoading = data?.isLoading;
 
   useEffect(() => {
@@ -65,25 +58,23 @@ export default React.memo(function PostSideRelativeList({
   }, [data]);
 
   return (
-    <>
-      <div className={className}>
-        <Title>{title}</Title>
-        <Container ref={containerRef}>
-          {data?.map(({ id, title, thumbnailImageId, imageCount }, index) => {
-            return (
-              <RelativeItem
-                postId={id}
-                title={title}
-                thumbnailImageId={thumbnailImageId}
-                imageCount={imageCount}
-                key={id + index}
-                ref={index === data.length - 1 ? lastRelativeItemRef : null}
-              ></RelativeItem>
-            );
-          })}
-          {isFetching && <Loading />}
-        </Container>
-      </div>
-    </>
+    <div className={className}>
+      <Title>{title}</Title>
+      <Container ref={containerRef}>
+        {data?.map(({ id, title, thumbnailImageId, imageCount }, index) => {
+          return (
+            <RelativeItem
+              postId={id}
+              title={title}
+              thumbnailImageId={thumbnailImageId}
+              imageCount={imageCount}
+              key={id + index}
+              ref={index === data.length - 1 ? lastRelativeItemRef : null}
+            ></RelativeItem>
+          );
+        })}
+        {isFetching && <Loading />}
+      </Container>
+    </div>
   );
 });
