@@ -21,13 +21,15 @@ import { usePostQuery } from '@/redux/api';
 import { useTypedSelector } from '@/redux';
 
 // etc
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { pxToRem } from '@/util/styleUtils';
+import { useLocationProps } from './Gallery.type';
 
 export default function Gallery(): ReactElement {
   const postHeaderRef = useRef<HTMLDivElement>(null);
 
   const param = useParams<{ id: string }>();
+  const location = useLocation<useLocationProps>();
 
   const [postHeaderTitlePosX, setPostHeaderTitlePosX] = useState(0);
   const [postHeaderTitleWidth, setPostHeaderTitleWidth] = useState(0);
