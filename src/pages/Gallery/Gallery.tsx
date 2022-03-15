@@ -16,22 +16,17 @@ import MainContainer from '@/components/MainContainer/MainContainer';
 // styles
 import { ExplorePostsContainer, PostContainer } from './Gallery.styled';
 
-// types
-import { useLocationProps } from './Gallery.type';
-
 //apis
 import { usePostQuery } from '@/redux/api';
 import { useTypedSelector } from '@/redux';
 
 // etc
-import { useHistory, useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { pxToRem } from '@/util/styleUtils';
 
 export default function Gallery(): ReactElement {
   const postHeaderRef = useRef<HTMLDivElement>(null);
 
-  const location = useLocation<useLocationProps>();
-  const history = useHistory();
   const param = useParams<{ id: string }>();
 
   const [postHeaderTitlePosX, setPostHeaderTitlePosX] = useState(0);

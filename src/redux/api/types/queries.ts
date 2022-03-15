@@ -3,7 +3,7 @@ export interface GalleryQuery {
   sort?: 'popular' | 'newest' | 'best' | 'random' | 'rising';
   window?: 'day' | 'week' | 'month' | 'year' | 'all';
   page?: number;
-  isInfinite?: boolean;
+  isAccumulated?: boolean;
 }
 export interface GallerySearchQuery {
   sort?: 'viral' | 'top' | 'time';
