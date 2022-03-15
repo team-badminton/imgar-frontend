@@ -2,7 +2,11 @@
 
 Imgur 사이트를 분석하여 개선된 방식으로 클론 코딩하는 프로젝트
 
+### 이미저 배포
 - [http://imgar.netlify.app/](http://imgar.netlify.app/)
+
+### 스토리북 배포
+- [https://imgurstorybook.netlify.app/](https://imgurstorybook.netlify.app/)
 
 ### 사용한 API
 
