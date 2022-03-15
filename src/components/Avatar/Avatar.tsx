@@ -13,10 +13,10 @@ import { AvatarProps } from '@/components/Avatar/Avatar.type';
 
 // utils
 import { pxToRem } from '@/util/styleUtils';
-import { formattedNumber } from '@/util/formatUtils';
+import { formatDistance, formattedNumber } from '@/util/formatUtils';
 
 // libs
-import Moment from 'react-moment';
+import { format, formatDistanceToNowStrict } from 'date-fns';
 
 export default function Avatar({
   className,
@@ -55,36 +55,18 @@ export default function Avatar({
           >
             {metaInfos?.views && `${formattedNumber(metaInfos.views)} views`}
           </span>
-          {Number.isNaN(TIME_DIFF) ? (
-            ''
-          ) : TIME_DIFF > TIME_UNIT.Month ? (
-            <Moment interval={0} date={CREATED_TIME} format={'MMM D YYYY'} />
-          ) : (
-            <Moment
-              date={CREATED_TIME}
-              filter={date => {
-                const [time, unit] = date.split(' ');
-                switch (unit) {
-                  case 'day':
-                    return '1d';
-                  case 'days':
-                    return time + 'd';
-                  case 'hour':
-                    return '1h';
-                  case 'hours':
-                    return time + 'h';
-                  case 'minute':
-                    return '1m';
-                  case 'minutes':
-                    return time + 'm';
-                  default:
-                    return '1m';
-                }
-              }}
-              fromNow
-            />
-          )}
-
+          <span>
+            {Number.isNaN(TIME_DIFF)
+              ? ''
+              : TIME_DIFF > TIME_UNIT.Month
+              ? format(new Date(CREATED_TIME), 'MMMM d, yyyy')
+              : formatDistanceToNowStrict(new Date(CREATED_TIME), {
+                  roundingMethod: 'floor',
+                  locale: {
+                    formatDistance: formatDistance,
+                  },
+                })}
+          </span>
           <span>via {metaInfos?.platform && <Platform>{metaInfos.platform}</Platform>}</span>
         </MetaInfo>
         <GiveEmeraldButton
